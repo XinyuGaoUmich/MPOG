@@ -1,0 +1,41 @@
+﻿@model demo3.Models.Section_fields
+
+@{
+    ViewBag.Title = "Spec";
+}
+
+<h2>Spec</h2>
+
+<div>
+    <h4>Spec Details</h4>
+    <hr />
+    <dl class="dl-horizontal" style="text-align:center">
+        <dt>
+            @Html.DisplayNameFor(model => model.Measure_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Measure_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Measure_Abbreviation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Measure_Abbreviation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Data_Collection_Method)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Data_Collection_Method)
+        </dd>
+    </dl>
+</div>
+<p>
+
+    @Html.ActionLink("Back to List", "Index")
+</p>

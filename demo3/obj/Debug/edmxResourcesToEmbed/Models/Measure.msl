@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MPOG_XinyuModelStoreContainer" CdmEntityContainer="MPOG_XinyuEntities3">
+    <EntitySetMapping Name="ASPIRE_Measures">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel.ASPIRE_Measures">
+        <MappingFragment StoreEntitySet="ASPIRE_Measures">
+          <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+          <ScalarProperty Name="Measure_Name" ColumnName="Measure_Name" />
+          <ScalarProperty Name="Measure_Collation" ColumnName="Measure_Collation" />
+          <ScalarProperty Name="Measure_Description" ColumnName="Measure_Description" />
+          <ScalarProperty Name="Report_ID" ColumnName="Report_ID" />
+          <ScalarProperty Name="Galileo_Measure_Name" ColumnName="Galileo_Measure_Name" />
+          <ScalarProperty Name="Image_File_Name" ColumnName="Image_File_Name" />
+          <ScalarProperty Name="Threshold" ColumnName="Threshold" />
+          <ScalarProperty Name="CMS_Measure_Number" ColumnName="CMS_Measure_Number" />
+          <ScalarProperty Name="Is_Published" ColumnName="Is_Published" />
+          <ScalarProperty Name="Domain" ColumnName="Domain" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MPOG_Concept_Types">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel.MPOG_Concept_Types">
+        <MappingFragment StoreEntitySet="MPOG_Concept_Types">
+          <ScalarProperty Name="MPOG_Concept_Type_ID" ColumnName="MPOG_Concept_Type_ID" />
+          <ScalarProperty Name="MPOG_Concept_Type_Description" ColumnName="MPOG_Concept_Type_Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MPOG_Concepts">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel.MPOG_Concepts">
+        <MappingFragment StoreEntitySet="MPOG_Concepts">
+          <ScalarProperty Name="MPOG_Concept_ID" ColumnName="MPOG_Concept_ID" />
+          <ScalarProperty Name="MPOG_Concept_Type_ID" ColumnName="MPOG_Concept_Type_ID" />
+          <ScalarProperty Name="concept_desc" ColumnName="concept_desc" />
+          <ScalarProperty Name="active_from" ColumnName="active_from" />
+          <ScalarProperty Name="active_to" ColumnName="active_to" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Diagnostic_BarCharts">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel.Diagnostic_BarCharts">
+        <MappingFragment StoreEntitySet="Diagnostic_BarCharts">
+          <ScalarProperty Name="Diagnostic_BarChart_ID" ColumnName="Diagnostic_BarChart_ID" />
+          <ScalarProperty Name="Short_Display_Name" ColumnName="Short_Display_Name" />
+          <ScalarProperty Name="Long_Display_Name" ColumnName="Long_Display_Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Diagnostic_Procedure" ColumnName="Diagnostic_Procedure" />
+          <ScalarProperty Name="Diagnostic_Module_ID" ColumnName="Diagnostic_Module_ID" />
+          <ScalarProperty Name="Is_Enabled" ColumnName="Is_Enabled" />
+          <ScalarProperty Name="Case_Drill_Down_Enabled" ColumnName="Case_Drill_Down_Enabled" />
+          <ScalarProperty Name="Diagnostic_Priority_ID" ColumnName="Diagnostic_Priority_ID" />
+          <ScalarProperty Name="Numerator_Label" ColumnName="Numerator_Label" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Diagnostic_LineCharts">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel.Diagnostic_LineCharts">
+        <MappingFragment StoreEntitySet="Diagnostic_LineCharts">
+          <ScalarProperty Name="Diagnostic_LineChart_ID" ColumnName="Diagnostic_LineChart_ID" />
+          <ScalarProperty Name="Short_Display_Name" ColumnName="Short_Display_Name" />
+          <ScalarProperty Name="Long_Display_Name" ColumnName="Long_Display_Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Diagnostic_Procedure" ColumnName="Diagnostic_Procedure" />
+          <ScalarProperty Name="Diagnostic_Module_ID" ColumnName="Diagnostic_Module_ID" />
+          <ScalarProperty Name="Is_Percentage" ColumnName="Is_Percentage" />
+          <ScalarProperty Name="Is_Enabled" ColumnName="Is_Enabled" />
+          <ScalarProperty Name="Case_Drill_Down_Enabled" ColumnName="Case_Drill_Down_Enabled" />
+          <ScalarProperty Name="Match_Highlighting_Enabled" ColumnName="Match_Highlighting_Enabled" />
+          <ScalarProperty Name="Diagnostic_Priority_ID" ColumnName="Diagnostic_Priority_ID" />
+          <ScalarProperty Name="Y_Min" ColumnName="Y_Min" />
+          <ScalarProperty Name="Y_Max" ColumnName="Y_Max" />
+          <ScalarProperty Name="Failure_Theshold" ColumnName="Failure_Theshold" />
+          <ScalarProperty Name="Passing_Theshold" ColumnName="Passing_Theshold" />
+          <ScalarProperty Name="Over_Passing_Threshold" ColumnName="Over_Passing_Threshold" />
+          <ScalarProperty Name="Over_Failure_Threshold" ColumnName="Over_Failure_Threshold" />
+          <ScalarProperty Name="Numerator_Label" ColumnName="Numerator_Label" />
+          <ScalarProperty Name="Denominator_Label" ColumnName="Denominator_Label" />
+          <ScalarProperty Name="Grace_Months" ColumnName="Grace_Months" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Section_fields">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel.Section_fields">
+        <MappingFragment StoreEntitySet="Section_fields">
+          <ScalarProperty Name="Data_Collection_Method" ColumnName="Data_Collection_Method" />
+          <ScalarProperty Name="Measure_Abbreviation" ColumnName="Measure_Abbreviation" />
+          <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Measure_Site">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel.Measure_Site">
+        <MappingFragment StoreEntitySet="Measure_Site">
+          <ScalarProperty Name="Date_Published" ColumnName="Date_Published" />
+          <ScalarProperty Name="Measure_Spec_Completed" ColumnName="Measure_Spec_Completed" />
+          <ScalarProperty Name="Developer" ColumnName="Developer" />
+          <ScalarProperty Name="Clinical_Lead" ColumnName="Clinical_Lead" />
+          <ScalarProperty Name="VBR" ColumnName="VBR" />
+          <ScalarProperty Name="Measure_Name" ColumnName="Measure_Name" />
+          <ScalarProperty Name="NQS_Domain" ColumnName="NQS_Domain" />
+          <ScalarProperty Name="Measure_Title" ColumnName="Measure_Title" />
+          <ScalarProperty Name="Measure" ColumnName="Measure" />
+          <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Measure_Status">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel.Measure_Status">
+        <MappingFragment StoreEntitySet="Measure_Status">
+          <ScalarProperty Name="Measure_Status_ID" ColumnName="Measure_Status_ID" />
+          <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,90 @@
+﻿@model demo3.Models.Measure_Site
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ASPIRE_Measures</h4>
+    <hr />
+    <dl class="dl-horizontal" style="text-align:center">
+        <dt >
+            @Html.DisplayNameFor(model => model.Measure)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Measure)
+        </dd>
+       
+        <dt >
+            @Html.DisplayNameFor(model => model.Measure_Title)
+        </dt>
+
+        <dd >
+            @Html.DisplayFor(model => model.Measure_Title)
+        </dd>
+
+        <dt >
+            @Html.DisplayNameFor(model => model.NQS_Domain)
+        </dt>
+
+        <dd >
+            @Html.DisplayFor(model => model.NQS_Domain)
+        </dd>
+
+        <dt >
+            @Html.DisplayNameFor(model => model.Measure_Name)
+        </dt>
+
+        <dd >
+            @Html.DisplayFor(model => model.Measure_Name)
+        </dd>
+
+        <dt >
+            @Html.DisplayNameFor(model => model.VBR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VBR)
+        </dd>
+
+        <dt >
+            @Html.DisplayNameFor(model => model.Clinical_Lead)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clinical_Lead)
+        </dd>
+
+        <dt >
+            @Html.DisplayNameFor(model => model.Developer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Developer)
+        </dd>
+
+        <dt >
+            @Html.DisplayNameFor(model => model.Measure_Spec_Completed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Measure_Spec_Completed)
+        </dd>
+
+        <dt >
+            @Html.DisplayNameFor(model => model.Date_Published)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date_Published)
+        </dd>        
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Measure_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

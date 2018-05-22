@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MPOG_XinyuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ASPIRE_Measures">
+    <Key>
+      <PropertyRef Name="Measure_ID" />
+    </Key>
+    <Property Name="Measure_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Measure_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Measure_Collation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Measure_Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Report_ID" Type="Int32" />
+    <Property Name="Galileo_Measure_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Image_File_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Threshold" Type="Decimal" Precision="18" Scale="3" />
+    <Property Name="CMS_Measure_Number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Is_Published" Type="Boolean" Nullable="false" />
+    <Property Name="Domain" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="MPOG_Concept_Types">
+    <Key>
+      <PropertyRef Name="MPOG_Concept_Type_ID" />
+    </Key>
+    <Property Name="MPOG_Concept_Type_ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="MPOG_Concept_Type_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="MPOG_Concepts" Relationship="Self.FK_MPOG_Concepts_MPOG_Concept_Types" FromRole="MPOG_Concept_Types" ToRole="MPOG_Concepts" />
+  </EntityType>
+  <EntityType Name="MPOG_Concepts">
+    <Key>
+      <PropertyRef Name="MPOG_Concept_ID" />
+    </Key>
+    <Property Name="MPOG_Concept_ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="MPOG_Concept_Type_ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="concept_desc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="active_from" Type="DateTime" Precision="3" />
+    <Property Name="active_to" Type="DateTime" Precision="3" />
+    <Property Name="active" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <NavigationProperty Name="MPOG_Concept_Types" Relationship="Self.FK_MPOG_Concepts_MPOG_Concept_Types" FromRole="MPOG_Concepts" ToRole="MPOG_Concept_Types" />
+  </EntityType>
+  <EntityType Name="Diagnostic_BarCharts">
+    <Key>
+      <PropertyRef Name="Diagnostic_BarChart_ID" />
+    </Key>
+    <Property Name="Diagnostic_BarChart_ID" Type="Int32" Nullable="false" />
+    <Property Name="Short_Display_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Long_Display_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Diagnostic_Procedure" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Diagnostic_Module_ID" Type="Int32" Nullable="false" />
+    <Property Name="Is_Enabled" Type="Boolean" Nullable="false" />
+    <Property Name="Case_Drill_Down_Enabled" Type="Boolean" Nullable="false" />
+    <Property Name="Diagnostic_Priority_ID" Type="Int32" Nullable="false" />
+    <Property Name="Numerator_Label" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Diagnostic_LineCharts">
+    <Key>
+      <PropertyRef Name="Diagnostic_LineChart_ID" />
+    </Key>
+    <Property Name="Diagnostic_LineChart_ID" Type="Int32" Nullable="false" />
+    <Property Name="Short_Display_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Long_Display_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Diagnostic_Procedure" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Diagnostic_Module_ID" Type="Int32" Nullable="false" />
+    <Property Name="Is_Percentage" Type="Boolean" Nullable="false" />
+    <Property Name="Is_Enabled" Type="Boolean" Nullable="false" />
+    <Property Name="Case_Drill_Down_Enabled" Type="Boolean" Nullable="false" />
+    <Property Name="Match_Highlighting_Enabled" Type="Boolean" Nullable="false" />
+    <Property Name="Diagnostic_Priority_ID" Type="Int32" Nullable="false" />
+    <Property Name="Y_Min" Type="Double" />
+    <Property Name="Y_Max" Type="Double" />
+    <Property Name="Failure_Theshold" Type="Double" />
+    <Property Name="Passing_Theshold" Type="Double" />
+    <Property Name="Over_Passing_Threshold" Type="Double" />
+    <Property Name="Over_Failure_Threshold" Type="Double" />
+    <Property Name="Numerator_Label" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Denominator_Label" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Grace_Months" Type="Int32" />
+  </EntityType>
+  <Association Name="FK_MPOG_Concepts_MPOG_Concept_Types">
+    <End Role="MPOG_Concept_Types" Type="Self.MPOG_Concept_Types" Multiplicity="1" />
+    <End Role="MPOG_Concepts" Type="Self.MPOG_Concepts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MPOG_Concept_Types">
+        <PropertyRef Name="MPOG_Concept_Type_ID" />
+      </Principal>
+      <Dependent Role="MPOG_Concepts">
+        <PropertyRef Name="MPOG_Concept_Type_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MPOG_XinyuEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ASPIRE_Measures" EntityType="Self.ASPIRE_Measures" />
+    <EntitySet Name="MPOG_Concept_Types" EntityType="Self.MPOG_Concept_Types" />
+    <EntitySet Name="MPOG_Concepts" EntityType="Self.MPOG_Concepts" />
+    <EntitySet Name="Diagnostic_BarCharts" EntityType="Self.Diagnostic_BarCharts" />
+    <EntitySet Name="Diagnostic_LineCharts" EntityType="Self.Diagnostic_LineCharts" />
+    <AssociationSet Name="FK_MPOG_Concepts_MPOG_Concept_Types" Association="Self.FK_MPOG_Concepts_MPOG_Concept_Types">
+      <End Role="MPOG_Concept_Types" EntitySet="MPOG_Concept_Types" />
+      <End Role="MPOG_Concepts" EntitySet="MPOG_Concepts" />
+    </AssociationSet>
+    <EntitySet Name="Section_fields" EntityType="MPOG_XinyuModel.Section_fields" />
+  </EntityContainer>
+  <EntityType Name="Section_fields">
+    <Key>
+      <PropertyRef Name="Measure_ID" />
+    </Key>
+    <Property Name="Measure_ID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="Measure_Abbreviation" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Data_Collection_Method" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="ID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+</Schema>

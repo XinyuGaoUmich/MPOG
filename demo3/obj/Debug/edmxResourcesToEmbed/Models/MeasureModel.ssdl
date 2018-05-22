@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MPOG_XinyuModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ASPIRE_Measures">
+    <Key>
+      <PropertyRef Name="Measure_ID" />
+    </Key>
+    <Property Name="Measure_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Measure_Name" Type="varchar" MaxLength="20" />
+    <Property Name="Measure_Collation" Type="varchar" MaxLength="50" />
+    <Property Name="Measure_Description" Type="varchar" MaxLength="50" />
+    <Property Name="Report_ID" Type="int" />
+    <Property Name="Galileo_Measure_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Image_File_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Threshold" Type="numeric" Precision="18" Scale="3" />
+    <Property Name="CMS_Measure_Number" Type="varchar" MaxLength="10" />
+    <Property Name="Is_Published" Type="bit" Nullable="false" />
+    <Property Name="Domain" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="MPOG_Concept_Types">
+    <Key>
+      <PropertyRef Name="MPOG_Concept_Type_ID" />
+    </Key>
+    <Property Name="MPOG_Concept_Type_ID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="MPOG_Concept_Type_Description" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MPOG_Concepts">
+    <Key>
+      <PropertyRef Name="MPOG_Concept_ID" />
+    </Key>
+    <Property Name="MPOG_Concept_ID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="MPOG_Concept_Type_ID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="concept_desc" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="active_from" Type="datetime" />
+    <Property Name="active_to" Type="datetime" />
+    <Property Name="active" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Section_fields">
+    <Key>
+      <PropertyRef Name="Measure_ID" />
+    </Key>
+    <Property Name="Measure_ID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Measure_Abbreviation" Type="nchar" MaxLength="10" />
+    <Property Name="Data_Collection_Method" Type="nchar" MaxLength="10" />
+    <Property Name="ID" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Diagnostic_BarCharts">
+    <Key>
+      <PropertyRef Name="Diagnostic_BarChart_ID" />
+    </Key>
+    <Property Name="Diagnostic_BarChart_ID" Type="int" Nullable="false" />
+    <Property Name="Short_Display_Name" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Long_Display_Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="8000" Nullable="false" />
+    <Property Name="Diagnostic_Procedure" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Diagnostic_Module_ID" Type="int" Nullable="false" />
+    <Property Name="Is_Enabled" Type="bit" Nullable="false" />
+    <Property Name="Case_Drill_Down_Enabled" Type="bit" Nullable="false" />
+    <Property Name="Diagnostic_Priority_ID" Type="int" Nullable="false" />
+    <Property Name="Numerator_Label" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Diagnostic_LineCharts">
+    <Key>
+      <PropertyRef Name="Diagnostic_LineChart_ID" />
+    </Key>
+    <Property Name="Diagnostic_LineChart_ID" Type="int" Nullable="false" />
+    <Property Name="Short_Display_Name" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Long_Display_Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="8000" Nullable="false" />
+    <Property Name="Diagnostic_Procedure" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Diagnostic_Module_ID" Type="int" Nullable="false" />
+    <Property Name="Is_Percentage" Type="bit" Nullable="false" />
+    <Property Name="Is_Enabled" Type="bit" Nullable="false" />
+    <Property Name="Case_Drill_Down_Enabled" Type="bit" Nullable="false" />
+    <Property Name="Match_Highlighting_Enabled" Type="bit" Nullable="false" />
+    <Property Name="Diagnostic_Priority_ID" Type="int" Nullable="false" />
+    <Property Name="Y_Min" Type="float" />
+    <Property Name="Y_Max" Type="float" />
+    <Property Name="Failure_Theshold" Type="float" />
+    <Property Name="Passing_Theshold" Type="float" />
+    <Property Name="Over_Passing_Threshold" Type="float" />
+    <Property Name="Over_Failure_Threshold" Type="float" />
+    <Property Name="Numerator_Label" Type="varchar" MaxLength="30" />
+    <Property Name="Denominator_Label" Type="varchar" MaxLength="30" />
+    <Property Name="Grace_Months" Type="int" />
+  </EntityType>
+  <Association Name="FK_MPOG_Concepts_MPOG_Concept_Types">
+    <End Role="MPOG_Concept_Types" Type="Self.MPOG_Concept_Types" Multiplicity="1" />
+    <End Role="MPOG_Concepts" Type="Self.MPOG_Concepts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MPOG_Concept_Types">
+        <PropertyRef Name="MPOG_Concept_Type_ID" />
+      </Principal>
+      <Dependent Role="MPOG_Concepts">
+        <PropertyRef Name="MPOG_Concept_Type_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MPOG_XinyuModelStoreContainer">
+    <EntitySet Name="ASPIRE_Measures" EntityType="Self.ASPIRE_Measures" Schema="Custom" store:Type="Tables" />
+    <EntitySet Name="MPOG_Concept_Types" EntityType="Self.MPOG_Concept_Types" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MPOG_Concepts" EntityType="Self.MPOG_Concepts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Section_fields" EntityType="Self.Section_fields" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Diagnostic_BarCharts" EntityType="Self.Diagnostic_BarCharts" Schema="Eval" store:Type="Tables" />
+    <EntitySet Name="Diagnostic_LineCharts" EntityType="Self.Diagnostic_LineCharts" Schema="Eval" store:Type="Tables" />
+    <AssociationSet Name="FK_MPOG_Concepts_MPOG_Concept_Types" Association="Self.FK_MPOG_Concepts_MPOG_Concept_Types">
+      <End Role="MPOG_Concept_Types" EntitySet="MPOG_Concept_Types" />
+      <End Role="MPOG_Concepts" EntitySet="MPOG_Concepts" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

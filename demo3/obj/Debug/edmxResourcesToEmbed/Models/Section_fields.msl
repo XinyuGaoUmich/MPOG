@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MPOG_XinyuModel1StoreContainer" CdmEntityContainer="MPOG_XinyuEntities2">
+    <EntitySetMapping Name="Section_fields">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel1.Section_fields">
+        <MappingFragment StoreEntitySet="Section_fields">
+          <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+          <ScalarProperty Name="Measure_Abbreviation" ColumnName="Measure_Abbreviation" />
+          <ScalarProperty Name="Data_Collection_Method" ColumnName="Data_Collection_Method" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

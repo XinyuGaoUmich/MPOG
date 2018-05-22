@@ -1,0 +1,177 @@
+﻿@model IEnumerable<demo3.Models.Measure_Site>
+
+@{
+
+    ViewBag.Title = "MainPage";
+
+    Boolean isLoggedin = false;
+    Boolean notForUser = false;
+    // check session
+
+    if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
+    {
+        isLoggedin = true;
+    } else if (Session["userid"] != null)
+    {
+        notForUser = true;
+    }
+
+
+
+}
+
+<link href="~/Content/table.css" rel="stylesheet" type="text/css"/>
+
+@if (isLoggedin)
+{
+    <p>
+        @Html.ActionLink("Create New Measure", "Create")
+
+    </p>
+}
+
+@if (notForUser)
+{
+    <h4>
+        <code>You are not QI coordinator, please @Html.ActionLink("Logout", "Logout") </code>
+
+    </h4>
+}
+
+<div style="overflow: auto; text-align:center">
+<table class="table" >
+    <tr >
+        <th >
+            @Html.DisplayNameFor(model => model.Measure)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Measure_Title).ToString().Replace('_',' ')
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.NQS_Domain).ToString().Replace('_',' ')
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Measure_Name).ToString().Replace('_',' ')
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.VBR)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Clinical_Lead).ToString().Replace('_',' ')
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Developer).ToString().Replace('_',' ')
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Measure_Spec_Completed).ToString().Replace('_', ' ')
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Date_Published).ToString().Replace('_',' ')
+        </th>
+
+        <th>
+            Pager
+        </th>
+        <th>
+            Spec
+        </th>
+        @if (isLoggedin)
+        {
+            <th>
+                Operations
+            </th>
+        }
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Measure).ToString().Replace("_", " ")
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Measure_Title)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.NQS_Domain)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Measure_Name)
+            </td>
+
+            <td>
+                @*{Html.DisplayFor(modelItem => item.VBR)*@
+                @if((bool)item.VBR) {
+                    <text>Yes</text>
+                } else {
+                    <text>No</text>
+                }
+                
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Clinical_Lead)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Developer)
+            </td>
+
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Measure_Spec_Completed)*@
+                @if ((bool)item.Measure_Spec_Completed)
+                {
+                    <text>Yes</text>
+                }
+                else
+                {
+                    <text>No</text>
+                }
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_Published)
+            </td>
+
+
+            <td>
+                @Html.ActionLink(@item.Measure_Name + " Pager", "Pager", new { id = item.Measure_ID })
+            </td>
+
+            <td>
+                @Html.ActionLink(item.Measure_Name + " Spec", "Spec", new { id = item.Measure_ID })
+            </td>
+            @if (isLoggedin)
+            {
+                <td style="text-align: left">
+                    <ul>
+                        <li>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Measure_ID })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Details", "Details", new { id = item.Measure_ID })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Measure_ID })
+                        </li>
+                    </ul>                
+                </td>
+            }
+
+        </tr>
+    }
+
+</table>
+</div>

@@ -1,0 +1,78 @@
+﻿@{ 
+    Boolean isLoggedin = false;
+    // check session
+    //if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
+    if (Session["userid"] != null)
+    {
+        isLoggedin = true;
+    }
+
+}
+   
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/table.css"/>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div style="padding-right:55px;padding-left:55px"> 
+        <a href="https://mpog.org/">
+            <img class="mobile-logo preload-me" src="https://mpog.org/wp-content/uploads/2017/08/MPOG_LOGO4.jpg"
+                 srcset="https://mpog.org/wp-content/uploads/2017/08/MPOG_LOGO4.jpg 301w, https://mpog.org/wp-content/uploads/2017/08/MPOG_LOGO4.jpg 301w"
+                 width="301" height="73" sizes="301px" alt="MPOG">
+        </a>
+        <div style="position:relative; bottom:50px; right:0px;">
+            @if (isLoggedin) //isLogin
+            {
+            <div style="float: right;">
+                <div style="display: flex;">
+                    <span style="text-align:center;height:inherit">Hello, @(Session["first_name"] + " " + Session["last_name"])!&nbsp; &nbsp; </span>
+                    <button type="submit" class="btn-primary btn" style="float: right" onclick="location.href='@Url.Action("Logout", "Home")'">Logout</button>
+                </div>
+            </div>
+          
+            }
+            else
+            {
+                <button type="submit" class="btn-primary btn" style="float: right" onclick="location.href='@Url.Action("Login", "Home")'">QI Coordinator Login</button>
+            }
+        </div>
+ 
+      </div> 
+    <div class="navbar navbar-inverse" >
+        <div class="container">
+            <div class="navbar-header" >
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("MPOG Measures", "Index", "Measures", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - ASP.NET Application Developed by Xinyu</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
