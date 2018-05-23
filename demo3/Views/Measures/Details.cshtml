@@ -1,4 +1,4 @@
-﻿@model demo3.Models.Measure_Site
+﻿@model IEnumerable<demo3.Models.Details_All_Result>
 
 @{
     ViewBag.Title = "Details";
@@ -7,84 +7,109 @@
 <h2>Details</h2>
 
 <div>
-    <h4>ASPIRE_Measures</h4>
+    <h4>Measure List </h4>
     <hr />
     <dl class="dl-horizontal" style="text-align:center">
-        <dt >
-            @Html.DisplayNameFor(model => model.Measure)
+        <dt>
+            @Html.DisplayNameFor(model => model.Measure_Abbreviation).ToString().Replace("_", " ")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Measure)
+            @Html.DisplayFor(model => model.First().Measure_Abbreviation).ToString().Replace("-", " ")
         </dd>
-       
-        <dt >
-            @Html.DisplayNameFor(model => model.Measure_Title)
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Measure_Title).ToString().Replace("_", " ")
         </dt>
 
-        <dd >
-            @Html.DisplayFor(model => model.Measure_Title)
+        <dd>
+            @Html.DisplayFor(model => model.First().Measure_Title)
         </dd>
 
-        <dt >
-            @Html.DisplayNameFor(model => model.NQS_Domain)
+        <dt>
+            @Html.DisplayNameFor(model => model.NQS_Domain).ToString().Replace("_", " ")
         </dt>
 
-        <dd >
-            @Html.DisplayFor(model => model.NQS_Domain)
+        <dd>
+            @Html.DisplayFor(model => model.First().NQS_Domain)
         </dd>
 
-        <dt >
-            @Html.DisplayNameFor(model => model.Measure_Name)
+        <dt>
+            @Html.DisplayNameFor(model => model.QCDR_Measure_Name).ToString().Replace("_", " ")
         </dt>
 
-        <dd >
-            @Html.DisplayFor(model => model.Measure_Name)
+        <dd>
+            @Html.DisplayFor(model => model.First().QCDR_Measure_Name)
         </dd>
 
-        <dt >
+        <dt>
             @Html.DisplayNameFor(model => model.VBR)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.VBR)
+            @*@Html.DisplayFor(model => model.First().VBR)*@
+            @if (Model.First().VBR == null)
+            {
+                <text>N/A</text>
+            }
+            else if ((bool)Model.First().VBR)
+            {
+                <text>Yes</text>
+            }
+            else
+            {
+                <text>No</text>
+            }
         </dd>
 
-        <dt >
-            @Html.DisplayNameFor(model => model.Clinical_Lead)
+        <dt>
+            @Html.DisplayNameFor(model => model.Clinical_Lead).ToString().Replace("_", " ")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Clinical_Lead)
+            @Html.DisplayFor(model => model.First().Clinical_Lead)
         </dd>
 
-        <dt >
+        <dt>
             @Html.DisplayNameFor(model => model.Developer)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Developer)
+            @Html.DisplayFor(model => model.First().Developer)
         </dd>
 
-        <dt >
-            @Html.DisplayNameFor(model => model.Measure_Spec_Completed)
+        <dt>
+            @Html.DisplayNameFor(model => model.Measure_Spec_Completed).ToString().Replace("_", " ")
+           
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Measure_Spec_Completed)
+            @if (Model.First().Measure_Spec_Completed == null)
+            {
+                <text>N/A</text>
+            }
+            else if ((bool)Model.First().Measure_Spec_Completed)
+            {
+                <text>Yes</text>
+            }
+            else
+            {
+                <text>No</text>
+            }
+            @*@Html.DisplayFor(model => model.First().Measure_Spec_Completed)*@
         </dd>
 
-        <dt >
-            @Html.DisplayNameFor(model => model.Date_Published)
+        <dt>
+            @Html.DisplayNameFor(model => model.Date_Published).ToString().Replace("_"," ")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Date_Published)
-        </dd>        
+            @Html.DisplayFor(model => model.First().Date_Published)
+        </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Measure_ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.First().Measure_ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MPOG_XinyuModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="Details_All" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Measure_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="MPOG_XinyuModel1StoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MPOG_XinyuModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MPOG_XinyuEntities4" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="Measure_List" ReturnType="Collection(MPOG_XinyuModel1.Measure_List_Result)" />
+          <FunctionImport Name="Details_All" ReturnType="Collection(MPOG_XinyuModel1.Details_All_Result)">
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Measure_List_Result">
+          <Property Type="Int32" Name="Measure_ID" Nullable="false" />
+          <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Measure_Title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NQS_Domain" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="QCDR_Measure_Name" Nullable="true" MaxLength="10" />
+          <Property Type="Boolean" Name="VBR" Nullable="true" />
+          <Property Type="String" Name="Clinical_Lead" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Developer" Nullable="true" MaxLength="20" />
+          <Property Type="Boolean" Name="Measure_Spec_Completed" Nullable="true" />
+          <Property Type="DateTime" Name="Date_Published" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Details_All_Result">
+          <Property Type="Int32" Name="Measure_ID" Nullable="false" />
+          <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Measure_Title" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NQS_Domain" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="QCDR_Measure_Name" Nullable="true" MaxLength="10" />
+          <Property Type="Boolean" Name="VBR" Nullable="true" />
+          <Property Type="String" Name="Clinical_Lead" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Developer" Nullable="true" MaxLength="20" />
+          <Property Type="Boolean" Name="Measure_Spec_Completed" Nullable="true" />
+          <Property Type="DateTime" Name="Date_Published" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MPOG_XinyuModel1StoreContainer" CdmEntityContainer="MPOG_XinyuEntities4" >
+          <FunctionImportMapping FunctionImportName="Measure_List" FunctionName="MPOG_XinyuModel1.Store.Measure_List">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Measure_List_Result">
+                <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+                <ScalarProperty Name="Measure_Abbreviation" ColumnName="Measure_Abbreviation" />
+                <ScalarProperty Name="Measure_Title" ColumnName="Measure_Title" />
+                <ScalarProperty Name="NQS_Domain" ColumnName="NQS_Domain" />
+                <ScalarProperty Name="QCDR_Measure_Name" ColumnName="QCDR_Measure_Name" />
+                <ScalarProperty Name="VBR" ColumnName="VBR" />
+                <ScalarProperty Name="Clinical_Lead" ColumnName="Clinical_Lead" />
+                <ScalarProperty Name="Developer" ColumnName="Developer" />
+                <ScalarProperty Name="Measure_Spec_Completed" ColumnName="Measure_Spec_Completed" />
+                <ScalarProperty Name="Date_Published" ColumnName="Date_Published" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Details_All" FunctionName="MPOG_XinyuModel1.Store.Details_All">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Details_All_Result">
+                <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+                <ScalarProperty Name="Measure_Abbreviation" ColumnName="Measure_Abbreviation" />
+                <ScalarProperty Name="Measure_Title" ColumnName="Measure_Title" />
+                <ScalarProperty Name="NQS_Domain" ColumnName="NQS_Domain" />
+                <ScalarProperty Name="QCDR_Measure_Name" ColumnName="QCDR_Measure_Name" />
+                <ScalarProperty Name="VBR" ColumnName="VBR" />
+                <ScalarProperty Name="Clinical_Lead" ColumnName="Clinical_Lead" />
+                <ScalarProperty Name="Developer" ColumnName="Developer" />
+                <ScalarProperty Name="Measure_Spec_Completed" ColumnName="Measure_Spec_Completed" />
+                <ScalarProperty Name="Date_Published" ColumnName="Date_Published" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

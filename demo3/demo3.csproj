@@ -249,6 +249,9 @@
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Auth.cs" />
+    <Compile Include="Models\Details_All_Result.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Diagnostic_BarCharts.cs">
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
@@ -269,6 +272,24 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Measure.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Measure_All.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Measure_All.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Measure_All.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Measure_All.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Measure_All.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Measure_List_Result.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Measure_Site.cs">
       <DependentUpon>Measure.tt</DependentUpon>
@@ -309,6 +330,16 @@
       <DependentUpon>Measure.edmx</DependentUpon>
       <LastGenOutput>Measure.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\Measure_All.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Measure_All.edmx</DependentUpon>
+      <LastGenOutput>Measure_All.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Measure_All.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Measure_All.edmx</DependentUpon>
+      <LastGenOutput>Measure_All.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -320,6 +351,13 @@
     </EntityDeploy>
     <Content Include="Models\Measure.edmx.diagram">
       <DependentUpon>Measure.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\Measure_All.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Measure_All.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Measure_All.edmx.diagram">
+      <DependentUpon>Measure_All.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -358,7 +396,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="HelperClass\" />
     <Folder Include="Views\Session\" />
   </ItemGroup>
   <ItemGroup>

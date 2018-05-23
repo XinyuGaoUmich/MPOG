@@ -13,13 +13,15 @@ namespace demo3.Controllers
     public class MeasuresController : Controller
     {
         private MPOG_XinyuEntities3 db = new MPOG_XinyuEntities3();
+        private MPOG_XinyuEntities4 db2 = new MPOG_XinyuEntities4();
       
         // GET: Measures
         public ActionResult Index()
         {
             if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
             {
-                return View(db.Measure_Site.ToList());
+                
+                return View(db2.Measure_List().ToList());
             }
 
             var published = from m in db.Measure_Site
@@ -27,7 +29,8 @@ namespace demo3.Controllers
                             on m.Measure_ID equals meas.Measure_ID
                             where meas.Measure_Status_ID == 4
                             select m;
-            return View(published);
+            //return View(published);
+            return View(db2.Measure_List().ToList());
         }
 
         // GET: Measures/Details/5
@@ -47,12 +50,15 @@ namespace demo3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Measure_Site measure_Site = db.Measure_Site.Find(id);
-            if (measure_Site == null)
+            //Measure_Site measure_Site = db.Measure_Site.Find(id);
+            List<Details_All_Result> a =  db2.Details_All(id).ToList();
+            //var res = from m in db2.Measure_List() where m.Measure_ID == id select m;
+            
+            if (a == null)
             {
                 return HttpNotFound();
             }
-            return View(measure_Site);
+            return View(a);
         }
 
         // GET: Measures/Create
@@ -67,6 +73,7 @@ namespace demo3.Controllers
             {
                 return Redirect("/NoAccess/LoginWithoutAccess");
             }
+            ViewData["newID"] = db.Measure_Site.Count() + 1;
             return View();
         }
 
@@ -88,7 +95,7 @@ namespace demo3.Controllers
             }
 
             if (ModelState.IsValid)
-            {
+            {                           
                 db.Measure_Site.Add(measure_Site);
                 db.SaveChanges();
                 return RedirectToAction("Index");

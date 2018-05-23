@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MPOG_XinyuModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MPOG_XinyuEntities4" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="Measure_List" ReturnType="Collection(MPOG_XinyuModel1.Measure_List_Result)" />
+    <FunctionImport Name="Details_All" ReturnType="Collection(MPOG_XinyuModel1.Details_All_Result)">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="Measure_List_Result">
+    <Property Type="Int32" Name="Measure_ID" Nullable="false" />
+    <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Measure_Title" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="NQS_Domain" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="QCDR_Measure_Name" Nullable="true" MaxLength="10" />
+    <Property Type="Boolean" Name="VBR" Nullable="true" />
+    <Property Type="String" Name="Clinical_Lead" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Developer" Nullable="true" MaxLength="20" />
+    <Property Type="Boolean" Name="Measure_Spec_Completed" Nullable="true" />
+    <Property Type="DateTime" Name="Date_Published" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="Details_All_Result">
+    <Property Type="Int32" Name="Measure_ID" Nullable="false" />
+    <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Measure_Title" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="NQS_Domain" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="QCDR_Measure_Name" Nullable="true" MaxLength="10" />
+    <Property Type="Boolean" Name="VBR" Nullable="true" />
+    <Property Type="String" Name="Clinical_Lead" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Developer" Nullable="true" MaxLength="20" />
+    <Property Type="Boolean" Name="Measure_Spec_Completed" Nullable="true" />
+    <Property Type="DateTime" Name="Date_Published" Nullable="true" />
+  </ComplexType>
+</Schema>

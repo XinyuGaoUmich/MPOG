@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MPOG_XinyuModel1StoreContainer" CdmEntityContainer="MPOG_XinyuEntities4">
+    <FunctionImportMapping FunctionImportName="Measure_List" FunctionName="MPOG_XinyuModel1.Store.Measure_List">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Measure_List_Result">
+          <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+          <ScalarProperty Name="Measure_Abbreviation" ColumnName="Measure_Abbreviation" />
+          <ScalarProperty Name="Measure_Title" ColumnName="Measure_Title" />
+          <ScalarProperty Name="NQS_Domain" ColumnName="NQS_Domain" />
+          <ScalarProperty Name="QCDR_Measure_Name" ColumnName="QCDR_Measure_Name" />
+          <ScalarProperty Name="VBR" ColumnName="VBR" />
+          <ScalarProperty Name="Clinical_Lead" ColumnName="Clinical_Lead" />
+          <ScalarProperty Name="Developer" ColumnName="Developer" />
+          <ScalarProperty Name="Measure_Spec_Completed" ColumnName="Measure_Spec_Completed" />
+          <ScalarProperty Name="Date_Published" ColumnName="Date_Published" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Details_All" FunctionName="MPOG_XinyuModel1.Store.Details_All">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Details_All_Result">
+          <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+          <ScalarProperty Name="Measure_Abbreviation" ColumnName="Measure_Abbreviation" />
+          <ScalarProperty Name="Measure_Title" ColumnName="Measure_Title" />
+          <ScalarProperty Name="NQS_Domain" ColumnName="NQS_Domain" />
+          <ScalarProperty Name="QCDR_Measure_Name" ColumnName="QCDR_Measure_Name" />
+          <ScalarProperty Name="VBR" ColumnName="VBR" />
+          <ScalarProperty Name="Clinical_Lead" ColumnName="Clinical_Lead" />
+          <ScalarProperty Name="Developer" ColumnName="Developer" />
+          <ScalarProperty Name="Measure_Spec_Completed" ColumnName="Measure_Spec_Completed" />
+          <ScalarProperty Name="Date_Published" ColumnName="Date_Published" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

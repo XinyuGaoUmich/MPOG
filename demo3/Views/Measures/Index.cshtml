@@ -1,4 +1,4 @@
-﻿@model IEnumerable<demo3.Models.Measure_Site>
+﻿@model IEnumerable<demo3.Models.Measure_List_Result>
 
 @{
 
@@ -42,7 +42,7 @@
 <table class="table" >
     <tr >
         <th >
-            @Html.DisplayNameFor(model => model.Measure)
+            @Html.DisplayNameFor(model => model.Measure_Abbreviation).ToString().Replace('_', ' ')
         </th>
 
         <th>
@@ -54,7 +54,7 @@
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.Measure_Name).ToString().Replace('_',' ')
+            @Html.DisplayNameFor(model => model.QCDR_Measure_Name).ToString().Replace('_',' ')
         </th>
 
         <th>
@@ -66,7 +66,7 @@
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.Developer).ToString().Replace('_',' ')
+            @Html.DisplayNameFor(model => model.Developer)
         </th>
 
         <th>
@@ -96,7 +96,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Measure).ToString().Replace("_", " ")
+                @Html.DisplayFor(modelItem => item.Measure_Abbreviation).ToString().Replace("-", " ")
             </td>
 
             <td>
@@ -108,17 +108,20 @@
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.Measure_Name)
+                @Html.DisplayFor(modelItem => item.QCDR_Measure_Name)
             </td>
 
             <td>
-                @*{Html.DisplayFor(modelItem => item.VBR)*@
-                @if((bool)item.VBR) {
+                @*@Html.DisplayFor(modelItem => item.VBR)*@
+                @if(item.VBR == null) {
+                    <text>N/A</text>
+                } else if((bool)item.VBR) {
                     <text>Yes</text>
-                } else {
+                } else
+                {
                     <text>No</text>
                 }
-                
+
             </td>
 
             <td>
@@ -131,7 +134,11 @@
 
             <td>
                 @*@Html.DisplayFor(modelItem => item.Measure_Spec_Completed)*@
-                @if ((bool)item.Measure_Spec_Completed)
+                @if (item.Measure_Spec_Completed == null)
+                {
+                    <text>N/A</text>
+                }
+                else if ((bool)item.Measure_Spec_Completed)
                 {
                     <text>Yes</text>
                 }
@@ -147,11 +154,11 @@
 
 
             <td>
-                @Html.ActionLink(@item.Measure_Name + " Pager", "Pager", new { id = item.Measure_ID })
+                @Html.ActionLink(@item.Measure_Abbreviation.ToString().Replace("-", " ") + " Pager", "Pager", new { id = item.Measure_ID })
             </td>
 
             <td>
-                @Html.ActionLink(item.Measure_Name + " Spec", "Spec", new { id = item.Measure_ID })
+                @Html.ActionLink(item.Measure_Abbreviation.ToString().Replace("-", " ") + " Spec", "Spec", new { id = item.Measure_ID })
             </td>
             @if (isLoggedin)
             {
