@@ -304,6 +304,9 @@
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OIDCNonceCookieCleanupMiddleware.cs" />
+    <Compile Include="Models\Public_Measure_Result.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Section_fields.cs">
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
@@ -393,6 +396,7 @@
     <Content Include="Views\Measures\Spec.cshtml" />
     <Content Include="Views\NoAccess\Index.cshtml" />
     <Content Include="Views\NoAccess\LoginWithoutAccess.cshtml" />
+    <Content Include="Views\Measures\Public.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -24,13 +24,13 @@ namespace demo3.Controllers
                 return View(db2.Measure_List().ToList());
             }
 
-            var published = from m in db.Measure_Site
-                            join meas in db.Measure_Status
-                            on m.Measure_ID equals meas.Measure_ID
-                            where meas.Measure_Status_ID == 4
-                            select m;
-            //return View(published);
-            return View(db2.Measure_List().ToList());
+                    
+            return Redirect("/Measures/Public");
+        }
+
+        public ActionResult Public()
+        {
+            return View(db2.Public_Measure().ToList());
         }
 
         // GET: Measures/Details/5
@@ -51,8 +51,7 @@ namespace demo3.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //Measure_Site measure_Site = db.Measure_Site.Find(id);
-            List<Details_All_Result> a =  db2.Details_All(id).ToList();
-            //var res = from m in db2.Measure_List() where m.Measure_ID == id select m;
+            List<Details_All_Result> a =  db2.Details_All(id).ToList();          
             
             if (a == null)
             {

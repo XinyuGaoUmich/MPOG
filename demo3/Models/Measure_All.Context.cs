@@ -41,5 +41,10 @@ namespace demo3.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Details_All_Result>("Details_All", measure_IDParameter);
         }
+    
+        public virtual ObjectResult<Public_Measure_Result> Public_Measure()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Public_Measure_Result>("Public_Measure");
+        }
     }
 }

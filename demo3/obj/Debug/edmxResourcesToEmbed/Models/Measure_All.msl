@@ -33,5 +33,14 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Public_Measure" FunctionName="MPOG_XinyuModel1.Store.Public_Measure">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Public_Measure_Result">
+          <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+          <ScalarProperty Name="Measure_Abbreviation" ColumnName="Measure_Abbreviation" />
+          <ScalarProperty Name="Measure_Title" ColumnName="Measure_Title" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

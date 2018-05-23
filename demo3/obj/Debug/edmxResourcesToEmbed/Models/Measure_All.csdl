@@ -5,6 +5,7 @@
     <FunctionImport Name="Details_All" ReturnType="Collection(MPOG_XinyuModel1.Details_All_Result)">
       <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="Public_Measure" ReturnType="Collection(MPOG_XinyuModel1.Public_Measure_Result)" />
   </EntityContainer>
   <ComplexType Name="Measure_List_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -29,5 +30,10 @@
     <Property Type="String" Name="Developer" Nullable="true" MaxLength="20" />
     <Property Type="Boolean" Name="Measure_Spec_Completed" Nullable="true" />
     <Property Type="DateTime" Name="Date_Published" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="Public_Measure_Result">
+    <Property Type="Int32" Name="Measure_ID" Nullable="false" />
+    <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Measure_Title" Nullable="true" MaxLength="50" />
   </ComplexType>
 </Schema>

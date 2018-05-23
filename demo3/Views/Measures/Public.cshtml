@@ -1,0 +1,78 @@
+﻿@model IEnumerable<demo3.Models.Public_Measure_Result>
+@{
+    ViewBag.Title = "Public Measure List";
+
+    Boolean isLoggedin = false;
+    Boolean notForUser = false;
+    // check session
+
+    if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
+    {
+        isLoggedin = true;
+    }
+    else if (Session["userid"] != null)
+    {
+        notForUser = true;
+    }
+
+
+}
+
+
+@if (notForUser)
+{
+    <h4>
+        <code>You are not QI coordinator, please @Html.ActionLink("Logout", "Logout") </code>
+
+    </h4>
+}
+
+<link href="~/Content/table.css" rel="stylesheet" type="text/css" />
+
+<h3>
+    Public Measure List
+</h3>
+<div style="overflow: auto; text-align:center">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Measure_Abbreviation).ToString().Replace('_', ' ')
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Measure_Title).ToString().Replace('_', ' ')
+            </th>
+
+            <th>
+                Pager
+            </th>
+            <th>
+                Spec
+            </th>
+
+
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Measure_Abbreviation).ToString().Replace("-", " ")
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Measure_Title)
+                </td>
+
+
+                <td>
+                    @Html.ActionLink(@item.Measure_Abbreviation.ToString().Replace("-", " ") + " Pager", "Pager", new { id = item.Measure_ID })
+                </td>
+
+                <td>
+                    @Html.ActionLink(item.Measure_Abbreviation.ToString().Replace("-", " ") + " Spec", "Spec", new { id = item.Measure_ID })
+                </td>
+
+            </tr>
+        }
+
+        </table>
+    </div>

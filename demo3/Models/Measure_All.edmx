@@ -9,6 +9,7 @@
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
         </Function>
         <Function Name="Measure_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Public_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="MPOG_XinyuModel1StoreContainer" />
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -17,8 +18,9 @@
         <EntityContainer Name="MPOG_XinyuEntities4" annotation:LazyLoadingEnabled="true" >
           <FunctionImport Name="Measure_List" ReturnType="Collection(MPOG_XinyuModel1.Measure_List_Result)" />
           <FunctionImport Name="Details_All" ReturnType="Collection(MPOG_XinyuModel1.Details_All_Result)">
-            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+          <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="Public_Measure" ReturnType="Collection(MPOG_XinyuModel1.Public_Measure_Result)" />
         </EntityContainer>
         <ComplexType Name="Measure_List_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -43,6 +45,11 @@
           <Property Type="String" Name="Developer" Nullable="true" MaxLength="20" />
           <Property Type="Boolean" Name="Measure_Spec_Completed" Nullable="true" />
           <Property Type="DateTime" Name="Date_Published" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Public_Measure_Result">
+          <Property Type="Int32" Name="Measure_ID" Nullable="false" />
+          <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Measure_Title" Nullable="true" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -79,6 +86,15 @@
                 <ScalarProperty Name="Developer" ColumnName="Developer" />
                 <ScalarProperty Name="Measure_Spec_Completed" ColumnName="Measure_Spec_Completed" />
                 <ScalarProperty Name="Date_Published" ColumnName="Date_Published" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Public_Measure" FunctionName="MPOG_XinyuModel1.Store.Public_Measure">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Public_Measure_Result">
+                <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+                <ScalarProperty Name="Measure_Abbreviation" ColumnName="Measure_Abbreviation" />
+                <ScalarProperty Name="Measure_Title" ColumnName="Measure_Title" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
