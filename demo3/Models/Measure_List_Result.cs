@@ -18,6 +18,7 @@ namespace demo3.Models
         public int Measure_ID { get; set; }
 
         [DisplayName("Measure Abbreviation")]
+        [Required(ErrorMessage = "Please enter the measure abbreviation")]
         public string Measure_Abbreviation { get; set; }
 
         [DisplayName("Measure Title")]
