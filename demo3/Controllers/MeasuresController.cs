@@ -72,7 +72,7 @@ namespace demo3.Controllers
             {
                 return Redirect("/NoAccess/LoginWithoutAccess");
             }
-            ViewData["newID"] = db.Measure_Site.Count() + 1;
+            
             return View();
         }
 
@@ -81,7 +81,8 @@ namespace demo3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Measure_ID, Measure, Measure_Title, NQS_Domain, Measure_Name, VBR, Clinical_Lead, Developer, Measure_Spec_Completed, Date_Published")] Measure_Site measure_Site)
+        //public ActionResult Create([Bind(Include = "Measure_Abbreviation, Measure_Title, NQS_Domain, Measure_Name, VBR, Clinical_Lead, Developer, Measure_Spec_Completed, Date_Published")] Measure_Site measure_Site)
+        public ActionResult Create(Measure_List_Result mea_List)
         {
             if (Session["userid"] == null)
             {
@@ -94,13 +95,14 @@ namespace demo3.Controllers
             }
 
             if (ModelState.IsValid)
-            {                           
-                db.Measure_Site.Add(measure_Site);
-                db.SaveChanges();
+            {
+                //db.Measure_Site.Add(measure_Site);
+                db2.Add_Measure(mea_List.Measure_Abbreviation, mea_List.Measure_Title, mea_List.NQS_Domain, mea_List.QCDR_Measure_Name, mea_List.VBR, mea_List.Clinical_Lead, mea_List.Developer, mea_List.Measure_Spec_Completed, mea_List.Date_Published);
+                db2.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(measure_Site);
+            return View(mea_List);
         }
 
         // GET: Measures/Edit/5

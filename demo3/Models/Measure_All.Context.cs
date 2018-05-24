@@ -46,5 +46,46 @@ namespace demo3.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Public_Measure_Result>("Public_Measure");
         }
+    
+        public virtual int Add_Measure(string measure_Abbreviation, string measure_Title, string nQS_Domain, string qCDR_Measure_Name, Nullable<bool> vBR, string clinical_Lead, string developer, Nullable<bool> measure_Spec_Completed, Nullable<System.DateTime> date_Published)
+        {
+            var measure_AbbreviationParameter = measure_Abbreviation != null ?
+                new ObjectParameter("Measure_Abbreviation", measure_Abbreviation) :
+                new ObjectParameter("Measure_Abbreviation", typeof(string));
+    
+            var measure_TitleParameter = measure_Title != null ?
+                new ObjectParameter("Measure_Title", measure_Title) :
+                new ObjectParameter("Measure_Title", typeof(string));
+    
+            var nQS_DomainParameter = nQS_Domain != null ?
+                new ObjectParameter("NQS_Domain", nQS_Domain) :
+                new ObjectParameter("NQS_Domain", typeof(string));
+    
+            var qCDR_Measure_NameParameter = qCDR_Measure_Name != null ?
+                new ObjectParameter("QCDR_Measure_Name", qCDR_Measure_Name) :
+                new ObjectParameter("QCDR_Measure_Name", typeof(string));
+    
+            var vBRParameter = vBR.HasValue ?
+                new ObjectParameter("VBR", vBR) :
+                new ObjectParameter("VBR", typeof(bool));
+    
+            var clinical_LeadParameter = clinical_Lead != null ?
+                new ObjectParameter("Clinical_Lead", clinical_Lead) :
+                new ObjectParameter("Clinical_Lead", typeof(string));
+    
+            var developerParameter = developer != null ?
+                new ObjectParameter("Developer", developer) :
+                new ObjectParameter("Developer", typeof(string));
+    
+            var measure_Spec_CompletedParameter = measure_Spec_Completed.HasValue ?
+                new ObjectParameter("Measure_Spec_Completed", measure_Spec_Completed) :
+                new ObjectParameter("Measure_Spec_Completed", typeof(bool));
+    
+            var date_PublishedParameter = date_Published.HasValue ?
+                new ObjectParameter("Date_Published", date_Published) :
+                new ObjectParameter("Date_Published", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_Measure", measure_AbbreviationParameter, measure_TitleParameter, nQS_DomainParameter, qCDR_Measure_NameParameter, vBRParameter, clinical_LeadParameter, developerParameter, measure_Spec_CompletedParameter, date_PublishedParameter);
+        }
     }
 }

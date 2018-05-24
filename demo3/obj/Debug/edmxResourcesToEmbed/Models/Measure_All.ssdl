@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="MPOG_XinyuModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <Function Name="Add_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
+    <Parameter Name="Measure_Title" Type="varchar" Mode="In" />
+    <Parameter Name="NQS_Domain" Type="varchar" Mode="In" />
+    <Parameter Name="QCDR_Measure_Name" Type="varchar" Mode="In" />
+    <Parameter Name="VBR" Type="bit" Mode="In" />
+    <Parameter Name="Clinical_Lead" Type="varchar" Mode="In" />
+    <Parameter Name="Developer" Type="varchar" Mode="In" />
+    <Parameter Name="Measure_Spec_Completed" Type="bit" Mode="In" />
+    <Parameter Name="Date_Published" Type="date" Mode="In" />
+  </Function>
   <Function Name="Details_All" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
   </Function>

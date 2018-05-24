@@ -10,11 +10,16 @@
 namespace demo3.Models
 {
     using System;
-    
+    using System.ComponentModel;
+
     public partial class Public_Measure_Result
     {
         public int Measure_ID { get; set; }
+
+        [DisplayName("Measure Abbreviation")]
         public string Measure_Abbreviation { get; set; }
+
+        [DisplayName("Measure Title")]
         public string Measure_Title { get; set; }
     }
 }

@@ -5,6 +5,17 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MPOG_XinyuModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="Add_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
+          <Parameter Name="Measure_Title" Type="varchar" Mode="In" />
+          <Parameter Name="NQS_Domain" Type="varchar" Mode="In" />
+          <Parameter Name="QCDR_Measure_Name" Type="varchar" Mode="In" />
+          <Parameter Name="VBR" Type="bit" Mode="In" />
+          <Parameter Name="Clinical_Lead" Type="varchar" Mode="In" />
+          <Parameter Name="Developer" Type="varchar" Mode="In" />
+          <Parameter Name="Measure_Spec_Completed" Type="bit" Mode="In" />
+          <Parameter Name="Date_Published" Type="date" Mode="In" />
+        </Function>
         <Function Name="Details_All" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
         </Function>
@@ -21,6 +32,17 @@
           <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Public_Measure" ReturnType="Collection(MPOG_XinyuModel1.Public_Measure_Result)" />
+          <FunctionImport Name="Add_Measure">
+            <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
+            <Parameter Name="Measure_Title" Mode="In" Type="String" />
+            <Parameter Name="NQS_Domain" Mode="In" Type="String" />
+            <Parameter Name="QCDR_Measure_Name" Mode="In" Type="String" />
+            <Parameter Name="VBR" Mode="In" Type="Boolean" />
+            <Parameter Name="Clinical_Lead" Mode="In" Type="String" />
+            <Parameter Name="Developer" Mode="In" Type="String" />
+            <Parameter Name="Measure_Spec_Completed" Mode="In" Type="Boolean" />
+            <Parameter Name="Date_Published" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Measure_List_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -98,6 +120,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Add_Measure" FunctionName="MPOG_XinyuModel1.Store.Add_Measure" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
