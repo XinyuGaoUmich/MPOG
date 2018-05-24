@@ -17,6 +17,18 @@
   <Function Name="Details_All" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
   </Function>
+  <Function Name="Edit_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+    <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
+    <Parameter Name="Measure_Title" Type="varchar" Mode="In" />
+    <Parameter Name="NQS_Domain" Type="varchar" Mode="In" />
+    <Parameter Name="QCDR_Measure_Name" Type="varchar" Mode="In" />
+    <Parameter Name="VBR" Type="bit" Mode="In" />
+    <Parameter Name="Clinical_Lead" Type="varchar" Mode="In" />
+    <Parameter Name="Developer" Type="varchar" Mode="In" />
+    <Parameter Name="Measure_Spec_Completed" Type="bit" Mode="In" />
+    <Parameter Name="Date_Published" Type="date" Mode="In" />
+  </Function>
   <Function Name="Measure_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="Public_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="MPOG_XinyuModel1StoreContainer" />

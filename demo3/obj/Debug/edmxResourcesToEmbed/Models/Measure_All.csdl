@@ -20,6 +20,18 @@
     <FunctionImport Name="Delete_Measure">
       <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="Edit_Measure">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
+      <Parameter Name="Measure_Title" Mode="In" Type="String" />
+      <Parameter Name="NQS_Domain" Mode="In" Type="String" />
+      <Parameter Name="QCDR_Measure_Name" Mode="In" Type="String" />
+      <Parameter Name="VBR" Mode="In" Type="Boolean" />
+      <Parameter Name="Clinical_Lead" Mode="In" Type="String" />
+      <Parameter Name="Developer" Mode="In" Type="String" />
+      <Parameter Name="Measure_Spec_Completed" Mode="In" Type="Boolean" />
+      <Parameter Name="Date_Published" Mode="In" Type="DateTime" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="Measure_List_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />

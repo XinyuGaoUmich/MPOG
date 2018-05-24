@@ -288,6 +288,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Measure_All.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Measure_ListAllMeta.cs" />
     <Compile Include="Models\Measure_List_Result.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
@@ -297,6 +298,7 @@
     <Compile Include="Models\Measure_Status.cs">
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DetailsMetaData.cs" />
     <Compile Include="Models\MPOG_Concepts.cs">
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
@@ -304,6 +306,7 @@
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OIDCNonceCookieCleanupMiddleware.cs" />
+    <Compile Include="Models\PublicMeta.cs" />
     <Compile Include="Models\Public_Measure_Result.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>

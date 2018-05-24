@@ -51,7 +51,9 @@ namespace demo3.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //Measure_Site measure_Site = db.Measure_Site.Find(id);
-            List<Details_All_Result> a =  db2.Details_All(id).ToList();          
+            List<Details_All_Result> a = db2.Details_All(id).ToList();
+            //DetailsMetaData a = (DetailsMetaData)db2.Details_All(id); 
+           
             
             if (a == null)
             {

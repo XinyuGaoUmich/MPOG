@@ -22,6 +22,18 @@
         <Function Name="Details_All" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="Edit_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+          <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
+          <Parameter Name="Measure_Title" Type="varchar" Mode="In" />
+          <Parameter Name="NQS_Domain" Type="varchar" Mode="In" />
+          <Parameter Name="QCDR_Measure_Name" Type="varchar" Mode="In" />
+          <Parameter Name="VBR" Type="bit" Mode="In" />
+          <Parameter Name="Clinical_Lead" Type="varchar" Mode="In" />
+          <Parameter Name="Developer" Type="varchar" Mode="In" />
+          <Parameter Name="Measure_Spec_Completed" Type="bit" Mode="In" />
+          <Parameter Name="Date_Published" Type="date" Mode="In" />
+        </Function>
         <Function Name="Measure_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Public_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="MPOG_XinyuModel1StoreContainer" />
@@ -47,7 +59,19 @@
             <Parameter Name="Date_Published" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="Delete_Measure">
+          <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Edit_Measure">
             <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
+            <Parameter Name="Measure_Title" Mode="In" Type="String" />
+            <Parameter Name="NQS_Domain" Mode="In" Type="String" />
+            <Parameter Name="QCDR_Measure_Name" Mode="In" Type="String" />
+            <Parameter Name="VBR" Mode="In" Type="Boolean" />
+            <Parameter Name="Clinical_Lead" Mode="In" Type="String" />
+            <Parameter Name="Developer" Mode="In" Type="String" />
+            <Parameter Name="Measure_Spec_Completed" Mode="In" Type="Boolean" />
+            <Parameter Name="Date_Published" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Measure_List_Result">
@@ -128,6 +152,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Add_Measure" FunctionName="MPOG_XinyuModel1.Store.Add_Measure" />
           <FunctionImportMapping FunctionImportName="Delete_Measure" FunctionName="MPOG_XinyuModel1.Store.Delete_Measure" />
+          <FunctionImportMapping FunctionImportName="Edit_Measure" FunctionName="MPOG_XinyuModel1.Store.Edit_Measure" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

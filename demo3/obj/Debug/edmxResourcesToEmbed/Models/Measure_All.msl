@@ -44,5 +44,6 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="Add_Measure" FunctionName="MPOG_XinyuModel1.Store.Add_Measure" />
     <FunctionImportMapping FunctionImportName="Delete_Measure" FunctionName="MPOG_XinyuModel1.Store.Delete_Measure" />
+    <FunctionImportMapping FunctionImportName="Edit_Measure" FunctionName="MPOG_XinyuModel1.Store.Edit_Measure" />
   </EntityContainerMapping>
 </Mapping>
