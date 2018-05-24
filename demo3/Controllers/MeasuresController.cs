@@ -124,12 +124,13 @@ namespace demo3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ASPIRE_Measures aSPIRE_Measures = db.ASPIRE_Measures.Find(id);
-            if (aSPIRE_Measures == null)
+            // ASPIRE_Measures aSPIRE_Measures = db.ASPIRE_Measures.Find(id);
+            List<Details_All_Result> details_All_Results = db2.Details_All(id).ToList();
+            if (details_All_Results == null)
             {
                 return HttpNotFound();
             }
-            return View(aSPIRE_Measures);
+            return View(details_All_Results);
         }
 
         // POST: Measures/Edit/5
@@ -137,7 +138,8 @@ namespace demo3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Measure_ID,Measure_Name,Measure_Collation,Measure_Description,Report_ID,Galileo_Measure_Name,Image_File_Name,Threshold,CMS_Measure_Number,Is_Published,Domain")] ASPIRE_Measures aSPIRE_Measures)
+        //public ActionResult Edit([Bind(Include = "Measure_ID,Measure_Name,Measure_Collation,Measure_Description,Report_ID,Galileo_Measure_Name,Image_File_Name,Threshold,CMS_Measure_Number,Is_Published,Domain")] ASPIRE_Measures aSPIRE_Measures)
+        public ActionResult Edit(Details_All_Result details_All_Result)
         {
             if (Session["userid"] == null)
             {
@@ -152,11 +154,12 @@ namespace demo3.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Entry(aSPIRE_Measures).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(aSPIRE_Measures).State = EntityState.Modified;
+                db2.Edit_Measure(details_All_Result.Measure_ID, details_All_Result.Measure_Abbreviation, details_All_Result.Measure_Title, details_All_Result.NQS_Domain, details_All_Result.QCDR_Measure_Name, details_All_Result.VBR,details_All_Result.Clinical_Lead, details_All_Result.Developer, details_All_Result.Measure_Spec_Completed, details_All_Result.Date_Published);
+                db2.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(aSPIRE_Measures);
+            return View(details_All_Result);
         }
 
         // GET: Measures/Delete/5
@@ -177,12 +180,12 @@ namespace demo3.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             // ASPIRE_Measures aSPIRE_Measures = db.ASPIRE_Measures.Find(id);
-            List<Details_All_Result> a = db2.Details_All(id).ToList();
-            if (a == null)
+            List<Details_All_Result> details_All_Results = db2.Details_All(id).ToList();
+            if (details_All_Results == null)
             {
                 return HttpNotFound();
             }
-            return View(a);
+            return View(details_All_Results);
         }
 
         // POST: Measures/Delete/5
