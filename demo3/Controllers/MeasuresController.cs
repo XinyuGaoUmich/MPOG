@@ -174,12 +174,13 @@ namespace demo3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ASPIRE_Measures aSPIRE_Measures = db.ASPIRE_Measures.Find(id);
-            if (aSPIRE_Measures == null)
+            // ASPIRE_Measures aSPIRE_Measures = db.ASPIRE_Measures.Find(id);
+            List<Details_All_Result> a = db2.Details_All(id).ToList();
+            if (a == null)
             {
                 return HttpNotFound();
             }
-            return View(aSPIRE_Measures);
+            return View(a);
         }
 
         // POST: Measures/Delete/5
@@ -197,9 +198,10 @@ namespace demo3.Controllers
                 return Redirect("/NoAccess/LoginWithoutAccess");
             }
 
-            ASPIRE_Measures aSPIRE_Measures = db.ASPIRE_Measures.Find(id);
-            db.ASPIRE_Measures.Remove(aSPIRE_Measures);
-            db.SaveChanges();
+            // ASPIRE_Measures aSPIRE_Measures = db.ASPIRE_Measures.Find(id);
+            //db.ASPIRE_Measures.Remove(aSPIRE_Measures);
+            db2.Delete_Measure(id);
+            db2.SaveChanges();
             return RedirectToAction("Index");
         }
 

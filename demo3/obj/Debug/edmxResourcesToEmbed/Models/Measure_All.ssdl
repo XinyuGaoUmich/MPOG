@@ -11,6 +11,9 @@
     <Parameter Name="Measure_Spec_Completed" Type="bit" Mode="In" />
     <Parameter Name="Date_Published" Type="date" Mode="In" />
   </Function>
+  <Function Name="Delete_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+  </Function>
   <Function Name="Details_All" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
   </Function>

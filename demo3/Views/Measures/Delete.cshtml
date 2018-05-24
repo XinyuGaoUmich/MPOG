@@ -1,104 +1,118 @@
-﻿@model demo3.Models.ASPIRE_Measures
+﻿@model IEnumerable<demo3.Models.Details_All_Result>
 
-@{
+@{        
     ViewBag.Title = "Delete";
 }
 
 <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3 style="color:red">Are you sure you want to delete this?</h3>
 <div>
-    <h4>ASPIRE_Measures</h4>
+
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-horizontal" style="text-align:center">
         <dt>
-            @Html.DisplayNameFor(model => model.Measure_Name)
+            @Html.DisplayNameFor(model => model.Measure_Abbreviation)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Measure_Name)
+            @Html.DisplayFor(model => model.First().Measure_Abbreviation).ToString().Replace("-", " ")
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Measure_Collation)
+            @Html.DisplayNameFor(model => model.Measure_Title)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Measure_Collation)
+            @Html.DisplayFor(model => model.First().Measure_Title)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Measure_Description)
+            @Html.DisplayNameFor(model => model.NQS_Domain)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Measure_Description)
+            @Html.DisplayFor(model => model.First().NQS_Domain)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Report_ID)
+            @Html.DisplayNameFor(model => model.QCDR_Measure_Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Report_ID)
+            @Html.DisplayFor(model => model.First().QCDR_Measure_Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Galileo_Measure_Name)
+            @Html.DisplayNameFor(model => model.VBR)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Galileo_Measure_Name)
+            @if (Model.First().VBR == null)
+            {
+                <text>N/A</text>
+            }
+            else if ((bool)Model.First().VBR)
+            {
+                <text>Yes</text>
+            }
+            else
+            {
+                <text>No</text>
+            }
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Image_File_Name)
+            @Html.DisplayNameFor(model => model.Clinical_Lead)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Image_File_Name)
+            @Html.DisplayFor(model => model.First().Clinical_Lead)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Threshold)
+            @Html.DisplayNameFor(model => model.Developer)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Threshold)
+            @Html.DisplayFor(model => model.First().Developer)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CMS_Measure_Number)
+            @Html.DisplayNameFor(model => model.Measure_Spec_Completed)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CMS_Measure_Number)
+            @if (Model.First().Measure_Spec_Completed == null)
+            {
+                <text>N/A</text>
+            }
+            else if ((bool)Model.First().Measure_Spec_Completed)
+            {
+                <text>Yes</text>
+            }
+            else
+            {
+                <text>No</text>
+            }
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Is_Published)
+            @Html.DisplayNameFor(model => model.Date_Published)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Is_Published)
+            @Html.DisplayFor(model => model.First().Date_Published)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Domain)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Domain)
-        </dd>
-
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         //@Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+<div class="form-actions no-color">
+    <input type="submit" value="Delete" class="btn btn-default" /> |
+    @Html.ActionLink("Back to List", "Index")
+</div>
+}
 </div>
