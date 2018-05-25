@@ -35,6 +35,7 @@
           <Parameter Name="Date_Published" Type="date" Mode="In" />
         </Function>
         <Function Name="Measure_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Pager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Public_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="MPOG_XinyuModel1StoreContainer" />
       </Schema></edmx:StorageModels>
@@ -73,6 +74,7 @@
             <Parameter Name="Measure_Spec_Completed" Mode="In" Type="Boolean" />
             <Parameter Name="Date_Published" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="Pager" ReturnType="Collection(MPOG_XinyuModel1.Pager_Result)" />
         </EntityContainer>
         <ComplexType Name="Measure_List_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -102,6 +104,23 @@
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
           <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="Measure_Title" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="Pager_Result">
+          <Property Type="Int32" Name="Measure_ID" Nullable="false" />
+          <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Data_Collection_Method" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="Int32" Name="NQS_Domain" Nullable="true" />
+          <Property Type="Int32" Name="Measure_Type" Nullable="true" />
+          <Property Type="Int32" Name="Scope" Nullable="true" />
+          <Property Type="String" Name="Measure_Summary" Nullable="true" />
+          <Property Type="String" Name="Inclusions" Nullable="true" />
+          <Property Type="String" Name="Exclusions" Nullable="true" />
+          <Property Type="String" Name="Success" Nullable="true" MaxLength="10" />
+          <Property Type="Decimal" Name="Threshold" Nullable="true" Precision="18" Scale="3" />
+          <Property Type="String" Name="Responsible_Provider" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Risk_Adjustment" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Reference" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -153,6 +172,27 @@
           <FunctionImportMapping FunctionImportName="Add_Measure" FunctionName="MPOG_XinyuModel1.Store.Add_Measure" />
           <FunctionImportMapping FunctionImportName="Delete_Measure" FunctionName="MPOG_XinyuModel1.Store.Delete_Measure" />
           <FunctionImportMapping FunctionImportName="Edit_Measure" FunctionName="MPOG_XinyuModel1.Store.Edit_Measure" />
+          <FunctionImportMapping FunctionImportName="Pager" FunctionName="MPOG_XinyuModel1.Store.Pager">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Pager_Result">
+                <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+                <ScalarProperty Name="Measure_Abbreviation" ColumnName="Measure_Abbreviation" />
+                <ScalarProperty Name="Data_Collection_Method" ColumnName="Data_Collection_Method" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="NQS_Domain" ColumnName="NQS_Domain" />
+                <ScalarProperty Name="Measure_Type" ColumnName="Measure_Type" />
+                <ScalarProperty Name="Scope" ColumnName="Scope" />
+                <ScalarProperty Name="Measure_Summary" ColumnName="Measure_Summary" />
+                <ScalarProperty Name="Inclusions" ColumnName="Inclusions" />
+                <ScalarProperty Name="Exclusions" ColumnName="Exclusions" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Threshold" ColumnName="Threshold" />
+                <ScalarProperty Name="Responsible_Provider" ColumnName="Responsible_Provider" />
+                <ScalarProperty Name="Risk_Adjustment" ColumnName="Risk_Adjustment" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

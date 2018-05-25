@@ -225,12 +225,7 @@ namespace demo3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Section_fields section_Fields = db.Section_fields.Find(id);
-            if (section_Fields == null)
-            {
-                return HttpNotFound();
-            }
-            return View(section_Fields);
+            return Redirect("/Pager/Index");
         }
 
         public ActionResult Spec(int? id)
@@ -238,19 +233,16 @@ namespace demo3.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Section_fields section_Fields = db.Section_fields.Find(id);
-            if (section_Fields == null)
-            {
-                return HttpNotFound();
-            }
-            return View(section_Fields);
+            }          
+            return Redirect("/Pager/Index");
         }
 
         public ActionResult Logout()
         {
             return Redirect("/Home/Logout");
         }
+
+
 
     }
 }

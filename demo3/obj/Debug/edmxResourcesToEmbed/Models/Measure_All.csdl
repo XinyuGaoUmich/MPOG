@@ -32,6 +32,7 @@
       <Parameter Name="Measure_Spec_Completed" Mode="In" Type="Boolean" />
       <Parameter Name="Date_Published" Mode="In" Type="DateTime" />
     </FunctionImport>
+    <FunctionImport Name="Pager" ReturnType="Collection(MPOG_XinyuModel1.Pager_Result)" />
   </EntityContainer>
   <ComplexType Name="Measure_List_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -61,5 +62,22 @@
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />
     <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
     <Property Type="String" Name="Measure_Title" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="Pager_Result">
+    <Property Type="Int32" Name="Measure_ID" Nullable="false" />
+    <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Data_Collection_Method" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="Description" Nullable="true" />
+    <Property Type="Int32" Name="NQS_Domain" Nullable="true" />
+    <Property Type="Int32" Name="Measure_Type" Nullable="true" />
+    <Property Type="Int32" Name="Scope" Nullable="true" />
+    <Property Type="String" Name="Measure_Summary" Nullable="true" />
+    <Property Type="String" Name="Inclusions" Nullable="true" />
+    <Property Type="String" Name="Exclusions" Nullable="true" />
+    <Property Type="String" Name="Success" Nullable="true" MaxLength="10" />
+    <Property Type="Decimal" Name="Threshold" Nullable="true" Precision="18" Scale="3" />
+    <Property Type="String" Name="Responsible_Provider" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="Risk_Adjustment" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="Reference" Nullable="true" />
   </ComplexType>
 </Schema>

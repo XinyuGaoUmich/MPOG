@@ -141,5 +141,10 @@ namespace demo3.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Edit_Measure", measure_IDParameter, measure_AbbreviationParameter, measure_TitleParameter, nQS_DomainParameter, qCDR_Measure_NameParameter, vBRParameter, clinical_LeadParameter, developerParameter, measure_Spec_CompletedParameter, date_PublishedParameter);
         }
+    
+        public virtual ObjectResult<Pager_Result> Pager()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pager_Result>("Pager");
+        }
     }
 }
