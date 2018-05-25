@@ -35,7 +35,9 @@
           <Parameter Name="Date_Published" Type="date" Mode="In" />
         </Function>
         <Function Name="Measure_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="Pager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Pager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="Public_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="MPOG_XinyuModel1StoreContainer" />
       </Schema></edmx:StorageModels>
@@ -74,7 +76,9 @@
             <Parameter Name="Measure_Spec_Completed" Mode="In" Type="Boolean" />
             <Parameter Name="Date_Published" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <FunctionImport Name="Pager" ReturnType="Collection(MPOG_XinyuModel1.Pager_Result)" />
+          <FunctionImport Name="Pager" ReturnType="Collection(MPOG_XinyuModel1.Pager_Result)" >
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Measure_List_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />

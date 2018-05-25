@@ -159,23 +159,7 @@
 
             <td>
                 @Html.ActionLink(item.Measure_Abbreviation.ToString().Replace("-", " ") + " Spec", "Spec", new { id = item.Measure_ID })
-            </td>
-            @if (isLoggedin)
-            {
-                <td style="text-align: left">
-                    <ul>
-                        <li>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Measure_ID })
-                        </li>
-                        <li>
-                            @Html.ActionLink("Details", "Details", new { id = item.Measure_ID })
-                        </li>
-                        <li>
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Measure_ID })
-                        </li>
-                    </ul>                
-                </td>
-            }
+            </td>         
 
         </tr>
     }

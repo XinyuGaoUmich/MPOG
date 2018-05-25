@@ -225,7 +225,7 @@ namespace demo3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return Redirect("/Pager/Index");
+            return RedirectToAction("Index", "Pager", new { id});
         }
 
         public ActionResult Spec(int? id)

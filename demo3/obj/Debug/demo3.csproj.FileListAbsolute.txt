@@ -241,3 +241,6 @@ C:\Users\xinyu\source\repos\demo3\demo3\bin\Thinktecture.IdentityModel.Owin.Reso
 C:\Users\xinyu\source\repos\demo3\demo3\bin\Thinktecture.IdentityModel.Owin.ResourceAuthorization.WebApi.pdb
 C:\Users\xinyu\source\repos\demo3\demo3\bin\Microsoft.AspNet.Identity.Core.dll
 C:\Users\xinyu\source\repos\demo3\demo3\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\xinyu\source\repos\demo3\demo3\bin\itextsharp.dll
+C:\Users\xinyu\source\repos\demo3\demo3\bin\itextsharp.xmlworker.dll
+C:\Users\xinyu\source\repos\demo3\demo3\bin\itextsharp.xml

@@ -55,6 +55,12 @@
     <Reference Include="IdentityModel, Version=3.6.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\IdentityModel.3.6.1\lib\net461\IdentityModel.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -307,6 +313,7 @@
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OIDCNonceCookieCleanupMiddleware.cs" />
+    <Compile Include="Models\PagerMeta.cs" />
     <Compile Include="Models\Pager_Result.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
@@ -403,10 +410,12 @@
     <Content Include="Views\NoAccess\LoginWithoutAccess.cshtml" />
     <Content Include="Views\Measures\Public.cshtml" />
     <Content Include="Views\Pager\Index.cshtml" />
+    <Content Include="Views\Pager\Editable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\NewFolder1\" />
+    <Folder Include="Views\PdfView\" />
     <Folder Include="Views\Session\" />
   </ItemGroup>
   <ItemGroup>
