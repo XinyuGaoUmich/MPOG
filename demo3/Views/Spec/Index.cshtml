@@ -107,17 +107,17 @@ ViewBag.Title = "Index";
         </dd>
 
         <dt>
-             MPOG Concept IDs Required
+            MPOG Concept IDs Required
         </dt>
         <dd style="text-align: center">
             @*@foreach (var item in ViewBag.concept)
-        {
-            <ul>
-                <li>
-                    @item.MPOG_Concept_Header_Name @item.MPOG_Concept_ID @item.concept_desc
-                </li>
-            </ul>
-        }*@
+            {
+                <ul>
+                    <li>
+                        @item.MPOG_Concept_Header_Name @item.MPOG_Concept_ID @item.concept_desc
+                    </li>
+                </ul>
+            }*@
             <table align="center" cellspacing="100">
                 <tbody>
                     <tr>
@@ -139,22 +139,114 @@ ViewBag.Title = "Index";
                     </tr>
                     @foreach (var item in ViewBag.concept)
                     {
-                        <tr>                          
-                            <td>                              
-                                @item.MPOG_Concept_Header_Name                              
+                        <tr>
+                            <td>
+                                @item.MPOG_Concept_Header_Name
                             </td>
-                            <td>                               
+                            <td>
                                 @item.MPOG_Concept_ID
                             </td>
                             <td>
                                 @item.concept_desc
-                            </td>                           
+                            </td>
                         </tr>
-                     }
-                  
-                    </tbody>
+                    }
+
+                </tbody>
             </table>
         </dd>
+
+        <dt style="padding-top: 10px">
+            Data Diagnostics Affected
+        </dt>
+
+        <dd style="padding-top: 10px">
+            <ul style="text-align:center">
+                @foreach (var item in ViewBag.diagnostics)
+                {
+
+                    <li>
+                        @item.Display_Name
+                    </li>
+
+                }
+            </ul>
+
+        </dd>
+
+        <dt>
+            Collations Used
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var item in ViewBag.collations)
+                {
+                    <li>
+                        @item.Collation_Name
+                    </li>
+                }
+            </ul>
+        </dd>
+
+        <dt>
+            Other Measure Build Details
+        </dt>
+
+        <dd>
+            @ViewBag.basic.Other_Build_Details
+        </dd>
+
+        <dt>
+            Success
+        </dt>
+
+        <dd>
+            @ViewBag.basic.Success
+        </dd>
+
+        <dt>
+            Threshold
+        </dt>
+
+        <dd>
+            @ViewBag.basic.Threshold
+        </dd>
+
+        <dt>
+            Responsible Provider
+        </dt>
+
+        <dd>
+            @ViewBag.basic.Responsible_Provider
+        </dd>
+
+        <dt>
+            Risk Adjustment
+        </dt>
+
+        <dd>
+            @ViewBag.basic.Risk_Adjustment
+        </dd>
+
+        <dt>
+            Flow Chart
+        </dt>
+
+        <dd>
+            @ViewBag.basic.Flow_Chart
+        </dd>
+
+        <dt>
+            References
+        </dt>
+
+        <dd>
+            @ViewBag.basic.Reference
+        </dd>
+
+
+
 
 
     </dl>

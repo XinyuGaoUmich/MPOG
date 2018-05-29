@@ -169,15 +169,6 @@ namespace demo3.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Data_Diagnostics_Affected_Result>("Data_Diagnostics_Affected", measure_IDParameter);
         }
     
-        public virtual ObjectResult<Spec_Result> Spec(Nullable<int> measure_ID)
-        {
-            var measure_IDParameter = measure_ID.HasValue ?
-                new ObjectParameter("Measure_ID", measure_ID) :
-                new ObjectParameter("Measure_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Spec_Result>("Spec", measure_IDParameter);
-        }
-    
         public virtual ObjectResult<MPOG_Concept_ID_Required_Result> MPOG_Concept_ID_Required(Nullable<int> measure_ID)
         {
             var measure_IDParameter = measure_ID.HasValue ?
@@ -185,6 +176,15 @@ namespace demo3.Models
                 new ObjectParameter("Measure_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MPOG_Concept_ID_Required_Result>("MPOG_Concept_ID_Required", measure_IDParameter);
+        }
+    
+        public virtual ObjectResult<Spec_Result> Spec(Nullable<int> measure_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Spec_Result>("Spec", measure_IDParameter);
         }
     }
 }

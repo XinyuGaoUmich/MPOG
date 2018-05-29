@@ -24,6 +24,7 @@ namespace demo3.Models
         public string Rationale { get; set; }
         public string Inclusions { get; set; }
         public string Exclusions { get; set; }
+        public string Other_Build_Details { get; set; }
         public string Success { get; set; }
         public Nullable<decimal> Threshold { get; set; }
         public string Responsible_Provider { get; set; }

@@ -83,6 +83,16 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="MPOG_Concept_ID_Required" FunctionName="MPOG_XinyuModel1.Store.MPOG_Concept_ID_Required">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.MPOG_Concept_ID_Required_Result">
+          <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+          <ScalarProperty Name="MPOG_Concept_Header_Name" ColumnName="MPOG_Concept_Header_Name" />
+          <ScalarProperty Name="MPOG_Concept_ID" ColumnName="MPOG_Concept_ID" />
+          <ScalarProperty Name="concept_desc" ColumnName="concept_desc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="Spec" FunctionName="MPOG_XinyuModel1.Store.Spec">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Spec_Result">
@@ -97,22 +107,13 @@
           <ScalarProperty Name="Rationale" ColumnName="Rationale" />
           <ScalarProperty Name="Inclusions" ColumnName="Inclusions" />
           <ScalarProperty Name="Exclusions" ColumnName="Exclusions" />
+          <ScalarProperty Name="Other_Build_Details" ColumnName="Other_Build_Details" />
           <ScalarProperty Name="Success" ColumnName="Success" />
           <ScalarProperty Name="Threshold" ColumnName="Threshold" />
           <ScalarProperty Name="Responsible_Provider" ColumnName="Responsible_Provider" />
           <ScalarProperty Name="Risk_Adjustment" ColumnName="Risk_Adjustment" />
           <ScalarProperty Name="Flow_Chart" ColumnName="Flow_Chart" />
           <ScalarProperty Name="Reference" ColumnName="Reference" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="MPOG_Concept_ID_Required" FunctionName="MPOG_XinyuModel1.Store.MPOG_Concept_ID_Required">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.MPOG_Concept_ID_Required_Result">
-          <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
-          <ScalarProperty Name="MPOG_Concept_Header_Name" ColumnName="MPOG_Concept_Header_Name" />
-          <ScalarProperty Name="MPOG_Concept_ID" ColumnName="MPOG_Concept_ID" />
-          <ScalarProperty Name="concept_desc" ColumnName="concept_desc" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

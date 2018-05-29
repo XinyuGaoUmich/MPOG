@@ -97,10 +97,10 @@
           <FunctionImport Name="Data_Diagnostics_Affected" ReturnType="Collection(MPOG_XinyuModel1.Data_Diagnostics_Affected_Result)">
           <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Spec" ReturnType="Collection(MPOG_XinyuModel1.Spec_Result)">
+          <FunctionImport Name="MPOG_Concept_ID_Required" ReturnType="Collection(MPOG_XinyuModel1.MPOG_Concept_ID_Required_Result)">
           <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="MPOG_Concept_ID_Required" ReturnType="Collection(MPOG_XinyuModel1.MPOG_Concept_ID_Required_Result)">
+          <FunctionImport Name="Spec" ReturnType="Collection(MPOG_XinyuModel1.Spec_Result)">
             <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -159,6 +159,12 @@
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
           <Property Type="String" Name="Display_Name" Nullable="false" MaxLength="100" />
         </ComplexType>
+        <ComplexType Name="MPOG_Concept_ID_Required_Result">
+          <Property Type="Int32" Name="Measure_ID" Nullable="false" />
+          <Property Type="String" Name="MPOG_Concept_Header_Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="MPOG_Concept_ID" Nullable="true" />
+          <Property Type="String" Name="concept_desc" Nullable="false" MaxLength="255" />
+        </ComplexType>
         <ComplexType Name="Spec_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
           <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
@@ -171,18 +177,13 @@
           <Property Type="String" Name="Rationale" Nullable="true" />
           <Property Type="String" Name="Inclusions" Nullable="true" />
           <Property Type="String" Name="Exclusions" Nullable="true" />
+          <Property Type="String" Name="Other_Build_Details" Nullable="true" />
           <Property Type="String" Name="Success" Nullable="true" MaxLength="10" />
           <Property Type="Decimal" Name="Threshold" Nullable="true" Precision="18" Scale="3" />
           <Property Type="String" Name="Responsible_Provider" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="Risk_Adjustment" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="Flow_Chart" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="Reference" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="MPOG_Concept_ID_Required_Result">
-          <Property Type="Int32" Name="Measure_ID" Nullable="false" />
-          <Property Type="String" Name="MPOG_Concept_Header_Name" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="MPOG_Concept_ID" Nullable="true" />
-          <Property Type="String" Name="concept_desc" Nullable="false" MaxLength="255" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -272,6 +273,16 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MPOG_Concept_ID_Required" FunctionName="MPOG_XinyuModel1.Store.MPOG_Concept_ID_Required">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MPOG_XinyuModel1.MPOG_Concept_ID_Required_Result">
+                <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+                <ScalarProperty Name="MPOG_Concept_Header_Name" ColumnName="MPOG_Concept_Header_Name" />
+                <ScalarProperty Name="MPOG_Concept_ID" ColumnName="MPOG_Concept_ID" />
+                <ScalarProperty Name="concept_desc" ColumnName="concept_desc" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Spec" FunctionName="MPOG_XinyuModel1.Store.Spec">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Spec_Result">
@@ -286,22 +297,13 @@
                 <ScalarProperty Name="Rationale" ColumnName="Rationale" />
                 <ScalarProperty Name="Inclusions" ColumnName="Inclusions" />
                 <ScalarProperty Name="Exclusions" ColumnName="Exclusions" />
+                <ScalarProperty Name="Other_Build_Details" ColumnName="Other_Build_Details" />
                 <ScalarProperty Name="Success" ColumnName="Success" />
                 <ScalarProperty Name="Threshold" ColumnName="Threshold" />
                 <ScalarProperty Name="Responsible_Provider" ColumnName="Responsible_Provider" />
                 <ScalarProperty Name="Risk_Adjustment" ColumnName="Risk_Adjustment" />
                 <ScalarProperty Name="Flow_Chart" ColumnName="Flow_Chart" />
                 <ScalarProperty Name="Reference" ColumnName="Reference" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="MPOG_Concept_ID_Required" FunctionName="MPOG_XinyuModel1.Store.MPOG_Concept_ID_Required">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MPOG_XinyuModel1.MPOG_Concept_ID_Required_Result">
-                <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
-                <ScalarProperty Name="MPOG_Concept_Header_Name" ColumnName="MPOG_Concept_Header_Name" />
-                <ScalarProperty Name="MPOG_Concept_ID" ColumnName="MPOG_Concept_ID" />
-                <ScalarProperty Name="concept_desc" ColumnName="concept_desc" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
