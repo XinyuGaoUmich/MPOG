@@ -233,8 +233,8 @@ namespace demo3.Controllers
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }          
-            return Redirect("/Pager/Index");
+            }
+            return RedirectToAction("Index", "Spec", new { id });
         }
 
         public ActionResult Logout()

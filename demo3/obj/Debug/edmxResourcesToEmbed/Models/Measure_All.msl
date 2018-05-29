@@ -66,5 +66,55 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Collations" FunctionName="MPOG_XinyuModel1.Store.Collations">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Collations_Result">
+          <ScalarProperty Name="Collation_Name" ColumnName="Collation_Name" />
+          <ScalarProperty Name="Dependency_Level" ColumnName="Dependency_Level" />
+          <ScalarProperty Name="Has_Been_Built" ColumnName="Has_Been_Built" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Data_Diagnostics_Affected" FunctionName="MPOG_XinyuModel1.Store.Data_Diagnostics_Affected">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Data_Diagnostics_Affected_Result">
+          <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+          <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Spec" FunctionName="MPOG_XinyuModel1.Store.Spec">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Spec_Result">
+          <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+          <ScalarProperty Name="Measure_Abbreviation" ColumnName="Measure_Abbreviation" />
+          <ScalarProperty Name="Data_Collection_Method" ColumnName="Data_Collection_Method" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="NQS_Domain" ColumnName="NQS_Domain" />
+          <ScalarProperty Name="Measure_Type" ColumnName="Measure_Type" />
+          <ScalarProperty Name="Scope" ColumnName="Scope" />
+          <ScalarProperty Name="Measure_Summary" ColumnName="Measure_Summary" />
+          <ScalarProperty Name="Rationale" ColumnName="Rationale" />
+          <ScalarProperty Name="Inclusions" ColumnName="Inclusions" />
+          <ScalarProperty Name="Exclusions" ColumnName="Exclusions" />
+          <ScalarProperty Name="Success" ColumnName="Success" />
+          <ScalarProperty Name="Threshold" ColumnName="Threshold" />
+          <ScalarProperty Name="Responsible_Provider" ColumnName="Responsible_Provider" />
+          <ScalarProperty Name="Risk_Adjustment" ColumnName="Risk_Adjustment" />
+          <ScalarProperty Name="Flow_Chart" ColumnName="Flow_Chart" />
+          <ScalarProperty Name="Reference" ColumnName="Reference" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="MPOG_Concept_ID_Required" FunctionName="MPOG_XinyuModel1.Store.MPOG_Concept_ID_Required">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.MPOG_Concept_ID_Required_Result">
+          <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+          <ScalarProperty Name="MPOG_Concept_Header_Name" ColumnName="MPOG_Concept_Header_Name" />
+          <ScalarProperty Name="MPOG_Concept_ID" ColumnName="MPOG_Concept_ID" />
+          <ScalarProperty Name="concept_desc" ColumnName="concept_desc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

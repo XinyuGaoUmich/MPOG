@@ -249,6 +249,7 @@
     <Compile Include="Controllers\MeasuresController.cs" />
     <Compile Include="Controllers\NoAccessController.cs" />
     <Compile Include="Controllers\PagerController.cs" />
+    <Compile Include="Controllers\SpecController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -256,6 +257,12 @@
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Auth.cs" />
+    <Compile Include="Models\Collations_Result.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Data_Diagnostics_Affected_Result.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Details_All_Result.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
@@ -309,6 +316,9 @@
     <Compile Include="Models\MPOG_Concepts.cs">
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MPOG_Concept_ID_Required_Result.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MPOG_Concept_Types.cs">
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
@@ -323,6 +333,9 @@
     </Compile>
     <Compile Include="Models\Section_fields.cs">
       <DependentUpon>Measure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Spec_Result.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -411,6 +424,7 @@
     <Content Include="Views\Measures\Public.cshtml" />
     <Content Include="Views\Pager\Index.cshtml" />
     <Content Include="Views\Pager\Editable.cshtml" />
+    <Content Include="Views\Spec\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

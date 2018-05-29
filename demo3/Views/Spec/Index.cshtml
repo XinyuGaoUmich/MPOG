@@ -1,0 +1,165 @@
+﻿
+
+@{
+/**/
+
+ViewBag.Title = "Index";
+}
+
+
+<link href="~/Content/table.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/table_in_spec.css" rel="stylesheet" type="text/css" />
+
+
+@using (Html.BeginForm("Export", "Pager", FormMethod.Post))
+{
+<div style="display:flex; justify-content:space-between">
+    <div>
+        <h4>Pager</h4>
+    </div>
+    <div style="position:relative;right:0px ;text-align:right">
+        <input type="submit" id="btnSubmit" value="Save as PDF" />
+    </div>
+</div>
+<input type="hidden" name="GridHtml" />
+
+}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {
+            $("input[name='GridHtml']").val($("#Grid").html());
+        });
+    });
+  </script>
+<hr />
+<div style="overflow: auto; text-align:center" id="Grid">
+    <dl class="dl-horizontal" style="text-align:center">
+
+        <dt>
+            Measure Abbreviation
+        </dt>
+        <dd>
+            @ViewBag.basic.Measure_Abbreviation
+        </dd>
+
+        <dt>
+            Data Collection Method
+        </dt>
+        <dd>
+            @ViewBag.basic.Data_Collection_Method
+        </dd>
+
+        <dt>
+            Description
+        </dt>
+        <dd>
+            @ViewBag.basic.Description
+        </dd>
+
+        <dt>
+            NQS Domain
+        </dt>
+        <dd>
+            @ViewBag.basic.NQS_Domain
+        </dd>
+
+        <dt>
+            Measure Type
+        </dt>
+        <dd>
+            @ViewBag.basic.Measure_Type
+        </dd>
+
+        <dt>
+            Scope
+        </dt>
+        <dd>
+            @ViewBag.basic.Scope
+        </dd>
+
+        <dt>
+            Measure Summary
+        </dt>
+        <dd>
+            @ViewBag.basic.Measure_Summary
+        </dd>
+
+        <dt>
+            Rationale
+        </dt>
+        <dd>
+            @ViewBag.basic.Rationale
+        </dd>
+
+        <dt>
+            Inclusions
+        </dt>
+        <dd>
+            @ViewBag.basic.Inclusions
+        </dd>
+
+        <dt>
+            Exclusions
+        </dt>
+        <dd>
+            @ViewBag.basic.Exclusions
+        </dd>
+
+        <dt>
+             MPOG Concept IDs Required
+        </dt>
+        <dd style="text-align: center">
+            @*@foreach (var item in ViewBag.concept)
+        {
+            <ul>
+                <li>
+                    @item.MPOG_Concept_Header_Name @item.MPOG_Concept_ID @item.concept_desc
+                </li>
+            </ul>
+        }*@
+            <table align="center" cellspacing="100">
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>
+                                MPOG Concept Header Name
+                            </strong>
+                        </td>
+                        <td>
+                            <strong>
+                                MPOG Concept ID
+                            </strong>
+                        </td>
+                        <td>
+                            <strong>
+                                MPOG Concept Type
+                            </strong>
+                        </td>
+                    </tr>
+                    @foreach (var item in ViewBag.concept)
+                    {
+                        <tr>                          
+                            <td>                              
+                                @item.MPOG_Concept_Header_Name                              
+                            </td>
+                            <td>                               
+                                @item.MPOG_Concept_ID
+                            </td>
+                            <td>
+                                @item.concept_desc
+                            </td>                           
+                        </tr>
+                     }
+                  
+                    </tbody>
+            </table>
+        </dd>
+
+
+    </dl>
+
+
+</div>
+
+

@@ -16,6 +16,12 @@
           <Parameter Name="Measure_Spec_Completed" Type="bit" Mode="In" />
           <Parameter Name="Date_Published" Type="date" Mode="In" />
         </Function>
+        <Function Name="Collations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Data_Diagnostics_Affected" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="Delete_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
         </Function>
@@ -35,10 +41,16 @@
           <Parameter Name="Date_Published" Type="date" Mode="In" />
         </Function>
         <Function Name="Measure_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="MPOG_Concept_ID_Required" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="Pager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
         </Function>
         <Function Name="Public_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Spec" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="MPOG_XinyuModel1StoreContainer" />
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -77,6 +89,18 @@
             <Parameter Name="Date_Published" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="Pager" ReturnType="Collection(MPOG_XinyuModel1.Pager_Result)" >
+          <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Collations" ReturnType="Collection(MPOG_XinyuModel1.Collations_Result)">
+          <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Data_Diagnostics_Affected" ReturnType="Collection(MPOG_XinyuModel1.Data_Diagnostics_Affected_Result)">
+          <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Spec" ReturnType="Collection(MPOG_XinyuModel1.Spec_Result)">
+          <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MPOG_Concept_ID_Required" ReturnType="Collection(MPOG_XinyuModel1.MPOG_Concept_ID_Required_Result)">
             <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -125,6 +149,40 @@
           <Property Type="String" Name="Responsible_Provider" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="Risk_Adjustment" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="Reference" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Collations_Result">
+          <Property Type="String" Name="Collation_Name" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="Dependency_Level" Nullable="true" />
+          <Property Type="Boolean" Name="Has_Been_Built" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Data_Diagnostics_Affected_Result">
+          <Property Type="Int32" Name="Measure_ID" Nullable="false" />
+          <Property Type="String" Name="Display_Name" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="Spec_Result">
+          <Property Type="Int32" Name="Measure_ID" Nullable="false" />
+          <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Data_Collection_Method" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="Int32" Name="NQS_Domain" Nullable="true" />
+          <Property Type="Int32" Name="Measure_Type" Nullable="true" />
+          <Property Type="Int32" Name="Scope" Nullable="true" />
+          <Property Type="String" Name="Measure_Summary" Nullable="true" />
+          <Property Type="String" Name="Rationale" Nullable="true" />
+          <Property Type="String" Name="Inclusions" Nullable="true" />
+          <Property Type="String" Name="Exclusions" Nullable="true" />
+          <Property Type="String" Name="Success" Nullable="true" MaxLength="10" />
+          <Property Type="Decimal" Name="Threshold" Nullable="true" Precision="18" Scale="3" />
+          <Property Type="String" Name="Responsible_Provider" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Risk_Adjustment" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Flow_Chart" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Reference" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="MPOG_Concept_ID_Required_Result">
+          <Property Type="Int32" Name="Measure_ID" Nullable="false" />
+          <Property Type="String" Name="MPOG_Concept_Header_Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="MPOG_Concept_ID" Nullable="true" />
+          <Property Type="String" Name="concept_desc" Nullable="false" MaxLength="255" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -194,6 +252,56 @@
                 <ScalarProperty Name="Responsible_Provider" ColumnName="Responsible_Provider" />
                 <ScalarProperty Name="Risk_Adjustment" ColumnName="Risk_Adjustment" />
                 <ScalarProperty Name="Reference" ColumnName="Reference" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Collations" FunctionName="MPOG_XinyuModel1.Store.Collations">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Collations_Result">
+                <ScalarProperty Name="Collation_Name" ColumnName="Collation_Name" />
+                <ScalarProperty Name="Dependency_Level" ColumnName="Dependency_Level" />
+                <ScalarProperty Name="Has_Been_Built" ColumnName="Has_Been_Built" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Data_Diagnostics_Affected" FunctionName="MPOG_XinyuModel1.Store.Data_Diagnostics_Affected">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Data_Diagnostics_Affected_Result">
+                <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+                <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Spec" FunctionName="MPOG_XinyuModel1.Store.Spec">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Spec_Result">
+                <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+                <ScalarProperty Name="Measure_Abbreviation" ColumnName="Measure_Abbreviation" />
+                <ScalarProperty Name="Data_Collection_Method" ColumnName="Data_Collection_Method" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="NQS_Domain" ColumnName="NQS_Domain" />
+                <ScalarProperty Name="Measure_Type" ColumnName="Measure_Type" />
+                <ScalarProperty Name="Scope" ColumnName="Scope" />
+                <ScalarProperty Name="Measure_Summary" ColumnName="Measure_Summary" />
+                <ScalarProperty Name="Rationale" ColumnName="Rationale" />
+                <ScalarProperty Name="Inclusions" ColumnName="Inclusions" />
+                <ScalarProperty Name="Exclusions" ColumnName="Exclusions" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Threshold" ColumnName="Threshold" />
+                <ScalarProperty Name="Responsible_Provider" ColumnName="Responsible_Provider" />
+                <ScalarProperty Name="Risk_Adjustment" ColumnName="Risk_Adjustment" />
+                <ScalarProperty Name="Flow_Chart" ColumnName="Flow_Chart" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MPOG_Concept_ID_Required" FunctionName="MPOG_XinyuModel1.Store.MPOG_Concept_ID_Required">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MPOG_XinyuModel1.MPOG_Concept_ID_Required_Result">
+                <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+                <ScalarProperty Name="MPOG_Concept_Header_Name" ColumnName="MPOG_Concept_Header_Name" />
+                <ScalarProperty Name="MPOG_Concept_ID" ColumnName="MPOG_Concept_ID" />
+                <ScalarProperty Name="concept_desc" ColumnName="concept_desc" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -11,6 +11,12 @@
     <Parameter Name="Measure_Spec_Completed" Type="bit" Mode="In" />
     <Parameter Name="Date_Published" Type="date" Mode="In" />
   </Function>
+  <Function Name="Collations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Data_Diagnostics_Affected" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+  </Function>
   <Function Name="Delete_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
   </Function>
@@ -30,9 +36,15 @@
     <Parameter Name="Date_Published" Type="date" Mode="In" />
   </Function>
   <Function Name="Measure_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="MPOG_Concept_ID_Required" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+  </Function>
   <Function Name="Pager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
   </Function>
   <Function Name="Public_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Spec" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="MPOG_XinyuModel1StoreContainer" />
 </Schema>
