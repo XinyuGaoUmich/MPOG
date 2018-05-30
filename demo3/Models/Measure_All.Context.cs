@@ -27,11 +27,7 @@ namespace demo3.Models
             throw new UnintentionalCodeFirstException();
         }
     
-    
-        public virtual ObjectResult<Measure_List_Result> Measure_List()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Measure_List_Result>("Measure_List");
-        }
+        public virtual DbSet<Status_Type> Status_Type { get; set; }
     
         public virtual ObjectResult<Details_All_Result> Details_All(Nullable<int> measure_ID)
         {
@@ -40,11 +36,6 @@ namespace demo3.Models
                 new ObjectParameter("Measure_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Details_All_Result>("Details_All", measure_IDParameter);
-        }
-    
-        public virtual ObjectResult<Public_Measure_Result> Public_Measure()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Public_Measure_Result>("Public_Measure");
         }
     
         public virtual int Add_Measure(string measure_Abbreviation, string measure_Title, string nQS_Domain, string qCDR_Measure_Name, Nullable<bool> vBR, string clinical_Lead, string developer, Nullable<bool> measure_Spec_Completed, Nullable<System.DateTime> date_Published)
@@ -185,6 +176,25 @@ namespace demo3.Models
                 new ObjectParameter("Measure_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Spec_Result>("Spec", measure_IDParameter);
+        }
+    
+        public virtual ObjectResult<Public_Measure_Result> Public_Measure()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Public_Measure_Result>("Public_Measure");
+        }
+    
+        public virtual ObjectResult<Pager_Auth_Result> Pager_Auth(Nullable<int> measure_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pager_Auth_Result>("Pager_Auth", measure_IDParameter);
+        }
+    
+        public virtual ObjectResult<Measure_List_Result> Measure_List()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Measure_List_Result>("Measure_List");
         }
     }
 }

@@ -23,5 +23,7 @@ namespace demo3.Models
         public string Developer { get; set; }
         public Nullable<bool> Measure_Spec_Completed { get; set; }
         public Nullable<System.DateTime> Date_Published { get; set; }
+        public Nullable<int> Status_ID { get; set; }
+        public string Status_Name { get; set; }
     }
 }

@@ -1,21 +1,7 @@
 ﻿@model demo3.Models.Pager_Result
 
 @{
-                /**/
-
-                /**/
-                ViewBag.Title = "Index";
-                Boolean isLoggedin = false;
-                Boolean notForUser = false;
-
-                if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
-                {
-                    isLoggedin = true;
-                }
-                else if (Session["userid"] != null)
-                {
-                    notForUser = true;
-                }
+    ViewBag.Title = "Index";
 
 }
 
@@ -46,13 +32,6 @@
     });
 </script>
 
-@if (isLoggedin)
-{
-    <p>
-        @Html.ActionLink("Edit Pager", "Edit")
-
-    </p>
-}
 
 <hr />
 <div style="overflow: auto; text-align:center" id="Grid">

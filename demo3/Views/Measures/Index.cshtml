@@ -1,5 +1,6 @@
-﻿@model IEnumerable<demo3.Models.Measure_List_Result>
+﻿@model demo3.Models.MeasureStatus
 
+@*@model IEnumerable<demo3.Models.Measure_List_Result>*@
 @{
 
     ViewBag.Title = "MainPage";
@@ -11,7 +12,8 @@
     if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
     {
         isLoggedin = true;
-    } else if (Session["userid"] != null)
+    }
+    else if (Session["userid"] != null)
     {
         notForUser = true;
     }
@@ -20,7 +22,7 @@
 
 }
 
-<link href="~/Content/table.css" rel="stylesheet" type="text/css"/>
+<link href="~/Content/table.css" rel="stylesheet" type="text/css" />
 
 @if (isLoggedin)
 {
@@ -42,39 +44,39 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Measure_Abbreviation)
+                @Html.DisplayNameFor(model => model.Measure_List_Results.First().Measure_Abbreviation)
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.Measure_Title)
+                @Html.DisplayNameFor(model => model.Measure_List_Results.First().Measure_Title)
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.NQS_Domain)
+                @Html.DisplayNameFor(model => model.Measure_List_Results.First().NQS_Domain)
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.QCDR_Measure_Name)
+                @Html.DisplayNameFor(model => model.Measure_List_Results.First().QCDR_Measure_Name)
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.VBR)
+                @Html.DisplayNameFor(model => model.Measure_List_Results.First().VBR)
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.Clinical_Lead)
+                @Html.DisplayNameFor(model => model.Measure_List_Results.First().Clinical_Lead)
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.Developer)
+                @Html.DisplayNameFor(model => model.Measure_List_Results.First().Developer)
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.Measure_Spec_Completed)
+                @Html.DisplayNameFor(model => model.Measure_List_Results.First().Measure_Spec_Completed)
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.Date_Published)
+                @Html.DisplayNameFor(model => model.Measure_List_Results.First().Date_Published)
             </th>
 
             <th>
@@ -88,11 +90,14 @@
                 <th>
                     Operations
                 </th>
+                <th>
+                    Status Type
+                </th>
             }
 
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.Measure_List_Results)
         {
             <tr>
                 <td>
@@ -165,25 +170,32 @@
                     @Html.ActionLink(item.Measure_Abbreviation.ToString().Replace("-", " ") + " Spec", "Spec", new { id = item.Measure_ID })
                 </td>
 
-            
 
-            @if (isLoggedin)
-            {
-                <td style="text-align: left">
-                    <ul>
-                        <li>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Measure_ID })
-                        </li>
-                        <li>
-                            @Html.ActionLink("Details", "Details", new { id = item.Measure_ID })
-                        </li>
-                        <li>
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Measure_ID })
-                        </li>
-                    </ul>
-                </td>
-            }
-                </tr>
+
+                @if (isLoggedin)
+                {
+                    <td style="text-align: left">
+                        <ul>
+                            <li>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Measure_ID })
+                            </li>
+                            <li>
+                                @Html.ActionLink("Details", "Details", new { id = item.Measure_ID })
+                            </li>
+                            <li>
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Measure_ID })
+                            </li>
+                        </ul>
+                    </td>
+
+
+                    <td style="width: 200px">
+                        @*@Html.DisplayFor(modelItem => item.Status_Name)*@
+                        @Html.DropDownListFor(model => model.Status_Types, new SelectList(Model.Status_Types, "Status_ID", "Status_Name","validation"), new { @class = "form-control", style="width: 100px"})
+                    </td>
+                }
+
+            </tr>
         }
 
     </table>

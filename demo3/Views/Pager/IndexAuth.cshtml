@@ -1,0 +1,166 @@
+﻿@model demo3.Models.Pager_Auth_Result
+
+@{
+    ViewBag.Title = "Index";
+    Boolean isLoggedin = false;
+   
+
+    if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
+    {
+        isLoggedin = true;
+    }
+
+}
+
+
+<link href="~/Content/table.css" rel="stylesheet" type="text/css" />
+
+
+
+@using (Html.BeginForm("Export", "Pager", FormMethod.Post))
+{
+    <div style="display:flex; justify-content:space-between">
+        <div>
+            <h4>Pager</h4>
+        </div>
+        <div style="position:relative;right:0px ;text-align:right">
+            <input type="submit" id="btnSubmit" value="Save as PDF" />
+        </div>
+    </div>
+    <input type="hidden" name="GridHtml" />
+
+}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {
+            $("input[name='GridHtml']").val($("#Grid").html());
+        });
+    });
+</script>
+
+@if (isLoggedin)
+{
+    <p>
+        @Html.ActionLink("Edit Pager", "Edit", new { id = Model.Measure_ID })
+
+    </p>
+}
+
+<hr />
+<div style="overflow: auto; text-align:center" id="Grid">
+    <dl class="dl-horizontal" style="text-align:center">
+        <dt>
+            @Html.DisplayNameFor(model => model.Measure_Abbreviation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Measure_Abbreviation).ToString().Replace("-", " ")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Data_Collection_Method)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Data_Collection_Method)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NQS_Domain)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NQS_Domain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Measure_Type)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Measure_Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Scope)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Scope)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Measure_Summary)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Measure_Summary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Inclusions)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Inclusions)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Exclusions)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Exclusions)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Success)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Success)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Threshold)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Threshold)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Responsible_Provider)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Responsible_Provider)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Risk_Adjustment)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Risk_Adjustment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reference)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Reference)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status_Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Status_Name)
+        </dd>
+    </dl>
+
+
+</div>
+
+<p>
+    @Html.ActionLink("Back to List", "ReturnToMeasure")
+</p>
+

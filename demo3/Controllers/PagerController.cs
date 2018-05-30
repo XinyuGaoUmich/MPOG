@@ -18,11 +18,10 @@ namespace demo3.Controllers
         private MPOG_XinyuEntities4 db2 = new MPOG_XinyuEntities4();
         public ActionResult Index(int? id)
         {
-
-            //if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
-            //{
-            //    return RedirectToAction("Editable");
-            //}
+            if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
+            {
+                return RedirectToAction("IndexAuth", new { id = id});
+            }
             return View(db2.Pager(id).First());
         }
 
@@ -30,7 +29,7 @@ namespace demo3.Controllers
         {
             if (Session["roles"] == null || !Session["roles"].ToString().Contains("MeasureSpecEditor"))
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = id});
             }
             return View(db2.Pager(id).ToList());
         }
@@ -82,7 +81,12 @@ namespace demo3.Controllers
         // GET: Pager/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            if (Session["roles"] == null || !Session["roles"].ToString().Contains("MeasureSpecEditor"))
+            {
+                return RedirectToAction("Index", new { id = id });
+            }
+          
+            return View(db2.Pager(id).First());
         }
 
         // POST: Pager/Edit/5
@@ -126,6 +130,15 @@ namespace demo3.Controllers
         public ActionResult ReturnToMeasure()
         {
             return Redirect("/Measures/Index");
+        }
+
+        public ActionResult IndexAuth(int? id)
+        {
+            if (Session["roles"] == null || !Session["roles"].ToString().Contains("MeasureSpecEditor"))
+            {
+                return RedirectToAction("Index", new { id = id });
+            }
+            return View(db2.Pager_Auth(id).First());
         }
     }
 }

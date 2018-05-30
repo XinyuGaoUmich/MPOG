@@ -287,6 +287,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Measure.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\MeasureStatus.cs" />
     <Compile Include="Models\Measure_All.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -324,6 +325,9 @@
     </Compile>
     <Compile Include="Models\OIDCNonceCookieCleanupMiddleware.cs" />
     <Compile Include="Models\PagerMeta.cs" />
+    <Compile Include="Models\Pager_Auth_Result.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Pager_Result.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
@@ -335,6 +339,9 @@
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Spec_Result.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Status_Type.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -427,10 +434,10 @@
     <Content Include="Views\Pager\Edit.cshtml" />
     <Content Include="Views\Spec\Index.cshtml" />
     <Content Include="Views\Spec\Edit.cshtml" />
+    <Content Include="Views\Pager\IndexAuth.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\NewFolder1\" />
     <Folder Include="Views\PdfView\" />
     <Folder Include="Views\Session\" />
   </ItemGroup>

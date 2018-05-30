@@ -1,11 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="MPOG_XinyuModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="MPOG_XinyuEntities4" annotation:LazyLoadingEnabled="true">
-    <FunctionImport Name="Measure_List" ReturnType="Collection(MPOG_XinyuModel1.Measure_List_Result)" />
     <FunctionImport Name="Details_All" ReturnType="Collection(MPOG_XinyuModel1.Details_All_Result)">
       <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="Public_Measure" ReturnType="Collection(MPOG_XinyuModel1.Public_Measure_Result)" />
     <FunctionImport Name="Add_Measure">
       <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
       <Parameter Name="Measure_Title" Mode="In" Type="String" />
@@ -47,19 +45,13 @@
     <FunctionImport Name="Spec" ReturnType="Collection(MPOG_XinyuModel1.Spec_Result)">
       <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="Public_Measure" ReturnType="Collection(MPOG_XinyuModel1.Public_Measure_Result)" />
+    <FunctionImport Name="Pager_Auth" ReturnType="Collection(MPOG_XinyuModel1.Pager_Auth_Result)">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Measure_List" ReturnType="Collection(MPOG_XinyuModel1.Measure_List_Result)" />
+    <EntitySet Name="Status_Type" EntityType="MPOG_XinyuModel1.Status_Type" />
   </EntityContainer>
-  <ComplexType Name="Measure_List_Result">
-    <Property Type="Int32" Name="Measure_ID" Nullable="false" />
-    <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="Measure_Title" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="NQS_Domain" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="QCDR_Measure_Name" Nullable="true" MaxLength="10" />
-    <Property Type="Boolean" Name="VBR" Nullable="true" />
-    <Property Type="String" Name="Clinical_Lead" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="Developer" Nullable="true" MaxLength="20" />
-    <Property Type="Boolean" Name="Measure_Spec_Completed" Nullable="true" />
-    <Property Type="DateTime" Name="Date_Published" Nullable="true" />
-  </ComplexType>
   <ComplexType Name="Details_All_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />
     <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
@@ -71,11 +63,6 @@
     <Property Type="String" Name="Developer" Nullable="true" MaxLength="20" />
     <Property Type="Boolean" Name="Measure_Spec_Completed" Nullable="true" />
     <Property Type="DateTime" Name="Date_Published" Nullable="true" />
-  </ComplexType>
-  <ComplexType Name="Public_Measure_Result">
-    <Property Type="Int32" Name="Measure_ID" Nullable="false" />
-    <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="Measure_Title" Nullable="true" MaxLength="50" />
   </ComplexType>
   <ComplexType Name="Collations_Result">
     <Property Type="String" Name="Collation_Name" Nullable="true" MaxLength="200" />
@@ -129,4 +116,49 @@
     <Property Type="String" Name="Flow_Chart" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="Reference" Nullable="true" />
   </ComplexType>
+  <ComplexType Name="Public_Measure_Result">
+    <Property Type="Int32" Name="Measure_ID" Nullable="false" />
+    <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Measure_Title" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="Pager_Auth_Result">
+    <Property Type="String" Name="NQS_Domain" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Responsible_Provider" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Status_ID" Nullable="true" />
+    <Property Type="String" Name="Status_Name" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Measure_Type" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Scope" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Measure_ID" Nullable="false" />
+    <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Data_Collection_Method" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="Description" Nullable="true" />
+    <Property Type="String" Name="Measure_Summary" Nullable="true" />
+    <Property Type="String" Name="Inclusions" Nullable="true" />
+    <Property Type="String" Name="Exclusions" Nullable="true" />
+    <Property Type="String" Name="Success" Nullable="true" MaxLength="10" />
+    <Property Type="Decimal" Name="Threshold" Nullable="true" Precision="18" Scale="3" />
+    <Property Type="String" Name="Risk_Adjustment" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="Reference" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="Measure_List_Result">
+    <Property Type="Int32" Name="Measure_ID" Nullable="false" />
+    <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Measure_Title" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="NQS_Domain" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="QCDR_Measure_Name" Nullable="true" MaxLength="10" />
+    <Property Type="Boolean" Name="VBR" Nullable="true" />
+    <Property Type="String" Name="Clinical_Lead" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="Developer" Nullable="true" MaxLength="20" />
+    <Property Type="Boolean" Name="Measure_Spec_Completed" Nullable="true" />
+    <Property Type="DateTime" Name="Date_Published" Nullable="true" />
+    <Property Type="Int32" Name="Status_ID" Nullable="true" />
+    <Property Type="String" Name="Status_Name" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <EntityType Name="Status_Type">
+    <Key>
+      <PropertyRef Name="Status_ID" />
+    </Key>
+    <Property Name="Status_ID" Type="Int32" Nullable="false" />
+    <Property Name="Status_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>
