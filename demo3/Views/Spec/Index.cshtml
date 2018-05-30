@@ -1,27 +1,37 @@
-﻿
+﻿@{
+                /**/
 
-@{
-/**/
+                /**/
+                ViewBag.Title = "Spec";
+                Boolean isLoggedin = false;
+                Boolean notForUser = false;
+                // check session
 
-ViewBag.Title = "Index";
+                if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
+                {
+                    isLoggedin = true;
+                }
+
 }
 
 
 <link href="~/Content/table.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/table_in_spec.css" rel="stylesheet" type="text/css" />
 
-
+<!--
+below is wait to be mofidied
+-->
 @using (Html.BeginForm("Export", "Pager", FormMethod.Post))
 {
-<div style="display:flex; justify-content:space-between">
-    <div>
-        <h4>Pager</h4>
+    <div style="display:flex; justify-content:space-between">
+        <div>
+            <h4>Spec</h4>
+        </div>
+        <div style="position:relative;right:0px ;text-align:right">
+            <input type="submit" id="btnSubmit" value="Save as PDF" />
+        </div>
     </div>
-    <div style="position:relative;right:0px ;text-align:right">
-        <input type="submit" id="btnSubmit" value="Save as PDF" />
-    </div>
-</div>
-<input type="hidden" name="GridHtml" />
+    <input type="hidden" name="GridHtml" />
 
 }
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -31,7 +41,13 @@ ViewBag.Title = "Index";
             $("input[name='GridHtml']").val($("#Grid").html());
         });
     });
-  </script>
+</script>
+@if (isLoggedin)
+{
+    <p>
+         @Html.ActionLink("Edit Spec", "Edit")
+    </p>
+}
 <hr />
 <div style="overflow: auto; text-align:center" id="Grid">
     <dl class="dl-horizontal" style="text-align:center">
@@ -110,14 +126,6 @@ ViewBag.Title = "Index";
             MPOG Concept IDs Required
         </dt>
         <dd style="text-align: center">
-            @*@foreach (var item in ViewBag.concept)
-            {
-                <ul>
-                    <li>
-                        @item.MPOG_Concept_Header_Name @item.MPOG_Concept_ID @item.concept_desc
-                    </li>
-                </ul>
-            }*@
             <table align="center" cellspacing="100">
                 <tbody>
                     <tr>
@@ -161,17 +169,20 @@ ViewBag.Title = "Index";
         </dt>
 
         <dd style="padding-top: 10px">
-            <ul style="text-align:center">
-                @foreach (var item in ViewBag.diagnostics)
-                {
+            <div class="wrapper" style="text-align:center;display:inline-block;margin:0;padding:0">
 
-                    <li>
-                        @item.Display_Name
-                    </li>
 
-                }
-            </ul>
+                <ul style="text-align:left;display:inline-block;margin:0;padding:0">
+                    @foreach (var item in ViewBag.diagnostics)
+                    {
 
+                        <li>
+                            @item.Display_Name
+                        </li>
+
+                    }
+                </ul>
+            </div>
         </dd>
 
         <dt>
@@ -179,14 +190,16 @@ ViewBag.Title = "Index";
         </dt>
 
         <dd>
-            <ul>
-                @foreach (var item in ViewBag.collations)
-                {
-                    <li>
-                        @item.Collation_Name
-                    </li>
-                }
-            </ul>
+            <div class="wrapper" style="text-align:center;display:inline-block;margin:0;padding:0">
+                <ul style="text-align:left;display:inline-block;margin:0;padding:0">
+                    @foreach (var item in ViewBag.collations)
+                    {
+                        <li>
+                            @item.Collation_Name
+                        </li>
+                    }
+                </ul>
+            </div>
         </dd>
 
         <dt>

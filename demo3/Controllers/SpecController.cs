@@ -19,5 +19,10 @@ namespace demo3.Controllers
             ViewBag.concept = db2.MPOG_Concept_ID_Required(id);
             return View();
         }
+
+        public ActionResult Edit()
+        {
+            return View();
+        }
     }
 }
