@@ -24,5 +24,10 @@ namespace demo3.Controllers
         {
             return View();
         }
+
+        public ActionResult ReturnToMeasure()
+        {
+            return Redirect("/Measures/Index");
+        }
     }
 }

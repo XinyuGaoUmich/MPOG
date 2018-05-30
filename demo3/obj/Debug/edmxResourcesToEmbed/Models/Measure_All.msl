@@ -45,27 +45,6 @@
     <FunctionImportMapping FunctionImportName="Add_Measure" FunctionName="MPOG_XinyuModel1.Store.Add_Measure" />
     <FunctionImportMapping FunctionImportName="Delete_Measure" FunctionName="MPOG_XinyuModel1.Store.Delete_Measure" />
     <FunctionImportMapping FunctionImportName="Edit_Measure" FunctionName="MPOG_XinyuModel1.Store.Edit_Measure" />
-    <FunctionImportMapping FunctionImportName="Pager" FunctionName="MPOG_XinyuModel1.Store.Pager">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Pager_Result">
-          <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
-          <ScalarProperty Name="Measure_Abbreviation" ColumnName="Measure_Abbreviation" />
-          <ScalarProperty Name="Data_Collection_Method" ColumnName="Data_Collection_Method" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="NQS_Domain" ColumnName="NQS_Domain" />
-          <ScalarProperty Name="Measure_Type" ColumnName="Measure_Type" />
-          <ScalarProperty Name="Scope" ColumnName="Scope" />
-          <ScalarProperty Name="Measure_Summary" ColumnName="Measure_Summary" />
-          <ScalarProperty Name="Inclusions" ColumnName="Inclusions" />
-          <ScalarProperty Name="Exclusions" ColumnName="Exclusions" />
-          <ScalarProperty Name="Success" ColumnName="Success" />
-          <ScalarProperty Name="Threshold" ColumnName="Threshold" />
-          <ScalarProperty Name="Responsible_Provider" ColumnName="Responsible_Provider" />
-          <ScalarProperty Name="Risk_Adjustment" ColumnName="Risk_Adjustment" />
-          <ScalarProperty Name="Reference" ColumnName="Reference" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="Collations" FunctionName="MPOG_XinyuModel1.Store.Collations">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Collations_Result">
@@ -93,16 +72,38 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="Spec" FunctionName="MPOG_XinyuModel1.Store.Spec">
+    <FunctionImportMapping FunctionImportName="Pager" FunctionName="MPOG_XinyuModel1.Store.Pager">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Spec_Result">
+        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Pager_Result">
+          <ScalarProperty Name="NQS_Domain" ColumnName="NQS_Domain" />
+          <ScalarProperty Name="Responsible_Provider" ColumnName="Responsible_Provider" />
+          <ScalarProperty Name="Measure_Type" ColumnName="Measure_Type" />
+          <ScalarProperty Name="Scope" ColumnName="Scope" />
           <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
           <ScalarProperty Name="Measure_Abbreviation" ColumnName="Measure_Abbreviation" />
           <ScalarProperty Name="Data_Collection_Method" ColumnName="Data_Collection_Method" />
           <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Measure_Summary" ColumnName="Measure_Summary" />
+          <ScalarProperty Name="Inclusions" ColumnName="Inclusions" />
+          <ScalarProperty Name="Exclusions" ColumnName="Exclusions" />
+          <ScalarProperty Name="Success" ColumnName="Success" />
+          <ScalarProperty Name="Threshold" ColumnName="Threshold" />
+          <ScalarProperty Name="Risk_Adjustment" ColumnName="Risk_Adjustment" />
+          <ScalarProperty Name="Reference" ColumnName="Reference" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Spec" FunctionName="MPOG_XinyuModel1.Store.Spec">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Spec_Result">
           <ScalarProperty Name="NQS_Domain" ColumnName="NQS_Domain" />
+          <ScalarProperty Name="Responsible_Provider" ColumnName="Responsible_Provider" />
           <ScalarProperty Name="Measure_Type" ColumnName="Measure_Type" />
           <ScalarProperty Name="Scope" ColumnName="Scope" />
+          <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+          <ScalarProperty Name="Measure_Abbreviation" ColumnName="Measure_Abbreviation" />
+          <ScalarProperty Name="Data_Collection_Method" ColumnName="Data_Collection_Method" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Measure_Summary" ColumnName="Measure_Summary" />
           <ScalarProperty Name="Rationale" ColumnName="Rationale" />
           <ScalarProperty Name="Inclusions" ColumnName="Inclusions" />
@@ -110,7 +111,6 @@
           <ScalarProperty Name="Other_Build_Details" ColumnName="Other_Build_Details" />
           <ScalarProperty Name="Success" ColumnName="Success" />
           <ScalarProperty Name="Threshold" ColumnName="Threshold" />
-          <ScalarProperty Name="Responsible_Provider" ColumnName="Responsible_Provider" />
           <ScalarProperty Name="Risk_Adjustment" ColumnName="Risk_Adjustment" />
           <ScalarProperty Name="Flow_Chart" ColumnName="Flow_Chart" />
           <ScalarProperty Name="Reference" ColumnName="Reference" />

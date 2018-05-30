@@ -19,10 +19,10 @@ namespace demo3.Controllers
         public ActionResult Index(int? id)
         {
 
-            if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
-            {
-                return RedirectToAction("Editable");
-            }
+            //if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
+            //{
+            //    return RedirectToAction("Editable");
+            //}
             return View(db2.Pager(id).First());
         }
 
@@ -121,6 +121,11 @@ namespace demo3.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult ReturnToMeasure()
+        {
+            return Redirect("/Measures/Index");
         }
     }
 }

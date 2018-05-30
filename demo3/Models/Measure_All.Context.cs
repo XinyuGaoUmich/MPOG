@@ -142,15 +142,6 @@ namespace demo3.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Edit_Measure", measure_IDParameter, measure_AbbreviationParameter, measure_TitleParameter, nQS_DomainParameter, qCDR_Measure_NameParameter, vBRParameter, clinical_LeadParameter, developerParameter, measure_Spec_CompletedParameter, date_PublishedParameter);
         }
     
-        public virtual ObjectResult<Pager_Result> Pager(Nullable<int> measure_ID)
-        {
-            var measure_IDParameter = measure_ID.HasValue ?
-                new ObjectParameter("Measure_ID", measure_ID) :
-                new ObjectParameter("Measure_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pager_Result>("Pager", measure_IDParameter);
-        }
-    
         public virtual ObjectResult<Collations_Result> Collations(Nullable<int> measure_ID)
         {
             var measure_IDParameter = measure_ID.HasValue ?
@@ -176,6 +167,15 @@ namespace demo3.Models
                 new ObjectParameter("Measure_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MPOG_Concept_ID_Required_Result>("MPOG_Concept_ID_Required", measure_IDParameter);
+        }
+    
+        public virtual ObjectResult<Pager_Result> Pager(Nullable<int> measure_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Pager_Result>("Pager", measure_IDParameter);
         }
     
         public virtual ObjectResult<Spec_Result> Spec(Nullable<int> measure_ID)

@@ -424,7 +424,7 @@
     <Content Include="Views\NoAccess\LoginWithoutAccess.cshtml" />
     <Content Include="Views\Measures\Public.cshtml" />
     <Content Include="Views\Pager\Index.cshtml" />
-    <Content Include="Views\Pager\Editable.cshtml" />
+    <Content Include="Views\Pager\Edit.cshtml" />
     <Content Include="Views\Spec\Index.cshtml" />
     <Content Include="Views\Spec\Edit.cshtml" />
   </ItemGroup>

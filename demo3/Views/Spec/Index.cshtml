@@ -1,16 +1,13 @@
 ﻿@{
-                /**/
+    ViewBag.Title = "Spec";
+    Boolean isLoggedin = false;
+    Boolean notForUser = false;
+    // check session
 
-                /**/
-                ViewBag.Title = "Spec";
-                Boolean isLoggedin = false;
-                Boolean notForUser = false;
-                // check session
-
-                if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
-                {
-                    isLoggedin = true;
-                }
+    if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
+    {
+        isLoggedin = true;
+    }
 
 }
 
@@ -45,7 +42,7 @@ below is wait to be mofidied
 @if (isLoggedin)
 {
     <p>
-         @Html.ActionLink("Edit Spec", "Edit")
+        @Html.ActionLink("Edit Spec", "Edit")
     </p>
 }
 <hr />
@@ -268,3 +265,6 @@ below is wait to be mofidied
 </div>
 
 
+<p>
+    @Html.ActionLink("Back to List", "ReturnToMeasure")
+</p>
