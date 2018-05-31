@@ -20,10 +20,11 @@ namespace demo3.Controllers
         {
             if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
             {
-                var measure_list = db2.Measure_List().ToList();
-                var status = db2.Status_Type.ToList();
-                var model = new MeasureStatus { Measure_List_Results = measure_list, Status_Types = status };
+                var measure_list = db2.Measure_List();
+               var status_types = db2.Status_Type;            
+                var model = new MeasureStatus { Measure_List_Results = measure_list, Status_Types = status_types };
                 // return View(db2.Measure_List().ToList());
+               
                 return View(model);
             }
             

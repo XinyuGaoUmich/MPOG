@@ -44,6 +44,10 @@
     <table class="table">
         <tr>
             <th>
+                Measure Status
+                <button class="btn btn-secondary btn-sm" onclick="SendData(this)">Submit Change</button>
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Measure_List_Results.First().Measure_Abbreviation)
             </th>
 
@@ -100,6 +104,10 @@
         @foreach (var item in Model.Measure_List_Results)
         {
             <tr>
+                <td style="width: 200px">
+                    @Html.DropDownList("Status_ID", new SelectList(Model.Status_Types, "Status_ID", "Status_Name", selectedValue: item.Status_ID), "select-status", new { @class = "form-control", style = "width: 100px", @id = item.Measure_ID, onchange="Update_Selection(this)"})
+
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Measure_Abbreviation).ToString().Replace("-", " ")
                 </td>
@@ -189,14 +197,46 @@
                     </td>
 
 
-                    <td style="width: 200px">
-                        @*@Html.DisplayFor(modelItem => item.Status_Name)*@
-                        @Html.DropDownListFor(model => model.Status_Types, new SelectList(Model.Status_Types, "Status_ID", "Status_Name","validation"), new { @class = "form-control", style="width: 100px"})
+                    <td>
+                        blank
                     </td>
                 }
 
+
             </tr>
+
         }
 
     </table>
 </div>
+<input value="" id="record_id" />
+<input value="" id="record_selection" />
+
+
+<script type="text/javascript">
+  
+    function Update_Selection(selection) {
+        console.log(selection.value);
+        console.log(selection.id);
+        document.getElementById("record_id").value = selection.id;
+        document.getElementById("record_selection").value = selection.value;
+    }
+
+    function SendData() {
+        if (document.getElementById("record_id").value == '' ) {
+            alert("please select measure");
+            return;
+        }
+        if (document.getElementById("record_selection").value == '') {
+            alert("please select measure status");
+            return;
+        }
+
+        console.log("not empty");
+        //$.ajax()
+    }
+
+
+
+
+</script>   
