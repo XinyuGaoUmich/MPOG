@@ -17,7 +17,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="Add_Measure" FunctionName="MPOG_XinyuModel1.Store.Add_Measure" />
     <FunctionImportMapping FunctionImportName="Delete_Measure" FunctionName="MPOG_XinyuModel1.Store.Delete_Measure" />
     <FunctionImportMapping FunctionImportName="Edit_Measure" FunctionName="MPOG_XinyuModel1.Store.Edit_Measure" />
     <FunctionImportMapping FunctionImportName="Collations" FunctionName="MPOG_XinyuModel1.Store.Collations">
@@ -139,6 +138,7 @@
           <ScalarProperty Name="Date_Published" ColumnName="Date_Published" />
           <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
           <ScalarProperty Name="Status_Name" ColumnName="Status_Name" />
+          <ScalarProperty Name="NQS_Domain_Name" ColumnName="NQS_Domain_Name" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -161,5 +161,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Add_Measure" FunctionName="MPOG_XinyuModel1.Store.Add_Measure" />
   </EntityContainerMapping>
 </Mapping>

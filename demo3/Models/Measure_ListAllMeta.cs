@@ -24,7 +24,7 @@ namespace demo3.Models
         public string Measure_Title { get; set; }
 
         [DisplayName("NQS Domain")]
-        public string NQS_Domain { get; set; }
+        public int NQS_Domain { get; set; }
 
         [DisplayName("QCDR Measure Name")]
         public string QCDR_Measure_Name { get; set; }

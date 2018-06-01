@@ -16,7 +16,7 @@ namespace demo3.Models
         public int Measure_ID { get; set; }
         public string Measure_Abbreviation { get; set; }
         public string Measure_Title { get; set; }
-        public string NQS_Domain { get; set; }
+        public Nullable<int> NQS_Domain { get; set; }
         public string QCDR_Measure_Name { get; set; }
         public Nullable<bool> VBR { get; set; }
         public string Clinical_Lead { get; set; }
@@ -25,5 +25,6 @@ namespace demo3.Models
         public Nullable<System.DateTime> Date_Published { get; set; }
         public Nullable<int> Status_ID { get; set; }
         public string Status_Name { get; set; }
+        public string NQS_Domain_Name { get; set; }
     }
 }

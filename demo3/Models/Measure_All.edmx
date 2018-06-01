@@ -24,13 +24,14 @@
         <Function Name="Add_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
           <Parameter Name="Measure_Title" Type="varchar" Mode="In" />
-          <Parameter Name="NQS_Domain" Type="varchar" Mode="In" />
+          <Parameter Name="NQS_Domain" Type="int" Mode="In" />
           <Parameter Name="QCDR_Measure_Name" Type="varchar" Mode="In" />
           <Parameter Name="VBR" Type="bit" Mode="In" />
           <Parameter Name="Clinical_Lead" Type="varchar" Mode="In" />
           <Parameter Name="Developer" Type="varchar" Mode="In" />
           <Parameter Name="Measure_Spec_Completed" Type="bit" Mode="In" />
           <Parameter Name="Date_Published" Type="date" Mode="In" />
+          <Parameter Name="Status_ID" Type="int" Mode="In" />
         </Function>
         <Function Name="Collations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
@@ -86,17 +87,6 @@
           <FunctionImport Name="Details_All" ReturnType="Collection(MPOG_XinyuModel1.Details_All_Result)">
           <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Add_Measure">
-            <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
-            <Parameter Name="Measure_Title" Mode="In" Type="String" />
-            <Parameter Name="NQS_Domain" Mode="In" Type="String" />
-            <Parameter Name="QCDR_Measure_Name" Mode="In" Type="String" />
-            <Parameter Name="VBR" Mode="In" Type="Boolean" />
-            <Parameter Name="Clinical_Lead" Mode="In" Type="String" />
-            <Parameter Name="Developer" Mode="In" Type="String" />
-            <Parameter Name="Measure_Spec_Completed" Mode="In" Type="Boolean" />
-            <Parameter Name="Date_Published" Mode="In" Type="DateTime" />
-          </FunctionImport>
           <FunctionImport Name="Delete_Measure">
           <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -138,6 +128,18 @@
             <Parameter Name="Status_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Enumerations" EntityType="MPOG_XinyuModel1.Enumeration" />
+          <FunctionImport Name="Add_Measure">
+            <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
+            <Parameter Name="Measure_Title" Mode="In" Type="String" />
+            <Parameter Name="NQS_Domain" Mode="In" Type="Int32" />
+            <Parameter Name="QCDR_Measure_Name" Mode="In" Type="String" />
+            <Parameter Name="VBR" Mode="In" Type="Boolean" />
+            <Parameter Name="Clinical_Lead" Mode="In" Type="String" />
+            <Parameter Name="Developer" Mode="In" Type="String" />
+            <Parameter Name="Measure_Spec_Completed" Mode="In" Type="Boolean" />
+            <Parameter Name="Date_Published" Mode="In" Type="DateTime" />
+            <Parameter Name="Status_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Details_All_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -231,7 +233,7 @@
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
           <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="Measure_Title" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="NQS_Domain" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="NQS_Domain" Nullable="true" />
           <Property Type="String" Name="QCDR_Measure_Name" Nullable="true" MaxLength="10" />
           <Property Type="Boolean" Name="VBR" Nullable="true" />
           <Property Type="String" Name="Clinical_Lead" Nullable="true" MaxLength="20" />
@@ -240,6 +242,7 @@
           <Property Type="DateTime" Name="Date_Published" Nullable="true" />
           <Property Type="Int32" Name="Status_ID" Nullable="true" />
           <Property Type="String" Name="Status_Name" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="NQS_Domain_Name" Nullable="true" MaxLength="50" />
         </ComplexType>
         <EntityType Name="Status_Type">
           <Key>
@@ -279,7 +282,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Add_Measure" FunctionName="MPOG_XinyuModel1.Store.Add_Measure" />
           <FunctionImportMapping FunctionImportName="Delete_Measure" FunctionName="MPOG_XinyuModel1.Store.Delete_Measure" />
           <FunctionImportMapping FunctionImportName="Edit_Measure" FunctionName="MPOG_XinyuModel1.Store.Edit_Measure" />
           <FunctionImportMapping FunctionImportName="Collations" FunctionName="MPOG_XinyuModel1.Store.Collations">
@@ -401,6 +403,7 @@
                 <ScalarProperty Name="Date_Published" ColumnName="Date_Published" />
                 <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
                 <ScalarProperty Name="Status_Name" ColumnName="Status_Name" />
+                <ScalarProperty Name="NQS_Domain_Name" ColumnName="NQS_Domain_Name" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -423,6 +426,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Add_Measure" FunctionName="MPOG_XinyuModel1.Store.Add_Measure" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

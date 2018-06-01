@@ -104,7 +104,7 @@ namespace demo3.Controllers
             if (ModelState.IsValid)
             {
                 //db.Measure_Site.Add(measure_Site);
-                db2.Add_Measure(mea_List.Measure_Abbreviation, mea_List.Measure_Title, mea_List.NQS_Domain, mea_List.QCDR_Measure_Name, mea_List.VBR, mea_List.Clinical_Lead, mea_List.Developer, mea_List.Measure_Spec_Completed, mea_List.Date_Published);
+                db2.Add_Measure(mea_List.Measure_Abbreviation, mea_List.Measure_Title, mea_List.NQS_Domain, mea_List.QCDR_Measure_Name, mea_List.VBR, mea_List.Clinical_Lead, mea_List.Developer, mea_List.Measure_Spec_Completed, mea_List.Date_Published, mea_List.Status_ID);
                 db2.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -114,7 +114,7 @@
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.NQS_Domain)
+                    @Html.DisplayFor(modelItem => item.NQS_Domain_Name)
                 </td>
 
                 <td>
@@ -125,7 +125,7 @@
                     @*@Html.DisplayFor(modelItem => item.VBR)*@
                     @if (item.VBR == null)
                     {
-                        <text>N/A</text>
+                        <text>Not Set</text>
                     }
                     else if ((bool)item.VBR)
                     {
@@ -150,7 +150,7 @@
                     @*@Html.DisplayFor(modelItem => item.Measure_Spec_Completed)*@
                     @if (item.Measure_Spec_Completed == null)
                     {
-                        <text>N/A</text>
+                        <text>Not Set</text>
                     }
                     else if ((bool)item.Measure_Spec_Completed)
                     {
