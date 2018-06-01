@@ -94,9 +94,6 @@
                 <th>
                     Operations
                 </th>
-                <th>
-                    Status Type
-                </th>
             }
 
         </tr>
@@ -194,12 +191,7 @@
                                 @Html.ActionLink("Delete", "Delete", new { id = item.Measure_ID })
                             </li>
                         </ul>
-                    </td>
-
-
-                    <td>
-                        blank
-                    </td>
+                    </td>         
                 }
 
 
@@ -209,8 +201,8 @@
 
     </table>
 </div>
-<input value="" id="record_id" />
-<input value="" id="record_selection" />
+<input value="" id="record_id" type="hidden"/>
+<input value="" id="record_selection" type="hidden"/>
 
 
 <script type="text/javascript">
@@ -218,22 +210,42 @@
     function Update_Selection(selection) {
         console.log(selection.value);
         console.log(selection.id);
+       
         document.getElementById("record_id").value = selection.id;
         document.getElementById("record_selection").value = selection.value;
     }
 
     function SendData() {
-        if (document.getElementById("record_id").value == '' ) {
+        var record_id = document.getElementById("record_id").value;
+        var record_selection = document.getElementById("record_selection").value 
+        if (record_id == '' ) {
             alert("please select measure");
             return;
         }
-        if (document.getElementById("record_selection").value == '') {
+        if (record_selection == '') {
             alert("please select measure status");
             return;
         }
-
+        
         console.log("not empty");
-        //$.ajax()
+        var dataPost = {
+            'record_id': parseInt(record_id),
+            'record_selection': parseInt(record_selection)
+        }
+        $.ajax({
+            type: 'POST',
+            data: dataPost,
+            url: '@Url.Action("Update_Status","Measures")',
+            success: function (data) {
+                alert(data);
+                 window.location.href = '@Url.Action("Index", "Measures")';
+            },
+            error: function (data) {
+                alert("fail to update measure status!");
+            }
+        })
+        
+        
     }
 
 

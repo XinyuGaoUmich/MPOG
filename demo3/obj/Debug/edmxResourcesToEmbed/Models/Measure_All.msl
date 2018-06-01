@@ -150,5 +150,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Update_Status" FunctionName="MPOG_XinyuModel1.Store.Update_Status" />
+    <EntitySetMapping Name="Enumerations">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel1.Enumeration">
+        <MappingFragment StoreEntitySet="Enumeration">
+          <ScalarProperty Name="auto_id" ColumnName="auto_id" />
+          <ScalarProperty Name="Enumeration_Content" ColumnName="Enumeration_Content" />
+          <ScalarProperty Name="Enumeration_ID" ColumnName="Enumeration_ID" />
+          <ScalarProperty Name="Section_ID" ColumnName="Section_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

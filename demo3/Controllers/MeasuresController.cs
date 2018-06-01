@@ -78,7 +78,8 @@ namespace demo3.Controllers
             {
                 return Redirect("/NoAccess/LoginWithoutAccess");
             }
-            
+            ViewBag.NQS_Domain = new SelectList(db2.Enumerations.Where(o => o.Section_ID == 4), "Enumeration_ID", "Enumeration_Content");
+            ViewBag.Status = new SelectList(db2.Status_Type, "Status_ID", "Status_Name");          
             return View();
         }
 
@@ -246,7 +247,14 @@ namespace demo3.Controllers
             return Redirect("/Home/Logout");
         }
 
+        [HttpPost]
+        public JsonResult Update_Status( Update_status update_Status)
+        {
 
+            int result = db2.Update_Status(update_Status.record_id, update_Status.record_selection);            
+            return Json("update measure status successfully!");
+
+        }
 
     }
 }

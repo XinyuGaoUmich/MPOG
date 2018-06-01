@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MPOG_XinyuModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Enumeration">
+          <Key>
+            <PropertyRef Name="auto_id" />
+          </Key>
+          <Property Name="Section_ID" Type="int" Nullable="false" />
+          <Property Name="Enumeration_ID" Type="int" />
+          <Property Name="Enumeration_Content" Type="varchar" MaxLength="50" />
+          <Property Name="auto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="Status_Type">
           <Key>
             <PropertyRef Name="Status_ID" />
@@ -61,7 +70,12 @@
         <Function Name="Spec" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="Update_Status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+          <Parameter Name="Status_ID" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="MPOG_XinyuModel1StoreContainer">
+          <EntitySet Name="Enumeration" EntityType="Self.Enumeration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status_Type" EntityType="Self.Status_Type" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -119,6 +133,11 @@
           </FunctionImport>
           <FunctionImport Name="Measure_List" ReturnType="Collection(MPOG_XinyuModel1.Measure_List_Result)" />
           <EntitySet Name="Status_Type" EntityType="MPOG_XinyuModel1.Status_Type" />
+          <FunctionImport Name="Update_Status">
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Status_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Enumerations" EntityType="MPOG_XinyuModel1.Enumeration" />
         </EntityContainer>
         <ComplexType Name="Details_All_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -228,6 +247,15 @@
           </Key>
           <Property Name="Status_ID" Type="Int32" Nullable="false" />
           <Property Name="Status_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Enumeration">
+          <Key>
+            <PropertyRef Name="auto_id" />
+          </Key>
+          <Property Name="Section_ID" Type="Int32" Nullable="false" />
+          <Property Name="Enumeration_ID" Type="Int32" />
+          <Property Name="Enumeration_Content" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -381,6 +409,17 @@
               <MappingFragment StoreEntitySet="Status_Type">
                 <ScalarProperty Name="Status_Name" ColumnName="Status_Name" />
                 <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Update_Status" FunctionName="MPOG_XinyuModel1.Store.Update_Status" />
+          <EntitySetMapping Name="Enumerations">
+            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Enumeration">
+              <MappingFragment StoreEntitySet="Enumeration">
+                <ScalarProperty Name="auto_id" ColumnName="auto_id" />
+                <ScalarProperty Name="Enumeration_Content" ColumnName="Enumeration_Content" />
+                <ScalarProperty Name="Enumeration_ID" ColumnName="Enumeration_ID" />
+                <ScalarProperty Name="Section_ID" ColumnName="Section_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

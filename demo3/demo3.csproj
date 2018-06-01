@@ -272,6 +272,9 @@
     <Compile Include="Models\Diagnostic_LineCharts.cs">
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Enumeration.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Measure.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -344,6 +347,7 @@
     <Compile Include="Models\Status_Type.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Update_status.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

@@ -28,6 +28,7 @@ namespace demo3.Models
         }
     
         public virtual DbSet<Status_Type> Status_Type { get; set; }
+        public virtual DbSet<Enumeration> Enumerations { get; set; }
     
         public virtual ObjectResult<Details_All_Result> Details_All(Nullable<int> measure_ID)
         {
@@ -195,6 +196,19 @@ namespace demo3.Models
         public virtual ObjectResult<Measure_List_Result> Measure_List()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Measure_List_Result>("Measure_List");
+        }
+    
+        public virtual int Update_Status(Nullable<int> measure_ID, Nullable<int> status_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var status_IDParameter = status_ID.HasValue ?
+                new ObjectParameter("Status_ID", status_ID) :
+                new ObjectParameter("Status_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_Status", measure_IDParameter, status_IDParameter);
         }
     }
 }
