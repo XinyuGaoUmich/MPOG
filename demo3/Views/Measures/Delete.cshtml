@@ -28,11 +28,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NQS_Domain)
+            @Html.DisplayNameFor(model => model.Enumeration_Content)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.First().NQS_Domain)
+            @Html.DisplayFor(model => model.First().Enumeration_Content)
         </dd>
 
         <dt>
@@ -78,7 +78,7 @@
             @Html.DisplayFor(model => model.First().Developer)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.Measure_Spec_Completed)
         </dt>
 
@@ -95,7 +95,7 @@
             {
                 <text>No</text>
             }
-        </dd>
+        </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.Date_Published)
@@ -103,6 +103,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.First().Date_Published)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.First().Status_Name)
         </dd>
     </dl>
 

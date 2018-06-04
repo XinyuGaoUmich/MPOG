@@ -1,5 +1,4 @@
-﻿@model IEnumerable<demo3.Models.Details_All_Result>
-
+﻿@model demo3.Models.EditMeasure
 @{             
 
     ViewBag.Title = "Edit";
@@ -18,87 +17,114 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <div class="form-group" style="display:none">
-        @Html.LabelFor(model => model.First().Measure_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Details_All_Results.First().Measure_ID, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.First().Measure_ID, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.First().Measure_ID, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.Details_All_Results.First().Measure_ID, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Details_All_Results.First().Measure_ID, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.First().Measure_Abbreviation, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Details_All_Results.First().Measure_Abbreviation, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.First().Measure_Abbreviation, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.First().Measure_Abbreviation, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.Details_All_Results.First().Measure_Abbreviation, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Details_All_Results.First().Measure_Abbreviation, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.First().Measure_Title, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Details_All_Results.First().Measure_Title, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.First().Measure_Title, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.First().Measure_Title, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.Details_All_Results.First().Measure_Title, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Details_All_Results.First().Measure_Title, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Details_All_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.First().NQS_Domain, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.First().NQS_Domain, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model=>model.Details_All_Results.First().NQS_Domain, new SelectList(Model.Enumerations, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.Details_All_Results.First().NQS_Domain), "select NQS Domain", new { @class = "form-control" })
+            @*@Html.EditorFor(model => model.Details_All_Results.First().NQS_Domain, new { htmlAttributes = new { @class = "form-control" } })*@
+            @Html.ValidationMessageFor(model => model.Details_All_Results.First().NQS_Domain, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.First().QCDR_Measure_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Details_All_Results.First().QCDR_Measure_Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.First().QCDR_Measure_Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.First().QCDR_Measure_Name, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.Details_All_Results.First().QCDR_Measure_Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Details_All_Results.First().QCDR_Measure_Name, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.First().VBR, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Details_All_Results.First().VBR, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.First().VBR, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.First().VBR, "", new { @class = "text-danger" })
+                 @Html.DropDownListFor(model => model.Details_All_Results.First().VBR, new SelectList(new[] {
+                                new  { Value = "", Text = "Not Set" },
+                                new { Value = "true", Text = "Yes" },
+                                new  { Value = "false", Text = "No" },                 
+                                },
+                                "Value",
+                                "Text",
+                                Model
+                       ),  new { @class = "form-control" })            
+            @Html.ValidationMessageFor(model => model.Details_All_Results.First().VBR, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.First().Clinical_Lead, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Details_All_Results.First().Clinical_Lead, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.First().Clinical_Lead, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.First().Clinical_Lead, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.Details_All_Results.First().Clinical_Lead, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Details_All_Results.First().Clinical_Lead, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.First().Developer, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Details_All_Results.First().Developer, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.First().Developer, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.First().Developer, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.Details_All_Results.First().Developer, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Details_All_Results.First().Developer, "", new { @class = "text-danger" })
         </div>
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.First().Measure_Spec_Completed, htmlAttributes: new { @class = "control-label col-md-2" })
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.Details_All_Results.First().Measure_Spec_Completed, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.First().Measure_Spec_Completed, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.First().Measure_Spec_Completed, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model => model.Details_All_Results.First().Measure_Spec_Completed, new SelectList(new[] {
+            new  { Value = "", Text = "Not Set" },
+            new { Value = "true", Text = "Yes" },
+            new  { Value = "false", Text = "No" },
+            },
+            "Value",
+            "Text",
+            Model
+            ),  new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Details_All_Results.First().Measure_Spec_Completed, "", new { @class = "text-danger" })
         </div>
-    </div>
+    </div>*@
 
     <div class="form-group">
-        @Html.LabelFor(model => model.First().Date_Published, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Details_All_Results.First().Date_Published, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <div class="checkbox">
-                @Html.EditorFor(model => model.First().Date_Published)
-                @Html.ValidationMessageFor(model => model.First().Date_Published, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Details_All_Results.First().Date_Published, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Details_All_Results.First().Date_Published, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
 
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Details_All_Results.First().Status_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.DropDownListFor(model=>model.Details_All_Results.First().Status_ID, new SelectList(Model.Status_Types, "Status_ID", "Status_Name", selectedValue: Model.Details_All_Results.First().Status_ID), "select status", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Details_All_Results.First().Status_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

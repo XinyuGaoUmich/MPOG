@@ -79,10 +79,9 @@
         </div>
     </div>
 
-    <div class="form-group">
+    @*<div class="form-group">
         @Html.LabelFor(model => model.Measure_Spec_Completed, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @*@Html.EditorFor(model => model.Measure_Spec_Completed, new { htmlAttributes = new { @class = "form-control" } })*@
             @Html.DropDownListFor(model => model.Measure_Spec_Completed, new SelectList(new[] {
               new  { Value = "", Text = "Not Set" },
               new { Value = "true", Text = "Yes" },
@@ -94,7 +93,7 @@
      ),  new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Measure_Spec_Completed, "", new { @class = "text-danger" })
         </div>
-    </div>
+    </div>*@
 
     <div class="form-group">
         @Html.LabelFor(model => model.Date_Published, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -109,7 +108,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Status_Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model=>model.Status_ID, (IEnumerable<SelectListItem>)ViewBag.Status, "select status", new { @class = "form-control" })
+            @Html.DropDownListFor(model=>model.Status_ID, (IEnumerable<SelectListItem>)ViewBag.Status, new { @class = "form-control" })
             @*@Html.DropDownList("Status_ID", (IEnumerable<SelectListItem>)ViewBag.Status, "select status", new { @class = "form-control" })*@          
             @Html.ValidationMessageFor(model => model.Status_ID, "", new { @class = "text-danger" })
         </div>

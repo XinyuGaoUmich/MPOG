@@ -48,5 +48,8 @@ namespace demo3.Models
 
         [DisplayName("Status Name")]
         public string Status_Name { get; set; }
+
+        [DisplayName("NQS Domain Name ")]
+        public string NQS_Domain_Name { get; set; }
     }
 }

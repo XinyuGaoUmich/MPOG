@@ -1,4 +1,4 @@
-﻿@model IEnumerable<demo3.Models.Details_All_Result>
+﻿@model demo3.Models.EditMeasure
 
 @{
     ViewBag.Title = "Details";
@@ -9,50 +9,50 @@
 <div>
     <h4>Measure List </h4>
     <hr />
-    <dl class="dl-horizontal" style="text-align:center">       
+    <dl class="dl-horizontal" style="text-align:center">
         <dt>
-            @Html.DisplayNameFor(model => model.Measure_Abbreviation)
+            @Html.DisplayNameFor(model => model.Details_All_Results.First().Measure_Abbreviation)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.First().Measure_Abbreviation).ToString().Replace("-", " ")
+            @Html.DisplayFor(model => model.Details_All_Results.First().Measure_Abbreviation).ToString().Replace("-", " ")
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Measure_Title)
+            @Html.DisplayNameFor(model => model.Details_All_Results.First().Measure_Title)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.First().Measure_Title)
+            @Html.DisplayFor(model => model.Details_All_Results.First().Measure_Title)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NQS_Domain)
+            @Html.DisplayNameFor(model => model.Details_All_Results.First().Enumeration_Content)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.First().NQS_Domain)
+            @Html.DisplayFor(model => model.Details_All_Results.First().Enumeration_Content)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.QCDR_Measure_Name)
+            @Html.DisplayNameFor(model => model.Details_All_Results.First().QCDR_Measure_Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.First().QCDR_Measure_Name)
+            @Html.DisplayFor(model => model.Details_All_Results.First().QCDR_Measure_Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.VBR)
+            @Html.DisplayNameFor(model => model.Details_All_Results.First().VBR)
         </dt>
 
         <dd>
             @*@Html.DisplayFor(model => model.First().VBR)*@
-            @if (Model.First().VBR == null)
+            @if (Model.Details_All_Results.First().VBR == null)
             {
                 <text>N/A</text>
             }
-            else if ((bool)Model.First().VBR)
+            else if ((bool)Model.Details_All_Results.First().VBR)
             {
                 <text>Yes</text>
             }
@@ -63,32 +63,32 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Clinical_Lead)
+            @Html.DisplayNameFor(model => model.Details_All_Results.First().Clinical_Lead)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.First().Clinical_Lead)
+            @Html.DisplayFor(model => model.Details_All_Results.First().Clinical_Lead)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Developer)
+            @Html.DisplayNameFor(model => model.Details_All_Results.First().Developer)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.First().Developer)
+            @Html.DisplayFor(model => model.Details_All_Results.First().Developer)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Measure_Spec_Completed)
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Details_All_Results.First().Measure_Spec_Completed)
 
         </dt>
 
         <dd>
-            @if (Model.First().Measure_Spec_Completed == null)
+            @if (Model.Details_All_Results.First().Measure_Spec_Completed == null)
             {
                 <text>N/A</text>
             }
-            else if ((bool)Model.First().Measure_Spec_Completed)
+            else if ((bool)Model.Details_All_Results.First().Measure_Spec_Completed)
             {
                 <text>Yes</text>
             }
@@ -96,20 +96,28 @@
             {
                 <text>No</text>
             }
-            @*@Html.DisplayFor(model => model.First().Measure_Spec_Completed)*@
-        </dd>
+
+        </dd>*@
 
         <dt>
-            @Html.DisplayNameFor(model => model.Date_Published)
+            @Html.DisplayNameFor(model => model.Details_All_Results.First().Date_Published)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.First().Date_Published)
+            @Html.DisplayFor(model => model.Details_All_Results.First().Date_Published)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Details_All_Results.First().Status_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Details_All_Results.First().Status_Name)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.First().Measure_ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Details_All_Results.First().Measure_ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

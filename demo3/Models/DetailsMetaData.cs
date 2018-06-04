@@ -43,5 +43,13 @@ namespace demo3.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0: MM/dd/yyyy}")]
         public Nullable<System.DateTime> Date_Published { get; set; }
 
+        [DisplayName("Status")]
+        public Nullable<int> Status_ID { get; set; }
+
+        [DisplayName("NQS Domain")]
+        public string Enumeration_Content { get; set; }
+
+        [DisplayName("Status")]
+        public string Status_Name { get; set; }
     }
 }

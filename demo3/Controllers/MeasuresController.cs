@@ -55,15 +55,13 @@ namespace demo3.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //Measure_Site measure_Site = db.Measure_Site.Find(id);
-            List<Details_All_Result> a = db2.Details_All(id).ToList();
+            List<Details_All_Result> detail = db2.Details_All(id).ToList();
             //DetailsMetaData a = (DetailsMetaData)db2.Details_All(id); 
-           
             
-            if (a == null)
-            {
-                return HttpNotFound();
-            }
-            return View(a);
+            var nQS_Domain = db2.Enumerations.Where(o => o.Section_ID == 4);
+            var status = db2.Status_Type;
+            var model = new EditMeasure { Details_All_Results = detail, Status_Types = status, Enumerations = nQS_Domain };
+            return View(model);
         }
 
         // GET: Measures/Create
@@ -130,12 +128,18 @@ namespace demo3.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             // ASPIRE_Measures aSPIRE_Measures = db.ASPIRE_Measures.Find(id);
-            List<Details_All_Result> details_All_Results = db2.Details_All(id).ToList();
-            if (details_All_Results == null)
+            List<Details_All_Result> detail = db2.Details_All(id).ToList();
+            if (detail == null)
             {
                 return HttpNotFound();
             }
-            return View(details_All_Results);
+            // ViewBag.NQS_Domain = new SelectList(db2.Enumerations.Where(o => o.Section_ID == 4), "Enumeration_ID", "Enumeration_Content");
+            //ViewBag.Status = new SelectList(db2.Status_Type, "Status_ID", "Status_Name");
+            //return View(details_All_Results);
+            var nQS_Domain = db2.Enumerations.Where(o => o.Section_ID == 4);
+            var status = db2.Status_Type;
+            var model = new EditMeasure { Details_All_Results = detail, Status_Types = status, Enumerations = nQS_Domain };
+            return View(model);
         }
 
         // POST: Measures/Edit/5
@@ -160,7 +164,7 @@ namespace demo3.Controllers
             if (ModelState.IsValid)
             {
                 //db.Entry(aSPIRE_Measures).State = EntityState.Modified;
-                db2.Edit_Measure(details_All_Result.Measure_ID, details_All_Result.Measure_Abbreviation, details_All_Result.Measure_Title, details_All_Result.NQS_Domain, details_All_Result.QCDR_Measure_Name, details_All_Result.VBR,details_All_Result.Clinical_Lead, details_All_Result.Developer, details_All_Result.Measure_Spec_Completed, details_All_Result.Date_Published);
+                db2.Edit_Measure(details_All_Result.Measure_ID, details_All_Result.Measure_Abbreviation, details_All_Result.Measure_Title, details_All_Result.NQS_Domain, details_All_Result.QCDR_Measure_Name, details_All_Result.VBR,details_All_Result.Clinical_Lead, details_All_Result.Developer, details_All_Result.Measure_Spec_Completed, details_All_Result.Date_Published,details_All_Result.Status_ID);
                 db2.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -7,18 +7,6 @@
     <FunctionImport Name="Delete_Measure">
       <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="Edit_Measure">
-      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
-      <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
-      <Parameter Name="Measure_Title" Mode="In" Type="String" />
-      <Parameter Name="NQS_Domain" Mode="In" Type="String" />
-      <Parameter Name="QCDR_Measure_Name" Mode="In" Type="String" />
-      <Parameter Name="VBR" Mode="In" Type="Boolean" />
-      <Parameter Name="Clinical_Lead" Mode="In" Type="String" />
-      <Parameter Name="Developer" Mode="In" Type="String" />
-      <Parameter Name="Measure_Spec_Completed" Mode="In" Type="Boolean" />
-      <Parameter Name="Date_Published" Mode="In" Type="DateTime" />
-    </FunctionImport>
     <FunctionImport Name="Collations" ReturnType="Collection(MPOG_XinyuModel1.Collations_Result)">
       <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -57,18 +45,34 @@
       <Parameter Name="Date_Published" Mode="In" Type="DateTime" />
       <Parameter Name="Status_ID" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="Edit_Measure">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
+      <Parameter Name="Measure_Title" Mode="In" Type="String" />
+      <Parameter Name="NQS_Domain" Mode="In" Type="Int32" />
+      <Parameter Name="QCDR_Measure_Name" Mode="In" Type="String" />
+      <Parameter Name="VBR" Mode="In" Type="Boolean" />
+      <Parameter Name="Clinical_Lead" Mode="In" Type="String" />
+      <Parameter Name="Developer" Mode="In" Type="String" />
+      <Parameter Name="Measure_Spec_Completed" Mode="In" Type="Boolean" />
+      <Parameter Name="Date_Published" Mode="In" Type="DateTime" />
+      <Parameter Name="Status_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="Details_All_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />
     <Property Type="String" Name="Measure_Abbreviation" Nullable="true" MaxLength="20" />
     <Property Type="String" Name="Measure_Title" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="NQS_Domain" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="NQS_Domain" Nullable="true" />
     <Property Type="String" Name="QCDR_Measure_Name" Nullable="true" MaxLength="10" />
     <Property Type="Boolean" Name="VBR" Nullable="true" />
     <Property Type="String" Name="Clinical_Lead" Nullable="true" MaxLength="20" />
     <Property Type="String" Name="Developer" Nullable="true" MaxLength="20" />
     <Property Type="Boolean" Name="Measure_Spec_Completed" Nullable="true" />
     <Property Type="DateTime" Name="Date_Published" Nullable="true" />
+    <Property Type="Int32" Name="Status_ID" Nullable="true" />
+    <Property Type="String" Name="Enumeration_Content" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Status_Name" Nullable="true" MaxLength="20" />
   </ComplexType>
   <ComplexType Name="Collations_Result">
     <Property Type="String" Name="Collation_Name" Nullable="true" MaxLength="200" />

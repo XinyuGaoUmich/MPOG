@@ -14,11 +14,13 @@
           <ScalarProperty Name="Developer" ColumnName="Developer" />
           <ScalarProperty Name="Measure_Spec_Completed" ColumnName="Measure_Spec_Completed" />
           <ScalarProperty Name="Date_Published" ColumnName="Date_Published" />
+          <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
+          <ScalarProperty Name="Enumeration_Content" ColumnName="Enumeration_Content" />
+          <ScalarProperty Name="Status_Name" ColumnName="Status_Name" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="Delete_Measure" FunctionName="MPOG_XinyuModel1.Store.Delete_Measure" />
-    <FunctionImportMapping FunctionImportName="Edit_Measure" FunctionName="MPOG_XinyuModel1.Store.Edit_Measure" />
     <FunctionImportMapping FunctionImportName="Collations" FunctionName="MPOG_XinyuModel1.Store.Collations">
       <ResultMapping>
         <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Collations_Result">
@@ -162,5 +164,6 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="Add_Measure" FunctionName="MPOG_XinyuModel1.Store.Add_Measure" />
+    <FunctionImportMapping FunctionImportName="Edit_Measure" FunctionName="MPOG_XinyuModel1.Store.Edit_Measure" />
   </EntityContainerMapping>
 </Mapping>

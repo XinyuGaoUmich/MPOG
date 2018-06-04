@@ -272,6 +272,7 @@
     <Compile Include="Models\Diagnostic_LineCharts.cs">
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EditMeasure.cs" />
     <Compile Include="Models\Enumeration.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
@@ -357,6 +358,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\table.css" />
+    <Content Include="Content\table_index.css" />
     <Content Include="Content\table_in_spec.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

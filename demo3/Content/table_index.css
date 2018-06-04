@@ -1,0 +1,21 @@
+﻿
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #f1f1f1
+}
+
+.content {
+    padding: 16px;
+}
+
+.sticky + .content {
+    padding-top: 102px;
+}
+
+table.floatThead-table{
+    border-top: none;
+    border-bottom: none;
+
+}
