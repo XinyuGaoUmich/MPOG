@@ -4,9 +4,6 @@
     <FunctionImport Name="Details_All" ReturnType="Collection(MPOG_XinyuModel1.Details_All_Result)">
       <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="Delete_Measure">
-      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="Collations" ReturnType="Collection(MPOG_XinyuModel1.Collations_Result)">
       <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
     </FunctionImport>

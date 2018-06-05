@@ -20,7 +20,7 @@ namespace demo3.Controllers
         {
             if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
             {
-                var measure_list = db2.Measure_List();
+                var measure_list = db2.Measure_List().Where(o=>o.Status_ID != 6);
                var status_types = db2.Status_Type;            
                 var model = new MeasureStatus { Measure_List_Results = measure_list, Status_Types = status_types };
                 // return View(db2.Measure_List().ToList());
@@ -171,53 +171,7 @@ namespace demo3.Controllers
             return View(details_All_Result);
         }
 
-        // GET: Measures/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (Session["userid"] == null)
-            {
-                return Redirect("/NoAccess/Index");
-            }
-
-            if (Session["roles"] == null || !Session["roles"].ToString().Contains("MeasureSpecEditor"))
-            {
-                return Redirect("/NoAccess/LoginWithoutAccess");
-            }
-
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            // ASPIRE_Measures aSPIRE_Measures = db.ASPIRE_Measures.Find(id);
-            List<Details_All_Result> details_All_Results = db2.Details_All(id).ToList();
-            if (details_All_Results == null)
-            {
-                return HttpNotFound();
-            }
-            return View(details_All_Results);
-        }
-
-        // POST: Measures/Delete/5
-        [HttpPost, ActionName("Delete")]
-       // [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            if (Session["userid"] == null)
-            {
-                return Redirect("/NoAccess/Index");
-            }
-
-            if (Session["roles"] == null || !Session["roles"].ToString().Contains("MeasureSpecEditor"))
-            {
-                return Redirect("/NoAccess/LoginWithoutAccess");
-            }
-
-            // ASPIRE_Measures aSPIRE_Measures = db.ASPIRE_Measures.Find(id);
-            //db.ASPIRE_Measures.Remove(aSPIRE_Measures);
-            db2.Delete_Measure(id);
-            db2.SaveChanges();
-            return RedirectToAction("Index");
-        }
+      
 
         protected override void Dispose(bool disposing)
         {

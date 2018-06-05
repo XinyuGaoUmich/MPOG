@@ -39,9 +39,6 @@
         <Function Name="Data_Diagnostics_Affected" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
         </Function>
-        <Function Name="Delete_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Measure_ID" Type="int" Mode="In" />
-        </Function>
         <Function Name="Details_All" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
         </Function>
@@ -86,9 +83,6 @@
       <Schema Namespace="MPOG_XinyuModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="MPOG_XinyuEntities4" annotation:LazyLoadingEnabled="true" >
           <FunctionImport Name="Details_All" ReturnType="Collection(MPOG_XinyuModel1.Details_All_Result)">
-          <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Delete_Measure">
           <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Collations" ReturnType="Collection(MPOG_XinyuModel1.Collations_Result)">
@@ -290,7 +284,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Delete_Measure" FunctionName="MPOG_XinyuModel1.Store.Delete_Measure" />
           <FunctionImportMapping FunctionImportName="Collations" FunctionName="MPOG_XinyuModel1.Store.Collations">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Collations_Result">

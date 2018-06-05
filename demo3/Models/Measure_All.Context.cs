@@ -39,15 +39,6 @@ namespace demo3.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Details_All_Result>("Details_All", measure_IDParameter);
         }
     
-        public virtual int Delete_Measure(Nullable<int> measure_ID)
-        {
-            var measure_IDParameter = measure_ID.HasValue ?
-                new ObjectParameter("Measure_ID", measure_ID) :
-                new ObjectParameter("Measure_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_Measure", measure_IDParameter);
-        }
-    
         public virtual ObjectResult<Collations_Result> Collations(Nullable<int> measure_ID)
         {
             var measure_IDParameter = measure_ID.HasValue ?

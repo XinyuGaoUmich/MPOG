@@ -24,27 +24,35 @@
 
 <link href="~/Content/table.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/table_index.css" rel="stylesheet" type="text/css" />
-@if (isLoggedin)
-{
-    <p>
-        @Html.ActionLink("Create New Measure", "Create")
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/checkbox-custom.css" rel="stylesheet" type="text/css" />
 
-    </p>
-}
+<div style="display: flex; justify-content: space-between">
+    <div style="margin-right:100px;">
+        <p>
+            @Html.ActionLink("Create New Measure", "Create")
+        </p>
 
-@if (notForUser)
-{
-    <h4>
-        <code>You are not QI coordinator, please @Html.ActionLink("Logout", "Logout") </code>
+    </div>
+    <div class="btn_check">
+        <input type="checkbox" id="check">
+        <label class="btn btn-default" for="check">
+            <i class="fa fa-square-o"></i> Check to display Archived Measures
+        </label>
+    </div>
+</div>
 
-    </h4>
-}
+
+
+
+
 
 <div style="overflow-x: auto; text-align:center">
-    <table class="table" id="IndexTable">
+    <table  class="table table-striped table-bordered"  id="IndexTable" style="width:100%">
         <thead id="myHeader" class="header">
             <tr>
-                <th>
+                <th width="200px">
                     Measure Status
                     <button class="btn btn-secondary btn-sm" onclick="SendData(this)">Submit Change</button>
                 </th>
@@ -100,14 +108,14 @@
             </tr>
         </thead>
 
-        <tbody >
+        <tbody>
 
 
             @foreach (var item in Model.Measure_List_Results)
-            {
+            {            
                 <tr>
                     <td style="width: 200px">
-                        @Html.DropDownList("Status_ID", new SelectList(Model.Status_Types, "Status_ID", "Status_Name", selectedValue: item.Status_ID), "select-status", new { @class = "form-control", style = "width: 100px", @id = item.Measure_ID, onchange = "Update_Selection(this)" })
+                        @Html.DropDownList("Status_ID", new SelectList(Model.Status_Types, "Status_ID", "Status_Name", selectedValue: item.Status_ID), new { @class = "form-control", style = "width: 170px", @id = item.Measure_ID, onchange = "Update_Selection(this)" })
 
                     </td>
                     <td>
@@ -190,10 +198,7 @@
                                 </li>
                                 <li>
                                     @Html.ActionLink("Details", "Details", new { id = item.Measure_ID })
-                                </li>
-                                <li>
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.Measure_ID })
-                                </li>
+                                </li>                              
                             </ul>
                         </td>
                     }
@@ -209,6 +214,11 @@
 <input value="" id="record_selection" type="hidden" />
 
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+
 <script type="text/javascript">
 
     function Update_Selection(selection) {
@@ -261,10 +271,9 @@
                 "sScrollX": "100%",
                 "sScrollXInner": "100%",
                 "bScrollCollapse": true,
-                "bPaginate": false,
-                "bFilter": false
-            });
-        
+                //"bPaginate": false,
+                //"bFilter": false               
+            });        
     });
 
 

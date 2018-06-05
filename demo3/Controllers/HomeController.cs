@@ -36,12 +36,20 @@ namespace demo3.Controllers
 
             // session handling
             Auth auth = new Auth();
+            //if (!auth.checkRolePermission("MeasureSpecEditor"))
+            //    return RedirectToAction("Error/nopermission","Home");
+           
+            
             //store info to session
 
             Session["userid"] = auth.getUserID();
             Session["first_name"] = auth.getFirstName();
             Session["last_name"] = auth.getLastName();
             Session["roles"] = auth.getRoles();
+            //if (!auth.checkRolePermission("MeasureSpecEditor"))
+            //{
+            //    Logout();
+            //}
             
             return Redirect("/Measures/Index");
         }

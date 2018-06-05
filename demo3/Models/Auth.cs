@@ -33,13 +33,16 @@ namespace demo3.Controllers
             if (claims.Where(c => c.Type == "role").Select(c => c.Value).Count() != 0 )
             {
                 roles = (claims.Where(c => c.Type == "role").Select(c => c.Value).ToList()).Aggregate((a, b) => a + "," + b);
+            } else
+            {
+                roles = "";
             }
         }
 
         public bool checkRolePermission(string role)
         {
             foreach (string item in role.Split('|'))
-            {
+            {              
                 if (roles.IndexOf(item) != -1)
                     return true;
             }

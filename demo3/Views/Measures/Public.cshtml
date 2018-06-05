@@ -1,31 +1,11 @@
 ﻿@model IEnumerable<demo3.Models.Public_Measure_Result>
 @{
-    ViewBag.Title = "Public Measure List";
+                /**/
 
-    Boolean isLoggedin = false;
-    Boolean notForUser = false;
-    // check session
-
-    if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
-    {
-        isLoggedin = true;
-    }
-    else if (Session["userid"] != null)
-    {
-        notForUser = true;
-    }
-
-
+                ViewBag.Title = "Public Measure List";
+         
 }
 
-
-@if (notForUser)
-{
-    <h4>
-        <code>You are not QI coordinator, please @Html.ActionLink("Logout", "Logout") </code>
-
-    </h4>
-}
 
 <link href="~/Content/table.css" rel="stylesheet" type="text/css" />
 
@@ -33,46 +13,78 @@
     Public Measure List
 </h3>
 <div style="overflow: auto; text-align:center">
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Measure_Abbreviation)
-            </th>
+    <table class="table table-striped table-bordered" id="IndexTable" style="width:100%">
+        <thead>
 
-            <th>
-                @Html.DisplayNameFor(model => model.Measure_Title)
-            </th>
 
-            <th>
-                Pager
-            </th>
-            <th>
-                Spec
-            </th>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Measure_Abbreviation)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Measure_Title)
+                </th>
+
+                <th>
+                    Pager
+                </th>
+                <th>
+                    Spec
+                </th>
+
+        </thead>
+        <tbody>
 
 
             @foreach (var item in Model)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Measure_Abbreviation).ToString().Replace("-", " ")
-                </td>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Measure_Abbreviation).ToString().Replace("-", " ")
+                    </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Measure_Title)
-                </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Measure_Title)
+                    </td>
 
 
-                <td>
-                    @Html.ActionLink(@item.Measure_Abbreviation.ToString().Replace("-", " ") + " Pager", "Pager", new { id = item.Measure_ID })
-                </td>
+                    <td>
+                        @Html.ActionLink(@item.Measure_Abbreviation.ToString().Replace("-", " ") + " Pager", "Pager", new { id = item.Measure_ID })
+                    </td>
 
-                <td>
-                    @Html.ActionLink(item.Measure_Abbreviation.ToString().Replace("-", " ") + " Spec", "Spec", new { id = item.Measure_ID })
-                </td>
+                    <td>
+                        @Html.ActionLink(item.Measure_Abbreviation.ToString().Replace("-", " ") + " Spec", "Spec", new { id = item.Measure_ID })
+                    </td>
 
-            </tr>
-        }
-
-        </table>
+                </tr>
+            }
+        </tbody>
+    </table>
     </div>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+
+    <script type="text/javascript">
+
+
+    $(document).ready(function () {
+        var iStart = new Date().getTime();
+        var oTable = $('#IndexTable').dataTable(
+            {
+                "sScrollY": "400px",
+                "sScrollX": "100%",
+                "sScrollXInner": "100%",
+                "bScrollCollapse": true,
+                //"bPaginate": false,
+                //"bFilter": false
+            });
+
+    });
+
+
+    </script>   
