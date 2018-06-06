@@ -1,7 +1,5 @@
 ﻿@{ 
-    Boolean isLoggedin = false;
-    // check session
-    //if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
+    Boolean isLoggedin = false;   
     if (Session["userid"] != null)
     {
         isLoggedin = true;

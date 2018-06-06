@@ -5,21 +5,6 @@
 
     ViewBag.Title = "MainPage";
 
-    Boolean isLoggedin = false;
-    Boolean notForUser = false;
-    // check session
-
-    if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
-    {
-        isLoggedin = true;
-    }
-    else if (Session["userid"] != null)
-    {
-        notForUser = true;
-    }
-
-
-
 }
 
 <link href="~/Content/table.css" rel="stylesheet" type="text/css" />
@@ -37,8 +22,10 @@
     </div>
     <div class="btn_check">
         <input type="checkbox" id="check">
-        <label class="btn btn-default" for="check">
-            <i class="fa fa-square-o"></i> Check to display Archived Measures
+        <label class="btn btn-default" for="check" >
+            <i class="fa fa-square-o"></i> 
+            <span id="checkDisplay">  Check to display Archived Measures</span>
+
         </label>
     </div>
 </div>
@@ -49,7 +36,7 @@
 
 
 <div style="overflow-x: auto; text-align:center">
-    <table  class="table table-striped table-bordered"  id="IndexTable" style="width:100%">
+    <table  class="table table-striped table-bordered"  id="IndexTable" style="width:100%; visibility:hidden" >
         <thead id="myHeader" class="header">
             <tr>
                 <th width="200px">
@@ -97,14 +84,10 @@
                 </th>
                 <th>
                     Spec
-                </th>
-                @if (isLoggedin)
-                {
-                    <th>
-                        Operations
-                    </th>
-                }
-
+                </th>              
+                <th>
+                    Operations
+                </th>               
             </tr>
         </thead>
 
@@ -113,7 +96,7 @@
 
             @foreach (var item in Model.Measure_List_Results)
             {            
-                <tr>
+                <tr class="@item.Status_ID">                    
                     <td style="width: 200px">
                         @Html.DropDownList("Status_ID", new SelectList(Model.Status_Types, "Status_ID", "Status_Name", selectedValue: item.Status_ID), new { @class = "form-control", style = "width: 170px", @id = item.Measure_ID, onchange = "Update_Selection(this)" })
 
@@ -186,24 +169,17 @@
                     <td>
                         @Html.ActionLink(item.Measure_Abbreviation.ToString().Replace("-", " ") + " Spec", "Spec", new { id = item.Measure_ID })
                     </td>
-
-
-
-                    @if (isLoggedin)
-                    {
-                        <td style="text-align: left">
-                            <ul>
-                                <li>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.Measure_ID })
-                                </li>
-                                <li>
-                                    @Html.ActionLink("Details", "Details", new { id = item.Measure_ID })
-                                </li>                              
-                            </ul>
-                        </td>
-                    }
-
-
+                   
+                    <td style="text-align: left">
+                        <ul>
+                            <li>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Measure_ID })
+                            </li>
+                            <li>
+                                @Html.ActionLink("Details", "Details", new { id = item.Measure_ID })
+                            </li>                              
+                        </ul>
+                    </td>                   
                 </tr>
 
             }
@@ -229,7 +205,28 @@
         document.getElementById("record_selection").value = selection.value;
     }
 
-    function SendData() {
+ 
+   
+
+    $(document).ready(function () {
+        $('#IndexTable tbody tr.6').hide()
+        document.getElementById('IndexTable').style.visibility = "visible";
+        var iStart = new Date().getTime();
+        var oTable = $('#IndexTable').dataTable(
+            {
+                "sScrollY": "400px",
+                "sScrollX": "100%",
+                "sScrollXInner": "100%",
+                "bScrollCollapse": true,
+                //"bPaginate": false,
+                //"bFilter": false  
+                //"sAjaxSource": "Index",
+                //"bJqueryUI": true,
+
+            });
+       
+    });
+     function SendData() {
         var record_id = document.getElementById("record_id").value;
         var record_selection = document.getElementById("record_selection").value
         if (record_id == '' ) {
@@ -250,9 +247,10 @@
             type: 'POST',
             data: dataPost,
             url: '@Url.Action("Update_Status","Measures")',
-            success: function (data) {
+            success: function (data) { 
                 alert(data);
-                 window.location.href = '@Url.Action("Index", "Measures")';
+                window.location.href = '@Url.Action("Index", "Measures")';             
+                
             },
             error: function (data) {
                 alert("fail to update measure status!");
@@ -261,20 +259,18 @@
 
 
     }
-
-
-    $(document).ready(function () {
-        var iStart = new Date().getTime();
-        var oTable = $('#IndexTable').dataTable(
-            {
-                "sScrollY": "400px",
-                "sScrollX": "100%",
-                "sScrollXInner": "100%",
-                "bScrollCollapse": true,
-                //"bPaginate": false,
-                //"bFilter": false               
-            });        
-    });
+       $('#check').change(function () {
+        if (this.checked) {
+            console.log("checked");
+            $('#checkDisplay').text('Uncheck to hide Archived Measures')
+            $('#IndexTable tbody tr.6').show()
+        }            
+          else {
+            console.log("unchecked");
+            $('#checkDisplay').text('Check to display Archived Measures');
+            $('#IndexTable tbody tr.6').hide();
+        }         
+    })
 
 
 </script>   

@@ -1,270 +1,137 @@
-﻿@{
-    ViewBag.Title = "Spec";
+﻿@{ 
+    Layout = null;
     Boolean isLoggedin = false;
-    Boolean notForUser = false;
-    // check session
-
-    if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
+    if (Session["userid"] != null)
     {
         isLoggedin = true;
     }
-
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spec</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            position: relative;
+        }
 
+        #section1 {
+            padding-top: 140px;            
+            color: #fff;
+            background-color: cornflowerblue;
+            padding-bottom:20px;
+        }
 
-<link href="~/Content/table.css" rel="stylesheet" type="text/css" />
-<link href="~/Content/table_in_spec.css" rel="stylesheet" type="text/css" />
+        #section2 {
+            padding-top: 10px;
+            color: #fff;
+            background-color: dodgerblue;
+            padding-bottom: 20px;
+        }
 
-<!--
-below is wait to be mofidied
--->
-@using (Html.BeginForm("Export", "Pager", FormMethod.Post))
-{
-    <div style="display:flex; justify-content:space-between">
-        <div>
-            <h4>Spec</h4>
-        </div>
-        <div style="position:relative;right:0px ;text-align:right">
-            <input type="submit" id="btnSubmit" value="Save as PDF" />
-        </div>
+        #section3 {
+            padding-top: 10px;
+            color: #fff;
+            background-color: cornflowerblue;
+            padding-bottom: 20px;
+        }
+
+        #section4 {
+            padding-top: 10px;
+            color: #fff;
+            background-color: whi;
+        }
+      
+    </style>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div style="padding-right:55px;padding-left:55px; background-color:white">
+            <a href="https://mpog.org/">
+                <img class="mobile-logo preload-me" src="https://mpog.org/wp-content/uploads/2017/08/MPOG_LOGO4.jpg"
+                     srcset="https://mpog.org/wp-content/uploads/2017/08/MPOG_LOGO4.jpg 301w, https://mpog.org/wp-content/uploads/2017/08/MPOG_LOGO4.jpg 301w"
+                     width="301" height="73" sizes="301px" alt="MPOG">
+            </a>
+            <div style="position:relative; bottom:50px; right:0px;">
+                @if (isLoggedin) //isLogin
+                {
+                    <div style="float: right;">
+                        <div style="display: flex;">
+                            <span style="text-align:center;height:inherit">Hello, @(Session["first_name"] + " " + Session["last_name"])!&nbsp; &nbsp; </span>
+                            <button type="submit" class="btn-primary btn" style="float: right" onclick="location.href='@Url.Action("Logout", "Home")'">Logout</button>
+                        </div>
+                    </div>
+
+                }
+                else
+                {
+                    <button type="submit" class="btn-primary btn" style="float: right" onclick="location.href='@Url.Action("Login", "Home")'">QI Coordinator Login</button>
+                }
+            </div>
+            </div>
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>                 
+                </div>
+                <div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#section1">Measure Abbreviation</a></li>
+                            <li><a href="#section2">Data Collection Method</a></li>
+                            <li><a href="#section3">Description</a></li>
+                            <li><a href="#section4">Measure Type</a></li>
+                            <li><a href="#section5">Scope</a></li>
+                            <li><a href="#section6">Measure Summary</a></li>
+                            <li><a href="#section7">Rationale</a></li>
+                            <li><a href="#section7">Rationale</a></li>
+                            <li><a href="#section7">Inclusions</a></li>
+                            <li><a href="#section7">Rationale</a></li>
+                            @*<li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Section 4 <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#section41">Section 4-1</a></li>
+                <li><a href="#section42">Section 4-2</a></li>
+            </ul>
+        </li>*@
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+    </nav>
+
+    <div id="section1" class="container-fluid">
+        <h4>Measure Abbreviation</h4>
+        @ViewBag.basic.Data_Collection_Method
     </div>
-    <input type="hidden" name="GridHtml" />
+    <div id="section2" class="container-fluid">
+        <h4>Data Collection Method</h4>
+        @ViewBag.basic.Description
+    </div>
+    <div id="section3" class="container-fluid">
+        <h4>NQS Domain</h4>
+        @ViewBag.basic.NQS_Domain
+    </div>
+    <div id="section41" class="container-fluid">
+        <h1>Section 4 Submenu 1</h1>
+        <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+        <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+    </div>
+    <div id="section42" class="container-fluid">
+        <h1>Section 4 Submenu 2</h1>
+        <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+        <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+    </div>
 
-}
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $("#btnSubmit").click(function () {
-            $("input[name='GridHtml']").val($("#Grid").html());
-        });
-    });
-</script>
-@if (isLoggedin)
-{
-    <p>
-        @Html.ActionLink("Edit Spec", "Edit")
-    </p>
-}
-<hr />
-<div style="overflow: auto; text-align:center" id="Grid">
-    <dl class="dl-horizontal" style="text-align:center">
-
-        <dt>
-            Measure Abbreviation
-        </dt>
-        <dd>
-            @ViewBag.basic.Measure_Abbreviation
-        </dd>
-
-        <dt>
-            Data Collection Method
-        </dt>
-        <dd>
-            @ViewBag.basic.Data_Collection_Method
-        </dd>
-
-        <dt>
-            Description
-        </dt>
-        <dd>
-            @ViewBag.basic.Description
-        </dd>
-
-        <dt>
-            NQS Domain
-        </dt>
-        <dd>
-            @ViewBag.basic.NQS_Domain
-        </dd>
-
-        <dt>
-            Measure Type
-        </dt>
-        <dd>
-            @ViewBag.basic.Measure_Type
-        </dd>
-
-        <dt>
-            Scope
-        </dt>
-        <dd>
-            @ViewBag.basic.Scope
-        </dd>
-
-        <dt>
-            Measure Summary
-        </dt>
-        <dd>
-            @ViewBag.basic.Measure_Summary
-        </dd>
-
-        <dt>
-            Rationale
-        </dt>
-        <dd>
-            @ViewBag.basic.Rationale
-        </dd>
-
-        <dt>
-            Inclusions
-        </dt>
-        <dd>
-            @ViewBag.basic.Inclusions
-        </dd>
-
-        <dt>
-            Exclusions
-        </dt>
-        <dd>
-            @ViewBag.basic.Exclusions
-        </dd>
-
-        <dt>
-            MPOG Concept IDs Required
-        </dt>
-        <dd style="text-align: center">
-            <table align="center" cellspacing="100">
-                <tbody>
-                    <tr>
-                        <td>
-                            <strong>
-                                MPOG Concept Header Name
-                            </strong>
-                        </td>
-                        <td>
-                            <strong>
-                                MPOG Concept ID
-                            </strong>
-                        </td>
-                        <td>
-                            <strong>
-                                MPOG Concept Type
-                            </strong>
-                        </td>
-                    </tr>
-                    @foreach (var item in ViewBag.concept)
-                    {
-                        <tr>
-                            <td>
-                                @item.MPOG_Concept_Header_Name
-                            </td>
-                            <td>
-                                @item.MPOG_Concept_ID
-                            </td>
-                            <td>
-                                @item.concept_desc
-                            </td>
-                        </tr>
-                    }
-
-                </tbody>
-            </table>
-        </dd>
-
-        <dt style="padding-top: 10px">
-            Data Diagnostics Affected
-        </dt>
-
-        <dd style="padding-top: 10px">
-            <div class="wrapper" style="text-align:center;display:inline-block;margin:0;padding:0">
-
-
-                <ul style="text-align:left;display:inline-block;margin:0;padding:0">
-                    @foreach (var item in ViewBag.diagnostics)
-                    {
-
-                        <li>
-                            @item.Display_Name
-                        </li>
-
-                    }
-                </ul>
-            </div>
-        </dd>
-
-        <dt>
-            Collations Used
-        </dt>
-
-        <dd>
-            <div class="wrapper" style="text-align:center;display:inline-block;margin:0;padding:0">
-                <ul style="text-align:left;display:inline-block;margin:0;padding:0">
-                    @foreach (var item in ViewBag.collations)
-                    {
-                        <li>
-                            @item.Collation_Name
-                        </li>
-                    }
-                </ul>
-            </div>
-        </dd>
-
-        <dt>
-            Other Measure Build Details
-        </dt>
-
-        <dd>
-            @ViewBag.basic.Other_Build_Details
-        </dd>
-
-        <dt>
-            Success
-        </dt>
-
-        <dd>
-            @ViewBag.basic.Success
-        </dd>
-
-        <dt>
-            Threshold
-        </dt>
-
-        <dd>
-            @ViewBag.basic.Threshold
-        </dd>
-
-        <dt>
-            Responsible Provider
-        </dt>
-
-        <dd>
-            @ViewBag.basic.Responsible_Provider
-        </dd>
-
-        <dt>
-            Risk Adjustment
-        </dt>
-
-        <dd>
-            @ViewBag.basic.Risk_Adjustment
-        </dd>
-
-        <dt>
-            Flow Chart
-        </dt>
-
-        <dd>
-            @ViewBag.basic.Flow_Chart
-        </dd>
-
-        <dt>
-            References
-        </dt>
-
-        <dd>
-            @ViewBag.basic.Reference
-        </dd>
-
-
-
-
-
-    </dl>
-
-
-</div>
-
-
-<p>
-    @Html.ActionLink("Back to List", "ReturnToMeasure")
-</p>
+</body>
+</html>

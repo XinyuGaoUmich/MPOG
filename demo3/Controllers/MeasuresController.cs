@@ -14,14 +14,15 @@ namespace demo3.Controllers
     {
         private MPOG_XinyuEntities3 db = new MPOG_XinyuEntities3();
         private MPOG_XinyuEntities4 db2 = new MPOG_XinyuEntities4();
+       
       
         // GET: Measures
         public ActionResult Index()
         {
             if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
             {
-                var measure_list = db2.Measure_List().Where(o=>o.Status_ID != 6);
-               var status_types = db2.Status_Type;            
+                var measure_list = db2.Measure_List();
+                var status_types = db2.Status_Type;            
                 var model = new MeasureStatus { Measure_List_Results = measure_list, Status_Types = status_types };
                 // return View(db2.Measure_List().ToList());
                
@@ -213,6 +214,7 @@ namespace demo3.Controllers
             return Json("update measure status successfully!");
 
         }
+      
 
     }
 }
