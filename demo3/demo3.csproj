@@ -342,6 +342,9 @@
     <Compile Include="Models\Section_fields.cs">
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Spec_Published_Result.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Spec_Result.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>

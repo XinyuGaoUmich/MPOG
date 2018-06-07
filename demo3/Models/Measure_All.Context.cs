@@ -209,5 +209,14 @@ namespace demo3.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Edit_Measure", measure_IDParameter, measure_AbbreviationParameter, measure_TitleParameter, nQS_DomainParameter, qCDR_Measure_NameParameter, vBRParameter, clinical_LeadParameter, developerParameter, measure_Spec_CompletedParameter, date_PublishedParameter, status_IDParameter);
         }
+    
+        public virtual ObjectResult<Spec_Published_Result> Spec_Published(Nullable<int> measure_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Spec_Published_Result>("Spec_Published", measure_IDParameter);
+        }
     }
 }

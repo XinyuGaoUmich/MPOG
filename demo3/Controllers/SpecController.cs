@@ -17,6 +17,7 @@ namespace demo3.Controllers
             ViewBag.collations = db2.Collations(id);
             ViewBag.diagnostics = db2.Data_Diagnostics_Affected(id);
             ViewBag.concept = db2.MPOG_Concept_ID_Required(id);
+            ViewBag.published = db2.Spec_Published(id).First();
             return View();
         }
 

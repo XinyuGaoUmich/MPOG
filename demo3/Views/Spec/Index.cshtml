@@ -5,132 +5,277 @@
     {
         isLoggedin = true;
     }
+
 }
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Spec</title>
+    <title>Spec Page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style>
-        body {
-            position: relative;
-        }
+    <link href="~/Content/table_in_spec.css" rel="stylesheet" type="text/css" />
 
-        #section1 {
-            padding-top: 140px;            
-            color: #fff;
-            background-color: cornflowerblue;
-            padding-bottom:20px;
-        }
-
-        #section2 {
-            padding-top: 10px;
-            color: #fff;
-            background-color: dodgerblue;
-            padding-bottom: 20px;
-        }
-
-        #section3 {
-            padding-top: 10px;
-            color: #fff;
-            background-color: cornflowerblue;
-            padding-bottom: 20px;
-        }
-
-        #section4 {
-            padding-top: 10px;
-            color: #fff;
-            background-color: whi;
-        }
-      
-    </style>
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div style="padding-right:55px;padding-left:55px; background-color:white">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+        </div>
+        <div style="padding-right:55px;padding-left:55px; background-color: white">
             <a href="https://mpog.org/">
                 <img class="mobile-logo preload-me" src="https://mpog.org/wp-content/uploads/2017/08/MPOG_LOGO4.jpg"
                      srcset="https://mpog.org/wp-content/uploads/2017/08/MPOG_LOGO4.jpg 301w, https://mpog.org/wp-content/uploads/2017/08/MPOG_LOGO4.jpg 301w"
                      width="301" height="73" sizes="301px" alt="MPOG">
             </a>
-            <div style="position:relative; bottom:50px; right:0px;">
-                @if (isLoggedin) //isLogin
-                {
-                    <div style="float: right;">
-                        <div style="display: flex;">
-                            <span style="text-align:center;height:inherit">Hello, @(Session["first_name"] + " " + Session["last_name"])!&nbsp; &nbsp; </span>
-                            <button type="submit" class="btn-primary btn" style="float: right" onclick="location.href='@Url.Action("Logout", "Home")'">Logout</button>
-                        </div>
-                    </div>
 
-                }
-                else
-                {
-                    <button type="submit" class="btn-primary btn" style="float: right" onclick="location.href='@Url.Action("Login", "Home")'">QI Coordinator Login</button>
-                }
-            </div>
-            </div>
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>                 
+            @if (isLoggedin) //isLogin
+            {
+                <div style="float: right; margin-top: 20px">
+                    <div style="display: flex;">
+                        <span style="text-align:center;height:inherit">Hello, @(Session["first_name"] + " " + Session["last_name"])! &nbsp; &nbsp; </span>
+                        <button type="submit" class="btn-primary btn" style="float: right" onclick="location.href='@Url.Action("Logout", "Home")'">Logout</button>
+                    </div>
                 </div>
-                <div>
-                    <div class="collapse navbar-collapse" id="myNavbar">
-                        <ul class="nav navbar-nav">
-                            <li><a href="#section1">Measure Abbreviation</a></li>
-                            <li><a href="#section2">Data Collection Method</a></li>
-                            <li><a href="#section3">Description</a></li>
-                            <li><a href="#section4">Measure Type</a></li>
-                            <li><a href="#section5">Scope</a></li>
-                            <li><a href="#section6">Measure Summary</a></li>
-                            <li><a href="#section7">Rationale</a></li>
-                            <li><a href="#section7">Rationale</a></li>
-                            <li><a href="#section7">Inclusions</a></li>
-                            <li><a href="#section7">Rationale</a></li>
-                            @*<li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Section 4 <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="#section41">Section 4-1</a></li>
-                <li><a href="#section42">Section 4-2</a></li>
+
+            }
+            else
+            {
+                <button type="submit" class="btn-primary btn" style="float: right; margin-top: 20px" onclick="location.href='@Url.Action("Login", "Home")'">QI Coordinator Login</button>
+            }
+
+
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar" style="box-sizing:content-box">
+            <ul class="nav navbar-nav">
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">@ViewBag.basic.Measure_Abbreviation Basic Info<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">NQS Domain</a></li>
+                        <li><a href="#">Measure Type</a></li>
+                        <li><a href="#">Scope</a></li>
+                        <li><a href="#">Threshold</a></li>
+                    </ul>
+                </li>
+                <li><a href="#section2">Data Collection Method</a></li>
+                <li><a href="#section3">Description</a></li>
+                <li><a href="#section4">Measure Summary</a></li>
+                <li><a href="#section5">Rationale</a></li>
+                <li><a href="#section6">Inclusions</a></li>
+                <li><a href="#section7">Exclusions</a></li>
+                <li><a href="#section8">Section 3</a></li>
+                <li><a href="#section9">Section 3</a></li>
+                <li><a href="#section10">Section 3</a></li>
+                <li><a href="#section11">Section 3</a></li>
+                <li><a href="#section12">Section 3</a></li>
+                <li><a href="#section13">Section 3</a></li>
+
             </ul>
-        </li>*@
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
+        </div>
+        @*</div>*@
+        @*</div>*@
     </nav>
 
     <div id="section1" class="container-fluid">
-        <h4>Measure Abbreviation</h4>
-        @ViewBag.basic.Data_Collection_Method
+        <h2>@ViewBag.basic.Measure_Abbreviation Basic Info</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <dl class="dl-horizontal" style="text-align:left">
+                        <dt>
+                            NQS Domain
+                        </dt>
+                        <dd>
+                            @ViewBag.basic.NQS_Domain
+                        </dd>
+
+                        <dt>
+                            Measure Type
+                        </dt>
+                        <dd>
+                            @ViewBag.basic.Measure_Type
+                        </dd>
+
+                        <dt>
+                            Scope
+                        </dt>
+                        <dd>
+                            @ViewBag.basic.Scope
+                        </dd>
+
+                        <dt>
+                            Threshold
+                        </dt>
+                        <dd>
+                            @ViewBag.basic.Threshold
+                        </dd>
+                    </dl>
+                </td>
+                <td>
+                    <dl class="dl-horizontal" style="text-align:left">
+                        <dt>
+                            NQS Domain
+                        </dt>
+                        <dd>
+                            @ViewBag.published.NQS_Domain
+                        </dd>
+
+                        <dt>
+                            Measure Type
+                        </dt>
+                        <dd>
+                            @ViewBag.published.Measure_Type
+                        </dd>
+
+                        <dt>
+                            Scope
+                        </dt>
+                        <dd>
+                            @ViewBag.published.Scope
+                        </dd>
+
+                        <dt>
+                            Threshold
+                        </dt>
+                        <dd>
+                            @ViewBag.published.Threshold
+                        </dd>
+                    </dl>
+                </td>
+            </tr>
+        </table>
+
+
     </div>
+
     <div id="section2" class="container-fluid">
-        <h4>Data Collection Method</h4>
-        @ViewBag.basic.Description
+        <h2>Data Collection Method</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Data_Collection_Method
+                </td>
+                <td>
+                    @ViewBag.published.Data_Collection_Method
+                </td>
+            </tr>
+        </table>
+
     </div>
     <div id="section3" class="container-fluid">
-        <h4>NQS Domain</h4>
-        @ViewBag.basic.NQS_Domain
+        <h2>Description</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Description
+                </td>
+                <td>
+                    @ViewBag.published.Description
+                </td>
+            </tr>
+        </table>
     </div>
-    <div id="section41" class="container-fluid">
-        <h1>Section 4 Submenu 1</h1>
-        <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-        <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+    <div id="section4" class="container-fluid">
+        <h2>Measure Summary</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Measure_Summary
+                </td>
+                <td>
+                    @ViewBag.published.Measure_Summary
+                </td>
+            </tr>
+        </table>
     </div>
-    <div id="section42" class="container-fluid">
-        <h1>Section 4 Submenu 2</h1>
-        <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
-        <p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+    <div id="section5" class="container-fluid">
+        <h2>Rationale</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Rationale
+                    aaaa
+
+                </td>
+                <td>
+                    @ViewBag.published.Rationale
+                    ssss
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="section6" class="container-fluid">
+        <h2>Inclusions</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Inclusions
+                    aaaa
+
+                </td>
+                <td>
+                    @ViewBag.published.Inclusions
+                    ssss
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="section7" class="container-fluid">
+        <h2>Exclusions</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Exclusions
+                    aaaa
+
+                </td>
+                <td>
+                    @ViewBag.published.Exclusions
+                    ssss
+                </td>
+            </tr>
+        </table>
     </div>
 
 </body>
