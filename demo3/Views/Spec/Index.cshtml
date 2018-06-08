@@ -74,12 +74,15 @@
                 <li><a href="#section5">Rationale</a></li>
                 <li><a href="#section6">Inclusions</a></li>
                 <li><a href="#section7">Exclusions</a></li>
-                <li><a href="#section8">Section 3</a></li>
-                <li><a href="#section9">Section 3</a></li>
-                <li><a href="#section10">Section 3</a></li>
-                <li><a href="#section11">Section 3</a></li>
-                <li><a href="#section12">Section 3</a></li>
-                <li><a href="#section13">Section 3</a></li>
+                <li><a href="#section8">MPOG Concept IDs Required</a></li>
+                <li><a href="#section9">Data Diagnostics Affected</a></li>
+                <li><a href="#section10">Collations Used</a></li>
+                <li><a href="#section11">Other Measure Build Details</a></li>
+                <li><a href="#section12">Success</a></li>
+                <li><a href="#section13">Responsible Provider</a></li>
+                <li><a href="#section14">Risk Adjustment</a></li>
+                <li><a href="#section15">Flow Chart</a></li>
+                <li><a href="#section16">References</a></li>
 
             </ul>
         </div>
@@ -272,7 +275,236 @@
                 </td>
                 <td>
                     @ViewBag.published.Exclusions
-                    ssss
+                    exclusion published
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="section8" class="container-fluid">
+        <h2>MPOG Concept ID Required</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <table align="center" cellspacing="100">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        MPOG Concept Header Name
+                                    </strong>
+                                </td>
+                                <td>
+                                    <strong>
+                                        MPOG Concept ID
+                                    </strong>
+                                </td>
+                                <td>
+                                    <strong>
+                                        MPOG Concept Type
+                                    </strong>
+                                </td>
+                            </tr>
+                            @foreach (var item in ViewBag.concept)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.MPOG_Concept_Header_Name
+                                    </td>
+                                    <td>
+                                        @item.MPOG_Concept_ID
+                                    </td>
+                                    <td>
+                                        @item.concept_desc
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="section9" class="container-fluid">
+        <h2>Data Diagnostics Affected</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul style="text-align:left;display:inline-block;margin:0;padding:0">
+                        @foreach (var item in ViewBag.diagnostics)
+                        {
+
+                            <li>
+                                @item.Display_Name
+                            </li>
+
+                        }
+                    </ul>
+
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div id="section10" class="container-fluid">
+        <h2>Collations Used</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <ul style="text-align:left;display:inline-block;margin:0;padding:0">
+                        @foreach (var item in ViewBag.collations)
+                        {
+                            <li>
+                                @item.Collation_Name
+                            </li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                  
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="section11" class="container-fluid">
+        <h2>Other Measure Build Details</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Other_Build_Details
+                    aaaa
+
+                </td>
+                <td>
+                    @ViewBag.published.Other_Build_Details
+                    exclusion published
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="section12" class="container-fluid">
+        <h2>Success</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Success
+                    aaaa
+
+                </td>
+                <td>
+                    @ViewBag.published.Success
+                    exclusion published
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="section13" class="container-fluid">
+        <h2>Responsible Provider</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Responsible_Provider
+                    aaaa
+
+                </td>
+                <td>
+                    @ViewBag.basic.Responsible_Provider
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="section14" class="container-fluid">
+        <h2>Risk Adjustment</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Risk_Adjustment
+                    aaaa
+
+                </td>
+                <td>
+                    @ViewBag.basic.Risk_Adjustment
+                    exclusion published
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="section15" class="container-fluid">
+        <h2>Flow Chart</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Flow_Chart
+                    aaaa
+
+                </td>
+                <td>
+                    @ViewBag.published.Flow_Chart
+                    exclusion published
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="section16" class="container-fluid">
+        <h2>References</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Reference
+                    aaaa
+
+                </td>
+                <td>
+                    @ViewBag.published.Reference
+                    exclusion published
                 </td>
             </tr>
         </table>

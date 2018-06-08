@@ -17,20 +17,31 @@ body {
     background-color: lightgrey
 }
 
-#section3, #section5 {
+#section3, #section5, #section7, #section9, #section11, #section13, #section15 {
     padding-top: 7px;
     background-color: lightgrey
 }
 
-#section2, #section4, #section6 {
+#section2, #section4, #section6, #section8, #section10, #section12, #section14, #section16 {
     padding-top: 7px;
     background-color: gainsboro;
 }
 
-:target:before {
-    content:"";
-    display:block;
-    height:180px;
-    margin:-180px 0 0;
+#section2, #section3, #section4, #section5, #section6, #section7, #section8, #section9, #section10, #section11, #section12, #section13, #section14, #section15, #section16 {
+    position: relative;
+    border-top: 170px solid transparent;
+    margin: -170px 0 0;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+}
+
+#section2:before, #section3:before, #section4:before, #section5:before, #section6:before, #section7:before, #section8:before, #section9:before, #section10:before, #section11:before, #section12:before, #section13:before, #section14:before, #section15:before, #section16:before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+    border-top: 2px solid #ccc
 }
 
