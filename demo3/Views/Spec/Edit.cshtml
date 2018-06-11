@@ -1,85 +1,352 @@
-﻿@model demo3.Models.Pager_Result
+﻿@model demo3.Models.Pager_Auth_Result
 @{
-    ViewBag.Title = "Edit";
-}
-
-<h2>Edit</h2>
-
-<div class="form-horizontal">
-    <h4>ASPIRE_Measures</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-    <div class="form-group" style="display:inline">
-        @Html.LabelFor(model => model.Measure_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Measure_ID, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Measure_ID, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Measure_Abbreviation, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Measure_Abbreviation, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Measure_Abbreviation, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Data_Collection_Method, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Data_Collection_Method, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Data_Collection_Method, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.NQS_Domain, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.NQS_Domain, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.NQS_Domain, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Measure_Type, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Measure_Type, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Measure_Type, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Measure_Summary, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Measure_Summary, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Measure_Summary, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Inclusions, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Inclusions, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Inclusions, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
+    Layout = null;
+    Boolean isLoggedin = false;
+ 
+    if (Session["userid"] != null)
+    {
+        isLoggedin = true;
+    }
    
 
+}
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pager Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="~/Content/table_in_spec.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
         </div>
+        <div style="padding-right:55px;padding-left:55px; background-color: white">
+            <a href="https://mpog.org/">
+                <img class="mobile-logo preload-me" src="https://mpog.org/wp-content/uploads/2017/08/MPOG_LOGO4.jpg"
+                     srcset="https://mpog.org/wp-content/uploads/2017/08/MPOG_LOGO4.jpg 301w, https://mpog.org/wp-content/uploads/2017/08/MPOG_LOGO4.jpg 301w"
+                     width="301" height="73" sizes="301px" alt="MPOG">
+            </a>
+
+            @if (isLoggedin) //isLogin
+            {
+                <div style="float: right; margin-top: 20px">
+                    <div style="display: flex;">
+                        <span style="text-align:center;height:inherit">Hello, @(Session["first_name"] + " " + Session["last_name"])! &nbsp; &nbsp; </span>
+                        <button type="submit" class="btn-primary btn" style="float: right" onclick="location.href='@Url.Action("Logout", "Home")'">Logout</button>
+                    </div>
+                </div>
+
+            }
+            else
+            {
+                <button type="submit" class="btn-primary btn" style="float: right; margin-top: 20px" onclick="location.href='@Url.Action("Login", "Home")'">QI Coordinator Login</button>
+            }
+
+
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar" style="box-sizing:content-box">
+            <ul class="nav navbar-nav">
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">@ViewBag.basic.Measure_Abbreviation Basic Info<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">NQS Domain</a></li>
+                        <li><a href="#">Measure Type</a></li>
+                        <li><a href="#">Scope</a></li>
+                        <li><a href="#">Threshold</a></li>
+                    </ul>
+                </li>
+                <li><a href="#section2">Data Collection Method</a></li>
+                <li><a href="#section3">Description</a></li>
+                <li><a href="#section4">Measure Summary</a></li>
+
+                <li><a href="#section5">Inclusions</a></li>
+                <li><a href="#section6">Exclusions</a></li>
+
+                <li><a href="#section7">Success</a></li>
+                <li><a href="#section8">Responsible Provider</a></li>
+                <li><a href="#section9">Risk Adjustment</a></li>
+
+                <li><a href="#section10">References</a></li>
+
+            </ul>
+        </div>
+
+    </nav>
+
+    <div id="section1" class="container-fluid">
+        <div style="display:flex; justify-content: space-between;">
+            <div style="display:flex; justify-content: space-between; width:50%">
+                <h4>
+                    @Html.ActionLink("Go Back to Measure List", "Index", "Measures")
+                </h4>
+
+                <h4>
+                    @Html.ActionLink("View " + (String)Model.Measure_Abbreviation + " Spec", "Index", "Spec", new { id = @ViewBag.basic.Measure_ID }, null)
+                </h4>
+            </div>
+          
+
+        </div>
+
+        <h2>@Model.Measure_Abbreviation Basic Info</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-group" style="display:inline">
+                        @Html.LabelFor(model => model.Measure_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Measure_ID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Measure_ID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <dl class="dl-horizontal" style="text-align:left">
+                        <dt>
+                            NQS Domain
+                        </dt>
+                        <dd>
+                            @ViewBag.published.NQS_Domain
+                        </dd>
+
+                        <dt>
+                            Measure Type
+                        </dt>
+                        <dd>
+                            @ViewBag.published.Measure_Type
+                        </dd>
+
+                        <dt>
+                            Scope
+                        </dt>
+                        <dd>
+                            @ViewBag.published.Scope
+                        </dd>
+
+                        <dt>
+                            Threshold
+                        </dt>
+                        <dd>
+
+                            @if (ViewBag.published.Threshold != null)
+                            {
+
+                                @ViewBag.published.Threshold.ToString("P")
+                            }
+
+
+                        </dd>
+                    </dl>
+                </td>
+            </tr>
+        </table>
+
+
     </div>
-</div>
+
+    @*<div id="section2" class="container-fluid">
+        <h2>Data Collection Method</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Data_Collection_Method
+                </td>
+                <td>
+                    @ViewBag.published.Data_Collection_Method
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <div id="section3" class="container-fluid">
+        <h2>Description</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Description
+                </td>
+                <td>
+                    @ViewBag.published.Description
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="section4" class="container-fluid">
+        <h2>Measure Summary</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Measure_Summary
+                </td>
+                <td>
+                    @ViewBag.published.Measure_Summary
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div id="section5" class="container-fluid">
+        <h2>Inclusions</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Inclusions
+                    aaaa
+
+                </td>
+                <td>
+                    @ViewBag.published.Inclusions
+                    ssss
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="section6" class="container-fluid">
+        <h2>Exclusions</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Exclusions
+                    aaaa
+
+                </td>
+                <td>
+                    @ViewBag.published.Exclusions
+                    exclusion published
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+
+    <div id="section7" class="container-fluid">
+        <h2>Success</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Success
+                    aaaa
+
+                </td>
+                <td>
+                    @ViewBag.published.Success
+                    exclusion published
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="section8" class="container-fluid">
+        <h2>Responsible Provider</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Responsible_Provider
+                    aaaa
+
+                </td>
+                <td>
+                    @ViewBag.basic.Responsible_Provider
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="section9" class="container-fluid">
+        <h2>Risk Adjustment</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Risk_Adjustment
+                    aaaa
+
+                </td>
+                <td>
+                    @ViewBag.basic.Risk_Adjustment
+                    exclusion published
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div id="section10" class="container-fluid">
+        <h2>References</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    @ViewBag.basic.Reference
+                    aaaa
+
+                </td>
+                <td>
+                    @ViewBag.published.Reference
+                    exclusion published
+                </td>
+            </tr>
+        </table>
+    </div>*@
+
+</body>
+</html>
+

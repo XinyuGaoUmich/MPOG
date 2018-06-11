@@ -273,6 +273,8 @@
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EditMeasure.cs" />
+    <Compile Include="Models\EditPager.cs" />
+    <Compile Include="Models\EditSpec.cs" />
     <Compile Include="Models\Enumeration.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
@@ -442,7 +444,6 @@
     <Content Include="Views\Pager\Edit.cshtml" />
     <Content Include="Views\Spec\Index.cshtml" />
     <Content Include="Views\Spec\Edit.cshtml" />
-    <Content Include="Views\Pager\IndexAuth.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

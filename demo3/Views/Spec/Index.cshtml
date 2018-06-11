@@ -1,9 +1,14 @@
 ﻿@{ 
     Layout = null;
     Boolean isLoggedin = false;
+    Boolean isQI = false;
     if (Session["userid"] != null)
     {
         isLoggedin = true;
+    }
+    if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
+    {
+        isQI = true;
     }
 
 }
@@ -86,85 +91,114 @@
 
             </ul>
         </div>
-        @*</div>*@
-        @*</div>*@
+
     </nav>
 
     <div id="section1" class="container-fluid">
-        <h2>@ViewBag.basic.Measure_Abbreviation Basic Info</h2>
-        <table>
-            <tr>
-                <th>Unpublished</th>
-                <th>Published</th>
-            </tr>
-            <tr>
-                <td>
-                    <dl class="dl-horizontal" style="text-align:left">
-                        <dt>
-                            NQS Domain
-                        </dt>
-                        <dd>
-                            @ViewBag.basic.NQS_Domain
-                        </dd>
+        <div style="display:flex; justify-content: space-between;">
+            <div style="display:flex; justify-content: space-between; width:50%">
+                <h4>
+                    @Html.ActionLink("Go Back to Measure List", "Index", "Measures")
+                </h4>
 
-                        <dt>
-                            Measure Type
-                        </dt>
-                        <dd>
-                            @ViewBag.basic.Measure_Type
-                        </dd>
+                <h4>
+                    @Html.ActionLink("View " + (String)@ViewBag.basic.Measure_Abbreviation + " Pager", "Index", "Pager", new { id = @ViewBag.basic.Measure_ID }, null)
+                </h4>
+            </div>
 
-                        <dt>
-                            Scope
-                        </dt>
-                        <dd>
-                            @ViewBag.basic.Scope
-                        </dd>
+            @if (isQI)
+            {
+                <h4>
+                    @Html.ActionLink("Edit " + (String)@ViewBag.basic.Measure_Abbreviation + " Spec", "Edit", "Spec", new { id = @ViewBag.basic.Measure_ID }, null)
+                </h4>
+            }
+        </div>
+            <h2>@ViewBag.basic.Measure_Abbreviation Basic Info</h2>
+            <table>
+                <tr>
+                    <th>Unpublished</th>
+                    <th>Published</th>
+                </tr>
+                <tr>
+                    <td>
+                        <dl class="dl-horizontal" style="text-align:left">
+                            <dt>
+                                NQS Domain
+                            </dt>
+                            <dd>
+                                @ViewBag.basic.NQS_Domain
+                            </dd>
 
-                        <dt>
-                            Threshold
-                        </dt>
-                        <dd>
-                            @ViewBag.basic.Threshold
-                        </dd>
-                    </dl>
-                </td>
-                <td>
-                    <dl class="dl-horizontal" style="text-align:left">
-                        <dt>
-                            NQS Domain
-                        </dt>
-                        <dd>
-                            @ViewBag.published.NQS_Domain
-                        </dd>
+                            <dt>
+                                Measure Type
+                            </dt>
+                            <dd>
+                                @ViewBag.basic.Measure_Type
+                            </dd>
 
-                        <dt>
-                            Measure Type
-                        </dt>
-                        <dd>
-                            @ViewBag.published.Measure_Type
-                        </dd>
+                            <dt>
+                                Scope
+                            </dt>
+                            <dd>
+                                @ViewBag.basic.Scope
+                            </dd>
 
-                        <dt>
-                            Scope
-                        </dt>
-                        <dd>
-                            @ViewBag.published.Scope
-                        </dd>
+                            <dt>
+                                Threshold
+                            </dt>
+                            <dd>                             
+                                @if (ViewBag.basic.Threshold != null)
+                                {
 
-                        <dt>
-                            Threshold
-                        </dt>
-                        <dd>
-                            @ViewBag.published.Threshold
-                        </dd>
-                    </dl>
-                </td>
-            </tr>
-        </table>
+                                    @ViewBag.basic.Threshold.ToString("P")
+                                }
+
+                            </dd>
+                        </dl>
+                    </td>
+                    <td>
+                        <dl class="dl-horizontal" style="text-align:left">
+                            <dt>
+                                NQS Domain
+                            </dt>
+                            <dd>
+                                @ViewBag.published.NQS_Domain
+                            </dd>
+
+                            <dt>
+                                Measure Type
+                            </dt>
+                            <dd>
+                                @ViewBag.published.Measure_Type
+                            </dd>
+
+                            <dt>
+                                Scope
+                            </dt>
+                            <dd>
+                                @ViewBag.published.Scope
+                            </dd>
+
+                            <dt>
+                                Threshold
+                            </dt>
+                            <dd>
+
+                                @if (ViewBag.published.Threshold != null)
+                                {
+
+                                    @ViewBag.published.Threshold.ToString("P")
+                                }
+
+                             
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            </table>
 
 
-    </div>
+        </div>
 
     <div id="section2" class="container-fluid">
         <h2>Data Collection Method</h2>

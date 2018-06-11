@@ -40,7 +40,8 @@ namespace demo3.Models
         public string Exclusions { get; set; }
 
         public string Success { get; set; }
-
+   
+        [DisplayFormat(DataFormatString ="{0:0.0%}")]
         public Nullable<decimal> Threshold { get; set; }
 
         [DisplayName("Responsible Provider")]

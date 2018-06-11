@@ -189,6 +189,10 @@
           <Property Type="Decimal" Name="Threshold" Nullable="true" Precision="18" Scale="3" />
           <Property Type="String" Name="Risk_Adjustment" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="Reference" Nullable="true" />
+          <Property Type="Int32" Name="NQS_Domain_ID" Nullable="true" />
+          <Property Type="Int32" Name="Responsible_Provider_ID" Nullable="true" />
+          <Property Type="Int32" Name="Measure_Type_ID" Nullable="true" />
+          <Property Type="Int32" Name="Measure_Scope_ID" Nullable="true" />
         </ComplexType>
         <ComplexType Name="Spec_Result">
           <Property Type="String" Name="NQS_Domain" Nullable="true" MaxLength="50" />
@@ -209,6 +213,10 @@
           <Property Type="String" Name="Risk_Adjustment" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="Flow_Chart" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="Reference" Nullable="true" />
+          <Property Type="Int32" Name="NQS_Domain_ID" Nullable="true" />
+          <Property Type="Int32" Name="Responsible_Provider_ID" Nullable="true" />
+          <Property Type="Int32" Name="Measure_Type_ID" Nullable="true" />
+          <Property Type="Int32" Name="Measure_Scope_ID" Nullable="true" />
         </ComplexType>
         <ComplexType Name="Public_Measure_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -233,6 +241,10 @@
           <Property Type="Decimal" Name="Threshold" Nullable="true" Precision="18" Scale="3" />
           <Property Type="String" Name="Risk_Adjustment" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="Reference" Nullable="true" />
+          <Property Type="Int32" Name="NQS_Domain_ID" Nullable="true" />
+          <Property Type="Int32" Name="Responsible_Provider_ID" Nullable="true" />
+          <Property Type="Int32" Name="Measure_Type_ID" Nullable="true" />
+          <Property Type="Int32" Name="Measure_Scope_ID" Nullable="true" />
         </ComplexType>
         <ComplexType Name="Measure_List_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -284,6 +296,10 @@
           <Property Type="String" Name="Risk_Adjustment" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="Flow_Chart" Nullable="true" MaxLength="10" />
           <Property Type="String" Name="Reference" Nullable="true" />
+          <Property Type="Int32" Name="NQS_Domain_ID" Nullable="true" />
+          <Property Type="Int32" Name="Responsible_Provider_ID" Nullable="true" />
+          <Property Type="Int32" Name="Measure_Type_ID" Nullable="true" />
+          <Property Type="Int32" Name="Measure_Scope_ID" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -355,6 +371,10 @@
                 <ScalarProperty Name="Threshold" ColumnName="Threshold" />
                 <ScalarProperty Name="Risk_Adjustment" ColumnName="Risk_Adjustment" />
                 <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="NQS_Domain_ID" ColumnName="NQS_Domain_ID" />
+                <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
+                <ScalarProperty Name="Measure_Type_ID" ColumnName="Measure_Type_ID" />
+                <ScalarProperty Name="Measure_Scope_ID" ColumnName="Measure_Scope_ID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -379,6 +399,10 @@
                 <ScalarProperty Name="Risk_Adjustment" ColumnName="Risk_Adjustment" />
                 <ScalarProperty Name="Flow_Chart" ColumnName="Flow_Chart" />
                 <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="NQS_Domain_ID" ColumnName="NQS_Domain_ID" />
+                <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
+                <ScalarProperty Name="Measure_Type_ID" ColumnName="Measure_Type_ID" />
+                <ScalarProperty Name="Measure_Scope_ID" ColumnName="Measure_Scope_ID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -411,6 +435,10 @@
                 <ScalarProperty Name="Threshold" ColumnName="Threshold" />
                 <ScalarProperty Name="Risk_Adjustment" ColumnName="Risk_Adjustment" />
                 <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="NQS_Domain_ID" ColumnName="NQS_Domain_ID" />
+                <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
+                <ScalarProperty Name="Measure_Type_ID" ColumnName="Measure_Type_ID" />
+                <ScalarProperty Name="Measure_Scope_ID" ColumnName="Measure_Scope_ID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -475,6 +503,10 @@
                 <ScalarProperty Name="Risk_Adjustment" ColumnName="Risk_Adjustment" />
                 <ScalarProperty Name="Flow_Chart" ColumnName="Flow_Chart" />
                 <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="NQS_Domain_ID" ColumnName="NQS_Domain_ID" />
+                <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
+                <ScalarProperty Name="Measure_Type_ID" ColumnName="Measure_Type_ID" />
+                <ScalarProperty Name="Measure_Scope_ID" ColumnName="Measure_Scope_ID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

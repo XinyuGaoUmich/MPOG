@@ -65,6 +65,10 @@
           <ScalarProperty Name="Threshold" ColumnName="Threshold" />
           <ScalarProperty Name="Risk_Adjustment" ColumnName="Risk_Adjustment" />
           <ScalarProperty Name="Reference" ColumnName="Reference" />
+          <ScalarProperty Name="NQS_Domain_ID" ColumnName="NQS_Domain_ID" />
+          <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
+          <ScalarProperty Name="Measure_Type_ID" ColumnName="Measure_Type_ID" />
+          <ScalarProperty Name="Measure_Scope_ID" ColumnName="Measure_Scope_ID" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -89,6 +93,10 @@
           <ScalarProperty Name="Risk_Adjustment" ColumnName="Risk_Adjustment" />
           <ScalarProperty Name="Flow_Chart" ColumnName="Flow_Chart" />
           <ScalarProperty Name="Reference" ColumnName="Reference" />
+          <ScalarProperty Name="NQS_Domain_ID" ColumnName="NQS_Domain_ID" />
+          <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
+          <ScalarProperty Name="Measure_Type_ID" ColumnName="Measure_Type_ID" />
+          <ScalarProperty Name="Measure_Scope_ID" ColumnName="Measure_Scope_ID" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -121,6 +129,10 @@
           <ScalarProperty Name="Threshold" ColumnName="Threshold" />
           <ScalarProperty Name="Risk_Adjustment" ColumnName="Risk_Adjustment" />
           <ScalarProperty Name="Reference" ColumnName="Reference" />
+          <ScalarProperty Name="NQS_Domain_ID" ColumnName="NQS_Domain_ID" />
+          <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
+          <ScalarProperty Name="Measure_Type_ID" ColumnName="Measure_Type_ID" />
+          <ScalarProperty Name="Measure_Scope_ID" ColumnName="Measure_Scope_ID" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -185,6 +197,10 @@
           <ScalarProperty Name="Risk_Adjustment" ColumnName="Risk_Adjustment" />
           <ScalarProperty Name="Flow_Chart" ColumnName="Flow_Chart" />
           <ScalarProperty Name="Reference" ColumnName="Reference" />
+          <ScalarProperty Name="NQS_Domain_ID" ColumnName="NQS_Domain_ID" />
+          <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
+          <ScalarProperty Name="Measure_Type_ID" ColumnName="Measure_Type_ID" />
+          <ScalarProperty Name="Measure_Scope_ID" ColumnName="Measure_Scope_ID" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

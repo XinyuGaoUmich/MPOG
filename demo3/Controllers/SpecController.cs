@@ -21,14 +21,15 @@ namespace demo3.Controllers
             return View();
         }
 
-        public ActionResult Edit()
+        public ActionResult Edit(int? id)
         {
+            if (Session["roles"] == null || !Session["roles"].ToString().Contains("MeasureSpecEditor"))
+            {
+                return RedirectToAction("LoginWithoutAccess","NoAccess");
+            }
+            //var spec_unpub = db2.Spec(id).
             return View();
         }
 
-        public ActionResult ReturnToMeasure()
-        {
-            return Redirect("/Measures/Index");
-        }
     }
 }

@@ -105,6 +105,10 @@
     <Property Type="Decimal" Name="Threshold" Nullable="true" Precision="18" Scale="3" />
     <Property Type="String" Name="Risk_Adjustment" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="Reference" Nullable="true" />
+    <Property Type="Int32" Name="NQS_Domain_ID" Nullable="true" />
+    <Property Type="Int32" Name="Responsible_Provider_ID" Nullable="true" />
+    <Property Type="Int32" Name="Measure_Type_ID" Nullable="true" />
+    <Property Type="Int32" Name="Measure_Scope_ID" Nullable="true" />
   </ComplexType>
   <ComplexType Name="Spec_Result">
     <Property Type="String" Name="NQS_Domain" Nullable="true" MaxLength="50" />
@@ -125,6 +129,10 @@
     <Property Type="String" Name="Risk_Adjustment" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="Flow_Chart" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="Reference" Nullable="true" />
+    <Property Type="Int32" Name="NQS_Domain_ID" Nullable="true" />
+    <Property Type="Int32" Name="Responsible_Provider_ID" Nullable="true" />
+    <Property Type="Int32" Name="Measure_Type_ID" Nullable="true" />
+    <Property Type="Int32" Name="Measure_Scope_ID" Nullable="true" />
   </ComplexType>
   <ComplexType Name="Public_Measure_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -149,6 +157,10 @@
     <Property Type="Decimal" Name="Threshold" Nullable="true" Precision="18" Scale="3" />
     <Property Type="String" Name="Risk_Adjustment" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="Reference" Nullable="true" />
+    <Property Type="Int32" Name="NQS_Domain_ID" Nullable="true" />
+    <Property Type="Int32" Name="Responsible_Provider_ID" Nullable="true" />
+    <Property Type="Int32" Name="Measure_Type_ID" Nullable="true" />
+    <Property Type="Int32" Name="Measure_Scope_ID" Nullable="true" />
   </ComplexType>
   <ComplexType Name="Measure_List_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -200,5 +212,9 @@
     <Property Type="String" Name="Risk_Adjustment" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="Flow_Chart" Nullable="true" MaxLength="10" />
     <Property Type="String" Name="Reference" Nullable="true" />
+    <Property Type="Int32" Name="NQS_Domain_ID" Nullable="true" />
+    <Property Type="Int32" Name="Responsible_Provider_ID" Nullable="true" />
+    <Property Type="Int32" Name="Measure_Type_ID" Nullable="true" />
+    <Property Type="Int32" Name="Measure_Scope_ID" Nullable="true" />
   </ComplexType>
 </Schema>

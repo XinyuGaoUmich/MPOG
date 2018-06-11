@@ -18,64 +18,10 @@ namespace demo3.Controllers
         private MPOG_XinyuEntities4 db2 = new MPOG_XinyuEntities4();
         public ActionResult Index(int? id)
         {
-            if (Session["roles"] != null && Session["roles"].ToString().Contains("MeasureSpecEditor"))
-            {
-                return RedirectToAction("IndexAuth", new { id = id});
-            }
-            return View(db2.Pager(id).First());
-        }
-
-        public ActionResult Editable(int? id)
-        {
-            if (Session["roles"] == null || !Session["roles"].ToString().Contains("MeasureSpecEditor"))
-            {
-                return RedirectToAction("Index", new { id = id});
-            }
-            return View(db2.Pager(id).ToList());
-        }
-
-        [HttpPost]
-        [ValidateInput(false)]
-        public FileResult Export(string GridHtml)
-        {
-            using (MemoryStream stream = new MemoryStream())
-            {
-                StringReader sr = new StringReader(GridHtml);
-                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
-                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
-                pdfDoc.Open();
-                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
-                pdfDoc.Close();
-                return File(stream.ToArray(), "application/pdf", "Grid.pdf");
-            }
-        }
-     
-    // GET: Pager/Details/5
-        public ActionResult Details(int id)
-        {
+            
+            ViewBag.basic = db2.Pager_Auth(id).First();        
+            ViewBag.published = db2.Pager(id).First();
             return View();
-        }
-
-        // GET: Pager/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Pager/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: Pager/Edit/5
@@ -83,10 +29,16 @@ namespace demo3.Controllers
         {
             if (Session["roles"] == null || !Session["roles"].ToString().Contains("MeasureSpecEditor"))
             {
-                return RedirectToAction("Index", new { id = id });
+                return RedirectToAction("LoginWithoutAccess", "NoAccess");
             }
-          
-            return View(db2.Pager(id).First());
+
+            List<Pager_Auth_Result> pager_auth = db2.Pager_Auth(id).ToList();
+            var nQS_Domain = db2.Enumerations.Where(o => o.Section_ID == 4);
+            var measure_Type = db2.Enumerations.Where(o => o.Section_ID == 5);
+            var scope = db2.Enumerations.Where(o => o.Section_ID == 6);
+            List<Pager_Result> pager = db2.Pager(id).ToList();
+            var model = new EditPager { pager_Auth_Results = pager_auth, pager_Results = pager, nQS_Domain = nQS_Domain, measure_Type = measure_Type, scope = scope };
+            return View(model);
         }
 
         // POST: Pager/Edit/5
@@ -127,18 +79,6 @@ namespace demo3.Controllers
             }
         }
 
-        public ActionResult ReturnToMeasure()
-        {
-            return Redirect("/Measures/Index");
-        }
-
-        public ActionResult IndexAuth(int? id)
-        {
-            if (Session["roles"] == null || !Session["roles"].ToString().Contains("MeasureSpecEditor"))
-            {
-                return RedirectToAction("Index", new { id = id });
-            }
-            return View(db2.Pager_Auth(id).First());
-        }
+      
     }
 }

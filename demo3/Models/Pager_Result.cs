@@ -28,5 +28,9 @@ namespace demo3.Models
         public Nullable<decimal> Threshold { get; set; }
         public string Risk_Adjustment { get; set; }
         public string Reference { get; set; }
+        public Nullable<int> NQS_Domain_ID { get; set; }
+        public Nullable<int> Responsible_Provider_ID { get; set; }
+        public Nullable<int> Measure_Type_ID { get; set; }
+        public Nullable<int> Measure_Scope_ID { get; set; }
     }
 }
