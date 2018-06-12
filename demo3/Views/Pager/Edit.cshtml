@@ -122,48 +122,80 @@
                     </div>
 
                     <div class="form-group" style="display:inline">
-                        @Html.LabelFor(model => model.pager_Auth_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().NQS_Domain_ID, new SelectList(Model.nQS_Domain, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().NQS_Domain_ID), new { @class = "form-control" })
+                        @Html.LabelFor(model => model.pager_Auth_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().NQS_Domain_ID, new SelectList(Model.nQS_Domain, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().NQS_Domain_ID), new { @class = "form-control", @style = "height: 30px" })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().NQS_Domain, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group" style="display:inline">
-                        @Html.LabelFor(model => model.pager_Auth_Results.First().Measure_Type_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Type_ID, new SelectList(Model.measure_Type, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().Measure_Type_ID),new { @class = "form-control" })
+                        @Html.LabelFor(model => model.pager_Auth_Results.First().Measure_Type_ID, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Type_ID, new SelectList(Model.measure_Type, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().Measure_Type_ID), new { @class = "form-control", @style = "height: 30px" })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Measure_Type_ID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="display:inline">
+                        @Html.LabelFor(model => model.pager_Auth_Results.First().Measure_Scope_ID, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Scope_ID, new SelectList(Model.scope, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().Measure_Scope_ID), new { @class = "form-control", @style = "height: 30px" })
+                            @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Measure_Scope_ID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="display:inline">
+                        @Html.LabelFor(model => model.pager_Auth_Results.First().Threshold, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.pager_Auth_Results.First().Threshold, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Threshold, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                 </td>
 
                 <td>
-                    <div class="form-group" style="display:none">
-                        @Html.LabelFor(model => model.pager_Results.First().Measure_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.DisplayFor(model => model.pager_Results.First().Measure_ID, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.pager_Results.First().Measure_ID, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
 
-                    <div class="form-group" style="display:inline">
-                        @Html.LabelFor(model => model.pager_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.DisplayFor(model => model.pager_Results.First().NQS_Domain, new { htmlAttributes = new { @class = "form-control" } })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.pager_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(model => model.pager_Results.First().NQS_Domain, new { disabled = "disabled", @readonly = "readonly", @style = "height: 30px" })
+
+                            @*@Html.DisplayFor(model => model.pager_Results.First().NQS_Domain, new { htmlAttributes = new { @class = "form-control" } })*@
                             @Html.ValidationMessageFor(model => model.pager_Results.First().NQS_Domain, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
-                    <div class="form-group" style="display:inline">
-                        @Html.LabelFor(model => model.pager_Results.First().Measure_Type, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.DisplayFor(model => model.pager_Results.First().Measure_Type, new { htmlAttributes = new { @class = "form-control" } })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.pager_Results.First().Measure_Type, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(model => model.pager_Results.First().Measure_Type, new { disabled = "disabled", @readonly = "readonly", @style = "height: 30px" })
+
+                            @*@Html.DisplayFor(model => model.pager_Results.First().Measure_Type, new { htmlAttributes = new { @class = "form-control" } })*@
                             @Html.ValidationMessageFor(model => model.pager_Results.First().Measure_Type, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.pager_Results.First().Scope, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(model => model.pager_Results.First().Scope, new { disabled = "disabled", @readonly = "readonly", @style = "height: 30px" })
+
+                            @*@Html.DisplayFor(model => model.pager_Results.First().Measure_Type, new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.ValidationMessageFor(model => model.pager_Results.First().Scope, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.pager_Results.First().Threshold, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(model => model.pager_Results.First().Threshold, new { disabled = "disabled", @readonly = "readonly", @style = "height: 30px" })
+
+                            @*@Html.DisplayFor(model => model.pager_Results.First().Measure_Type, new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.ValidationMessageFor(model => model.pager_Results.First().Threshold, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                 </td>
             </tr>
         </table>
@@ -171,24 +203,37 @@
 
     </div>
 
-    @*<div id="section2" class="container-fluid">
+    <div id="section2" class="container-fluid">
             <h2>Data Collection Method</h2>
             <table>
                 <tr>
                     <th>Unpublished</th>
                     <th>Published</th>
                 </tr>
-                <tr>
+                <tr>             
                     <td>
-                        @ViewBag.basic.Data_Collection_Method
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.pager_Auth_Results.First().Data_Collection_Method, new { @class = "form-control", @cols = "80", @rows = "5" })
+                            @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Data_Collection_Method, "", new { @class = "text-danger" })
+                        </div>
+
                     </td>
+
+                   
                     <td>
-                        @ViewBag.published.Data_Collection_Method
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.pager_Results.First().Data_Collection_Method, new { disabled = "disabled", @readonly = "readonly" })
+
+                            @*@Html.DisplayFor(model => model.pager_Results.First().Measure_Type, new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.ValidationMessageFor(model => model.pager_Results.First().Data_Collection_Method, "", new { @class = "text-danger" })
+                        </div>
+
                     </td>
                 </tr>
             </table>
 
         </div>
+    @*
         <div id="section3" class="container-fluid">
             <h2>Description</h2>
             <table>

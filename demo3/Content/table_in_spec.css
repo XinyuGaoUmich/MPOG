@@ -14,17 +14,21 @@ body {
 
 #section1{
     padding-top: 180px;
-    background-color: lightgrey
+    background-color: lightgrey;
+    padding-bottom:10px;
+        
 }
 
 #section3, #section5, #section7, #section9, #section11, #section13, #section15 {
     padding-top: 7px;
-    background-color: lightgrey
+    background-color: lightgrey;
+    padding-bottom: 10px;
 }
 
 #section2, #section4, #section6, #section8, #section10, #section12, #section14, #section16 {
     padding-top: 7px;
     background-color: gainsboro;
+    padding-bottom: 10px;
 }
 
 #section2, #section3, #section4, #section5, #section6, #section7, #section8, #section9, #section10, #section11, #section12, #section13, #section14, #section15, #section16 {
