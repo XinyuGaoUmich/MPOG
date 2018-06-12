@@ -1,12 +1,16 @@
 ﻿@model demo3.Models.EditPager
 @{
-    Layout = null;
-    Boolean isLoggedin = false;
+                /**/
 
-    if (Session["userid"] != null)
-    {
-        isLoggedin = true;
-    }
+                /**/
+
+                Layout = null;
+                Boolean isLoggedin = false;
+
+                if (Session["userid"] != null)
+                {
+                    isLoggedin = true;
+                }
 
 
 }
@@ -21,7 +25,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="~/Content/table_in_spec.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/table_in_edit.css" rel="stylesheet" type="text/css" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script>
 
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -72,27 +84,27 @@
                         <li><a href="#">Threshold</a></li>
                     </ul>
                 </li>
-                <li><a href="#section2">Data Collection Method</a></li>
-                <li><a href="#section3">Description</a></li>
-                <li><a href="#section4">Measure Summary</a></li>
+                <li><a href="#section22">Data Collection Method</a></li>
+                <li><a href="#section33">Description</a></li>
+                <li><a href="#section44">Measure Summary</a></li>
 
-                <li><a href="#section5">Inclusions</a></li>
-                <li><a href="#section6">Exclusions</a></li>
+                <li><a href="#section55">Inclusions</a></li>
+                <li><a href="#section66">Exclusions</a></li>
 
-                <li><a href="#section7">Success</a></li>
-                <li><a href="#section8">Responsible Provider</a></li>
-                <li><a href="#section9">Risk Adjustment</a></li>
+                <li><a href="#section77">Success</a></li>
+                <li><a href="#section88">Responsible Provider</a></li>
+                <li><a href="#section99">Risk Adjustment</a></li>
 
-                <li><a href="#section10">References</a></li>
+                <li><a href="#section1010">References</a></li>
 
             </ul>
         </div>
 
     </nav>
 
-    <div id="section1" class="container-fluid">
+    <div id="section1">
         <div style="display:flex; justify-content: space-between;">
-            <div style="display:flex; justify-content: space-between; width:50%">
+            <div style="display:flex; justify-content:space-between; width:50%">
                 <h4>
                     @Html.ActionLink("Go Back to Measure List", "Index", "Measures")
                 </h4>
@@ -102,7 +114,15 @@
                 </h4>
             </div>
 
+            <div style="display:flex; justify-content: space-around; width:50%">
+                <h4>
+                    @Html.ActionLink("Save", "Unpublish")
+                </h4>
 
+                <h4>
+                    @Html.ActionLink("Publish", "Publish")
+                </h4>
+            </div>
         </div>
 
         <h2>@Model.pager_Auth_Results.First().Measure_Abbreviation Basic Info</h2>
@@ -116,7 +136,7 @@
                     <div class="form-group" style="display:none">
                         @Html.LabelFor(model => model.pager_Auth_Results.First().Measure_ID, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.pager_Auth_Results.First().Measure_ID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.pager_Auth_Results.First().Measure_ID, new { htmlAttributes = new { @class = "selectpicker" } })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Measure_ID, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -124,23 +144,23 @@
                     <div class="form-group" style="display:inline">
                         @Html.LabelFor(model => model.pager_Auth_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().NQS_Domain_ID, new SelectList(Model.nQS_Domain, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().NQS_Domain_ID), new { @class = "form-control", @style = "height: 30px" })
+                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().NQS_Domain_ID, new SelectList(Model.nQS_Domain, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().NQS_Domain_ID), new { @class = "selectpicker", @style = "height: 30px" })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().NQS_Domain, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group" style="display:inline">
-                        @Html.LabelFor(model => model.pager_Auth_Results.First().Measure_Type_ID, htmlAttributes: new { @class = "control-label col-md-3" })
+                        @Html.LabelFor(model => model.pager_Auth_Results.First().Measure_Type, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Type_ID, new SelectList(Model.measure_Type, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().Measure_Type_ID), new { @class = "form-control", @style = "height: 30px" })
+                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Type_ID, new SelectList(Model.measure_Type, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().Measure_Type_ID), new { @class = "selectpicker", @style = "height: 30px" })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Measure_Type_ID, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group" style="display:inline">
-                        @Html.LabelFor(model => model.pager_Auth_Results.First().Measure_Scope_ID, htmlAttributes: new { @class = "control-label col-md-3" })
+                        @Html.LabelFor(model => model.pager_Auth_Results.First().Scope, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Scope_ID, new SelectList(Model.scope, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().Measure_Scope_ID), new { @class = "form-control", @style = "height: 30px" })
+                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Scope_ID, new SelectList(Model.scope, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().Measure_Scope_ID), new { @class = "selectpicker", @style = "height: 30px" })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Measure_Scope_ID, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -148,7 +168,7 @@
                     <div class="form-group" style="display:inline">
                         @Html.LabelFor(model => model.pager_Auth_Results.First().Threshold, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.EditorFor(model => model.pager_Auth_Results.First().Threshold, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.TextBoxFor(model => model.pager_Auth_Results.First().Threshold, new { @class = "form-control", @style = "width: 220px" })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Threshold, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -160,7 +180,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.pager_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.TextBoxFor(model => model.pager_Results.First().NQS_Domain, new { disabled = "disabled", @readonly = "readonly", @style = "height: 30px" })
+                            @Html.TextBoxFor(model => model.pager_Results.First().NQS_Domain, new { @class = "form-control", @readonly = "readonly", @style = "height: 30px" })
 
                             @*@Html.DisplayFor(model => model.pager_Results.First().NQS_Domain, new { htmlAttributes = new { @class = "form-control" } })*@
                             @Html.ValidationMessageFor(model => model.pager_Results.First().NQS_Domain, "", new { @class = "text-danger" })
@@ -170,7 +190,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.pager_Results.First().Measure_Type, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.TextBoxFor(model => model.pager_Results.First().Measure_Type, new { disabled = "disabled", @readonly = "readonly", @style = "height: 30px" })
+                            @Html.TextBoxFor(model => model.pager_Results.First().Measure_Type, new { @class = "form-control", @readonly = "readonly", @style = "height: 30px" })
 
                             @*@Html.DisplayFor(model => model.pager_Results.First().Measure_Type, new { htmlAttributes = new { @class = "form-control" } })*@
                             @Html.ValidationMessageFor(model => model.pager_Results.First().Measure_Type, "", new { @class = "text-danger" })
@@ -180,7 +200,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.pager_Results.First().Scope, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.TextBoxFor(model => model.pager_Results.First().Scope, new { disabled = "disabled", @readonly = "readonly", @style = "height: 30px" })
+                            @Html.TextBoxFor(model => model.pager_Results.First().Scope, new { @class = "form-control", @readonly = "readonly", @style = "height: 30px" })
 
                             @*@Html.DisplayFor(model => model.pager_Results.First().Measure_Type, new { htmlAttributes = new { @class = "form-control" } })*@
                             @Html.ValidationMessageFor(model => model.pager_Results.First().Scope, "", new { @class = "text-danger" })
@@ -190,7 +210,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.pager_Results.First().Threshold, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.TextBoxFor(model => model.pager_Results.First().Threshold, new { disabled = "disabled", @readonly = "readonly", @style = "height: 30px" })
+                            @Html.TextBoxFor(model => model.pager_Results.First().Threshold, new { @class = "form-control", @readonly = "readonly", @style = "height: 30px" })
 
                             @*@Html.DisplayFor(model => model.pager_Results.First().Measure_Type, new { htmlAttributes = new { @class = "form-control" } })*@
                             @Html.ValidationMessageFor(model => model.pager_Results.First().Threshold, "", new { @class = "text-danger" })
@@ -203,200 +223,245 @@
 
     </div>
 
-    <div id="section2" class="container-fluid">
-            <h2>Data Collection Method</h2>
-            <table>
-                <tr>
-                    <th>Unpublished</th>
-                    <th>Published</th>
-                </tr>
-                <tr>             
-                    <td>
-                        <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.pager_Auth_Results.First().Data_Collection_Method, new { @class = "form-control", @cols = "80", @rows = "5" })
-                            @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Data_Collection_Method, "", new { @class = "text-danger" })
-                        </div>
+    <span class="anchor" id="section22"></span>
+    <div id="section2">
 
-                    </td>
+        <h2>Data Collection Method</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Data_Collection_Method, new { @class = "form-control", @cols = "80", @rows = "5" })
+                        @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Data_Collection_Method, "", new { @class = "text-danger" })
+                    </div>
 
-                   
-                    <td>
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(model => model.pager_Results.First().Data_Collection_Method, new { disabled = "disabled", @readonly = "readonly" })
-
-                            @*@Html.DisplayFor(model => model.pager_Results.First().Measure_Type, new { htmlAttributes = new { @class = "form-control" } })*@
-                            @Html.ValidationMessageFor(model => model.pager_Results.First().Data_Collection_Method, "", new { @class = "text-danger" })
-                        </div>
-
-                    </td>
-                </tr>
-            </table>
-
-        </div>
-    @*
-        <div id="section3" class="container-fluid">
-            <h2>Description</h2>
-            <table>
-                <tr>
-                    <th>Unpublished</th>
-                    <th>Published</th>
-                </tr>
-                <tr>
-                    <td>
-                        @ViewBag.basic.Description
-                    </td>
-                    <td>
-                        @ViewBag.published.Description
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div id="section4" class="container-fluid">
-            <h2>Measure Summary</h2>
-            <table>
-                <tr>
-                    <th>Unpublished</th>
-                    <th>Published</th>
-                </tr>
-                <tr>
-                    <td>
-                        @ViewBag.basic.Measure_Summary
-                    </td>
-                    <td>
-                        @ViewBag.published.Measure_Summary
-                    </td>
-                </tr>
-            </table>
-        </div>
+                </td>
 
 
-        <div id="section5" class="container-fluid">
-            <h2>Inclusions</h2>
-            <table>
-                <tr>
-                    <th>Unpublished</th>
-                    <th>Published</th>
-                </tr>
-                <tr>
-                    <td>
-                        @ViewBag.basic.Inclusions
-                        aaaa
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.pager_Results.First().Data_Collection_Method, new { @class = "form-control", @readonly = "readonly", @cols = "80", @rows = "5" })
+                        @Html.ValidationMessageFor(model => model.pager_Results.First().Data_Collection_Method, "", new { @class = "text-danger" })
+                    </div>
 
-                    </td>
-                    <td>
-                        @ViewBag.published.Inclusions
-                        ssss
-                    </td>
-                </tr>
-            </table>
-        </div>
+                </td>
+            </tr>
+        </table>
 
-        <div id="section6" class="container-fluid">
-            <h2>Exclusions</h2>
-            <table>
-                <tr>
-                    <th>Unpublished</th>
-                    <th>Published</th>
-                </tr>
-                <tr>
-                    <td>
-                        @ViewBag.basic.Exclusions
-                        aaaa
+    </div>
 
-                    </td>
-                    <td>
-                        @ViewBag.published.Exclusions
-                        exclusion published
-                    </td>
-                </tr>
-            </table>
-        </div>
+    <span class="anchor" id="section33"></span>
+    <div id="section3">
+        <h2>Description</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Description, new { @class = "form-control", @cols = "80", @rows = "5" })
+                        @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Description, "", new { @class = "text-danger" })
+                    </div>
+
+                </td>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.pager_Results.First().Description, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
+                        @Html.ValidationMessageFor(model => model.pager_Results.First().Description, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <span class="anchor" id="section44"></span>
+    <div id="section4">
+        <h2>Measure Summary</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Measure_Summary, new { @class = "form-control", @cols = "80", @rows = "5" })
+                        @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Measure_Summary, "", new { @class = "text-danger" })
+                    </div>
+
+                </td>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.pager_Results.First().Measure_Summary, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
+                        @Html.ValidationMessageFor(model => model.pager_Results.First().Measure_Summary, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <span class="anchor" id="section55"></span>
+    <div id="section5">
+        <h2>Inclusions</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Inclusions, new { @class = "form-control", @cols = "80", @rows = "5" })
+                        @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Inclusions, "", new { @class = "text-danger" })
+                    </div>
+
+                </td>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.pager_Results.First().Inclusions, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
+                        @Html.ValidationMessageFor(model => model.pager_Results.First().Inclusions, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <span class="anchor" id="section66"></span>
+    <div id="section6">
+        <h2>Exclusions</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Exclusions, new { @class = "form-control", @cols = "80", @rows = "5" })
+                        @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Exclusions, "", new { @class = "text-danger" })
+                    </div>
+
+                </td>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.pager_Results.First().Exclusions, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
+                        @Html.ValidationMessageFor(model => model.pager_Results.First().Exclusions, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
 
+    <span class="anchor" id="section77"></span>
+    <div id="section7">
+        <h2>Success</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Success, new { @class = "form-control", @cols = "80", @rows = "5" })
+                        @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Success, "", new { @class = "text-danger" })
+                    </div>
 
-        <div id="section7" class="container-fluid">
-            <h2>Success</h2>
-            <table>
-                <tr>
-                    <th>Unpublished</th>
-                    <th>Published</th>
-                </tr>
-                <tr>
-                    <td>
-                        @ViewBag.basic.Success
-                        aaaa
+                </td>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.pager_Results.First().Success, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
+                        @Html.ValidationMessageFor(model => model.pager_Results.First().Success, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-                    </td>
-                    <td>
-                        @ViewBag.published.Success
-                        exclusion published
-                    </td>
-                </tr>
-            </table>
-        </div>
+    <span class="anchor" id="section88"></span>
+    <div id="section8">
+        <h2>Responsible Provider</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Responsible_Provider, new { @class = "form-control", @cols = "80", @rows = "5" })
+                        @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Responsible_Provider, "", new { @class = "text-danger" })
+                    </div>
 
-        <div id="section8" class="container-fluid">
-            <h2>Responsible Provider</h2>
-            <table>
-                <tr>
-                    <th>Unpublished</th>
-                    <th>Published</th>
-                </tr>
-                <tr>
-                    <td>
-                        @ViewBag.basic.Responsible_Provider
-                        aaaa
+                </td>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.pager_Results.First().Responsible_Provider, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
+                        @Html.ValidationMessageFor(model => model.pager_Results.First().Responsible_Provider, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-                    </td>
-                    <td>
-                        @ViewBag.basic.Responsible_Provider
-                    </td>
-                </tr>
-            </table>
-        </div>
+    <span class="anchor" id="section99"></span>
+    <div id="section9">
+        <h2>Risk Adjustment</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Risk_Adjustment, new { @class = "form-control", @cols = "80", @rows = "5" })
+                        @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Risk_Adjustment, "", new { @class = "text-danger" })
+                    </div>
 
-        <div id="section9" class="container-fluid">
-            <h2>Risk Adjustment</h2>
-            <table>
-                <tr>
-                    <th>Unpublished</th>
-                    <th>Published</th>
-                </tr>
-                <tr>
-                    <td>
-                        @ViewBag.basic.Risk_Adjustment
-                        aaaa
+                </td>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.pager_Results.First().Risk_Adjustment, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
+                        @Html.ValidationMessageFor(model => model.pager_Results.First().Risk_Adjustment, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-                    </td>
-                    <td>
-                        @ViewBag.basic.Risk_Adjustment
-                        exclusion published
-                    </td>
-                </tr>
-            </table>
-        </div>
+    <span class="anchor" id="section1010"></span>
+    <div id="section10">
+        <h2>References</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Reference, new { @class = "form-control", @cols = "80", @rows = "5" })
+                        @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Reference, "", new { @class = "text-danger" })
+                    </div>
 
-
-        <div id="section10" class="container-fluid">
-            <h2>References</h2>
-            <table>
-                <tr>
-                    <th>Unpublished</th>
-                    <th>Published</th>
-                </tr>
-                <tr>
-                    <td>
-                        @ViewBag.basic.Reference
-                        aaaa
-
-                    </td>
-                    <td>
-                        @ViewBag.published.Reference
-                        exclusion published
-                    </td>
-                </tr>
-            </table>
-        </div>*@
+                </td>
+                <td>
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.pager_Results.First().Reference, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
+                        @Html.ValidationMessageFor(model => model.pager_Results.First().Reference, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
 </body>
 </html>

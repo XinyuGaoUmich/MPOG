@@ -330,6 +330,7 @@
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OIDCNonceCookieCleanupMiddleware.cs" />
+    <Compile Include="Models\PagerAuthMeta.cs" />
     <Compile Include="Models\PagerMeta.cs" />
     <Compile Include="Models\Pager_Auth_Result.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
@@ -364,6 +365,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\table.css" />
     <Content Include="Content\table_index.css" />
+    <Content Include="Content\table_in_edit.css" />
     <Content Include="Content\table_in_spec.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
