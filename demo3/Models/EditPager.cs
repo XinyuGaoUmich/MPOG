@@ -36,5 +36,17 @@ namespace demo3.Models
             get;
             set;
         }
+
+        public IEnumerable<Enumeration> responsible_Provider
+        {
+            get;
+            set;
+        }
+
+        public IEnumerable<Responsible_Provider_Unpublished> responsible_Provider_id
+        {
+            get;
+            set;
+        }
     }
 }

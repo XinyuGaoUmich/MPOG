@@ -204,5 +204,14 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="Responsible_Provider_Unpublished">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel1.Responsible_Provider_Unpublished">
+        <MappingFragment StoreEntitySet="Responsible_Provider_Unpublished">
+          <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
+          <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+          <ScalarProperty Name="auto_id" ColumnName="auto_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

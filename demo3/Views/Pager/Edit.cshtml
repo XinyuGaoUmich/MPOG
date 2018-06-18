@@ -34,7 +34,8 @@
 
     <!-- (Optional) Latest compiled and minified JavaScript translation files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script>
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.full.js"></script>
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
@@ -84,18 +85,18 @@
                         <li><a href="#">Threshold</a></li>
                     </ul>
                 </li>
-                <li><a href="#section22">Data Collection Method</a></li>
-                <li><a href="#section33">Description</a></li>
-                <li><a href="#section44">Measure Summary</a></li>
+                <li><a href="#section2">Data Collection Method</a></li>
+                <li><a href="#section3">Description</a></li>
+                <li><a href="#section4">Measure Summary</a></li>
 
-                <li><a href="#section55">Inclusions</a></li>
-                <li><a href="#section66">Exclusions</a></li>
+                <li><a href="#section5">Inclusions</a></li>
+                <li><a href="#section6">Exclusions</a></li>
 
-                <li><a href="#section77">Success</a></li>
-                <li><a href="#section88">Responsible Provider</a></li>
-                <li><a href="#section99">Risk Adjustment</a></li>
+                <li><a href="#section7">Success</a></li>
+                <li><a href="#section8">Responsible Provider</a></li>
+                <li><a href="#section9">Risk Adjustment</a></li>
 
-                <li><a href="#section1010">References</a></li>
+                <li><a href="#section10">References</a></li>
 
             </ul>
         </div>
@@ -223,8 +224,8 @@
 
     </div>
 
-    <span class="anchor" id="section22"></span>
-    <div id="section2">
+    <span class="anchor" id="section2"></span>
+    <div id="section22">
 
         <h2>Data Collection Method</h2>
         <table>
@@ -254,8 +255,8 @@
 
     </div>
 
-    <span class="anchor" id="section33"></span>
-    <div id="section3">
+    <span class="anchor" id="section3"></span>
+    <div id="section33">
         <h2>Description</h2>
         <table>
             <tr>
@@ -280,8 +281,8 @@
         </table>
     </div>
 
-    <span class="anchor" id="section44"></span>
-    <div id="section4">
+    <span class="anchor" id="section4"></span>
+    <div id="section44">
         <h2>Measure Summary</h2>
         <table>
             <tr>
@@ -306,8 +307,8 @@
         </table>
     </div>
 
-    <span class="anchor" id="section55"></span>
-    <div id="section5">
+    <span class="anchor" id="section5"></span>
+    <div id="section55">
         <h2>Inclusions</h2>
         <table>
             <tr>
@@ -332,8 +333,8 @@
         </table>
     </div>
 
-    <span class="anchor" id="section66"></span>
-    <div id="section6">
+    <span class="anchor" id="section6"></span>
+    <div id="section66">
         <h2>Exclusions</h2>
         <table>
             <tr>
@@ -359,8 +360,8 @@
     </div>
 
 
-    <span class="anchor" id="section77"></span>
-    <div id="section7">
+    <span class="anchor" id="section7"></span>
+    <div id="section77">
         <h2>Success</h2>
         <table>
             <tr>
@@ -385,8 +386,8 @@
         </table>
     </div>
 
-    <span class="anchor" id="section88"></span>
-    <div id="section8">
+    <span class="anchor" id="section8"></span>
+    <div id="section88">
         <h2>Responsible Provider</h2>
         <table>
             <tr>
@@ -395,12 +396,19 @@
             </tr>
             <tr>
                 <td>
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Responsible_Provider, new { @class = "form-control", @cols = "80", @rows = "5" })
-                        @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Responsible_Provider, "", new { @class = "text-danger" })
-                    </div>
 
-                </td>
+
+                    @foreach (var item in Model.responsible_Provider_id)
+                    {
+                    <div class="col-md-10" style="word-wrap:break-word">
+                        @*@Html.DropDownList("Enumeration_ID", new SelectList(Model.responsible_Provider, "Enumeration_ID", "Enumeration_Content", selectedValue: item.Responsible_Provider_ID), new { @class = "selectpicker" })*@
+                        <textarea id="@item.Responsible_Provider_ID" cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Enumeration_ID == item.Responsible_Provider_ID).First().Enumeration_Content</textarea>
+                    </div>   
+                       
+                    }
+                    </td>
+
+
                 <td>
                     <div class="col-md-10">
                         @Html.TextAreaFor(model => model.pager_Results.First().Responsible_Provider, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
@@ -411,8 +419,8 @@
         </table>
     </div>
 
-    <span class="anchor" id="section99"></span>
-    <div id="section9">
+    <span class="anchor" id="section9"></span>
+    <div id="section99">
         <h2>Risk Adjustment</h2>
         <table>
             <tr>
@@ -437,8 +445,8 @@
         </table>
     </div>
 
-    <span class="anchor" id="section1010"></span>
-    <div id="section10">
+    <span class="anchor" id="section10"></span>
+    <div id="section1010">
         <h2>References</h2>
         <table>
             <tr>
@@ -462,7 +470,7 @@
             </tr>
         </table>
     </div>
-
+    
 </body>
 </html>
 

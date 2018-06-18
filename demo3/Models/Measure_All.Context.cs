@@ -29,6 +29,7 @@ namespace demo3.Models
     
         public virtual DbSet<Status_Type> Status_Type { get; set; }
         public virtual DbSet<Enumeration> Enumerations { get; set; }
+        public virtual DbSet<Responsible_Provider_Unpublished> Responsible_Provider_Unpublished { get; set; }
     
         public virtual ObjectResult<Details_All_Result> Details_All(Nullable<int> measure_ID)
         {

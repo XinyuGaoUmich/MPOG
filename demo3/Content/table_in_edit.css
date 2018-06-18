@@ -18,13 +18,13 @@ body {
     padding-bottom: 20px;
 }
 
-#section3, #section5, #section7, #section9, #section11, #section13, #section15 {
+#section33, #section55, #section77, #section99, #section1111, #section1313, #section1515 {
     padding-top: 7px;
     background-color: lightgrey;
     padding-bottom: 20px;
 }
 
-#section2, #section4, #section6, #section8, #section10, #section12, #section14, #section16 {
+#section22, #section44, #section66, #section88, #section1010, #section1212, #section1414, #section1616 {
     padding-top: 7px;
     background-color: gainsboro;
     padding-bottom: 20px;
@@ -53,4 +53,19 @@ body {
     height: 173px;
     margin-top: -173px;
     visibility: hidden;
+}
+
+select {
+    width:200px;
+   max-width:100%;
+}
+
+option {
+    -moz-white-space: pre-wrap;
+    -o-white-space: pre-wrap;
+    white-space: pre-wrap;
+
+    overflow:hidden;
+   text-overflow:ellipsis;
+   border-bottom:1px solid #DDD
 }

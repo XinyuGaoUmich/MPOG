@@ -36,8 +36,10 @@ namespace demo3.Controllers
             var nQS_Domain = db2.Enumerations.Where(o => o.Section_ID == 4);
             var measure_Type = db2.Enumerations.Where(o => o.Section_ID == 5);
             var scope = db2.Enumerations.Where(o => o.Section_ID == 6);
+            var responsible_provider = db2.Enumerations.Where(o => o.Section_ID == 17);
+            var responsible_provider_id = db2.Responsible_Provider_Unpublished.Where(o => o.Measure_ID == id);
             List<Pager_Result> pager = db2.Pager(id).ToList();
-            var model = new EditPager { pager_Auth_Results = pager_auth, pager_Results = pager, nQS_Domain = nQS_Domain, measure_Type = measure_Type, scope = scope };
+            var model = new EditPager { pager_Auth_Results = pager_auth, pager_Results = pager, nQS_Domain = nQS_Domain, measure_Type = measure_Type, scope = scope, responsible_Provider = responsible_provider, responsible_Provider_id = responsible_provider_id };
             return View(model);
         }
 

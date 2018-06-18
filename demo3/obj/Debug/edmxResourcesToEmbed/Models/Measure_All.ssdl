@@ -6,8 +6,16 @@
     </Key>
     <Property Name="Section_ID" Type="int" Nullable="false" />
     <Property Name="Enumeration_ID" Type="int" />
-    <Property Name="Enumeration_Content" Type="varchar" MaxLength="50" />
+    <Property Name="Enumeration_Content" Type="varchar(max)" />
     <Property Name="auto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Responsible_Provider_Unpublished">
+    <Key>
+      <PropertyRef Name="auto_id" />
+    </Key>
+    <Property Name="auto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Measure_ID" Type="int" Nullable="false" />
+    <Property Name="Responsible_Provider_ID" Type="int" />
   </EntityType>
   <EntityType Name="Status_Type">
     <Key>
@@ -73,6 +81,7 @@
   </Function>
   <EntityContainer Name="MPOG_XinyuModel1StoreContainer">
     <EntitySet Name="Enumeration" EntityType="Self.Enumeration" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Responsible_Provider_Unpublished" EntityType="Self.Responsible_Provider_Unpublished" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Status_Type" EntityType="Self.Status_Type" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>
