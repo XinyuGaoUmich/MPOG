@@ -81,6 +81,13 @@ namespace demo3.Controllers
             }
         }
 
-      
+        public JsonResult AutocompleteProvider(string term)
+        {
+            var providerList = db2.Enumerations.Where(o => o.Section_ID == 17).Where(o => o.Enumeration_Content.ToUpper().Contains(term.ToUpper())).Select(o => new { id = o.Enumeration_ID, provider = o.Enumeration_Content }).Distinct().ToList();
+            return Json(providerList, JsonRequestBehavior.AllowGet);
+        }
+
+
+
     }
 }

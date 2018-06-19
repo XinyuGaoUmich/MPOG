@@ -23,7 +23,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="~/Content/table_in_edit.css" rel="stylesheet" type="text/css" />
     <!-- Latest compiled and minified CSS -->
@@ -33,9 +33,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
     <!-- (Optional) Latest compiled and minified JavaScript translation files -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.full.js"></script>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
@@ -396,17 +400,27 @@
             </tr>
             <tr>
                 <td>
+                    <div id="responsible_provider">
+                        @foreach (var item in Model.responsible_Provider_id)
+                        {
+                            <div class="col-md-10" style="word-wrap:break-word" id="@(item.Responsible_Provider_ID + "div")">
+                                <textarea class="provider" id="@item.Responsible_Provider_ID" cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Enumeration_ID == item.Responsible_Provider_ID).First().Enumeration_Content</textarea>
+                                <input class="providerId" id="@(item.Responsible_Provider_ID + "input")" value="@item.Responsible_Provider_ID" />
+                                <button class="delete" id="@(item.Responsible_Provider_ID + "delete")">delete</button>
+                            </div>
+
+                        }
+                    </div>
+                    <div style="padding-left: 20px; padding-top: 10px">
+                        <button type="button" class="btn-primary" id="add_provider">Add more from list</button>
+                    </div>
+
+                    <div style="margin-left: 20px; margin-top: 10px">
+                        <button type="button" class="btn-primary" id="create_provider">Create new Providers</button>
+                    </div>
 
 
-                    @foreach (var item in Model.responsible_Provider_id)
-                    {
-                    <div class="col-md-10" style="word-wrap:break-word">
-                        @*@Html.DropDownList("Enumeration_ID", new SelectList(Model.responsible_Provider, "Enumeration_ID", "Enumeration_Content", selectedValue: item.Responsible_Provider_ID), new { @class = "selectpicker" })*@
-                        <textarea id="@item.Responsible_Provider_ID" cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Enumeration_ID == item.Responsible_Provider_ID).First().Enumeration_Content</textarea>
-                    </div>   
-                       
-                    }
-                    </td>
+                </td>
 
 
                 <td>
@@ -471,6 +485,82 @@
         </table>
     </div>
     
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var number = 1;
+            var count = @Model.responsible_Provider_id.Count();
+
+            $('#add_provider').click(function () {            
+                var id = parseInt(count) + number;
+                number = number + 1;
+                var element = `<div id='${id}div' class='col-md-10' style='word-wrap:break-word'><textarea class='provider' id=${id} cols='60' rows='3' wrap='hard'> </textarea><input class='providerId' id='${id}input' /><button class='delete' id='${id}delete')>delete</button></div>`;
+                $('#responsible_provider').append(element);
+                $(`#${id}`).each(Autocomplete);
+                $(`#${id}delete`).click(onDelete);
+            });
+
+            $('#create_provider').click(function () {
+                var id = parseInt(count) + number;
+                number = number + 1;
+                var element = `<div class='col-md-10' style='word-wrap:break-word' id='${id}div'><textarea class='newProvider' id=${id} cols='60' rows='3' wrap='hard'> </textarea><button class='delete' id='${id}delete')>delete</button></div>`;
+                $('#responsible_provider').append(element);
+                $(`#${id}delete`).click(onDelete);
+            });
+
+            $('.delete').click(onDelete);
+
+            function onDelete() {
+                var iddelete = $(this).prop('id');
+                var id = iddelete.replace('delete', '');
+                console.log(id);
+                $('#' + id + 'div').remove();
+
+                
+            }
+
+            function Autocomplete() {
+                var id = $(this).prop('id');
+                $(this).autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: '@Url.Action("AutocompleteProvider")',
+                            datatype: "json",
+                            data: {
+                                term: request.term
+                            },
+                            success: function (data) {
+                                console.log(data);
+                                response($.map(data, function (val, item) {
+                                    return {
+                                        label: val.provider,
+                                        value: val.provider,
+                                        id: val.id
+                                    }
+                                }))
+                            }
+                        })
+                    },
+                    change: function (event, ui) {
+                        if (ui.item == null || ui.item == undefined) {
+                            console.log(id);
+                            $('#' + id + "input").val('');
+                            $('#' + id).val('');
+                        }
+                    },
+                    select: function (event, ui) {
+                        var id = $(this).prop('id');
+
+                        $('#' + id + "input").val(ui.item.id);
+                    }
+                })
+            }
+
+            $(".provider").each(Autocomplete);
+
+
+        })
+    </script>
+
 </body>
 </html>
 
