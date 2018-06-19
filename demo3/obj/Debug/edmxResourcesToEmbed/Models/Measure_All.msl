@@ -164,16 +164,6 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="Update_Status" FunctionName="MPOG_XinyuModel1.Store.Update_Status" />
-    <EntitySetMapping Name="Enumerations">
-      <EntityTypeMapping TypeName="MPOG_XinyuModel1.Enumeration">
-        <MappingFragment StoreEntitySet="Enumeration">
-          <ScalarProperty Name="auto_id" ColumnName="auto_id" />
-          <ScalarProperty Name="Enumeration_Content" ColumnName="Enumeration_Content" />
-          <ScalarProperty Name="Enumeration_ID" ColumnName="Enumeration_ID" />
-          <ScalarProperty Name="Section_ID" ColumnName="Section_ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="Add_Measure" FunctionName="MPOG_XinyuModel1.Store.Add_Measure" />
     <FunctionImportMapping FunctionImportName="Edit_Measure" FunctionName="MPOG_XinyuModel1.Store.Edit_Measure" />
     <FunctionImportMapping FunctionImportName="Spec_Published" FunctionName="MPOG_XinyuModel1.Store.Spec_Published">
@@ -210,6 +200,15 @@
           <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
           <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
           <ScalarProperty Name="auto_id" ColumnName="auto_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Enumerations">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel1.Enumeration">
+        <MappingFragment StoreEntitySet="Enumeration">
+          <ScalarProperty Name="Enumeration_ID" ColumnName="Enumeration_ID" />
+          <ScalarProperty Name="Enumeration_Content" ColumnName="Enumeration_Content" />
+          <ScalarProperty Name="Section_ID" ColumnName="Section_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

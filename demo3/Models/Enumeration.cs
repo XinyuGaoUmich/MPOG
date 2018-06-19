@@ -15,8 +15,8 @@ namespace demo3.Models
     public partial class Enumeration
     {
         public int Section_ID { get; set; }
-        public Nullable<int> Enumeration_ID { get; set; }
         public string Enumeration_Content { get; set; }
+        public Nullable<int> Enumeration_ID { get; set; }
         public int auto_id { get; set; }
     }
 }

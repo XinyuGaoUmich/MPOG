@@ -6,8 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="4e17ceb8466b4373b8cf3466c7b9dd55" Name="Diagram1" >
         <EntityTypeShape EntityType="MPOG_XinyuModel1.Status_Type" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="MPOG_XinyuModel1.Enumeration" Width="1.5" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="MPOG_XinyuModel1.Responsible_Provider_Unpublished" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="MPOG_XinyuModel1.Enumeration" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

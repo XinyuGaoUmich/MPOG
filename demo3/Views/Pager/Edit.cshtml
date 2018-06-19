@@ -121,7 +121,7 @@
 
             <div style="display:flex; justify-content: space-around; width:50%">
                 <h4>
-                    @Html.ActionLink("Save", "Unpublish")
+                   <a id="save" style="cursor: pointer">Save</a>
                 </h4>
 
                 <h4>
@@ -146,10 +146,10 @@
                         </div>
                     </div>
 
-                    <div class="form-group" style="display:inline">
+                    <div class="form-group" style="display:inline" >
                         @Html.LabelFor(model => model.pager_Auth_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-3" })
-                        <div class="col-md-9">
-                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().NQS_Domain_ID, new SelectList(Model.nQS_Domain, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().NQS_Domain_ID), new { @class = "selectpicker", @style = "height: 30px" })
+                        <div class="col-md-9" >
+                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().NQS_Domain_ID, new SelectList(Model.nQS_Domain, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().NQS_Domain_ID), new { @class = "selectpicker", @style = "height: 30px", @id = "nqs_domain" })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().NQS_Domain, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -157,7 +157,7 @@
                     <div class="form-group" style="display:inline">
                         @Html.LabelFor(model => model.pager_Auth_Results.First().Measure_Type, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Type_ID, new SelectList(Model.measure_Type, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().Measure_Type_ID), new { @class = "selectpicker", @style = "height: 30px" })
+                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Type_ID, new SelectList(Model.measure_Type, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().Measure_Type_ID), new { @class = "selectpicker", @style = "height: 30px", @id = "measure_type" })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Measure_Type_ID, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -165,7 +165,7 @@
                     <div class="form-group" style="display:inline">
                         @Html.LabelFor(model => model.pager_Auth_Results.First().Scope, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Scope_ID, new SelectList(Model.scope, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().Measure_Scope_ID), new { @class = "selectpicker", @style = "height: 30px" })
+                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Scope_ID, new SelectList(Model.scope, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().Measure_Scope_ID), new { @class = "selectpicker", @style = "height: 30px", @id = "scope" })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Measure_Scope_ID, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -557,7 +557,11 @@
 
             $(".provider").each(Autocomplete);
 
+            $('#save').click(function () {
+                var nqs = $('#nqs_domain').val();
+                console.log(nqs);
 
+            })
         })
     </script>
 

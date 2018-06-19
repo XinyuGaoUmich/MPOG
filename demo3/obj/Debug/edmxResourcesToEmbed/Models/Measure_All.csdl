@@ -29,7 +29,6 @@
       <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
       <Parameter Name="Status_ID" Mode="In" Type="Int32" />
     </FunctionImport>
-    <EntitySet Name="Enumerations" EntityType="MPOG_XinyuModel1.Enumeration" />
     <FunctionImport Name="Add_Measure">
       <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
       <Parameter Name="Measure_Title" Mode="In" Type="String" />
@@ -59,6 +58,7 @@
       <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
     </FunctionImport>
     <EntitySet Name="Responsible_Provider_Unpublished" EntityType="MPOG_XinyuModel1.Responsible_Provider_Unpublished" />
+    <EntitySet Name="Enumerations" EntityType="MPOG_XinyuModel1.Enumeration" />
   </EntityContainer>
   <ComplexType Name="Details_All_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -185,15 +185,6 @@
     <Property Name="Status_ID" Type="Int32" Nullable="false" />
     <Property Name="Status_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityType Name="Enumeration">
-    <Key>
-      <PropertyRef Name="auto_id" />
-    </Key>
-    <Property Name="Section_ID" Type="Int32" Nullable="false" />
-    <Property Name="Enumeration_ID" Type="Int32" />
-    <Property Name="Enumeration_Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-  </EntityType>
   <ComplexType Name="Spec_Published_Result">
     <Property Type="String" Name="NQS_Domain" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="Responsible_Provider" Nullable="true" MaxLength="50" />
@@ -225,5 +216,13 @@
     <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Measure_ID" Type="Int32" Nullable="false" />
     <Property Name="Responsible_Provider_ID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Enumeration">
+    <Key>
+      <PropertyRef Name="Enumeration_ID" />
+    </Key>
+    <Property Name="Section_ID" Type="Int32" Nullable="false" />
+    <Property Name="Enumeration_Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Enumeration_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
   </EntityType>
 </Schema>

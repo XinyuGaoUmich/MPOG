@@ -10,8 +10,8 @@
             <PropertyRef Name="auto_id" />
           </Key>
           <Property Name="Section_ID" Type="int" Nullable="false" />
-          <Property Name="Enumeration_ID" Type="int" />
           <Property Name="Enumeration_Content" Type="varchar(max)" />
+          <Property Name="Enumeration_ID" Type="int" />
           <Property Name="auto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Responsible_Provider_Unpublished">
@@ -122,7 +122,6 @@
             <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
             <Parameter Name="Status_ID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="Enumerations" EntityType="MPOG_XinyuModel1.Enumeration" />
           <FunctionImport Name="Add_Measure">
             <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
             <Parameter Name="Measure_Title" Mode="In" Type="String" />
@@ -152,6 +151,7 @@
           <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Responsible_Provider_Unpublished" EntityType="MPOG_XinyuModel1.Responsible_Provider_Unpublished" />
+          <EntitySet Name="Enumerations" EntityType="MPOG_XinyuModel1.Enumeration" />
         </EntityContainer>
         <ComplexType Name="Details_All_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -278,15 +278,6 @@
           <Property Name="Status_ID" Type="Int32" Nullable="false" />
           <Property Name="Status_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Enumeration">
-          <Key>
-            <PropertyRef Name="auto_id" />
-          </Key>
-          <Property Name="Section_ID" Type="Int32" Nullable="false" />
-          <Property Name="Enumeration_ID" Type="Int32" />
-          <Property Name="Enumeration_Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
         <ComplexType Name="Spec_Published_Result">
           <Property Type="String" Name="NQS_Domain" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Responsible_Provider" Nullable="true" MaxLength="50" />
@@ -318,6 +309,15 @@
           <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Measure_ID" Type="Int32" Nullable="false" />
           <Property Name="Responsible_Provider_ID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Enumeration">
+          <Key>
+            <PropertyRef Name="auto_id" />
+          </Key>
+          <Property Name="Section_ID" Type="Int32" Nullable="false" />
+          <Property Name="Enumeration_Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Enumeration_ID" Type="Int32" />
+          <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -488,16 +488,6 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Update_Status" FunctionName="MPOG_XinyuModel1.Store.Update_Status" />
-          <EntitySetMapping Name="Enumerations">
-            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Enumeration">
-              <MappingFragment StoreEntitySet="Enumeration">
-                <ScalarProperty Name="auto_id" ColumnName="auto_id" />
-                <ScalarProperty Name="Enumeration_Content" ColumnName="Enumeration_Content" />
-                <ScalarProperty Name="Enumeration_ID" ColumnName="Enumeration_ID" />
-                <ScalarProperty Name="Section_ID" ColumnName="Section_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Add_Measure" FunctionName="MPOG_XinyuModel1.Store.Add_Measure" />
           <FunctionImportMapping FunctionImportName="Edit_Measure" FunctionName="MPOG_XinyuModel1.Store.Edit_Measure" />
           <FunctionImportMapping FunctionImportName="Spec_Published" FunctionName="MPOG_XinyuModel1.Store.Spec_Published">
@@ -534,6 +524,16 @@
                 <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
                 <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
                 <ScalarProperty Name="auto_id" ColumnName="auto_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enumerations">
+            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Enumeration">
+              <MappingFragment StoreEntitySet="Enumeration">
+                <ScalarProperty Name="auto_id" ColumnName="auto_id" />
+                <ScalarProperty Name="Enumeration_ID" ColumnName="Enumeration_ID" />
+                <ScalarProperty Name="Enumeration_Content" ColumnName="Enumeration_Content" />
+                <ScalarProperty Name="Section_ID" ColumnName="Section_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
