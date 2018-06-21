@@ -24,7 +24,7 @@ namespace demo3.Models
         public Nullable<bool> Measure_Spec_Completed { get; set; }
         public Nullable<System.DateTime> Date_Published { get; set; }
         public Nullable<int> Status_ID { get; set; }
-        public string Enumeration_Content { get; set; }
         public string Status_Name { get; set; }
+        public string NQS_Domain_Name { get; set; }
     }
 }

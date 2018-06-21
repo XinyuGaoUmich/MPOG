@@ -278,6 +278,18 @@
     <Compile Include="Models\Enumeration.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Enumeration_Measure_Type.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Enumeration_NQS_Domain.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Enumeration_Responsible_Provider.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Enumeration_Scope.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Measure.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

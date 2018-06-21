@@ -19,25 +19,25 @@ namespace demo3.Models
             set;
         }
 
-        public IEnumerable<Enumeration> nQS_Domain
+        public IEnumerable<Enumeration_NQS_Domain> nQS_Domain
         {
             get;
             set;
         }
 
-        public IEnumerable<Enumeration> measure_Type
+        public IEnumerable<Enumeration_Measure_Type> measure_Type
         {
             get;
             set;
         }
 
-        public IEnumerable<Enumeration> scope
+        public IEnumerable<Enumeration_Scope> scope
         {
             get;
             set;
         }
 
-        public IEnumerable<Enumeration> responsible_Provider
+        public IEnumerable<Enumeration_Responsible_Provider> responsible_Provider
         {
             get;
             set;

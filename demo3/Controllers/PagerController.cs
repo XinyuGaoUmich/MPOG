@@ -32,11 +32,11 @@ namespace demo3.Controllers
                 return RedirectToAction("LoginWithoutAccess", "NoAccess");
             }
 
-            List<Pager_Auth_Result> pager_auth = db2.Pager_Auth(id).ToList();
-            var nQS_Domain = db2.Enumerations.Where(o => o.Section_ID == 4);
-            var measure_Type = db2.Enumerations.Where(o => o.Section_ID == 5);
-            var scope = db2.Enumerations.Where(o => o.Section_ID == 6);
-            var responsible_provider = db2.Enumerations.Where(o => o.Section_ID == 17);
+            List<Pager_Auth_Result> pager_auth = db2.Pager_Auth(id).ToList();            
+            var nQS_Domain = db2.Enumeration_NQS_Domain;           
+            var measure_Type = db2.Enumeration_Measure_Type;           
+            var scope = db2.Enumeration_Scope;
+            var responsible_provider = db2.Enumeration_Responsible_Provider;
             var responsible_provider_id = db2.Responsible_Provider_Unpublished.Where(o => o.Measure_ID == id);
             List<Pager_Result> pager = db2.Pager(id).ToList();
             var model = new EditPager { pager_Auth_Results = pager_auth, pager_Results = pager, nQS_Domain = nQS_Domain, measure_Type = measure_Type, scope = scope, responsible_Provider = responsible_provider, responsible_Provider_id = responsible_provider_id };
@@ -83,7 +83,8 @@ namespace demo3.Controllers
 
         public JsonResult AutocompleteProvider(string term)
         {
-            var providerList = db2.Enumerations.Where(o => o.Section_ID == 17).Where(o => o.Enumeration_Content.ToUpper().Contains(term.ToUpper())).Select(o => new { id = o.Enumeration_ID, provider = o.Enumeration_Content }).Distinct().ToList();
+            //var providerList = db2.Enumerations.Where(o => o.Section_ID == 17).Where(o => o.Enumeration_Content.ToUpper().Contains(term.ToUpper())).Select(o => new { id = o.Enumeration_ID, provider = o.Enumeration_Content }).Distinct().ToList();
+            var providerList = db2.Enumeration_Responsible_Provider.Where(o => o.Responsible_Provider_Name.ToUpper().Contains(term.ToUpper())).Select(o => new { id = o.Responsible_Provider_ID, provider = o.Responsible_Provider_Name }).Distinct().ToList();
             return Json(providerList, JsonRequestBehavior.AllowGet);
         }
 

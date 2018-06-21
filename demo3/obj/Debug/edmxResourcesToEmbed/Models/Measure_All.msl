@@ -15,8 +15,8 @@
           <ScalarProperty Name="Measure_Spec_Completed" ColumnName="Measure_Spec_Completed" />
           <ScalarProperty Name="Date_Published" ColumnName="Date_Published" />
           <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
-          <ScalarProperty Name="Enumeration_Content" ColumnName="Enumeration_Content" />
           <ScalarProperty Name="Status_Name" ColumnName="Status_Name" />
+          <ScalarProperty Name="NQS_Domain_Name" ColumnName="NQS_Domain_Name" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -206,9 +206,42 @@
     <EntitySetMapping Name="Enumerations">
       <EntityTypeMapping TypeName="MPOG_XinyuModel1.Enumeration">
         <MappingFragment StoreEntitySet="Enumeration">
+          <ScalarProperty Name="auto_id" ColumnName="auto_id" />
           <ScalarProperty Name="Enumeration_ID" ColumnName="Enumeration_ID" />
           <ScalarProperty Name="Enumeration_Content" ColumnName="Enumeration_Content" />
           <ScalarProperty Name="Section_ID" ColumnName="Section_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Enumeration_Measure_Type">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel1.Enumeration_Measure_Type">
+        <MappingFragment StoreEntitySet="Enumeration_Measure_Type">
+          <ScalarProperty Name="Measure_Type_Name" ColumnName="Measure_Type_Name" />
+          <ScalarProperty Name="Measure_Type_ID" ColumnName="Measure_Type_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Enumeration_NQS_Domain">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel1.Enumeration_NQS_Domain">
+        <MappingFragment StoreEntitySet="Enumeration_NQS_Domain">
+          <ScalarProperty Name="NQS_Domain_Name" ColumnName="NQS_Domain_Name" />
+          <ScalarProperty Name="NQS_Domain_ID" ColumnName="NQS_Domain_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Enumeration_Responsible_Provider">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel1.Enumeration_Responsible_Provider">
+        <MappingFragment StoreEntitySet="Enumeration_Responsible_Provider">
+          <ScalarProperty Name="Responsible_Provider_Name" ColumnName="Responsible_Provider_Name" />
+          <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Enumeration_Scope">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel1.Enumeration_Scope">
+        <MappingFragment StoreEntitySet="Enumeration_Scope">
+          <ScalarProperty Name="Scope_Name" ColumnName="Scope_Name" />
+          <ScalarProperty Name="Scope_ID" ColumnName="Scope_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

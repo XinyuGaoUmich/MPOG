@@ -30,6 +30,10 @@ namespace demo3.Models
         public virtual DbSet<Status_Type> Status_Type { get; set; }
         public virtual DbSet<Responsible_Provider_Unpublished> Responsible_Provider_Unpublished { get; set; }
         public virtual DbSet<Enumeration> Enumerations { get; set; }
+        public virtual DbSet<Enumeration_Measure_Type> Enumeration_Measure_Type { get; set; }
+        public virtual DbSet<Enumeration_NQS_Domain> Enumeration_NQS_Domain { get; set; }
+        public virtual DbSet<Enumeration_Responsible_Provider> Enumeration_Responsible_Provider { get; set; }
+        public virtual DbSet<Enumeration_Scope> Enumeration_Scope { get; set; }
     
         public virtual ObjectResult<Details_All_Result> Details_All(Nullable<int> measure_ID)
         {

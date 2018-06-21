@@ -59,6 +59,10 @@
     </FunctionImport>
     <EntitySet Name="Responsible_Provider_Unpublished" EntityType="MPOG_XinyuModel1.Responsible_Provider_Unpublished" />
     <EntitySet Name="Enumerations" EntityType="MPOG_XinyuModel1.Enumeration" />
+    <EntitySet Name="Enumeration_Measure_Type" EntityType="MPOG_XinyuModel1.Enumeration_Measure_Type" />
+    <EntitySet Name="Enumeration_NQS_Domain" EntityType="MPOG_XinyuModel1.Enumeration_NQS_Domain" />
+    <EntitySet Name="Enumeration_Responsible_Provider" EntityType="MPOG_XinyuModel1.Enumeration_Responsible_Provider" />
+    <EntitySet Name="Enumeration_Scope" EntityType="MPOG_XinyuModel1.Enumeration_Scope" />
   </EntityContainer>
   <ComplexType Name="Details_All_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -72,8 +76,8 @@
     <Property Type="Boolean" Name="Measure_Spec_Completed" Nullable="true" />
     <Property Type="DateTime" Name="Date_Published" Nullable="true" />
     <Property Type="Int32" Name="Status_ID" Nullable="true" />
-    <Property Type="String" Name="Enumeration_Content" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="Status_Name" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="NQS_Domain_Name" Nullable="true" MaxLength="50" />
   </ComplexType>
   <ComplexType Name="Collations_Result">
     <Property Type="String" Name="Collation_Name" Nullable="true" MaxLength="200" />
@@ -219,10 +223,39 @@
   </EntityType>
   <EntityType Name="Enumeration">
     <Key>
-      <PropertyRef Name="Enumeration_ID" />
+      <PropertyRef Name="auto_id" />
     </Key>
     <Property Name="Section_ID" Type="Int32" Nullable="false" />
     <Property Name="Enumeration_Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Enumeration_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Enumeration_ID" Type="Int32" />
+    <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="Enumeration_Measure_Type">
+    <Key>
+      <PropertyRef Name="Measure_Type_ID" />
+    </Key>
+    <Property Name="Measure_Type_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Measure_Type_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Enumeration_NQS_Domain">
+    <Key>
+      <PropertyRef Name="NQS_Domain_ID" />
+    </Key>
+    <Property Name="NQS_Domain_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NQS_Domain_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Enumeration_Responsible_Provider">
+    <Key>
+      <PropertyRef Name="Responsible_Provider_ID" />
+    </Key>
+    <Property Name="Responsible_Provider_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Responsible_Provider_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Enumeration_Scope">
+    <Key>
+      <PropertyRef Name="Scope_ID" />
+    </Key>
+    <Property Name="Scope_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Scope_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

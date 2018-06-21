@@ -59,9 +59,10 @@ namespace demo3.Controllers
             List<Details_All_Result> detail = db2.Details_All(id).ToList();
             //DetailsMetaData a = (DetailsMetaData)db2.Details_All(id); 
             
-            var nQS_Domain = db2.Enumerations.Where(o => o.Section_ID == 4);
+            //var nQS_Domain = db2.Enumerations.Where(o => o.Section_ID == 4);
+            var nQS_Domain = db2.Enumeration_NQS_Domain;
             var status = db2.Status_Type;
-            var model = new EditMeasure { Details_All_Results = detail, Status_Types = status, Enumerations = nQS_Domain };
+            var model = new EditMeasure { Details_All_Results = detail, Status_Types = status, nQS_Domains = nQS_Domain };
             return View(model);
         }
 
@@ -77,7 +78,9 @@ namespace demo3.Controllers
             {
                 return Redirect("/NoAccess/LoginWithoutAccess");
             }
-            ViewBag.NQS_Domain = new SelectList(db2.Enumerations.Where(o => o.Section_ID == 4), "Enumeration_ID", "Enumeration_Content");
+
+            //ViewBag.NQS_Domain = new SelectList(db2.Enumerations.Where(o => o.Section_ID == 4), "Enumeration_ID", "Enumeration_Content");
+            ViewBag.NQS_Domain = new SelectList(db2.Enumeration_NQS_Domain, "NQS_Domain_ID", "NQS_Domain_Name");
             ViewBag.Status = new SelectList(db2.Status_Type, "Status_ID", "Status_Name");          
             return View();
         }
@@ -137,9 +140,10 @@ namespace demo3.Controllers
             // ViewBag.NQS_Domain = new SelectList(db2.Enumerations.Where(o => o.Section_ID == 4), "Enumeration_ID", "Enumeration_Content");
             //ViewBag.Status = new SelectList(db2.Status_Type, "Status_ID", "Status_Name");
             //return View(details_All_Results);
-            var nQS_Domain = db2.Enumerations.Where(o => o.Section_ID == 4);
+            //var nQS_Domain = db2.Enumerations.Where(o => o.Section_ID == 4);
             var status = db2.Status_Type;
-            var model = new EditMeasure { Details_All_Results = detail, Status_Types = status, Enumerations = nQS_Domain };
+            var nQS_Domain = db2.Enumeration_NQS_Domain;
+            var model = new EditMeasure { Details_All_Results = detail, Status_Types = status, nQS_Domains = nQS_Domain };
             return View(model);
         }
 

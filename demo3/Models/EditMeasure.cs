@@ -19,7 +19,7 @@ namespace demo3.Models
             set;
         }
 
-        public IEnumerable<Enumeration> Enumerations
+        public IEnumerable<Enumeration_NQS_Domain> nQS_Domains
         {
             get;
             set;

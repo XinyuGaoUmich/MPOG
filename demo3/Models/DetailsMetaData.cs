@@ -47,7 +47,7 @@ namespace demo3.Models
         public Nullable<int> Status_ID { get; set; }
 
         [DisplayName("NQS Domain")]
-        public string Enumeration_Content { get; set; }
+        public string NQS_Domain_Name { get; set; }
 
         [DisplayName("Status")]
         public string Status_Name { get; set; }

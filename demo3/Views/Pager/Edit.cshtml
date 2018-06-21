@@ -149,7 +149,7 @@
                     <div class="form-group" style="display:inline" >
                         @Html.LabelFor(model => model.pager_Auth_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9" >
-                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().NQS_Domain_ID, new SelectList(Model.nQS_Domain, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().NQS_Domain_ID), new { @class = "selectpicker", @style = "height: 30px", @id = "nqs_domain" })
+                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().NQS_Domain_ID, new SelectList(Model.nQS_Domain, "NQS_Domain_ID", "NQS_Domain_Name", selectedValue: Model.pager_Auth_Results.First().NQS_Domain_ID), new { @class = "selectpicker", @style = "height: 30px", @id = "nqs_domain" })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().NQS_Domain, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -157,7 +157,7 @@
                     <div class="form-group" style="display:inline">
                         @Html.LabelFor(model => model.pager_Auth_Results.First().Measure_Type, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Type_ID, new SelectList(Model.measure_Type, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().Measure_Type_ID), new { @class = "selectpicker", @style = "height: 30px", @id = "measure_type" })
+                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Type_ID, new SelectList(Model.measure_Type, "Measure_Type_ID", "Measure_Type_Name", selectedValue: Model.pager_Auth_Results.First().Measure_Type_ID), new { @class = "selectpicker", @style = "height: 30px", @id = "measure_type" })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Measure_Type_ID, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -165,7 +165,7 @@
                     <div class="form-group" style="display:inline">
                         @Html.LabelFor(model => model.pager_Auth_Results.First().Scope, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Scope_ID, new SelectList(Model.scope, "Enumeration_ID", "Enumeration_Content", selectedValue: Model.pager_Auth_Results.First().Measure_Scope_ID), new { @class = "selectpicker", @style = "height: 30px", @id = "scope" })
+                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Scope_ID, new SelectList(Model.scope, "Scope_ID", "Scope_Name", selectedValue: Model.pager_Auth_Results.First().Measure_Scope_ID), new { @class = "selectpicker", @style = "height: 30px", @id = "scope" })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Measure_Scope_ID, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -404,7 +404,7 @@
                         @foreach (var item in Model.responsible_Provider_id)
                         {
                             <div class="col-md-10" style="word-wrap:break-word" id="@(item.Responsible_Provider_ID + "div")">
-                                <textarea class="provider" id="@item.Responsible_Provider_ID" cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Enumeration_ID == item.Responsible_Provider_ID).First().Enumeration_Content</textarea>
+                                <textarea class="provider" id="@item.Responsible_Provider_ID" cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == item.Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
                                 <input class="providerId" id="@(item.Responsible_Provider_ID + "input")" value="@item.Responsible_Provider_ID" />
                                 <button class="delete" id="@(item.Responsible_Provider_ID + "delete")">delete</button>
                             </div>

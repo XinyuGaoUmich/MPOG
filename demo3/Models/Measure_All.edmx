@@ -14,6 +14,34 @@
           <Property Name="Enumeration_ID" Type="int" />
           <Property Name="auto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="Enumeration_Measure_Type">
+          <Key>
+            <PropertyRef Name="Measure_Type_ID" />
+          </Key>
+          <Property Name="Measure_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Measure_Type_Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Enumeration_NQS_Domain">
+          <Key>
+            <PropertyRef Name="NQS_Domain_ID" />
+          </Key>
+          <Property Name="NQS_Domain_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NQS_Domain_Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Enumeration_Responsible_Provider">
+          <Key>
+            <PropertyRef Name="Responsible_Provider_ID" />
+          </Key>
+          <Property Name="Responsible_Provider_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Responsible_Provider_Name" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Enumeration_Scope">
+          <Key>
+            <PropertyRef Name="Scope_ID" />
+          </Key>
+          <Property Name="Scope_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Scope_Name" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Responsible_Provider_Unpublished">
           <Key>
             <PropertyRef Name="auto_id" />
@@ -86,6 +114,10 @@
         </Function>
         <EntityContainer Name="MPOG_XinyuModel1StoreContainer">
           <EntitySet Name="Enumeration" EntityType="Self.Enumeration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enumeration_Measure_Type" EntityType="Self.Enumeration_Measure_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enumeration_NQS_Domain" EntityType="Self.Enumeration_NQS_Domain" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enumeration_Responsible_Provider" EntityType="Self.Enumeration_Responsible_Provider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enumeration_Scope" EntityType="Self.Enumeration_Scope" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Responsible_Provider_Unpublished" EntityType="Self.Responsible_Provider_Unpublished" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status_Type" EntityType="Self.Status_Type" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -152,6 +184,10 @@
           </FunctionImport>
           <EntitySet Name="Responsible_Provider_Unpublished" EntityType="MPOG_XinyuModel1.Responsible_Provider_Unpublished" />
           <EntitySet Name="Enumerations" EntityType="MPOG_XinyuModel1.Enumeration" />
+          <EntitySet Name="Enumeration_Measure_Type" EntityType="MPOG_XinyuModel1.Enumeration_Measure_Type" />
+          <EntitySet Name="Enumeration_NQS_Domain" EntityType="MPOG_XinyuModel1.Enumeration_NQS_Domain" />
+          <EntitySet Name="Enumeration_Responsible_Provider" EntityType="MPOG_XinyuModel1.Enumeration_Responsible_Provider" />
+          <EntitySet Name="Enumeration_Scope" EntityType="MPOG_XinyuModel1.Enumeration_Scope" />
         </EntityContainer>
         <ComplexType Name="Details_All_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -165,8 +201,8 @@
           <Property Type="Boolean" Name="Measure_Spec_Completed" Nullable="true" />
           <Property Type="DateTime" Name="Date_Published" Nullable="true" />
           <Property Type="Int32" Name="Status_ID" Nullable="true" />
-          <Property Type="String" Name="Enumeration_Content" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Status_Name" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="NQS_Domain_Name" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="Collations_Result">
           <Property Type="String" Name="Collation_Name" Nullable="true" MaxLength="200" />
@@ -319,6 +355,34 @@
           <Property Name="Enumeration_ID" Type="Int32" />
           <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityType Name="Enumeration_Measure_Type">
+          <Key>
+            <PropertyRef Name="Measure_Type_ID" />
+          </Key>
+          <Property Name="Measure_Type_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Measure_Type_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Enumeration_NQS_Domain">
+          <Key>
+            <PropertyRef Name="NQS_Domain_ID" />
+          </Key>
+          <Property Name="NQS_Domain_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NQS_Domain_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Enumeration_Responsible_Provider">
+          <Key>
+            <PropertyRef Name="Responsible_Provider_ID" />
+          </Key>
+          <Property Name="Responsible_Provider_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Responsible_Provider_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Enumeration_Scope">
+          <Key>
+            <PropertyRef Name="Scope_ID" />
+          </Key>
+          <Property Name="Scope_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Scope_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -339,8 +403,8 @@
                 <ScalarProperty Name="Measure_Spec_Completed" ColumnName="Measure_Spec_Completed" />
                 <ScalarProperty Name="Date_Published" ColumnName="Date_Published" />
                 <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
-                <ScalarProperty Name="Enumeration_Content" ColumnName="Enumeration_Content" />
                 <ScalarProperty Name="Status_Name" ColumnName="Status_Name" />
+                <ScalarProperty Name="NQS_Domain_Name" ColumnName="NQS_Domain_Name" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -534,6 +598,38 @@
                 <ScalarProperty Name="Enumeration_ID" ColumnName="Enumeration_ID" />
                 <ScalarProperty Name="Enumeration_Content" ColumnName="Enumeration_Content" />
                 <ScalarProperty Name="Section_ID" ColumnName="Section_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enumeration_Measure_Type">
+            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Enumeration_Measure_Type">
+              <MappingFragment StoreEntitySet="Enumeration_Measure_Type">
+                <ScalarProperty Name="Measure_Type_Name" ColumnName="Measure_Type_Name" />
+                <ScalarProperty Name="Measure_Type_ID" ColumnName="Measure_Type_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enumeration_NQS_Domain">
+            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Enumeration_NQS_Domain">
+              <MappingFragment StoreEntitySet="Enumeration_NQS_Domain">
+                <ScalarProperty Name="NQS_Domain_Name" ColumnName="NQS_Domain_Name" />
+                <ScalarProperty Name="NQS_Domain_ID" ColumnName="NQS_Domain_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enumeration_Responsible_Provider">
+            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Enumeration_Responsible_Provider">
+              <MappingFragment StoreEntitySet="Enumeration_Responsible_Provider">
+                <ScalarProperty Name="Responsible_Provider_Name" ColumnName="Responsible_Provider_Name" />
+                <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Enumeration_Scope">
+            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Enumeration_Scope">
+              <MappingFragment StoreEntitySet="Enumeration_Scope">
+                <ScalarProperty Name="Scope_Name" ColumnName="Scope_Name" />
+                <ScalarProperty Name="Scope_ID" ColumnName="Scope_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
