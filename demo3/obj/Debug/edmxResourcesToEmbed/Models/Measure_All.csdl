@@ -63,6 +63,34 @@
     <EntitySet Name="Enumeration_NQS_Domain" EntityType="MPOG_XinyuModel1.Enumeration_NQS_Domain" />
     <EntitySet Name="Enumeration_Responsible_Provider" EntityType="MPOG_XinyuModel1.Enumeration_Responsible_Provider" />
     <EntitySet Name="Enumeration_Scope" EntityType="MPOG_XinyuModel1.Enumeration_Scope" />
+    <FunctionImport Name="Save_Pager">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
+      <Parameter Name="Data_Collection_Method" Mode="In" Type="String" />
+      <Parameter Name="Description" Mode="In" Type="String" />
+      <Parameter Name="NQS_Domain" Mode="In" Type="Int32" />
+      <Parameter Name="Measure_Type" Mode="In" Type="Int32" />
+      <Parameter Name="Scope" Mode="In" Type="Int32" />
+      <Parameter Name="Measure_Summary" Mode="In" Type="String" />
+      <Parameter Name="Inclusions" Mode="In" Type="String" />
+      <Parameter Name="Exclusions" Mode="In" Type="String" />
+      <Parameter Name="Success" Mode="In" Type="String" />
+      <Parameter Name="Threshold" Mode="In" Type="Decimal" />
+      <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
+      <Parameter Name="Reference" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Add_Existing_Provider">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Responsible_Provider_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Add_New_Provider">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Responsible_Provider_Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Delete_Provider">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Responsible_Provider_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="Details_All_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />

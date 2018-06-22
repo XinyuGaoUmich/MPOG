@@ -14,6 +14,9 @@ namespace demo3.Models
 
     public class PagerAuthMeta
     {
+        [DisplayName("Abbreviation")]
+        public string Measure_Abbreviation { get; set; }
+
         [DisplayName("NQS Domain")]
         public string NQS_Domain { get; set; }
 
@@ -28,7 +31,7 @@ namespace demo3.Models
 
         public string Scope { get; set; }
         public int Measure_ID { get; set; }
-        public string Measure_Abbreviation { get; set; }
+   
         public string Data_Collection_Method { get; set; }
         public string Description { get; set; }
         public string Measure_Summary { get; set; }

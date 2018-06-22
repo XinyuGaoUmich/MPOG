@@ -52,6 +52,10 @@
     <Property Name="Status_ID" Type="int" Nullable="false" />
     <Property Name="Status_Name" Type="varchar" MaxLength="20" />
   </EntityType>
+  <Function Name="Add_Existing_Provider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+    <Parameter Name="Responsible_Provider_ID" Type="int" Mode="In" />
+  </Function>
   <Function Name="Add_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
     <Parameter Name="Measure_Title" Type="varchar" Mode="In" />
@@ -64,11 +68,19 @@
     <Parameter Name="Date_Published" Type="date" Mode="In" />
     <Parameter Name="Status_ID" Type="int" Mode="In" />
   </Function>
+  <Function Name="Add_New_Provider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+    <Parameter Name="Responsible_Provider_Name" Type="varchar(max)" Mode="In" />
+  </Function>
   <Function Name="Collations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
   </Function>
   <Function Name="Data_Diagnostics_Affected" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Delete_Provider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+    <Parameter Name="Responsible_Provider_ID" Type="int" Mode="In" />
   </Function>
   <Function Name="Details_All" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
@@ -97,6 +109,22 @@
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
   </Function>
   <Function Name="Public_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Save_Pager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+    <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
+    <Parameter Name="Data_Collection_Method" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Description" Type="varchar(max)" Mode="In" />
+    <Parameter Name="NQS_Domain" Type="int" Mode="In" />
+    <Parameter Name="Measure_Type" Type="int" Mode="In" />
+    <Parameter Name="Scope" Type="int" Mode="In" />
+    <Parameter Name="Measure_Summary" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Inclusions" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Exclusions" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Success" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Threshold" Type="numeric" Mode="In" />
+    <Parameter Name="Risk_Adjustment" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Reference" Type="varchar(max)" Mode="In" />
+  </Function>
   <Function Name="Spec" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
   </Function>

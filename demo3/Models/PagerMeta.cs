@@ -16,7 +16,7 @@ namespace demo3.Models
     {
         public int Measure_ID { get; set; }
 
-        [DisplayName("Measure Abbreviation")]
+        [DisplayName("Abbreviation")]
         public string Measure_Abbreviation { get; set; }
 
         [DisplayName("Data Collection Method")]

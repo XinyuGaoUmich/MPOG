@@ -1,16 +1,21 @@
 ﻿@model demo3.Models.EditPager
 @{
-                /**/
+    /**/
 
-                /**/
+    /**/
 
-                Layout = null;
-                Boolean isLoggedin = false;
+    Layout = null;
+    Boolean isLoggedin = false;
+    Boolean hasPublishedVersion = true;
+    if (Session["userid"] != null)
+    {
+        isLoggedin = true;
+    }
 
-                if (Session["userid"] != null)
-                {
-                    isLoggedin = true;
-                }
+    if (Model.pager_Results.Count() == 0)
+    {
+        hasPublishedVersion = false;
+    }
 
 
 }
@@ -23,7 +28,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="~/Content/table_in_edit.css" rel="stylesheet" type="text/css" />
     <!-- Latest compiled and minified CSS -->
@@ -146,9 +151,17 @@
                         </div>
                     </div>
 
-                    <div class="form-group" style="display:inline" >
+                    <div class="form-group" style="display:inline">
+                        @Html.LabelFor(model => model.pager_Auth_Results.First().Measure_Abbreviation, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(model => model.pager_Auth_Results.First().Measure_Abbreviation, new { @class = "form-control", @style = "width: 220px", @id = "measure_abbreviation" })
+                            @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Measure_Abbreviation, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="display:inline">
                         @Html.LabelFor(model => model.pager_Auth_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-3" })
-                        <div class="col-md-9" >
+                        <div class="col-md-9">
                             @Html.DropDownListFor(model => model.pager_Auth_Results.First().NQS_Domain_ID, new SelectList(Model.nQS_Domain, "NQS_Domain_ID", "NQS_Domain_Name", selectedValue: Model.pager_Auth_Results.First().NQS_Domain_ID), new { @class = "selectpicker", @style = "height: 30px", @id = "nqs_domain" })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().NQS_Domain, "", new { @class = "text-danger" })
                         </div>
@@ -173,7 +186,7 @@
                     <div class="form-group" style="display:inline">
                         @Html.LabelFor(model => model.pager_Auth_Results.First().Threshold, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.TextBoxFor(model => model.pager_Auth_Results.First().Threshold, new { @class = "form-control", @style = "width: 220px" })
+                            @Html.TextBoxFor(model => model.pager_Auth_Results.First().Threshold, new { @class = "form-control", @style = "width: 220px", @id = "threshold" })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Threshold, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -181,46 +194,56 @@
                 </td>
 
                 <td>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.pager_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-3" })
-                        <div class="col-md-9">
-                            @Html.TextBoxFor(model => model.pager_Results.First().NQS_Domain, new { @class = "form-control", @readonly = "readonly", @style = "height: 30px" })
-
-                            @*@Html.DisplayFor(model => model.pager_Results.First().NQS_Domain, new { htmlAttributes = new { @class = "form-control" } })*@
-                            @Html.ValidationMessageFor(model => model.pager_Results.First().NQS_Domain, "", new { @class = "text-danger" })
+                    @if (hasPublishedVersion)
+                    {
+                        <div class="form-group" style="display:inline">
+                            @Html.LabelFor(model => model.pager_Auth_Results.First().Measure_Abbreviation, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.pager_Results.First().Measure_Abbreviation, new { @class = "form-control", @readonly = "readonly", @style = "height: 30px" })
+                                @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Measure_Abbreviation, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.pager_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.pager_Results.First().NQS_Domain, new { @class = "form-control", @readonly = "readonly", @style = "height: 30px" })
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.pager_Results.First().Measure_Type, htmlAttributes: new { @class = "control-label col-md-3" })
-                        <div class="col-md-9">
-                            @Html.TextBoxFor(model => model.pager_Results.First().Measure_Type, new { @class = "form-control", @readonly = "readonly", @style = "height: 30px" })
-
-                            @*@Html.DisplayFor(model => model.pager_Results.First().Measure_Type, new { htmlAttributes = new { @class = "form-control" } })*@
-                            @Html.ValidationMessageFor(model => model.pager_Results.First().Measure_Type, "", new { @class = "text-danger" })
+                                @*@Html.DisplayFor(model => model.pager_Results.First().NQS_Domain, new { htmlAttributes = new { @class = "form-control" } })*@
+                                @Html.ValidationMessageFor(model => model.pager_Results.First().NQS_Domain, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.pager_Results.First().Scope, htmlAttributes: new { @class = "control-label col-md-3" })
-                        <div class="col-md-9">
-                            @Html.TextBoxFor(model => model.pager_Results.First().Scope, new { @class = "form-control", @readonly = "readonly", @style = "height: 30px" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.pager_Results.First().Measure_Type, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.pager_Results.First().Measure_Type, new { @class = "form-control", @readonly = "readonly", @style = "height: 30px" })
 
-                            @*@Html.DisplayFor(model => model.pager_Results.First().Measure_Type, new { htmlAttributes = new { @class = "form-control" } })*@
-                            @Html.ValidationMessageFor(model => model.pager_Results.First().Scope, "", new { @class = "text-danger" })
+                                @*@Html.DisplayFor(model => model.pager_Results.First().Measure_Type, new { htmlAttributes = new { @class = "form-control" } })*@
+                                @Html.ValidationMessageFor(model => model.pager_Results.First().Measure_Type, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.pager_Results.First().Threshold, htmlAttributes: new { @class = "control-label col-md-3" })
-                        <div class="col-md-9">
-                            @Html.TextBoxFor(model => model.pager_Results.First().Threshold, new { @class = "form-control", @readonly = "readonly", @style = "height: 30px" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.pager_Results.First().Scope, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.pager_Results.First().Scope, new { @class = "form-control", @readonly = "readonly", @style = "height: 30px" })
 
-                            @*@Html.DisplayFor(model => model.pager_Results.First().Measure_Type, new { htmlAttributes = new { @class = "form-control" } })*@
-                            @Html.ValidationMessageFor(model => model.pager_Results.First().Threshold, "", new { @class = "text-danger" })
+                                @*@Html.DisplayFor(model => model.pager_Results.First().Measure_Type, new { htmlAttributes = new { @class = "form-control" } })*@
+                                @Html.ValidationMessageFor(model => model.pager_Results.First().Scope, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.pager_Results.First().Threshold, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.pager_Results.First().Threshold, new { @class = "form-control", @readonly = "readonly", @style = "height: 30px" })
+
+                                @*@Html.DisplayFor(model => model.pager_Results.First().Measure_Type, new { htmlAttributes = new { @class = "form-control" } })*@
+                                @Html.ValidationMessageFor(model => model.pager_Results.First().Threshold, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    }
                 </td>
             </tr>
         </table>
@@ -240,7 +263,7 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Data_Collection_Method, new { @class = "form-control", @cols = "80", @rows = "5" })
+                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Data_Collection_Method, new { @class = "form-control", @cols = "80", @rows = "5", @id = "data_collection_method" })
                         @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Data_Collection_Method, "", new { @class = "text-danger" })
                     </div>
 
@@ -248,10 +271,13 @@
 
 
                 <td>
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Results.First().Data_Collection_Method, new { @class = "form-control", @readonly = "readonly", @cols = "80", @rows = "5" })
-                        @Html.ValidationMessageFor(model => model.pager_Results.First().Data_Collection_Method, "", new { @class = "text-danger" })
-                    </div>
+                    @if (hasPublishedVersion)
+                    {
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.pager_Results.First().Data_Collection_Method, new { @class = "form-control", @readonly = "readonly", @cols = "80", @rows = "5" })
+                            @Html.ValidationMessageFor(model => model.pager_Results.First().Data_Collection_Method, "", new { @class = "text-danger" })
+                        </div>
+                    }
 
                 </td>
             </tr>
@@ -270,17 +296,20 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Description, new { @class = "form-control", @cols = "80", @rows = "5" })
+                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Description, new { @class = "form-control", @cols = "80", @rows = "5", @id = "description" })
                         @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Description, "", new { @class = "text-danger" })
                     </div>
 
                 </td>
                 <td>
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Results.First().Description, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
-                        @Html.ValidationMessageFor(model => model.pager_Results.First().Description, "", new { @class = "text-danger" })
-                    </div>
-                </td>
+                    @if (hasPublishedVersion)
+                    {
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.pager_Results.First().Description, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
+                            @Html.ValidationMessageFor(model => model.pager_Results.First().Description, "", new { @class = "text-danger" })
+                        </div>
+                    }
+                    </td>
             </tr>
         </table>
     </div>
@@ -296,17 +325,20 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Measure_Summary, new { @class = "form-control", @cols = "80", @rows = "5" })
+                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Measure_Summary, new { @class = "form-control", @cols = "80", @rows = "5", @id = "measure_summary" })
                         @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Measure_Summary, "", new { @class = "text-danger" })
                     </div>
 
                 </td>
                 <td>
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Results.First().Measure_Summary, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
-                        @Html.ValidationMessageFor(model => model.pager_Results.First().Measure_Summary, "", new { @class = "text-danger" })
-                    </div>
-                </td>
+                    @if (hasPublishedVersion)
+                    {
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.pager_Results.First().Measure_Summary, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
+                            @Html.ValidationMessageFor(model => model.pager_Results.First().Measure_Summary, "", new { @class = "text-danger" })
+                        </div>
+                    }
+                    </td>
             </tr>
         </table>
     </div>
@@ -322,17 +354,20 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Inclusions, new { @class = "form-control", @cols = "80", @rows = "5" })
+                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Inclusions, new { @class = "form-control", @cols = "80", @rows = "5", @id = "inclusions" })
                         @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Inclusions, "", new { @class = "text-danger" })
                     </div>
 
                 </td>
                 <td>
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Results.First().Inclusions, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
-                        @Html.ValidationMessageFor(model => model.pager_Results.First().Inclusions, "", new { @class = "text-danger" })
-                    </div>
-                </td>
+                    @if (hasPublishedVersion)
+                    {
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.pager_Results.First().Inclusions, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
+                            @Html.ValidationMessageFor(model => model.pager_Results.First().Inclusions, "", new { @class = "text-danger" })
+                        </div>
+                    }
+                    </td>
             </tr>
         </table>
     </div>
@@ -348,17 +383,20 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Exclusions, new { @class = "form-control", @cols = "80", @rows = "5" })
+                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Exclusions, new { @class = "form-control", @cols = "80", @rows = "5", @id = "exclusions" })
                         @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Exclusions, "", new { @class = "text-danger" })
                     </div>
 
                 </td>
                 <td>
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Results.First().Exclusions, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
-                        @Html.ValidationMessageFor(model => model.pager_Results.First().Exclusions, "", new { @class = "text-danger" })
-                    </div>
-                </td>
+                    @if (hasPublishedVersion)
+                    {
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.pager_Results.First().Exclusions, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
+                            @Html.ValidationMessageFor(model => model.pager_Results.First().Exclusions, "", new { @class = "text-danger" })
+                        </div>
+                    }
+                    </td>
             </tr>
         </table>
     </div>
@@ -375,17 +413,20 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Success, new { @class = "form-control", @cols = "80", @rows = "5" })
+                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Success, new { @class = "form-control", @cols = "80", @rows = "5", @id = "success" })
                         @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Success, "", new { @class = "text-danger" })
                     </div>
 
                 </td>
                 <td>
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Results.First().Success, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
-                        @Html.ValidationMessageFor(model => model.pager_Results.First().Success, "", new { @class = "text-danger" })
-                    </div>
-                </td>
+                    @if (hasPublishedVersion)
+                    {
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.pager_Results.First().Success, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
+                            @Html.ValidationMessageFor(model => model.pager_Results.First().Success, "", new { @class = "text-danger" })
+                        </div>
+                    }
+                    </td>
             </tr>
         </table>
     </div>
@@ -405,7 +446,7 @@
                         {
                             <div class="col-md-10" style="word-wrap:break-word" id="@(item.Responsible_Provider_ID + "div")">
                                 <textarea class="provider" id="@item.Responsible_Provider_ID" cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == item.Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
-                                <input class="providerId" id="@(item.Responsible_Provider_ID + "input")" value="@item.Responsible_Provider_ID" />
+                                <input type='hidden' class="providerId originalProviderId" id="@(item.Responsible_Provider_ID + "input")" value="@item.Responsible_Provider_ID" />
                                 <button class="delete" id="@(item.Responsible_Provider_ID + "delete")">delete</button>
                             </div>
 
@@ -424,11 +465,14 @@
 
 
                 <td>
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Results.First().Responsible_Provider, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
-                        @Html.ValidationMessageFor(model => model.pager_Results.First().Responsible_Provider, "", new { @class = "text-danger" })
-                    </div>
-                </td>
+                    @if (hasPublishedVersion)
+                    {
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.pager_Results.First().Responsible_Provider, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
+                            @Html.ValidationMessageFor(model => model.pager_Results.First().Responsible_Provider, "", new { @class = "text-danger" })
+                        </div>
+                    }
+                    </td>
             </tr>
         </table>
     </div>
@@ -444,17 +488,20 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Risk_Adjustment, new { @class = "form-control", @cols = "80", @rows = "5" })
+                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Risk_Adjustment, new { @class = "form-control", @cols = "80", @rows = "5", @id = "risk_adjustment" })
                         @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Risk_Adjustment, "", new { @class = "text-danger" })
                     </div>
 
                 </td>
                 <td>
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Results.First().Risk_Adjustment, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
-                        @Html.ValidationMessageFor(model => model.pager_Results.First().Risk_Adjustment, "", new { @class = "text-danger" })
-                    </div>
-                </td>
+                    @if (hasPublishedVersion)
+                    {
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.pager_Results.First().Risk_Adjustment, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
+                            @Html.ValidationMessageFor(model => model.pager_Results.First().Risk_Adjustment, "", new { @class = "text-danger" })
+                        </div>
+                    }
+                    </td>
             </tr>
         </table>
     </div>
@@ -470,17 +517,20 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Reference, new { @class = "form-control", @cols = "80", @rows = "5" })
+                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Reference, new { @class = "form-control", @cols = "80", @rows = "5", @id = "references" })
                         @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Reference, "", new { @class = "text-danger" })
                     </div>
 
                 </td>
                 <td>
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Results.First().Reference, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
-                        @Html.ValidationMessageFor(model => model.pager_Results.First().Reference, "", new { @class = "text-danger" })
-                    </div>
-                </td>
+                    @if (hasPublishedVersion)
+                    {
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.pager_Results.First().Reference, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly" })
+                            @Html.ValidationMessageFor(model => model.pager_Results.First().Reference, "", new { @class = "text-danger" })
+                        </div>
+                    }
+                    </td>
             </tr>
         </table>
     </div>
@@ -488,12 +538,17 @@
     <script type="text/javascript">
         $(document).ready(function () {
             var number = 1;
-            var count = @Model.responsible_Provider_id.Count();
+            var count = @Model.responsible_Provider_id.Last().Responsible_Provider_ID;
+            var delete_provider = [];
+            var add_new_provider = [];
+            var add_existing_provider = [];
+            
+           
 
-            $('#add_provider').click(function () {            
-                var id = parseInt(count) + number;
-                number = number + 1;
-                var element = `<div id='${id}div' class='col-md-10' style='word-wrap:break-word'><textarea class='provider' id=${id} cols='60' rows='3' wrap='hard'> </textarea><input class='providerId' id='${id}input' /><button class='delete' id='${id}delete')>delete</button></div>`;
+            $('#add_provider').click(function () {
+                        var id = parseInt(count) + number;
+                        number = number + 1;
+                        var element = `<div id='${id}div' class='col-md-10' style='word-wrap:break-word'><textarea class='provider' id=${id} cols='60' rows='3' wrap='hard'> </textarea><input type='hidden' class='providerId addExistingProviderId' id='${id}input' /><button class='delete' id='${id}delete')>delete</button></div>`;
                 $('#responsible_provider').append(element);
                 $(`#${id}`).each(Autocomplete);
                 $(`#${id}delete`).click(onDelete);
@@ -512,10 +567,13 @@
             function onDelete() {
                 var iddelete = $(this).prop('id');
                 var id = iddelete.replace('delete', '');
-                console.log(id);
+                
+                if ($('#'+ id + 'input').hasClass('originalProviderId')) {                  
+                    delete_provider.push(id);
+                    console.log(delete_provider);
+                }
                 $('#' + id + 'div').remove();
 
-                
             }
 
             function Autocomplete() {
@@ -529,8 +587,8 @@
                                 term: request.term
                             },
                             success: function (data) {
-                                console.log(data);
-                                response($.map(data, function (val, item) {
+                                console.log(data.message);
+                                response($.map(data.providerList, function (val, item) {
                                     return {
                                         label: val.provider,
                                         value: val.provider,
@@ -558,8 +616,74 @@
             $(".provider").each(Autocomplete);
 
             $('#save').click(function () {
-                var nqs = $('#nqs_domain').val();
-                console.log(nqs);
+                var measure_abbreviation = $('#measure_abbreviation').val()
+                var nqs_domain = parseInt($('#nqs_domain').val());
+                var measure_type = $('#measure_type').val();
+                var scope = $('#scope').val();
+                var threshold = $('#threshold').val();
+                var data_collection_method = $('#data_collection_method').val();
+                var description = $('#description').val();
+                var measure_summary = $('#measure_summary').val();
+                var inclusions = $('#inclusions').val();
+                var exclusions = $('#exclusions').val();
+                var success = $('#success').val();
+                var risk_adjustment = $('#risk_adjustment').val();
+                var references = $('#references').val();
+                var measure_id = $('#Measure_ID').val();
+                
+                $('.newProvider').each(function () {
+                    var value = $(this).val();
+                    add_new_provider.push(value);
+                })
+
+                $('.addExistingProviderId').each(function () {
+                    var value = $(this).val();
+                    add_existing_provider.push(value);
+                })
+
+                console.log(add_new_provider);
+                console.log(delete_provider);
+                console.log(add_existing_provider);
+                $.ajax({
+                    url: '@Url.Action("Save")',
+                    type: 'POST',
+                    data: {
+                        'measure_id': measure_id,
+                        'measure_abbreviation': measure_abbreviation,
+                        'nqs_domain': nqs_domain,
+                        'measure_type': measure_type,
+                        'scope': scope,
+                        'threshold': threshold,
+                        'data_collection_method': data_collection_method,
+                        'description': description,
+                        'measure_summary': measure_summary,
+                        'inclusions': inclusions,
+                        'exclusions': exclusions,
+                        'success': success,
+                        'risk_adjustment': risk_adjustment,
+                        'references': references,
+                        'add_new_provider': add_new_provider,
+                        'delete_provider': delete_provider,
+                        'add_existing_provider': add_existing_provider
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            console.log(data.message);
+                            alert('Saved pager successfully!');
+                            window.location.href = "/Pager/Index/" + measure_id;
+                        }
+                        else {
+                            console.log(data.message);
+                            alert('Failed to save pager!');
+                        }
+
+                    },
+                    error: function () {
+                        console.log('failed to get result back from the database!');
+                    }
+
+
+                })              
 
             })
         })
