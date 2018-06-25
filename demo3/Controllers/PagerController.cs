@@ -18,12 +18,22 @@ namespace demo3.Controllers
         private MPOG_XinyuEntities4 db2 = new MPOG_XinyuEntities4();
         public ActionResult Index(int? id)
         {
-            
-            ViewBag.basic = db2.Pager_Auth(id).First();        
-            ViewBag.published = db2.Pager(id).First();
-            ViewBag.responsible_provider = db2.Enumeration_Responsible_Provider;
-            ViewBag.responsible_provider_id = db2.Responsible_Provider_Unpublished.Where(o => o.Measure_ID == id);
-            return View();
+
+            //ViewBag.basic = db2.Pager_Auth(id).First();        
+            //ViewBag.published = db2.Pager(id).First();
+            //ViewBag.responsible_provider = db2.Enumeration_Responsible_Provider;
+            //ViewBag.responsible_provider_id = db2.Responsible_Provider_Unpublished.Where(o => o.Measure_ID == id);
+
+            List<Pager_Auth_Result> pager_auth = db2.Pager_Auth(id).ToList();
+            var nQS_Domain = db2.Enumeration_NQS_Domain;
+            var measure_Type = db2.Enumeration_Measure_Type;
+            var scope = db2.Enumeration_Scope;
+            var responsible_provider = db2.Enumeration_Responsible_Provider;
+            var responsible_provider_id = db2.Responsible_Provider_Unpublished.Where(o => o.Measure_ID == id);
+            var responsible_provider_id_published = db2.Responsible_Provider_Published.Where(o => o.Measure_ID == id);
+            List<Pager_Result> pager = db2.Pager(id).ToList();
+            var model = new EditPager { pager_Auth_Results = pager_auth, pager_Results = pager, nQS_Domain = nQS_Domain, measure_Type = measure_Type, scope = scope, responsible_Provider = responsible_provider, responsible_Provider_id = responsible_provider_id, responsible_Provider_id_published = responsible_provider_id_published };
+            return View(model);
         }
 
         // GET: Pager/Edit/5
@@ -40,8 +50,9 @@ namespace demo3.Controllers
             var scope = db2.Enumeration_Scope;
             var responsible_provider = db2.Enumeration_Responsible_Provider;
             var responsible_provider_id = db2.Responsible_Provider_Unpublished.Where(o => o.Measure_ID == id);
+            var responsible_provider_id_published = db2.Responsible_Provider_Published.Where(o => o.Measure_ID == id);
             List<Pager_Result> pager = db2.Pager(id).ToList();
-            var model = new EditPager { pager_Auth_Results = pager_auth, pager_Results = pager, nQS_Domain = nQS_Domain, measure_Type = measure_Type, scope = scope, responsible_Provider = responsible_provider, responsible_Provider_id = responsible_provider_id };
+            var model = new EditPager { pager_Auth_Results = pager_auth, pager_Results = pager, nQS_Domain = nQS_Domain, measure_Type = measure_Type, scope = scope, responsible_Provider = responsible_provider, responsible_Provider_id = responsible_provider_id, responsible_Provider_id_published = responsible_provider_id_published };
             return View(model);
         }
 

@@ -58,7 +58,6 @@
       <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
     </FunctionImport>
     <EntitySet Name="Responsible_Provider_Unpublished" EntityType="MPOG_XinyuModel1.Responsible_Provider_Unpublished" />
-    <EntitySet Name="Enumerations" EntityType="MPOG_XinyuModel1.Enumeration" />
     <EntitySet Name="Enumeration_Measure_Type" EntityType="MPOG_XinyuModel1.Enumeration_Measure_Type" />
     <EntitySet Name="Enumeration_NQS_Domain" EntityType="MPOG_XinyuModel1.Enumeration_NQS_Domain" />
     <EntitySet Name="Enumeration_Responsible_Provider" EntityType="MPOG_XinyuModel1.Enumeration_Responsible_Provider" />
@@ -91,6 +90,7 @@
       <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
       <Parameter Name="Responsible_Provider_ID" Mode="In" Type="Int32" />
     </FunctionImport>
+    <EntitySet Name="Responsible_Provider_Published" EntityType="MPOG_XinyuModel1.Responsible_Provider_Published" />
   </EntityContainer>
   <ComplexType Name="Details_All_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -249,15 +249,6 @@
     <Property Name="Measure_ID" Type="Int32" Nullable="false" />
     <Property Name="Responsible_Provider_ID" Type="Int32" />
   </EntityType>
-  <EntityType Name="Enumeration">
-    <Key>
-      <PropertyRef Name="auto_id" />
-    </Key>
-    <Property Name="Section_ID" Type="Int32" Nullable="false" />
-    <Property Name="Enumeration_Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="Enumeration_ID" Type="Int32" />
-    <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-  </EntityType>
   <EntityType Name="Enumeration_Measure_Type">
     <Key>
       <PropertyRef Name="Measure_Type_ID" />
@@ -285,5 +276,13 @@
     </Key>
     <Property Name="Scope_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Scope_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Responsible_Provider_Published">
+    <Key>
+      <PropertyRef Name="auto_id" />
+    </Key>
+    <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Measure_ID" Type="Int32" />
+    <Property Name="Responsible_Provider_ID" Type="Int32" />
   </EntityType>
 </Schema>

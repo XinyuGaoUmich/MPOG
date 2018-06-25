@@ -5,15 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MPOG_XinyuModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Enumeration">
-          <Key>
-            <PropertyRef Name="auto_id" />
-          </Key>
-          <Property Name="Section_ID" Type="int" Nullable="false" />
-          <Property Name="Enumeration_Content" Type="varchar(max)" />
-          <Property Name="Enumeration_ID" Type="int" />
-          <Property Name="auto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
         <EntityType Name="Enumeration_Measure_Type">
           <Key>
             <PropertyRef Name="Measure_Type_ID" />
@@ -41,6 +32,14 @@
           </Key>
           <Property Name="Scope_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Scope_Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Responsible_Provider_Published">
+          <Key>
+            <PropertyRef Name="auto_id" />
+          </Key>
+          <Property Name="auto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Measure_ID" Type="int" />
+          <Property Name="Responsible_Provider_ID" Type="int" />
         </EntityType>
         <EntityType Name="Responsible_Provider_Unpublished">
           <Key>
@@ -141,11 +140,11 @@
           <Parameter Name="Status_ID" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="MPOG_XinyuModel1StoreContainer">
-          <EntitySet Name="Enumeration" EntityType="Self.Enumeration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Enumeration_Measure_Type" EntityType="Self.Enumeration_Measure_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Enumeration_NQS_Domain" EntityType="Self.Enumeration_NQS_Domain" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Enumeration_Responsible_Provider" EntityType="Self.Enumeration_Responsible_Provider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Enumeration_Scope" EntityType="Self.Enumeration_Scope" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Responsible_Provider_Published" EntityType="Self.Responsible_Provider_Published" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Responsible_Provider_Unpublished" EntityType="Self.Responsible_Provider_Unpublished" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status_Type" EntityType="Self.Status_Type" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -211,7 +210,6 @@
           <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Responsible_Provider_Unpublished" EntityType="MPOG_XinyuModel1.Responsible_Provider_Unpublished" />
-          <EntitySet Name="Enumerations" EntityType="MPOG_XinyuModel1.Enumeration" />
           <EntitySet Name="Enumeration_Measure_Type" EntityType="MPOG_XinyuModel1.Enumeration_Measure_Type" />
           <EntitySet Name="Enumeration_NQS_Domain" EntityType="MPOG_XinyuModel1.Enumeration_NQS_Domain" />
           <EntitySet Name="Enumeration_Responsible_Provider" EntityType="MPOG_XinyuModel1.Enumeration_Responsible_Provider" />
@@ -244,6 +242,7 @@
             <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
             <Parameter Name="Responsible_Provider_ID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Responsible_Provider_Published" EntityType="MPOG_XinyuModel1.Responsible_Provider_Published" />
         </EntityContainer>
         <ComplexType Name="Details_All_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -402,15 +401,6 @@
           <Property Name="Measure_ID" Type="Int32" Nullable="false" />
           <Property Name="Responsible_Provider_ID" Type="Int32" />
         </EntityType>
-        <EntityType Name="Enumeration">
-          <Key>
-            <PropertyRef Name="auto_id" />
-          </Key>
-          <Property Name="Section_ID" Type="Int32" Nullable="false" />
-          <Property Name="Enumeration_Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Enumeration_ID" Type="Int32" />
-          <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
         <EntityType Name="Enumeration_Measure_Type">
           <Key>
             <PropertyRef Name="Measure_Type_ID" />
@@ -438,6 +428,14 @@
           </Key>
           <Property Name="Scope_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Scope_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Responsible_Provider_Published">
+          <Key>
+            <PropertyRef Name="auto_id" />
+          </Key>
+          <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Measure_ID" Type="Int32" />
+          <Property Name="Responsible_Provider_ID" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -647,16 +645,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Enumerations">
-            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Enumeration">
-              <MappingFragment StoreEntitySet="Enumeration">
-                <ScalarProperty Name="auto_id" ColumnName="auto_id" />
-                <ScalarProperty Name="Enumeration_ID" ColumnName="Enumeration_ID" />
-                <ScalarProperty Name="Enumeration_Content" ColumnName="Enumeration_Content" />
-                <ScalarProperty Name="Section_ID" ColumnName="Section_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Enumeration_Measure_Type">
             <EntityTypeMapping TypeName="MPOG_XinyuModel1.Enumeration_Measure_Type">
               <MappingFragment StoreEntitySet="Enumeration_Measure_Type">
@@ -693,6 +681,15 @@
           <FunctionImportMapping FunctionImportName="Add_Existing_Provider" FunctionName="MPOG_XinyuModel1.Store.Add_Existing_Provider" />
           <FunctionImportMapping FunctionImportName="Add_New_Provider" FunctionName="MPOG_XinyuModel1.Store.Add_New_Provider" />
           <FunctionImportMapping FunctionImportName="Delete_Provider" FunctionName="MPOG_XinyuModel1.Store.Delete_Provider" />
+          <EntitySetMapping Name="Responsible_Provider_Published">
+            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Responsible_Provider_Published">
+              <MappingFragment StoreEntitySet="Responsible_Provider_Published">
+                <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
+                <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+                <ScalarProperty Name="auto_id" ColumnName="auto_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

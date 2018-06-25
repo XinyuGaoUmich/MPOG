@@ -275,9 +275,6 @@
     <Compile Include="Models\EditMeasure.cs" />
     <Compile Include="Models\EditPager.cs" />
     <Compile Include="Models\EditSpec.cs" />
-    <Compile Include="Models\Enumeration.cs">
-      <DependentUpon>Measure_All.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Enumeration_Measure_Type.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
@@ -354,6 +351,9 @@
     <Compile Include="Models\Public_Measure_Result.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Responsible_Provider_Published.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Responsible_Provider_Unpublished.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
@@ -378,6 +378,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\fixed_button.css" />
     <Content Include="Content\table.css" />
     <Content Include="Content\table_index.css" />
     <Content Include="Content\table_in_edit.css" />

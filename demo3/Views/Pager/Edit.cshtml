@@ -33,7 +33,7 @@
     <link href="~/Content/table_in_edit.css" rel="stylesheet" type="text/css" />
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-
+    <link href="~/Content/fixed_button.css" rel="stylesheet" type="text/css" />
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
@@ -126,7 +126,7 @@
 
             <div style="display:flex; justify-content: space-around; width:50%">
                 <h4>
-                   <a id="save" style="cursor: pointer">Save</a>
+                    <a id="save" style="cursor: pointer">Save</a>
                 </h4>
 
                 <h4>
@@ -309,7 +309,7 @@
                             @Html.ValidationMessageFor(model => model.pager_Results.First().Description, "", new { @class = "text-danger" })
                         </div>
                     }
-                    </td>
+                </td>
             </tr>
         </table>
     </div>
@@ -338,7 +338,7 @@
                             @Html.ValidationMessageFor(model => model.pager_Results.First().Measure_Summary, "", new { @class = "text-danger" })
                         </div>
                     }
-                    </td>
+                </td>
             </tr>
         </table>
     </div>
@@ -367,7 +367,7 @@
                             @Html.ValidationMessageFor(model => model.pager_Results.First().Inclusions, "", new { @class = "text-danger" })
                         </div>
                     }
-                    </td>
+                </td>
             </tr>
         </table>
     </div>
@@ -396,7 +396,7 @@
                             @Html.ValidationMessageFor(model => model.pager_Results.First().Exclusions, "", new { @class = "text-danger" })
                         </div>
                     }
-                    </td>
+                </td>
             </tr>
         </table>
     </div>
@@ -426,7 +426,7 @@
                             @Html.ValidationMessageFor(model => model.pager_Results.First().Success, "", new { @class = "text-danger" })
                         </div>
                     }
-                    </td>
+                </td>
             </tr>
         </table>
     </div>
@@ -467,12 +467,15 @@
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.pager_Results.First().Responsible_Provider, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
-                            @Html.ValidationMessageFor(model => model.pager_Results.First().Responsible_Provider, "", new { @class = "text-danger" })
-                        </div>
+                        foreach (var item in Model.responsible_Provider_id_published)
+                        {
+
+                            <textarea readonly cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == item.Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
+
+                        }
+
                     }
-                    </td>
+                </td>
             </tr>
         </table>
     </div>
@@ -501,7 +504,7 @@
                             @Html.ValidationMessageFor(model => model.pager_Results.First().Risk_Adjustment, "", new { @class = "text-danger" })
                         </div>
                     }
-                    </td>
+                </td>
             </tr>
         </table>
     </div>
@@ -530,20 +533,31 @@
                             @Html.ValidationMessageFor(model => model.pager_Results.First().Reference, "", new { @class = "text-danger" })
                         </div>
                     }
-                    </td>
+                </td>
             </tr>
         </table>
     </div>
-    
+    <button id="top">Top</button>
+    @if (@Model.responsible_Provider_id.LastOrDefault() == null)
+    {
+        <input id="count" value="0" type="hidden" />
+    }
+    else
+    {
+        <input id="count" type="hidden" value="@Model.responsible_Provider_id.LastOrDefault().Responsible_Provider_ID" />
+    }
+
     <script type="text/javascript">
+
+
         $(document).ready(function () {
             var number = 1;
-            var count = @Model.responsible_Provider_id.Last().Responsible_Provider_ID;
+            var count = $("#count").val();
             var delete_provider = [];
             var add_new_provider = [];
             var add_existing_provider = [];
-            
-           
+
+
 
             $('#add_provider').click(function () {
                         var id = parseInt(count) + number;
@@ -567,8 +581,8 @@
             function onDelete() {
                 var iddelete = $(this).prop('id');
                 var id = iddelete.replace('delete', '');
-                
-                if ($('#'+ id + 'input').hasClass('originalProviderId')) {                  
+
+                if ($('#'+ id + 'input').hasClass('originalProviderId')) {
                     delete_provider.push(id);
                     console.log(delete_provider);
                 }
@@ -615,6 +629,10 @@
 
             $(".provider").each(Autocomplete);
 
+            $("#top").click(function () {
+                $("html, body").animate({ scrollTop: 0 }, 600)
+            })
+
             $('#save').click(function () {
                 var measure_abbreviation = $('#measure_abbreviation').val()
                 var nqs_domain = parseInt($('#nqs_domain').val());
@@ -630,7 +648,7 @@
                 var risk_adjustment = $('#risk_adjustment').val();
                 var references = $('#references').val();
                 var measure_id = $('#Measure_ID').val();
-                
+
                 $('.newProvider').each(function () {
                     var value = $(this).val();
                     add_new_provider.push(value);
@@ -644,6 +662,27 @@
                 console.log(add_new_provider);
                 console.log(delete_provider);
                 console.log(add_existing_provider);
+
+                data = {
+                    'measure_id': measure_id,
+                    'measure_abbreviation': measure_abbreviation,
+                    'nqs_domain': nqs_domain,
+                    'measure_type': measure_type,
+                    'scope': scope,
+                    'threshold': threshold,
+                    'data_collection_method': data_collection_method,
+                    'description': description,
+                    'measure_summary': measure_summary,
+                    'inclusions': inclusions,
+                    'exclusions': exclusions,
+                    'success': success,
+                    'risk_adjustment': risk_adjustment,
+                    'references': references,
+                    'add_new_provider': add_new_provider,
+                    'delete_provider': delete_provider,
+                    'add_existing_provider': add_existing_provider
+                };
+                console.log(data);
                 $.ajax({
                     url: '@Url.Action("Save")',
                     type: 'POST',
@@ -683,7 +722,7 @@
                     }
 
 
-                })              
+                })
 
             })
         })

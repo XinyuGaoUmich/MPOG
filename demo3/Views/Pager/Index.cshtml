@@ -1,4 +1,8 @@
-﻿@{
+﻿@model demo3.Models.EditPager
+     
+@{
+    /**/
+
     Layout = null;
     Boolean isLoggedin = false;
     Boolean isQI = false;
@@ -23,7 +27,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="~/Content/table_in_spec.css" rel="stylesheet" type="text/css" />
-
+    <link href="~/Content/fixed_button.css" rel="stylesheet" type="text/css" />
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
@@ -65,7 +69,7 @@
             <ul class="nav navbar-nav">
 
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">@ViewBag.basic.Measure_Abbreviation Basic Info<span class="caret"></span></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">@Model.pager_Auth_Results.First().Measure_Abbreviation Basic Info<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">NQS Domain</a></li>
                         <li><a href="#">Measure Type</a></li>
@@ -76,19 +80,19 @@
                 <li><a href="#section2">Data Collection Method</a></li>
                 <li><a href="#section3">Description</a></li>
                 <li><a href="#section4">Measure Summary</a></li>
-               
+
                 <li><a href="#section5">Inclusions</a></li>
                 <li><a href="#section6">Exclusions</a></li>
-                        
+
                 <li><a href="#section7">Success</a></li>
                 <li><a href="#section8">Responsible Provider</a></li>
                 <li><a href="#section9">Risk Adjustment</a></li>
-           
+
                 <li><a href="#section10">References</a></li>
 
             </ul>
         </div>
-     
+
     </nav>
 
     <div id="section1" class="container-fluid">
@@ -99,20 +103,20 @@
                 </h4>
 
                 <h4>
-                    @Html.ActionLink("View " + (String)@ViewBag.basic.Measure_Abbreviation + " Spec", "Index", "Spec", new { id = @ViewBag.basic.Measure_ID }, null)
+                    @Html.ActionLink("View " + (String)@Model.pager_Auth_Results.First().Measure_Abbreviation + " Spec", "Index", "Spec", new { id = Model.pager_Auth_Results.First().Measure_ID }, null)
                 </h4>
             </div>
             @if (isQI)
             {
-                <h4> 
-                    @Html.ActionLink("Edit " + (String)@ViewBag.basic.Measure_Abbreviation + " Pager", "Edit", "Pager", new { id = @ViewBag.basic.Measure_ID }, null)
+                <h4>
+                    @Html.ActionLink("Edit " + (String)@Model.pager_Auth_Results.First().Measure_Abbreviation + " Pager", "Edit", "Pager", new { id = Model.pager_Auth_Results.First().Measure_ID }, null)
                 </h4>
             }
 
 
         </div>
-        
-        <h2>@ViewBag.basic.Measure_Abbreviation Basic Info</h2>
+
+        <h2>@Model.pager_Auth_Results.First().Measure_Abbreviation Basic Info</h2>
         <table>
             <tr>
                 <th>Unpublished</th>
@@ -125,21 +129,22 @@
                             NQS Domain
                         </dt>
                         <dd>
-                            @ViewBag.basic.NQS_Domain
+                            @Model.nQS_Domain.Where(o => o.NQS_Domain_ID == Model.pager_Auth_Results.First().NQS_Domain_ID).First().NQS_Domain_Name
                         </dd>
 
                         <dt>
                             Measure Type
                         </dt>
                         <dd>
-                            @ViewBag.basic.Measure_Type
+                            @Model.measure_Type.Where(o => o.Measure_Type_ID == Model.pager_Auth_Results.First().Measure_Type_ID).First().Measure_Type_Name
                         </dd>
 
                         <dt>
                             Scope
                         </dt>
                         <dd>
-                            @ViewBag.basic.Scope
+                            @Model.scope.Where(o => o.Scope_ID == Model.pager_Auth_Results.First().Measure_Scope_ID).First().Scope_Name
+
                         </dd>
 
                         <dt>
@@ -147,52 +152,17 @@
                         </dt>
                         <dd>
 
-                            @if (ViewBag.basic.Threshold != null)
+                            @if (Model.pager_Results.First().Threshold != null)
                             {
 
-                                @ViewBag.basic.Threshold.ToString("P")
+                                @*@ViewBag.basic.Threshold.ToString("P")*@
+                                @Model.pager_Results.First().Threshold.Value.ToString("P");
                             }
-                          
+
                         </dd>
                     </dl>
                 </td>
-                <td>
-                    <dl class="dl-horizontal" style="text-align:left">
-                        <dt>
-                            NQS Domain
-                        </dt>
-                        <dd>
-                            @ViewBag.published.NQS_Domain
-                        </dd>
 
-                        <dt>
-                            Measure Type
-                        </dt>
-                        <dd>
-                            @ViewBag.published.Measure_Type
-                        </dd>
-
-                        <dt>
-                            Scope
-                        </dt>
-                        <dd>
-                            @ViewBag.published.Scope
-                        </dd>
-
-                        <dt>
-                            Threshold
-                        </dt>
-                        <dd>
-
-                            @if (ViewBag.published.Threshold != null) {
-
-                             @ViewBag.published.Threshold.ToString("P")
-                            }
-                            
-                                
-                        </dd>
-                    </dl>
-                </td>
             </tr>
         </table>
 
@@ -208,15 +178,16 @@
             </tr>
             <tr>
                 <td>
-                    @ViewBag.basic.Data_Collection_Method
+                    @Model.pager_Auth_Results.First().Data_Collection_Method
                 </td>
                 <td>
-                    @ViewBag.published.Data_Collection_Method
+                    @Model.pager_Results.First().Data_Collection_Method
                 </td>
             </tr>
         </table>
 
     </div>
+
     <div id="section3" class="container-fluid">
         <h2>Description</h2>
         <table>
@@ -226,14 +197,15 @@
             </tr>
             <tr>
                 <td>
-                    @ViewBag.basic.Description
+                    @Model.pager_Auth_Results.First().Description
                 </td>
                 <td>
-                    @ViewBag.published.Description
+                    @Model.pager_Results.First().Description
                 </td>
             </tr>
         </table>
     </div>
+
     <div id="section4" class="container-fluid">
         <h2>Measure Summary</h2>
         <table>
@@ -243,15 +215,14 @@
             </tr>
             <tr>
                 <td>
-                    @ViewBag.basic.Measure_Summary
+                    @Model.pager_Auth_Results.First().Measure_Summary
                 </td>
                 <td>
-                    @ViewBag.published.Measure_Summary
+                    @Model.pager_Results.First().Measure_Summary
                 </td>
             </tr>
         </table>
     </div>
-  
 
     <div id="section5" class="container-fluid">
         <h2>Inclusions</h2>
@@ -262,13 +233,13 @@
             </tr>
             <tr>
                 <td>
-                    @ViewBag.basic.Inclusions
-                    
+                    @Model.pager_Auth_Results.First().Inclusions
+
 
                 </td>
                 <td>
-                    @ViewBag.published.Inclusions
-                   
+                    @Model.pager_Results.First().Inclusions
+
                 </td>
             </tr>
         </table>
@@ -283,19 +254,17 @@
             </tr>
             <tr>
                 <td>
-                    @ViewBag.basic.Exclusions
-                   
+                    @Model.pager_Auth_Results.First().Exclusions
+
 
                 </td>
                 <td>
-                    @ViewBag.published.Exclusions
-                   
+                    @Model.pager_Results.First().Exclusions
+
                 </td>
             </tr>
         </table>
     </div>
-
-
 
     <div id="section7" class="container-fluid">
         <h2>Success</h2>
@@ -306,11 +275,11 @@
             </tr>
             <tr>
                 <td>
-                    @ViewBag.basic.Success                  
+                    @Model.pager_Auth_Results.First().Success
                 </td>
                 <td>
-                    @ViewBag.published.Success
-                    
+                    @Model.pager_Results.First().Success
+
                 </td>
             </tr>
         </table>
@@ -325,12 +294,17 @@
             </tr>
             <tr>
                 <td>
-                    @ViewBag.responsible_provider_id
-                    
+                    @foreach (var item in Model.responsible_Provider_id)
+                    {
+                        <textarea readonly cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == item.Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
+                    }
 
                 </td>
                 <td>
-                    @ViewBag.basic.Responsible_Provider
+                    @foreach (var item in Model.responsible_Provider_id_published)
+                    {
+                        <textarea readonly cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == item.Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
+                    }
                 </td>
             </tr>
         </table>
@@ -345,18 +319,15 @@
             </tr>
             <tr>
                 <td>
-                    @ViewBag.basic.Risk_Adjustment
-                   
-
+                    @Model.pager_Auth_Results.First().Risk_Adjustment
                 </td>
+
                 <td>
-                    @ViewBag.basic.Risk_Adjustment
-                  
+                    @Model.pager_Results.First().Risk_Adjustment
                 </td>
             </tr>
         </table>
     </div>
-    
 
     <div id="section10" class="container-fluid">
         <h2>References</h2>
@@ -367,17 +338,22 @@
             </tr>
             <tr>
                 <td>
-                    @ViewBag.basic.Reference
-                  
-
+                    @Model.pager_Auth_Results.First().Reference
                 </td>
                 <td>
-                    @ViewBag.published.Reference
-                   
+                    @Model.pager_Results.First().Reference
                 </td>
             </tr>
         </table>
     </div>
+    <button id="top" >Top</button>
+    <script type="text/javascript">       
 
+        $(document).ready(function () {
+            $("#top").click(function () {
+                $("html, body").animate({ scrollTop: 0 }, 600)
+            })
+        })
+    </script>
 </body>
 </html>

@@ -41,7 +41,7 @@ namespace demo3.Models
 
         public string Success { get; set; }
    
-        [DisplayFormat(DataFormatString ="{0:0.0%}")]
+        [DisplayFormat(DataFormatString ="{0:0.00}%")]
         public Nullable<decimal> Threshold { get; set; }
 
         [DisplayName("Responsible Provider")]
