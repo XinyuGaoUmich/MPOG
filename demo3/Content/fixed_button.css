@@ -1,7 +1,7 @@
 ﻿#top {
     position: fixed;
-    bottom: 20px;
-    right: 30px;
+    bottom: 120px;
+    right: 25px;
     border: none;
     outline: none;
     background-color: #f5f5f5;
@@ -12,6 +12,42 @@
     font-size: 18px;
 }
 
-#top:hover{
+#top:hover {
+    background-color: lightblue;
+}
+
+#save {
+    position: fixed;
+    bottom: 60px;
+    right: 15px;
+    border: none;
+    outline: none;
+    background-color: #f5f5f5;
+    color: black;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+#save:hover {
+    background-color: lightblue;
+}
+
+#publish {
+    position: fixed;
+    bottom: 1px;
+    right: 1px;
+    border: none;
+    outline: none;
+    background-color: #f5f5f5;
+    color: black;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+#publish:hover {
     background-color: lightblue;
 }

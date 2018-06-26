@@ -281,7 +281,7 @@ namespace demo3.Models
             var referenceParameter = reference != null ?
                 new ObjectParameter("Reference", reference) :
                 new ObjectParameter("Reference", typeof(string));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Save_Pager", measure_IDParameter, measure_AbbreviationParameter, data_Collection_MethodParameter, descriptionParameter, nQS_DomainParameter, measure_TypeParameter, scopeParameter, measure_SummaryParameter, inclusionsParameter, exclusionsParameter, successParameter, thresholdParameter, risk_AdjustmentParameter, referenceParameter);
         }
     

@@ -44,7 +44,8 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+    <script src="https://cdn.ckeditor.com/4.9.2/basic/ckeditor.js"></script>
+    <link href="~/Content/option_length.css" rel="stylesheet" type="text/css" />
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
@@ -123,16 +124,7 @@
                     @Html.ActionLink("View " + (String)Model.pager_Auth_Results.First().Measure_Abbreviation + " Spec", "Index", "Spec", new { id = @Model.pager_Auth_Results.First().Measure_ID }, null)
                 </h4>
             </div>
-
-            <div style="display:flex; justify-content: space-around; width:50%">
-                <h4>
-                    <a id="save" style="cursor: pointer">Save</a>
-                </h4>
-
-                <h4>
-                    @Html.ActionLink("Publish", "Publish")
-                </h4>
-            </div>
+           
         </div>
 
         <h2>@Model.pager_Auth_Results.First().Measure_Abbreviation Basic Info</h2>
@@ -162,7 +154,7 @@
                     <div class="form-group" style="display:inline">
                         @Html.LabelFor(model => model.pager_Auth_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().NQS_Domain_ID, new SelectList(Model.nQS_Domain, "NQS_Domain_ID", "NQS_Domain_Name", selectedValue: Model.pager_Auth_Results.First().NQS_Domain_ID), new { @class = "selectpicker", @style = "height: 30px", @id = "nqs_domain" })
+                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().NQS_Domain_ID, new SelectList(Model.nQS_Domain, "NQS_Domain_ID", "NQS_Domain_Name", selectedValue: Model.pager_Auth_Results.First().NQS_Domain_ID),"Select NQS Domain", new { @class = "selectpicker", @style = "height: 30px", @id = "nqs_domain" })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().NQS_Domain, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -170,7 +162,7 @@
                     <div class="form-group" style="display:inline">
                         @Html.LabelFor(model => model.pager_Auth_Results.First().Measure_Type, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Type_ID, new SelectList(Model.measure_Type, "Measure_Type_ID", "Measure_Type_Name", selectedValue: Model.pager_Auth_Results.First().Measure_Type_ID), new { @class = "selectpicker", @style = "height: 30px", @id = "measure_type" })
+                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Type_ID, new SelectList(Model.measure_Type, "Measure_Type_ID", "Measure_Type_Name", selectedValue: Model.pager_Auth_Results.First().Measure_Type_ID), "Select Measure Type", new { @class = "selectpicker", @style = "height: 30px", @id = "measure_type" })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Measure_Type_ID, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -178,7 +170,7 @@
                     <div class="form-group" style="display:inline">
                         @Html.LabelFor(model => model.pager_Auth_Results.First().Scope, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Scope_ID, new SelectList(Model.scope, "Scope_ID", "Scope_Name", selectedValue: Model.pager_Auth_Results.First().Measure_Scope_ID), new { @class = "selectpicker", @style = "height: 30px", @id = "scope" })
+                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Scope_ID, new SelectList(Model.scope, "Scope_ID", "Scope_Name", selectedValue: Model.pager_Auth_Results.First().Measure_Scope_ID), "Select Scope", new { @class = "selectpicker", @style = "height: 30px", @id = "scope" })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Measure_Scope_ID, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -207,8 +199,6 @@
                             @Html.LabelFor(model => model.pager_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
                                 @Html.TextBoxFor(model => model.pager_Results.First().NQS_Domain, new { @class = "form-control", @readonly = "readonly", @style = "height: 30px" })
-
-                                @*@Html.DisplayFor(model => model.pager_Results.First().NQS_Domain, new { htmlAttributes = new { @class = "form-control" } })*@
                                 @Html.ValidationMessageFor(model => model.pager_Results.First().NQS_Domain, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -217,8 +207,6 @@
                             @Html.LabelFor(model => model.pager_Results.First().Measure_Type, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
                                 @Html.TextBoxFor(model => model.pager_Results.First().Measure_Type, new { @class = "form-control", @readonly = "readonly", @style = "height: 30px" })
-
-                                @*@Html.DisplayFor(model => model.pager_Results.First().Measure_Type, new { htmlAttributes = new { @class = "form-control" } })*@
                                 @Html.ValidationMessageFor(model => model.pager_Results.First().Measure_Type, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -227,8 +215,6 @@
                             @Html.LabelFor(model => model.pager_Results.First().Scope, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
                                 @Html.TextBoxFor(model => model.pager_Results.First().Scope, new { @class = "form-control", @readonly = "readonly", @style = "height: 30px" })
-
-                                @*@Html.DisplayFor(model => model.pager_Results.First().Measure_Type, new { htmlAttributes = new { @class = "form-control" } })*@
                                 @Html.ValidationMessageFor(model => model.pager_Results.First().Scope, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -237,8 +223,6 @@
                             @Html.LabelFor(model => model.pager_Results.First().Threshold, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
                                 @Html.TextBoxFor(model => model.pager_Results.First().Threshold, new { @class = "form-control", @readonly = "readonly", @style = "height: 30px" })
-
-                                @*@Html.DisplayFor(model => model.pager_Results.First().Measure_Type, new { htmlAttributes = new { @class = "form-control" } })*@
                                 @Html.ValidationMessageFor(model => model.pager_Results.First().Threshold, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -401,7 +385,6 @@
         </table>
     </div>
 
-
     <span class="anchor" id="section7"></span>
     <div id="section77">
         <h2>Success</h2>
@@ -441,39 +424,37 @@
             </tr>
             <tr>
                 <td>
-                    <div id="responsible_provider">
-                        @foreach (var item in Model.responsible_Provider_id)
-                        {
-                            <div class="col-md-10" style="word-wrap:break-word" id="@(item.Responsible_Provider_ID + "div")">
-                                <textarea class="provider" id="@item.Responsible_Provider_ID" cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == item.Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
-                                <input type='hidden' class="providerId originalProviderId" id="@(item.Responsible_Provider_ID + "input")" value="@item.Responsible_Provider_ID" />
-                                <button class="delete" id="@(item.Responsible_Provider_ID + "delete")">delete</button>
-                            </div>
-
-                        }
-                    </div>
-                    <div style="padding-left: 20px; padding-top: 10px">
-                        <button type="button" class="btn-primary" id="add_provider">Add more from list</button>
-                    </div>
-
-                    <div style="margin-left: 20px; margin-top: 10px">
-                        <button type="button" class="btn-primary" id="create_provider">Create new Providers</button>
-                    </div>
-
-
+                    <textarea name="editor1"></textarea>
+                    <script>
+                        CKEDITOR.replace('editor1');
+                    </script>
+                  
+                    <div class="col-md-10" style="word-wrap:break-word" id="@(Model.pager_Auth_Results.First().Responsible_Provider_ID + "div")">
+                        @*<textarea class="provider" id="@Model.pager_Auth_Results.First().Responsible_Provider_ID" cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == Model.pager_Auth_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>*@
+                        @*@Html.DropDownListFor(model => model.pager_Auth_Results.First().Responsible_Provider_ID, new SelectList(Model.responsible_Provider, "Responsible_Provider_ID", "Responsible_Provider_Name", selectedValue: Model.pager_Auth_Results.First().Responsible_Provider_ID), "Select Responsible Provider", new { @class = "selectpicker", @style = "height: 30px; white-space: normal", @id = "responsible_provider" })*@
+                        <select >
+                            <option>Select Responsible Provider</option>
+                            @foreach (var item in Model.responsible_Provider)
+                            {                           
+                                if (item.Responsible_Provider_ID == Model.pager_Auth_Results.First().Responsible_Provider_ID)
+                                {
+                                    <option value="@item.Responsible_Provider_ID" selected="selected">@item.Responsible_Provider_Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Responsible_Provider_ID" >@item.Responsible_Provider_Name</option>
+                                }
+                            }
+                        </select>
+                        <input type='hidden' class="providerId originalProviderId" id="@(Model.pager_Auth_Results.First().Responsible_Provider_ID + "input")" value="@Model.pager_Auth_Results.First().Responsible_Provider_ID" />
+                    </div>                                  
                 </td>
 
 
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        foreach (var item in Model.responsible_Provider_id_published)
-                        {
-
-                            <textarea readonly cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == item.Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
-
-                        }
-
+                        <textarea readonly cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>                      
                     }
                 </td>
             </tr>
@@ -537,22 +518,18 @@
             </tr>
         </table>
     </div>
+
     <button id="top">Top</button>
-    @if (@Model.responsible_Provider_id.LastOrDefault() == null)
-    {
-        <input id="count" value="0" type="hidden" />
-    }
-    else
-    {
-        <input id="count" type="hidden" value="@Model.responsible_Provider_id.LastOrDefault().Responsible_Provider_ID" />
-    }
+    <button id="save">Save</button>
+    <button id="publish">Publish</button>
+   
 
     <script type="text/javascript">
 
 
         $(document).ready(function () {
             var number = 1;
-            var count = $("#count").val();
+          
             var delete_provider = [];
             var add_new_provider = [];
             var add_existing_provider = [];
@@ -635,7 +612,7 @@
 
             $('#save').click(function () {
                 var measure_abbreviation = $('#measure_abbreviation').val()
-                var nqs_domain = parseInt($('#nqs_domain').val());
+                var nqs_domain = $('#nqs_domain').val();
                 var measure_type = $('#measure_type').val();
                 var scope = $('#scope').val();
                 var threshold = $('#threshold').val();
@@ -649,19 +626,19 @@
                 var references = $('#references').val();
                 var measure_id = $('#Measure_ID').val();
 
-                $('.newProvider').each(function () {
-                    var value = $(this).val();
-                    add_new_provider.push(value);
-                })
+                //$('.newProvider').each(function () {
+                //    var value = $(this).val();
+                //    add_new_provider.push(value);
+                //})
 
-                $('.addExistingProviderId').each(function () {
-                    var value = $(this).val();
-                    add_existing_provider.push(value);
-                })
+                //$('.addExistingProviderId').each(function () {
+                //    var value = $(this).val();
+                //    add_existing_provider.push(value);
+                //})
 
-                console.log(add_new_provider);
-                console.log(delete_provider);
-                console.log(add_existing_provider);
+                //console.log(add_new_provider);
+                //console.log(delete_provider);
+                //console.log(add_existing_provider);
 
                 data = {
                     'measure_id': measure_id,
@@ -707,9 +684,10 @@
                     },
                     success: function (data) {
                         if (data.success) {
-                            console.log(data.message);
+                            //console.log(data.message);
+                            console.log(data);
                             alert('Saved pager successfully!');
-                            window.location.href = "/Pager/Index/" + measure_id;
+                           //window.location.href = "/Pager/Index/" + measure_id;
                         }
                         else {
                             console.log(data.message);
@@ -717,8 +695,10 @@
                         }
 
                     },
-                    error: function () {
-                        console.log('failed to get result back from the database!');
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR);
+                        console.log(textStatus);
+                        console.log(errorThrown);
                     }
 
 

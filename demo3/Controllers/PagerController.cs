@@ -28,11 +28,9 @@ namespace demo3.Controllers
             var nQS_Domain = db2.Enumeration_NQS_Domain;
             var measure_Type = db2.Enumeration_Measure_Type;
             var scope = db2.Enumeration_Scope;
-            var responsible_provider = db2.Enumeration_Responsible_Provider;
-            var responsible_provider_id = db2.Responsible_Provider_Unpublished.Where(o => o.Measure_ID == id);
-            var responsible_provider_id_published = db2.Responsible_Provider_Published.Where(o => o.Measure_ID == id);
+            var responsible_provider = db2.Enumeration_Responsible_Provider;         
             List<Pager_Result> pager = db2.Pager(id).ToList();
-            var model = new EditPager { pager_Auth_Results = pager_auth, pager_Results = pager, nQS_Domain = nQS_Domain, measure_Type = measure_Type, scope = scope, responsible_Provider = responsible_provider, responsible_Provider_id = responsible_provider_id, responsible_Provider_id_published = responsible_provider_id_published };
+            var model = new EditPager { pager_Auth_Results = pager_auth, pager_Results = pager, nQS_Domain = nQS_Domain, measure_Type = measure_Type, scope = scope, responsible_Provider = responsible_provider };
             return View(model);
         }
 
@@ -48,11 +46,9 @@ namespace demo3.Controllers
             var nQS_Domain = db2.Enumeration_NQS_Domain;           
             var measure_Type = db2.Enumeration_Measure_Type;           
             var scope = db2.Enumeration_Scope;
-            var responsible_provider = db2.Enumeration_Responsible_Provider;
-            var responsible_provider_id = db2.Responsible_Provider_Unpublished.Where(o => o.Measure_ID == id);
-            var responsible_provider_id_published = db2.Responsible_Provider_Published.Where(o => o.Measure_ID == id);
+            var responsible_provider = db2.Enumeration_Responsible_Provider;         
             List<Pager_Result> pager = db2.Pager(id).ToList();
-            var model = new EditPager { pager_Auth_Results = pager_auth, pager_Results = pager, nQS_Domain = nQS_Domain, measure_Type = measure_Type, scope = scope, responsible_Provider = responsible_provider, responsible_Provider_id = responsible_provider_id, responsible_Provider_id_published = responsible_provider_id_published };
+            var model = new EditPager { pager_Auth_Results = pager_auth, pager_Results = pager, nQS_Domain = nQS_Domain, measure_Type = measure_Type, scope = scope, responsible_Provider = responsible_provider };
             return View(model);
         }
 
@@ -81,7 +77,7 @@ namespace demo3.Controllers
            
         }
 
-        public JsonResult Save(int measure_id, string measure_abbreviation, int nqs_domain, int measure_type, int scope, decimal threshold, string data_collection_method, string description, string measure_summary, string inclusions, string exclusions, string success, string risk_adjustment, string references, string[] add_new_provider, int[] delete_provider, int[] add_existing_provider)
+        public JsonResult Save(int measure_id, string measure_abbreviation, int? nqs_domain, int? measure_type, int? scope, decimal threshold, string data_collection_method, string description, string measure_summary, string inclusions, string exclusions, string success, string risk_adjustment, string references, string[] add_new_provider, int[] delete_provider, int[] add_existing_provider)
         {
             try
             {
@@ -95,7 +91,7 @@ namespace demo3.Controllers
 
                 if (delete_provider != null && delete_provider.Count() > 0)
                 {
-                    foreach(int provider_ID in delete_provider)
+                    foreach (int provider_ID in delete_provider)
                     {
                         db2.Delete_Provider(measure_id, provider_ID);
                     }
@@ -103,17 +99,22 @@ namespace demo3.Controllers
 
                 if (add_existing_provider != null && add_existing_provider.Count() > 0)
                 {
-                    foreach(int provider_ID in add_existing_provider)
+                    foreach (int provider_ID in add_existing_provider)
                     {
                         db2.Add_Existing_Provider(measure_id, provider_ID);
                     }
                 }
 
+
                 db2.Save_Pager(measure_id, measure_abbreviation, data_collection_method, description, nqs_domain, measure_type, scope, measure_summary, inclusions, exclusions, success, threshold, risk_adjustment, references);
-                return Json(new {
+
+                return Json(new
+                {
                     success = true,
                     message = "success"
                 });
+
+
             }
             catch (Exception e)
             {
@@ -125,6 +126,7 @@ namespace demo3.Controllers
             }
            
         }
+      
 
     }
 }

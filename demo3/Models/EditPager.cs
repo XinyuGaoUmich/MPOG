@@ -41,18 +41,6 @@ namespace demo3.Models
         {
             get;
             set;
-        }
-
-        public IEnumerable<Responsible_Provider_Unpublished> responsible_Provider_id
-        {
-            get;
-            set;
-        }
-
-        public IEnumerable<Responsible_Provider_Published> responsible_Provider_id_published
-        {
-            get;
-            set;
-        }
+        }        
     }
 }
