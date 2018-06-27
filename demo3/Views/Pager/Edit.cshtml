@@ -28,24 +28,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="~/Content/table_in_edit.css" rel="stylesheet" type="text/css" />
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
-    <link href="~/Content/fixed_button.css" rel="stylesheet" type="text/css" />
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
-
-    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.full.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="~/Content/fixed_button.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/table_in_edit.css" rel="stylesheet" type="text/css" />
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.full.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.ckeditor.com/4.9.2/basic/ckeditor.js"></script>
-    <link href="~/Content/option_length.css" rel="stylesheet" type="text/css" />
+
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
@@ -154,7 +149,7 @@
                     <div class="form-group" style="display:inline">
                         @Html.LabelFor(model => model.pager_Auth_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().NQS_Domain_ID, new SelectList(Model.nQS_Domain, "NQS_Domain_ID", "NQS_Domain_Name", selectedValue: Model.pager_Auth_Results.First().NQS_Domain_ID),"Select NQS Domain", new { @class = "selectpicker", @style = "height: 30px", @id = "nqs_domain" })
+                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().NQS_Domain_ID, new SelectList(Model.nQS_Domain, "NQS_Domain_ID", "NQS_Domain_Name", selectedValue: Model.pager_Auth_Results.First().NQS_Domain_ID), "Select NQS Domain", new { @class = "selectpicker", @style = "height: 30px", @id = "nqs_domain" })
                             @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().NQS_Domain, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -424,37 +419,46 @@
             </tr>
             <tr>
                 <td>
-                    <textarea name="editor1"></textarea>
-                    <script>
-                        CKEDITOR.replace('editor1');
-                    </script>
-                  
                     <div class="col-md-10" style="word-wrap:break-word" id="@(Model.pager_Auth_Results.First().Responsible_Provider_ID + "div")">
-                        @*<textarea class="provider" id="@Model.pager_Auth_Results.First().Responsible_Provider_ID" cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == Model.pager_Auth_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>*@
-                        @*@Html.DropDownListFor(model => model.pager_Auth_Results.First().Responsible_Provider_ID, new SelectList(Model.responsible_Provider, "Responsible_Provider_ID", "Responsible_Provider_Name", selectedValue: Model.pager_Auth_Results.First().Responsible_Provider_ID), "Select Responsible Provider", new { @class = "selectpicker", @style = "height: 30px; white-space: normal", @id = "responsible_provider" })*@
-                        <select >
-                            <option>Select Responsible Provider</option>
+                        <select id="responsible_provider_select" style="width: 200px">
+                            <option value="0">Select Responsible Provider</option>
+                            <option value="-1">Add New Provider</option>
                             @foreach (var item in Model.responsible_Provider)
-                            {                           
+                            {
                                 if (item.Responsible_Provider_ID == Model.pager_Auth_Results.First().Responsible_Provider_ID)
                                 {
-                                    <option value="@item.Responsible_Provider_ID" selected="selected">@item.Responsible_Provider_Name</option>
+                                    <option class="provider_option" value="@item.Responsible_Provider_ID" selected="selected">@item.Responsible_Provider_Name</option>
                                 }
                                 else
                                 {
-                                    <option value="@item.Responsible_Provider_ID" >@item.Responsible_Provider_Name</option>
+                                    <option class="provider_option" value="@item.Responsible_Provider_ID">@item.Responsible_Provider_Name</option>
                                 }
                             }
+
                         </select>
                         <input type='hidden' class="providerId originalProviderId" id="@(Model.pager_Auth_Results.First().Responsible_Provider_ID + "input")" value="@Model.pager_Auth_Results.First().Responsible_Provider_ID" />
-                    </div>                                  
+                        @if (Model.pager_Auth_Results.First().Responsible_Provider_ID != null)
+                        {
+                            <textarea readonly name="editor1">@Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Auth_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
+                        }
+                        else
+                        {
+                            <textarea readonly name="editor1"></textarea>
+                        }
+                    </div>
+                    <div>
+                        <button id="modify">Modify</button>
+                        <button id="create_new_provider">Create</button>
+                    </div>
                 </td>
+                
+                
 
 
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <textarea readonly cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>                      
+                        <textarea readonly cols="60" rows="10" wrap="hard">@Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>                      
                     }
                 </td>
             </tr>
@@ -510,7 +514,7 @@
                     @if (hasPublishedVersion)
                     {
                         <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.pager_Results.First().Reference, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly" })
+                            @Html.TextAreaFor(model => model.pager_Results.First().Reference, new { @class = "form-control", @cols = "80", @rows = "3", @readonly = "readonly" })
                             @Html.ValidationMessageFor(model => model.pager_Results.First().Reference, "", new { @class = "text-danger" })
                         </div>
                     }
@@ -522,50 +526,62 @@
     <button id="top">Top</button>
     <button id="save">Save</button>
     <button id="publish">Publish</button>
-   
 
     <script type="text/javascript">
 
-
         $(document).ready(function () {
-            var number = 1;
-          
-            var delete_provider = [];
-            var add_new_provider = [];
-            var add_existing_provider = [];
 
+            $('#responsible_provider_select').select2();
 
+            CKEDITOR.replace('editor1');
 
-            $('#add_provider').click(function () {
-                        var id = parseInt(count) + number;
-                        number = number + 1;
-                        var element = `<div id='${id}div' class='col-md-10' style='word-wrap:break-word'><textarea class='provider' id=${id} cols='60' rows='3' wrap='hard'> </textarea><input type='hidden' class='providerId addExistingProviderId' id='${id}input' /><button class='delete' id='${id}delete')>delete</button></div>`;
-                $('#responsible_provider').append(element);
-                $(`#${id}`).each(Autocomplete);
-                $(`#${id}delete`).click(onDelete);
-            });
-
-            $('#create_provider').click(function () {
-                var id = parseInt(count) + number;
-                number = number + 1;
-                var element = `<div class='col-md-10' style='word-wrap:break-word' id='${id}div'><textarea class='newProvider' id=${id} cols='60' rows='3' wrap='hard'> </textarea><button class='delete' id='${id}delete')>delete</button></div>`;
-                $('#responsible_provider').append(element);
-                $(`#${id}delete`).click(onDelete);
-            });
-
-            $('.delete').click(onDelete);
-
-            function onDelete() {
-                var iddelete = $(this).prop('id');
-                var id = iddelete.replace('delete', '');
-
-                if ($('#'+ id + 'input').hasClass('originalProviderId')) {
-                    delete_provider.push(id);
-                    console.log(delete_provider);
+            $('.provider_option').each(function () {
+                if (this.text.length >= 100) {
+                    this.text = $.trim(this.text).substring(0, 100) + "..."
                 }
-                $('#' + id + 'div').remove();
+            })
 
+            $('#modify').click(function () {
+                CKEDITOR.instances.editor1.setReadOnly(false);
+            })
+
+
+            function createNewProvider() {
+                CKEDITOR.instances.editor1.setData('');
+                CKEDITOR.instances.editor1.setReadOnly(false);
+                $('#responsible_provider_select').val("-1").change();
             }
+
+            $('#create_new_provider').click(createNewProvider);
+             
+            
+
+            $('#responsible_provider_select').on("change", function () {
+                console.log(this.value);
+                if (this.value > 0) {
+                   
+                    $.ajax({
+                        url: '@Url.Action("FindProvider")',
+                        datatype: "json",
+                        data: {
+                            id: parseInt(this.value)
+                        },
+                        success: function (data) {
+                            if (data.success) {
+                                CKEDITOR.instances.editor1.setData(data.provider);
+                            }
+                            else {
+                                console.log(data.message)
+                            }
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+                    })
+                    
+                }
+            
+            })
 
             function Autocomplete() {
                 var id = $(this).prop('id');
@@ -624,21 +640,7 @@
                 var success = $('#success').val();
                 var risk_adjustment = $('#risk_adjustment').val();
                 var references = $('#references').val();
-                var measure_id = $('#Measure_ID').val();
-
-                //$('.newProvider').each(function () {
-                //    var value = $(this).val();
-                //    add_new_provider.push(value);
-                //})
-
-                //$('.addExistingProviderId').each(function () {
-                //    var value = $(this).val();
-                //    add_existing_provider.push(value);
-                //})
-
-                //console.log(add_new_provider);
-                //console.log(delete_provider);
-                //console.log(add_existing_provider);
+                var measure_id = $('#Measure_ID').val();               
 
                 data = {
                     'measure_id': measure_id,
@@ -655,9 +657,7 @@
                     'success': success,
                     'risk_adjustment': risk_adjustment,
                     'references': references,
-                    'add_new_provider': add_new_provider,
-                    'delete_provider': delete_provider,
-                    'add_existing_provider': add_existing_provider
+                  
                 };
                 console.log(data);
                 $.ajax({

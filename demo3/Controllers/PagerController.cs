@@ -127,6 +127,26 @@ namespace demo3.Controllers
            
         }
       
+        public JsonResult FindProvider (int id)
+        {
+           try
+            {
+                var provider = db2.Enumeration_Responsible_Provider.Where(o => o.Responsible_Provider_ID == id).First().Responsible_Provider_Name;
+                return Json(new
+                {
+                    success = true,
+                    provider
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = e.Message
+                });
+            }
+        }
 
     }
 }
