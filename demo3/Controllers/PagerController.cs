@@ -77,37 +77,22 @@ namespace demo3.Controllers
            
         }
 
-        public JsonResult Save(int measure_id, string measure_abbreviation, int? nqs_domain, int? measure_type, int? scope, decimal threshold, string data_collection_method, string description, string measure_summary, string inclusions, string exclusions, string success, string risk_adjustment, string references, string[] add_new_provider, int[] delete_provider, int[] add_existing_provider)
+        [ValidateInput(false)]
+        public JsonResult Save(int measure_id, string measure_abbreviation, int? nqs_domain, int? measure_type, int? scope, decimal threshold, string data_collection_method, string description, string measure_summary, string inclusions, string exclusions, string success, string risk_adjustment, string references, int provider, string new_provider)
         {
             try
-            {
-                if (add_new_provider != null && add_new_provider.Count() > 0)
+            {                             
+                if (provider > 0)
                 {
-                    foreach (string provider in add_new_provider)
-                    {
-                        db2.Add_New_Provider(measure_id, provider);
-                    }
-                }
+                    db2.Save_Pager(measure_id, measure_abbreviation, data_collection_method, description, nqs_domain, measure_type, scope, measure_summary, inclusions, exclusions, success, threshold, provider, risk_adjustment, references);
+                } 
 
-                if (delete_provider != null && delete_provider.Count() > 0)
+                db2.Save_Pager(measure_id, measure_abbreviation, data_collection_method, description, nqs_domain, measure_type, scope, measure_summary, inclusions, exclusions, success, threshold, null, risk_adjustment, references);
+
+                if (provider == -1 && new_provider != "")
                 {
-                    foreach (int provider_ID in delete_provider)
-                    {
-                        db2.Delete_Provider(measure_id, provider_ID);
-                    }
+                    db2.Add_New_Provider(measure_id, new_provider);
                 }
-
-                if (add_existing_provider != null && add_existing_provider.Count() > 0)
-                {
-                    foreach (int provider_ID in add_existing_provider)
-                    {
-                        db2.Add_Existing_Provider(measure_id, provider_ID);
-                    }
-                }
-
-
-                db2.Save_Pager(measure_id, measure_abbreviation, data_collection_method, description, nqs_domain, measure_type, scope, measure_summary, inclusions, exclusions, success, threshold, risk_adjustment, references);
-
                 return Json(new
                 {
                     success = true,
@@ -146,6 +131,12 @@ namespace demo3.Controllers
                     message = e.Message
                 });
             }
+        }
+
+        public ActionResult ModifyProvider (int? provider)
+        {
+            var model = db2.Enumeration_Responsible_Provider;
+            return View(model);
         }
 
     }

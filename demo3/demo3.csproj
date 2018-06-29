@@ -462,6 +462,7 @@
     <Content Include="Views\Pager\Edit.cshtml" />
     <Content Include="Views\Spec\Index.cshtml" />
     <Content Include="Views\Spec\Edit.cshtml" />
+    <Content Include="Views\Pager\ModifyProvider.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -235,7 +235,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="Save_Pager" FunctionName="MPOG_XinyuModel1.Store.Save_Pager" />
     <FunctionImportMapping FunctionImportName="Add_Existing_Provider" FunctionName="MPOG_XinyuModel1.Store.Add_Existing_Provider" />
     <FunctionImportMapping FunctionImportName="Add_New_Provider" FunctionName="MPOG_XinyuModel1.Store.Add_New_Provider" />
     <FunctionImportMapping FunctionImportName="Delete_Provider" FunctionName="MPOG_XinyuModel1.Store.Delete_Provider" />
@@ -248,5 +247,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Save_Pager" FunctionName="MPOG_XinyuModel1.Store.Save_Pager" />
   </EntityContainerMapping>
 </Mapping>

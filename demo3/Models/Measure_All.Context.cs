@@ -224,7 +224,46 @@ namespace demo3.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Spec_Published_Result>("Spec_Published", measure_IDParameter);
         }
     
-        public virtual int Save_Pager(Nullable<int> measure_ID, string measure_Abbreviation, string data_Collection_Method, string description, Nullable<int> nQS_Domain, Nullable<int> measure_Type, Nullable<int> scope, string measure_Summary, string inclusions, string exclusions, string success, Nullable<decimal> threshold, string risk_Adjustment, string reference)
+        public virtual int Add_Existing_Provider(Nullable<int> measure_ID, Nullable<int> responsible_Provider_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var responsible_Provider_IDParameter = responsible_Provider_ID.HasValue ?
+                new ObjectParameter("Responsible_Provider_ID", responsible_Provider_ID) :
+                new ObjectParameter("Responsible_Provider_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_Existing_Provider", measure_IDParameter, responsible_Provider_IDParameter);
+        }
+    
+        public virtual int Add_New_Provider(Nullable<int> measure_ID, string responsible_Provider_Name)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var responsible_Provider_NameParameter = responsible_Provider_Name != null ?
+                new ObjectParameter("Responsible_Provider_Name", responsible_Provider_Name) :
+                new ObjectParameter("Responsible_Provider_Name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_New_Provider", measure_IDParameter, responsible_Provider_NameParameter);
+        }
+    
+        public virtual int Delete_Provider(Nullable<int> measure_ID, Nullable<int> responsible_Provider_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var responsible_Provider_IDParameter = responsible_Provider_ID.HasValue ?
+                new ObjectParameter("Responsible_Provider_ID", responsible_Provider_ID) :
+                new ObjectParameter("Responsible_Provider_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_Provider", measure_IDParameter, responsible_Provider_IDParameter);
+        }
+    
+        public virtual int Save_Pager(Nullable<int> measure_ID, string measure_Abbreviation, string data_Collection_Method, string description, Nullable<int> nQS_Domain, Nullable<int> measure_Type, Nullable<int> scope, string measure_Summary, string inclusions, string exclusions, string success, Nullable<decimal> threshold, Nullable<int> responsible_Provider, string risk_Adjustment, string reference)
         {
             var measure_IDParameter = measure_ID.HasValue ?
                 new ObjectParameter("Measure_ID", measure_ID) :
@@ -274,6 +313,10 @@ namespace demo3.Models
                 new ObjectParameter("Threshold", threshold) :
                 new ObjectParameter("Threshold", typeof(decimal));
     
+            var responsible_ProviderParameter = responsible_Provider.HasValue ?
+                new ObjectParameter("Responsible_Provider", responsible_Provider) :
+                new ObjectParameter("Responsible_Provider", typeof(int));
+    
             var risk_AdjustmentParameter = risk_Adjustment != null ?
                 new ObjectParameter("Risk_Adjustment", risk_Adjustment) :
                 new ObjectParameter("Risk_Adjustment", typeof(string));
@@ -281,47 +324,8 @@ namespace demo3.Models
             var referenceParameter = reference != null ?
                 new ObjectParameter("Reference", reference) :
                 new ObjectParameter("Reference", typeof(string));
-
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Save_Pager", measure_IDParameter, measure_AbbreviationParameter, data_Collection_MethodParameter, descriptionParameter, nQS_DomainParameter, measure_TypeParameter, scopeParameter, measure_SummaryParameter, inclusionsParameter, exclusionsParameter, successParameter, thresholdParameter, risk_AdjustmentParameter, referenceParameter);
-        }
     
-        public virtual int Add_Existing_Provider(Nullable<int> measure_ID, Nullable<int> responsible_Provider_ID)
-        {
-            var measure_IDParameter = measure_ID.HasValue ?
-                new ObjectParameter("Measure_ID", measure_ID) :
-                new ObjectParameter("Measure_ID", typeof(int));
-    
-            var responsible_Provider_IDParameter = responsible_Provider_ID.HasValue ?
-                new ObjectParameter("Responsible_Provider_ID", responsible_Provider_ID) :
-                new ObjectParameter("Responsible_Provider_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_Existing_Provider", measure_IDParameter, responsible_Provider_IDParameter);
-        }
-    
-        public virtual int Add_New_Provider(Nullable<int> measure_ID, string responsible_Provider_Name)
-        {
-            var measure_IDParameter = measure_ID.HasValue ?
-                new ObjectParameter("Measure_ID", measure_ID) :
-                new ObjectParameter("Measure_ID", typeof(int));
-    
-            var responsible_Provider_NameParameter = responsible_Provider_Name != null ?
-                new ObjectParameter("Responsible_Provider_Name", responsible_Provider_Name) :
-                new ObjectParameter("Responsible_Provider_Name", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_New_Provider", measure_IDParameter, responsible_Provider_NameParameter);
-        }
-    
-        public virtual int Delete_Provider(Nullable<int> measure_ID, Nullable<int> responsible_Provider_ID)
-        {
-            var measure_IDParameter = measure_ID.HasValue ?
-                new ObjectParameter("Measure_ID", measure_ID) :
-                new ObjectParameter("Measure_ID", typeof(int));
-    
-            var responsible_Provider_IDParameter = responsible_Provider_ID.HasValue ?
-                new ObjectParameter("Responsible_Provider_ID", responsible_Provider_ID) :
-                new ObjectParameter("Responsible_Provider_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_Provider", measure_IDParameter, responsible_Provider_IDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Save_Pager", measure_IDParameter, measure_AbbreviationParameter, data_Collection_MethodParameter, descriptionParameter, nQS_DomainParameter, measure_TypeParameter, scopeParameter, measure_SummaryParameter, inclusionsParameter, exclusionsParameter, successParameter, thresholdParameter, responsible_ProviderParameter, risk_AdjustmentParameter, referenceParameter);
         }
     }
 }

@@ -121,6 +121,7 @@
     <Parameter Name="Exclusions" Type="varchar(max)" Mode="In" />
     <Parameter Name="Success" Type="varchar(max)" Mode="In" />
     <Parameter Name="Threshold" Type="numeric" Mode="In" />
+    <Parameter Name="Responsible_Provider" Type="int" Mode="In" />
     <Parameter Name="Risk_Adjustment" Type="varchar(max)" Mode="In" />
     <Parameter Name="Reference" Type="varchar(max)" Mode="In" />
   </Function>

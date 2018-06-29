@@ -420,7 +420,7 @@
             <tr>
                 <td>
                     <div class="col-md-10" style="word-wrap:break-word" id="@(Model.pager_Auth_Results.First().Responsible_Provider_ID + "div")">
-                        <select id="responsible_provider_select" style="width: 200px">
+                        <select id="responsible_provider_select" style="width: 440px">
                             <option value="0">Select Responsible Provider</option>
                             <option value="-1">Add New Provider</option>
                             @foreach (var item in Model.responsible_Provider)
@@ -428,11 +428,14 @@
                                 if (item.Responsible_Provider_ID == Model.pager_Auth_Results.First().Responsible_Provider_ID)
                                 {
                                     <option class="provider_option" value="@item.Responsible_Provider_ID" selected="selected">@item.Responsible_Provider_Name</option>
+
                                 }
                                 else
                                 {
+
                                     <option class="provider_option" value="@item.Responsible_Provider_ID">@item.Responsible_Provider_Name</option>
                                 }
+
                             }
 
                         </select>
@@ -440,6 +443,7 @@
                         @if (Model.pager_Auth_Results.First().Responsible_Provider_ID != null)
                         {
                             <textarea readonly name="editor1">@Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Auth_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
+
                         }
                         else
                         {
@@ -447,8 +451,8 @@
                         }
                     </div>
                     <div>
-                        <button id="modify">Modify</button>
-                        <button id="create_new_provider">Create</button>
+                        <button id="modify" style="white-space: normal; width: 65px;">Modify</button>
+                        <button id="create_new_provider" style="white-space: normal; width: 65px;">Create New Provider</button>
                     </div>
                 </td>
                 
@@ -542,7 +546,9 @@
             })
 
             $('#modify').click(function () {
-                CKEDITOR.instances.editor1.setReadOnly(false);
+                //CKEDITOR.instances.editor1.setReadOnly(false);
+                var provider = $('#responsible_provider_select').val();
+                window.location.href = "/Pager/ModifyProvider" + provider;
             })
 
 
@@ -620,7 +626,7 @@
                 })
             }
 
-            $(".provider").each(Autocomplete);
+           // $(".provider").each(Autocomplete);
 
             $("#top").click(function () {
                 $("html, body").animate({ scrollTop: 0 }, 600)
@@ -640,26 +646,10 @@
                 var success = $('#success').val();
                 var risk_adjustment = $('#risk_adjustment').val();
                 var references = $('#references').val();
-                var measure_id = $('#Measure_ID').val();               
-
-                data = {
-                    'measure_id': measure_id,
-                    'measure_abbreviation': measure_abbreviation,
-                    'nqs_domain': nqs_domain,
-                    'measure_type': measure_type,
-                    'scope': scope,
-                    'threshold': threshold,
-                    'data_collection_method': data_collection_method,
-                    'description': description,
-                    'measure_summary': measure_summary,
-                    'inclusions': inclusions,
-                    'exclusions': exclusions,
-                    'success': success,
-                    'risk_adjustment': risk_adjustment,
-                    'references': references,
-                  
-                };
-                console.log(data);
+                var measure_id = $('#Measure_ID').val();   
+                var provider = $('#responsible_provider_select').val();
+                var new_provider = CKEDITOR.instances.editor1.getData();              
+                              
                 $.ajax({
                     url: '@Url.Action("Save")',
                     type: 'POST',
@@ -678,16 +668,15 @@
                         'success': success,
                         'risk_adjustment': risk_adjustment,
                         'references': references,
-                        'add_new_provider': add_new_provider,
-                        'delete_provider': delete_provider,
-                        'add_existing_provider': add_existing_provider
+                        'provider': provider,
+                        'new_provider': new_provider
                     },
                     success: function (data) {
                         if (data.success) {
                             //console.log(data.message);
                             console.log(data);
                             alert('Saved pager successfully!');
-                           //window.location.href = "/Pager/Index/" + measure_id;
+                            window.location.href = "/Pager/Edit/" + measure_id;
                         }
                         else {
                             console.log(data.message);

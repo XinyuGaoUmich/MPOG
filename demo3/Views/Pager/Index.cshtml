@@ -294,17 +294,15 @@
             </tr>
             <tr>
                 <td>
-                    @foreach (var item in Model.responsible_Provider_id)
-                    {
-                        <textarea readonly cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == item.Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
-                    }
+                   
+                   <textarea readonly cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == Model.pager_Auth_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
+                    
 
                 </td>
                 <td>
-                    @foreach (var item in Model.responsible_Provider_id_published)
-                    {
-                        <textarea readonly cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == item.Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
-                    }
+                   
+                   <textarea readonly cols="60" rows="3" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
+                    
                 </td>
             </tr>
         </table>
