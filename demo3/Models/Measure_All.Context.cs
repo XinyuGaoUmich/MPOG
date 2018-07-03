@@ -327,5 +327,36 @@ namespace demo3.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Save_Pager", measure_IDParameter, measure_AbbreviationParameter, data_Collection_MethodParameter, descriptionParameter, nQS_DomainParameter, measure_TypeParameter, scopeParameter, measure_SummaryParameter, inclusionsParameter, exclusionsParameter, successParameter, thresholdParameter, responsible_ProviderParameter, risk_AdjustmentParameter, referenceParameter);
         }
+    
+        public virtual ObjectResult<Measure_Of_Provider_Published_Result> Measure_Of_Provider_Published(Nullable<int> responsible_Provider_ID)
+        {
+            var responsible_Provider_IDParameter = responsible_Provider_ID.HasValue ?
+                new ObjectParameter("Responsible_Provider_ID", responsible_Provider_ID) :
+                new ObjectParameter("Responsible_Provider_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Measure_Of_Provider_Published_Result>("Measure_Of_Provider_Published", responsible_Provider_IDParameter);
+        }
+    
+        public virtual ObjectResult<Measure_Of_Provider_Unpublished_Result> Measure_Of_Provider_Unpublished(Nullable<int> responsible_Provider_ID)
+        {
+            var responsible_Provider_IDParameter = responsible_Provider_ID.HasValue ?
+                new ObjectParameter("Responsible_Provider_ID", responsible_Provider_ID) :
+                new ObjectParameter("Responsible_Provider_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Measure_Of_Provider_Unpublished_Result>("Measure_Of_Provider_Unpublished", responsible_Provider_IDParameter);
+        }
+    
+        public virtual int Edit_Provider(Nullable<int> responsible_Provider_ID, string responsible_Provider_Name)
+        {
+            var responsible_Provider_IDParameter = responsible_Provider_ID.HasValue ?
+                new ObjectParameter("Responsible_Provider_ID", responsible_Provider_ID) :
+                new ObjectParameter("Responsible_Provider_ID", typeof(int));
+    
+            var responsible_Provider_NameParameter = responsible_Provider_Name != null ?
+                new ObjectParameter("Responsible_Provider_Name", responsible_Provider_Name) :
+                new ObjectParameter("Responsible_Provider_Name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Edit_Provider", responsible_Provider_IDParameter, responsible_Provider_NameParameter);
+        }
     }
 }

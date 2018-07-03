@@ -102,7 +102,17 @@
           <Parameter Name="Date_Published" Type="date" Mode="In" />
           <Parameter Name="Status_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="Edit_Provider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Responsible_Provider_ID" Type="int" Mode="In" />
+          <Parameter Name="Responsible_Provider_Name" Type="varchar(max)" Mode="In" />
+        </Function>
         <Function Name="Measure_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Measure_Of_Provider_Published" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Responsible_Provider_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Measure_Of_Provider_Unpublished" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Responsible_Provider_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="MPOG_Concept_ID_Required" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
         </Function>
@@ -244,6 +254,16 @@
             <Parameter Name="Responsible_Provider" Mode="In" Type="Int32" />
             <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
             <Parameter Name="Reference" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Measure_Of_Provider_Published" ReturnType="Collection(MPOG_XinyuModel1.Measure_Of_Provider_Published_Result)">
+          <Parameter Name="Responsible_Provider_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Measure_Of_Provider_Unpublished" ReturnType="Collection(MPOG_XinyuModel1.Measure_Of_Provider_Unpublished_Result)">
+          <Parameter Name="Responsible_Provider_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Edit_Provider">
+            <Parameter Name="Responsible_Provider_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Responsible_Provider_Name" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Details_All_Result">
@@ -439,6 +459,14 @@
           <Property Name="Measure_ID" Type="Int32" />
           <Property Name="Responsible_Provider_ID" Type="Int32" />
         </EntityType>
+        <ComplexType Name="Measure_Of_Provider_Published_Result">
+          <Property Type="Int32" Name="Published_Measure_ID" Nullable="false" />
+          <Property Type="String" Name="Published_Measure_Abbreviation" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="Measure_Of_Provider_Unpublished_Result">
+          <Property Type="Int32" Name="Unpublished_Measure_ID" Nullable="false" />
+          <Property Type="String" Name="Unpublished_Measure_Abbreviation" Nullable="true" MaxLength="20" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -692,6 +720,23 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Save_Pager" FunctionName="MPOG_XinyuModel1.Store.Save_Pager" />
+          <FunctionImportMapping FunctionImportName="Measure_Of_Provider_Published" FunctionName="MPOG_XinyuModel1.Store.Measure_Of_Provider_Published">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Measure_Of_Provider_Published_Result">
+                <ScalarProperty Name="Published_Measure_ID" ColumnName="Published_Measure_ID" />
+                <ScalarProperty Name="Published_Measure_Abbreviation" ColumnName="Published_Measure_Abbreviation" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Measure_Of_Provider_Unpublished" FunctionName="MPOG_XinyuModel1.Store.Measure_Of_Provider_Unpublished">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Measure_Of_Provider_Unpublished_Result">
+                <ScalarProperty Name="Unpublished_Measure_ID" ColumnName="Unpublished_Measure_ID" />
+                <ScalarProperty Name="Unpublished_Measure_Abbreviation" ColumnName="Unpublished_Measure_Abbreviation" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Edit_Provider" FunctionName="MPOG_XinyuModel1.Store.Edit_Provider" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

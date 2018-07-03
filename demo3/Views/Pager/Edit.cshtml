@@ -451,8 +451,8 @@
                         }
                     </div>
                     <div>
-                        <button id="modify" style="white-space: normal; width: 65px;">Modify</button>
-                        <button id="create_new_provider" style="white-space: normal; width: 65px;">Create New Provider</button>
+                        <button class="btn btn-warning" id="modify" style="white-space: normal; width: 65px;">Modify</button>
+                        <button class="btn btn-warning" id="create_new_provider" style="white-space: normal; width: 65px;">Create New Provider</button>
                     </div>
                 </td>
                 
@@ -460,10 +460,13 @@
 
 
                 <td>
-                    @if (hasPublishedVersion)
-                    {
-                        <textarea readonly cols="60" rows="10" wrap="hard">@Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>                      
-                    }
+                    <div class="col-md-10" style="word-wrap:break-word">
+                        @if (hasPublishedVersion)
+                        {
+                            <textarea readonly name="editor2" cols="40" rows="10" wrap="hard">@Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
+                        }   
+                    </div>                   
+                    
                 </td>
             </tr>
         </table>
@@ -534,10 +537,19 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
+            function strip(html) {
+                var tmp = document.createElement("div");
+                tmp.innerHTML = html;
+                return tmp.textContent || tmp.innerText || "";
+            }
+            $('option').each(function () {
+                this.text = strip(this.text);
+            })
 
             $('#responsible_provider_select').select2();
 
             CKEDITOR.replace('editor1');
+            CKEDITOR.replace('editor2');
 
             $('.provider_option').each(function () {
                 if (this.text.length >= 100) {
@@ -548,7 +560,13 @@
             $('#modify').click(function () {
                 //CKEDITOR.instances.editor1.setReadOnly(false);
                 var provider = $('#responsible_provider_select').val();
-                window.location.href = "/Pager/ModifyProvider" + provider;
+                var measure = @Model.pager_Auth_Results.First().Measure_ID;
+                if (provider <= 0) {
+                    alert("please select a provider!");
+                    return;
+                }
+            
+                window.location.href = '@Url.Action("ModifyProvider", "Pager")' + "?measure=" + measure + "&provider=" + provider;
             })
 
 
@@ -559,9 +577,7 @@
             }
 
             $('#create_new_provider').click(createNewProvider);
-             
-            
-
+                        
             $('#responsible_provider_select').on("change", function () {
                 console.log(this.value);
                 if (this.value > 0) {

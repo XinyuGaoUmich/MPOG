@@ -248,5 +248,22 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="Save_Pager" FunctionName="MPOG_XinyuModel1.Store.Save_Pager" />
+    <FunctionImportMapping FunctionImportName="Measure_Of_Provider_Published" FunctionName="MPOG_XinyuModel1.Store.Measure_Of_Provider_Published">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Measure_Of_Provider_Published_Result">
+          <ScalarProperty Name="Published_Measure_ID" ColumnName="Published_Measure_ID" />
+          <ScalarProperty Name="Published_Measure_Abbreviation" ColumnName="Published_Measure_Abbreviation" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Measure_Of_Provider_Unpublished" FunctionName="MPOG_XinyuModel1.Store.Measure_Of_Provider_Unpublished">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Measure_Of_Provider_Unpublished_Result">
+          <ScalarProperty Name="Unpublished_Measure_ID" ColumnName="Unpublished_Measure_ID" />
+          <ScalarProperty Name="Unpublished_Measure_Abbreviation" ColumnName="Unpublished_Measure_Abbreviation" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Edit_Provider" FunctionName="MPOG_XinyuModel1.Store.Edit_Provider" />
   </EntityContainerMapping>
 </Mapping>

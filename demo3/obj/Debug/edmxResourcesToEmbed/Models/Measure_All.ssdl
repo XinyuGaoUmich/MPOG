@@ -97,7 +97,17 @@
     <Parameter Name="Date_Published" Type="date" Mode="In" />
     <Parameter Name="Status_ID" Type="int" Mode="In" />
   </Function>
+  <Function Name="Edit_Provider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Responsible_Provider_ID" Type="int" Mode="In" />
+    <Parameter Name="Responsible_Provider_Name" Type="varchar(max)" Mode="In" />
+  </Function>
   <Function Name="Measure_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Measure_Of_Provider_Published" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Responsible_Provider_ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Measure_Of_Provider_Unpublished" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Responsible_Provider_ID" Type="int" Mode="In" />
+  </Function>
   <Function Name="MPOG_Concept_ID_Required" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
   </Function>

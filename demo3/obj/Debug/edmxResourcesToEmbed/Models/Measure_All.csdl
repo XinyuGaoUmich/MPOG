@@ -92,6 +92,16 @@
       <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
       <Parameter Name="Reference" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="Measure_Of_Provider_Published" ReturnType="Collection(MPOG_XinyuModel1.Measure_Of_Provider_Published_Result)">
+      <Parameter Name="Responsible_Provider_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Measure_Of_Provider_Unpublished" ReturnType="Collection(MPOG_XinyuModel1.Measure_Of_Provider_Unpublished_Result)">
+      <Parameter Name="Responsible_Provider_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Edit_Provider">
+      <Parameter Name="Responsible_Provider_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Responsible_Provider_Name" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="Details_All_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -286,4 +296,12 @@
     <Property Name="Measure_ID" Type="Int32" />
     <Property Name="Responsible_Provider_ID" Type="Int32" />
   </EntityType>
+  <ComplexType Name="Measure_Of_Provider_Published_Result">
+    <Property Type="Int32" Name="Published_Measure_ID" Nullable="false" />
+    <Property Type="String" Name="Published_Measure_Abbreviation" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="Measure_Of_Provider_Unpublished_Result">
+    <Property Type="Int32" Name="Unpublished_Measure_ID" Nullable="false" />
+    <Property Type="String" Name="Unpublished_Measure_Abbreviation" Nullable="true" MaxLength="20" />
+  </ComplexType>
 </Schema>

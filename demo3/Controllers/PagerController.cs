@@ -133,10 +133,41 @@ namespace demo3.Controllers
             }
         }
 
-        public ActionResult ModifyProvider (int? provider)
-        {
-            var model = db2.Enumeration_Responsible_Provider;
+        //default parameter is id
+        public ActionResult ModifyProvider(int? measure, int? provider)
+        {        
+            var published = db2.Measure_Of_Provider_Published(provider).ToList();
+            var unpublished = db2.Measure_Of_Provider_Unpublished(provider).ToList();
+            ViewBag.provider_id = provider;
+            ViewBag.measure_ID = measure;
+            ViewBag.measure_Name = db2.Pager_Auth(measure).Select( o => o.Measure_Abbreviation).First();
+            ViewBag.provider_content = db2.Enumeration_Responsible_Provider.Where(o => o.Responsible_Provider_ID == provider).Select(o => o.Responsible_Provider_Name).First();
+            var model = new ModifyProvider { unpublished_Providers = unpublished, published_Providers = published };
             return View(model);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult Save_all_provider(int? provider_id, string provider_content)
+        {
+            try
+            {
+                db2.Edit_Provider(provider_id, provider_content);
+                return Json(
+                    new
+                    {
+                        success = true,
+                        message = "success"
+                    });
+            }
+            catch(Exception e)
+            {
+                return Json(new
+                {
+                    sucess = false,
+                    message = e.Message
+                });
+            }
         }
 
     }
