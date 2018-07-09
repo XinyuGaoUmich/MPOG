@@ -80,8 +80,7 @@
             window.location.reload();           
         })
 
-        $('#confirm_all').click(function () {
-            console.log("aaa");
+        $('#confirm_all').click(function () {          
             var provider_content = CKEDITOR.instances.editor1.getData();
             var provider_id = @ViewBag.provider_id;       
             $.ajax({
@@ -100,7 +99,7 @@
                     }
                     else {
                         console.log(data.message);
-                        alert('Failed to uodate provider!');
+                        alert('Failed to update provider!');
                     }
 
                 },
@@ -116,6 +115,36 @@
         $('#confirm_only').click(function () {
             var new_provider = CKEDITOR.instances.editor2.getData();
             console.log(new_provider);
+            if (new_provider == '') {
+                alert('please enter provider content!')
+                return;
+            }
+            var measure_id = @ViewBag.measure_ID;
+            $.ajax({
+                url: '@Url.Action("Save_new_provider")',
+                type: 'POST',
+                data: {
+                    'measure_id': measure_id,
+                    'new_provider': new_provider
+                },
+                success: function (data) {
+                    if (data.success) {
+                        console.log(data);
+                        alert('Created provider successfully!');
+                        window.location.href = "/Pager/Edit/" + @ViewBag.measure_ID;
+                    }
+                    else {
+                        console.log(data.message);
+                        alert('Failed to update provider!');
+                    }
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            })
         })
 
 

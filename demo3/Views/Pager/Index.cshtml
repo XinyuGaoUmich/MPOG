@@ -6,6 +6,7 @@
     Layout = null;
     Boolean isLoggedin = false;
     Boolean isQI = false;
+    //Boolean hasMeasure = false;
     if (Session["userid"] != null)
     {
         isLoggedin = true;
@@ -14,6 +15,7 @@
     {
         isQI = true;
     }
+ 
 
 }
 
@@ -130,40 +132,85 @@
                             NQS Domain
                         </dt>
                         <dd>
-                            @Model.nQS_Domain.Where(o => o.NQS_Domain_ID == Model.pager_Auth_Results.First().NQS_Domain_ID).First().NQS_Domain_Name
+                            @if (Model.pager_Auth_Results.First().NQS_Domain_ID != null)
+                            {
+                                @Model.nQS_Domain.Where(o => o.NQS_Domain_ID == Model.pager_Auth_Results.First().NQS_Domain_ID).First().NQS_Domain_Name
+                            }
                         </dd>
-
                         <dt>
                             Measure Type
                         </dt>
                         <dd>
-                            @Model.measure_Type.Where(o => o.Measure_Type_ID == Model.pager_Auth_Results.First().Measure_Type_ID).First().Measure_Type_Name
+                            @if (Model.pager_Auth_Results.First().Measure_Type_ID != null)
+                            {
+                                @Model.measure_Type.Where(o => o.Measure_Type_ID == Model.pager_Auth_Results.First().Measure_Type_ID).First().Measure_Type_Name
+                            }
                         </dd>
 
                         <dt>
                             Scope
                         </dt>
                         <dd>
-                            @Model.scope.Where(o => o.Scope_ID == Model.pager_Auth_Results.First().Measure_Scope_ID).First().Scope_Name
-
+                            @if (Model.pager_Auth_Results.First().Measure_Scope_ID != null) { 
+                                @Model.scope.Where(o => o.Scope_ID == Model.pager_Auth_Results.First().Measure_Scope_ID).First().Scope_Name
+                            }
                         </dd>
 
                         <dt>
                             Threshold
                         </dt>
                         <dd>
+                            @if (Model.pager_Auth_Results.First().Threshold != null)
+                            {
+                                @Model.pager_Auth_Results.First().Threshold.Value.ToString("P");
+                            }
 
+                        </dd>
+                    </dl>
+                </td>
+                <td>
+                    <dl class="dl-horizontal" style="text-align:left">
+                        <dt>
+                            NQS Domain
+                        </dt>
+                        <dd>
+                            @if (Model.pager_Results.First().NQS_Domain_ID != null) {
+                                @Model.nQS_Domain.Where(o => o.NQS_Domain_ID == Model.pager_Results.First().NQS_Domain_ID).First().NQS_Domain_Name
+                            }
+                        </dd>
+
+                        <dt>
+                            Measure Type
+                        </dt>
+                        <dd>
+                            @if (Model.pager_Results.First().Measure_Type_ID != null)
+                            {
+                                @Model.measure_Type.Where(o => o.Measure_Type_ID == Model.pager_Results.First().Measure_Type_ID).First().Measure_Type_Name
+                            }
+                        </dd>
+
+                        <dt>
+                            Scope
+                        </dt>
+                        <dd>
+                            @if (Model.pager_Results.First().Measure_Scope_ID != null)
+                            {
+                                @Model.scope.Where(o => o.Scope_ID == Model.pager_Results.First().Measure_Scope_ID).First().Scope_Name
+                            }
+                        </dd>
+
+                        <dt>
+                            Threshold
+                        </dt>
+                        <dd>
                             @if (Model.pager_Results.First().Threshold != null)
                             {
-
-                                @*@ViewBag.basic.Threshold.ToString("P")*@
                                 @Model.pager_Results.First().Threshold.Value.ToString("P");
                             }
 
                         </dd>
                     </dl>
                 </td>
-
             </tr>
         </table>
 
@@ -296,12 +343,18 @@
             <tr>
                 <td>
                     <div class="col-md-10" style="word-wrap:break-word">
-                        <textarea name="editor1" readonly cols="60" rows="10" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == Model.pager_Auth_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
+                        @if (Model.pager_Auth_Results.First().Responsible_Provider_ID != null)
+                        {
+                        <textarea id="textarea1" name="editor1" readonly cols="60" rows="10" wrap="hard">@Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Auth_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
+                        }
                     </div>
                 </td>
                 <td>
                     <div class="col-md-10" style="word-wrap:break-word">
-                        <textarea name="editor2" readonly cols="60" rows="10" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
+                        @if (Model.pager_Results.First().Responsible_Provider_ID != null)
+                        {
+                            <textarea id="textarea2" name="editor2" readonly cols="60" rows="10" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
+                        }
                     </div>
                 </td>
             </tr>
@@ -351,8 +404,12 @@
             $("#top").click(function () {
                 $("html, body").animate({ scrollTop: 0 }, 600)
             });
-            CKEDITOR.replace('editor1');
-            CKEDITOR.replace('editor2');
+            if (document.getElementById('textarea1')) {
+                CKEDITOR.replace('editor1');
+            }
+            if (document.getElementById('textarea2')) {
+                CKEDITOR.replace('editor2');
+            }
         })
     </script>
 </body>

@@ -133,9 +133,35 @@ namespace demo3.Controllers
             }
         }
 
+        public JsonResult SaveNewDomain(int? measure_id, string new_domain)
+        {
+            try
+            {
+                var provider = db2.Enumeration_Responsible_Provider.Where(o => o.Responsible_Provider_ID == id).First().Responsible_Provider_Name;
+                return Json(new
+                {
+                    success = true,
+                    provider
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = e.Message
+                });
+            }
+        }
+
         //default parameter is id
         public ActionResult ModifyProvider(int? measure, int? provider)
-        {        
+        {
+            if (Session["roles"] == null || !Session["roles"].ToString().Contains("MeasureSpecEditor"))
+            {
+                return RedirectToAction("LoginWithoutAccess", "NoAccess");
+            }
+
             var published = db2.Measure_Of_Provider_Published(provider).ToList();
             var unpublished = db2.Measure_Of_Provider_Unpublished(provider).ToList();
             ViewBag.provider_id = provider;
@@ -161,6 +187,30 @@ namespace demo3.Controllers
                     });
             }
             catch(Exception e)
+            {
+                return Json(new
+                {
+                    sucess = false,
+                    message = e.Message
+                });
+            }
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public JsonResult Save_new_provider(int? measure_id, string new_provider)
+        {            
+            try
+            {
+                db2.Add_New_Provider(measure_id, new_provider);
+                return Json(
+                    new
+                    {
+                        success = true,
+                        message = "success"
+                    });
+            }
+            catch (Exception e)
             {
                 return Json(new
                 {
