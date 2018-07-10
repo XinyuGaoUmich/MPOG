@@ -358,5 +358,137 @@ namespace demo3.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Edit_Provider", responsible_Provider_IDParameter, responsible_Provider_NameParameter);
         }
+    
+        public virtual int Add_New_Domain(Nullable<int> measure_ID, string nQS_Domain_Name)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var nQS_Domain_NameParameter = nQS_Domain_Name != null ?
+                new ObjectParameter("NQS_Domain_Name", nQS_Domain_Name) :
+                new ObjectParameter("NQS_Domain_Name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_New_Domain", measure_IDParameter, nQS_Domain_NameParameter);
+        }
+    
+        public virtual int Add_New_Measure_Type(Nullable<int> measure_ID, string measure_Type_Name)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var measure_Type_NameParameter = measure_Type_Name != null ?
+                new ObjectParameter("Measure_Type_Name", measure_Type_Name) :
+                new ObjectParameter("Measure_Type_Name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_New_Measure_Type", measure_IDParameter, measure_Type_NameParameter);
+        }
+    
+        public virtual int Add_New_Measure_Scope(Nullable<int> measure_ID, string scope_Name)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var scope_NameParameter = scope_Name != null ?
+                new ObjectParameter("Scope_Name", scope_Name) :
+                new ObjectParameter("Scope_Name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_New_Measure_Scope", measure_IDParameter, scope_NameParameter);
+        }
+    
+        public virtual ObjectResult<Measure_Of_Domain_Published_Result> Measure_Of_Domain_Published(Nullable<int> nQS_Domain_ID)
+        {
+            var nQS_Domain_IDParameter = nQS_Domain_ID.HasValue ?
+                new ObjectParameter("NQS_Domain_ID", nQS_Domain_ID) :
+                new ObjectParameter("NQS_Domain_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Measure_Of_Domain_Published_Result>("Measure_Of_Domain_Published", nQS_Domain_IDParameter);
+        }
+    
+        public virtual ObjectResult<Measure_Of_Domain_Unpublished_Result> Measure_Of_Domain_Unpublished(Nullable<int> nQS_Domain_ID)
+        {
+            var nQS_Domain_IDParameter = nQS_Domain_ID.HasValue ?
+                new ObjectParameter("NQS_Domain_ID", nQS_Domain_ID) :
+                new ObjectParameter("NQS_Domain_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Measure_Of_Domain_Unpublished_Result>("Measure_Of_Domain_Unpublished", nQS_Domain_IDParameter);
+        }
+    
+        public virtual ObjectResult<Measure_Of_Measure_Type_Published_Result> Measure_Of_Measure_Type_Published(Nullable<int> measure_Type_ID)
+        {
+            var measure_Type_IDParameter = measure_Type_ID.HasValue ?
+                new ObjectParameter("Measure_Type_ID", measure_Type_ID) :
+                new ObjectParameter("Measure_Type_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Measure_Of_Measure_Type_Published_Result>("Measure_Of_Measure_Type_Published", measure_Type_IDParameter);
+        }
+    
+        public virtual ObjectResult<Measure_Of_Measure_Type_Unpublished_Result> Measure_Of_Measure_Type_Unpublished(Nullable<int> measure_Type_ID)
+        {
+            var measure_Type_IDParameter = measure_Type_ID.HasValue ?
+                new ObjectParameter("Measure_Type_ID", measure_Type_ID) :
+                new ObjectParameter("Measure_Type_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Measure_Of_Measure_Type_Unpublished_Result>("Measure_Of_Measure_Type_Unpublished", measure_Type_IDParameter);
+        }
+    
+        public virtual ObjectResult<Measure_Of_Scope_Published_Result> Measure_Of_Scope_Published(Nullable<int> measure_Scope_ID)
+        {
+            var measure_Scope_IDParameter = measure_Scope_ID.HasValue ?
+                new ObjectParameter("Measure_Scope_ID", measure_Scope_ID) :
+                new ObjectParameter("Measure_Scope_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Measure_Of_Scope_Published_Result>("Measure_Of_Scope_Published", measure_Scope_IDParameter);
+        }
+    
+        public virtual ObjectResult<Measure_Of_Scope_Unpublished_Result> Measure_Of_Scope_Unpublished(Nullable<int> measure_Scope_ID)
+        {
+            var measure_Scope_IDParameter = measure_Scope_ID.HasValue ?
+                new ObjectParameter("Measure_Scope_ID", measure_Scope_ID) :
+                new ObjectParameter("Measure_Scope_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Measure_Of_Scope_Unpublished_Result>("Measure_Of_Scope_Unpublished", measure_Scope_IDParameter);
+        }
+    
+        public virtual int Edit_Domain(Nullable<int> nQS_Domain_ID, string nQS_Domain_Name)
+        {
+            var nQS_Domain_IDParameter = nQS_Domain_ID.HasValue ?
+                new ObjectParameter("NQS_Domain_ID", nQS_Domain_ID) :
+                new ObjectParameter("NQS_Domain_ID", typeof(int));
+    
+            var nQS_Domain_NameParameter = nQS_Domain_Name != null ?
+                new ObjectParameter("NQS_Domain_Name", nQS_Domain_Name) :
+                new ObjectParameter("NQS_Domain_Name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Edit_Domain", nQS_Domain_IDParameter, nQS_Domain_NameParameter);
+        }
+    
+        public virtual int Edit_Measure_Scope(Nullable<int> measure_Scope_ID, string measure_Scope_Name)
+        {
+            var measure_Scope_IDParameter = measure_Scope_ID.HasValue ?
+                new ObjectParameter("Measure_Scope_ID", measure_Scope_ID) :
+                new ObjectParameter("Measure_Scope_ID", typeof(int));
+    
+            var measure_Scope_NameParameter = measure_Scope_Name != null ?
+                new ObjectParameter("Measure_Scope_Name", measure_Scope_Name) :
+                new ObjectParameter("Measure_Scope_Name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Edit_Measure_Scope", measure_Scope_IDParameter, measure_Scope_NameParameter);
+        }
+    
+        public virtual int Edit_Measure_Type(Nullable<int> measure_Type_ID, string measure_Type_Name)
+        {
+            var measure_Type_IDParameter = measure_Type_ID.HasValue ?
+                new ObjectParameter("Measure_Type_ID", measure_Type_ID) :
+                new ObjectParameter("Measure_Type_ID", typeof(int));
+    
+            var measure_Type_NameParameter = measure_Type_Name != null ?
+                new ObjectParameter("Measure_Type_Name", measure_Type_Name) :
+                new ObjectParameter("Measure_Type_Name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Edit_Measure_Type", measure_Type_IDParameter, measure_Type_NameParameter);
+        }
     }
 }

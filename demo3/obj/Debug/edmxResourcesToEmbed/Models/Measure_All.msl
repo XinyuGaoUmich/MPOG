@@ -235,7 +235,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="Add_Existing_Provider" FunctionName="MPOG_XinyuModel1.Store.Add_Existing_Provider" />
     <FunctionImportMapping FunctionImportName="Add_New_Provider" FunctionName="MPOG_XinyuModel1.Store.Add_New_Provider" />
     <FunctionImportMapping FunctionImportName="Delete_Provider" FunctionName="MPOG_XinyuModel1.Store.Delete_Provider" />
     <EntitySetMapping Name="Responsible_Provider_Published">
@@ -265,5 +264,59 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="Edit_Provider" FunctionName="MPOG_XinyuModel1.Store.Edit_Provider" />
+    <FunctionImportMapping FunctionImportName="Add_New_Domain" FunctionName="MPOG_XinyuModel1.Store.Add_New_Domain" />
+    <FunctionImportMapping FunctionImportName="Add_New_Measure_Type" FunctionName="MPOG_XinyuModel1.Store.Add_New_Measure_Type" />
+    <FunctionImportMapping FunctionImportName="Add_New_Measure_Scope" FunctionName="MPOG_XinyuModel1.Store.Add_New_Measure_Scope" />
+    <FunctionImportMapping FunctionImportName="Measure_Of_Domain_Published" FunctionName="MPOG_XinyuModel1.Store.Measure_Of_Domain_Published">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Measure_Of_Domain_Published_Result">
+          <ScalarProperty Name="Published_Measure_ID" ColumnName="Published_Measure_ID" />
+          <ScalarProperty Name="Published_Measure_Abbreviation" ColumnName="Published_Measure_Abbreviation" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Measure_Of_Domain_Unpublished" FunctionName="MPOG_XinyuModel1.Store.Measure_Of_Domain_Unpublished">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Measure_Of_Domain_Unpublished_Result">
+          <ScalarProperty Name="Unpublished_Measure_ID" ColumnName="Unpublished_Measure_ID" />
+          <ScalarProperty Name="Unpublished_Measure_Abbreviation" ColumnName="Unpublished_Measure_Abbreviation" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Measure_Of_Measure_Type_Published" FunctionName="MPOG_XinyuModel1.Store.Measure_Of_Measure_Type_Published">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Measure_Of_Measure_Type_Published_Result">
+          <ScalarProperty Name="Published_Measure_ID" ColumnName="Published_Measure_ID" />
+          <ScalarProperty Name="Published_Measure_Abbreviation" ColumnName="Published_Measure_Abbreviation" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Measure_Of_Measure_Type_Unpublished" FunctionName="MPOG_XinyuModel1.Store.Measure_Of_Measure_Type_Unpublished">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Measure_Of_Measure_Type_Unpublished_Result">
+          <ScalarProperty Name="Unpublished_Measure_ID" ColumnName="Unpublished_Measure_ID" />
+          <ScalarProperty Name="Unpublished_Measure_Abbreviation" ColumnName="Unpublished_Measure_Abbreviation" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Measure_Of_Scope_Published" FunctionName="MPOG_XinyuModel1.Store.Measure_Of_Scope_Published">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Measure_Of_Scope_Published_Result">
+          <ScalarProperty Name="Published_Measure_ID" ColumnName="Published_Measure_ID" />
+          <ScalarProperty Name="Published_Measure_Abbreviation" ColumnName="Published_Measure_Abbreviation" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Measure_Of_Scope_Unpublished" FunctionName="MPOG_XinyuModel1.Store.Measure_Of_Scope_Unpublished">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Measure_Of_Scope_Unpublished_Result">
+          <ScalarProperty Name="Unpublished_Measure_ID" ColumnName="Unpublished_Measure_ID" />
+          <ScalarProperty Name="Unpublished_Measure_Abbreviation" ColumnName="Unpublished_Measure_Abbreviation" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Edit_Domain" FunctionName="MPOG_XinyuModel1.Store.Edit_Domain" />
+    <FunctionImportMapping FunctionImportName="Edit_Measure_Scope" FunctionName="MPOG_XinyuModel1.Store.Edit_Measure_Scope" />
+    <FunctionImportMapping FunctionImportName="Edit_Measure_Type" FunctionName="MPOG_XinyuModel1.Store.Edit_Measure_Type" />
   </EntityContainerMapping>
 </Mapping>

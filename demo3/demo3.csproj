@@ -273,6 +273,7 @@
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EditMeasure.cs" />
+    <Compile Include="Models\ModifyMeasureType.cs" />
     <Compile Include="Models\EditPager.cs" />
     <Compile Include="Models\EditSpec.cs" />
     <Compile Include="Models\Enumeration_Measure_Type.cs">
@@ -322,10 +323,28 @@
     <Compile Include="Models\Measure_List_Result.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Measure_Of_Domain_Published_Result.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Measure_Of_Domain_Unpublished_Result.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Measure_Of_Measure_Type_Published_Result.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Measure_Of_Measure_Type_Unpublished_Result.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Measure_Of_Provider_Published_Result.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Measure_Of_Provider_Unpublished_Result.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Measure_Of_Scope_Published_Result.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Measure_Of_Scope_Unpublished_Result.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Measure_Site.cs">
@@ -335,7 +354,9 @@
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DetailsMetaData.cs" />
+    <Compile Include="Models\ModifyDomain.cs" />
     <Compile Include="Models\ModifyProvider.cs" />
+    <Compile Include="Models\ModifyScope.cs" />
     <Compile Include="Models\MPOG_Concepts.cs">
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
@@ -470,6 +491,9 @@
     <Content Include="Views\Spec\Index.cshtml" />
     <Content Include="Views\Spec\Edit.cshtml" />
     <Content Include="Views\Pager\ModifyProvider.cshtml" />
+    <Content Include="Views\Pager\ModifyDomain.cshtml" />
+    <Content Include="Views\Pager\ModifyMeasureType.cshtml" />
+    <Content Include="Views\Pager\ModifyScope.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

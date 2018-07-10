@@ -51,10 +51,6 @@
     <Property Name="Status_ID" Type="int" Nullable="false" />
     <Property Name="Status_Name" Type="varchar" MaxLength="20" />
   </EntityType>
-  <Function Name="Add_Existing_Provider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="Measure_ID" Type="int" Mode="In" />
-    <Parameter Name="Responsible_Provider_ID" Type="int" Mode="In" />
-  </Function>
   <Function Name="Add_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
     <Parameter Name="Measure_Title" Type="varchar" Mode="In" />
@@ -66,6 +62,18 @@
     <Parameter Name="Measure_Spec_Completed" Type="bit" Mode="In" />
     <Parameter Name="Date_Published" Type="date" Mode="In" />
     <Parameter Name="Status_ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Add_New_Domain" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+    <Parameter Name="NQS_Domain_Name" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="Add_New_Measure_Scope" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+    <Parameter Name="Scope_Name" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="Add_New_Measure_Type" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+    <Parameter Name="Measure_Type_Name" Type="varchar" Mode="In" />
   </Function>
   <Function Name="Add_New_Provider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
@@ -84,6 +92,10 @@
   <Function Name="Details_All" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
   </Function>
+  <Function Name="Edit_Domain" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NQS_Domain_ID" Type="int" Mode="In" />
+    <Parameter Name="NQS_Domain_Name" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="Edit_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
     <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
@@ -97,16 +109,42 @@
     <Parameter Name="Date_Published" Type="date" Mode="In" />
     <Parameter Name="Status_ID" Type="int" Mode="In" />
   </Function>
+  <Function Name="Edit_Measure_Scope" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_Scope_ID" Type="int" Mode="In" />
+    <Parameter Name="Measure_Scope_Name" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="Edit_Measure_Type" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_Type_ID" Type="int" Mode="In" />
+    <Parameter Name="Measure_Type_Name" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="Edit_Provider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Responsible_Provider_ID" Type="int" Mode="In" />
     <Parameter Name="Responsible_Provider_Name" Type="varchar(max)" Mode="In" />
   </Function>
   <Function Name="Measure_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="Measure_Of_Domain_Published" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NQS_Domain_ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Measure_Of_Domain_Unpublished" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NQS_Domain_ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Measure_Of_Measure_Type_Published" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_Type_ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Measure_Of_Measure_Type_Unpublished" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_Type_ID" Type="int" Mode="In" />
+  </Function>
   <Function Name="Measure_Of_Provider_Published" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Responsible_Provider_ID" Type="int" Mode="In" />
   </Function>
   <Function Name="Measure_Of_Provider_Unpublished" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Responsible_Provider_ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Measure_Of_Scope_Published" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_Scope_ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Measure_Of_Scope_Unpublished" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_Scope_ID" Type="int" Mode="In" />
   </Function>
   <Function Name="MPOG_Concept_ID_Required" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />

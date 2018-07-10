@@ -1,9 +1,5 @@
 ﻿@model demo3.Models.EditPager
 @{
-    /**/
-
-    /**/
-
     Layout = null;
     Boolean isLoggedin = false;
     Boolean hasPublishedVersion = true;
@@ -13,16 +9,16 @@
         isLoggedin = true;
     }
 
-    if (Model.pager_Results.First().Responsible_Provider == null)
+    if (Model.pager_Results.Count() == 0)
+    {
+        hasPublishedVersion = false;
+    }
+
+    if (hasPublishedVersion && Model.pager_Results.First().Responsible_Provider == null)
     {
         hasPublishedProvider = false;
     }
-
-
-
-
 }
-
 
 <!DOCTYPE html>
 <html>
@@ -43,19 +39,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.full.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.ckeditor.com/4.9.2/basic/ckeditor.js"></script>
-
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
-
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-
         </div>
         <div style="padding-right:55px;padding-left:55px; background-color: white">
             <a href="https://mpog.org/">
@@ -72,18 +65,15 @@
                         <button type="submit" class="btn-primary btn" style="float: right" onclick="location.href='@Url.Action("Logout", "Home")'">Logout</button>
                     </div>
                 </div>
-
             }
             else
             {
                 <button type="submit" class="btn-primary btn" style="float: right; margin-top: 20px" onclick="location.href='@Url.Action("Login", "Home")'">QI Coordinator Login</button>
             }
-
-
         </div>
+
         <div class="collapse navbar-collapse" id="myNavbar" style="box-sizing:content-box">
             <ul class="nav navbar-nav">
-
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">@Model.pager_Auth_Results.First().Measure_Abbreviation Basic Info<span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -96,19 +86,14 @@
                 <li><a href="#section2">Data Collection Method</a></li>
                 <li><a href="#section3">Description</a></li>
                 <li><a href="#section4">Measure Summary</a></li>
-
                 <li><a href="#section5">Inclusions</a></li>
                 <li><a href="#section6">Exclusions</a></li>
-
                 <li><a href="#section7">Success</a></li>
                 <li><a href="#section8">Responsible Provider</a></li>
                 <li><a href="#section9">Risk Adjustment</a></li>
-
                 <li><a href="#section10">References</a></li>
-
             </ul>
         </div>
-
     </nav>
 
     <div id="section1">
@@ -117,12 +102,10 @@
                 <h4>
                     @Html.ActionLink("Go Back to Measure List", "Index", "Measures")
                 </h4>
-
                 <h4>
                     @Html.ActionLink("View " + (String)Model.pager_Auth_Results.First().Measure_Abbreviation + " Spec", "Index", "Spec", new { id = @Model.pager_Auth_Results.First().Measure_ID }, null)
                 </h4>
             </div>
-           
         </div>
 
         <h2>@Model.pager_Auth_Results.First().Measure_Abbreviation Basic Info</h2>
@@ -147,13 +130,12 @@
                         </div>
                     </div>
 
-
                     <div class="form-group" style="display:inline">
                         @Html.LabelFor(model => model.pager_Auth_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9" style="display: flex">
                             @Html.DropDownListFor(model => model.pager_Auth_Results.First().NQS_Domain_ID, new SelectList(Model.nQS_Domain, "NQS_Domain_ID", "NQS_Domain_Name", selectedValue: Model.pager_Auth_Results.First().NQS_Domain_ID), "Select NQS Domain", new { @class = "selectpicker", @style = "height: 30px", @id = "nqs_domain" })
                             <button id="create_domain_btn" class="btn btn-success" data-toggle="modal" data-target="#create_domain_modal">Create</button>
-                            <button class="btn btn-info">Modify</button>
+                            <button id="modify_domain_btn" class="btn btn-info">Modify</button>
                         </div>
                     </div>
 
@@ -169,9 +151,9 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="form-group">
-                                        <label for="new_domain" >NQS Domain Name</label>
+                                        <label for="new_domain">NQS Domain Name</label>
                                         <input id="new_domain" class="form-control" />
-                                    </div>                                   
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -185,8 +167,32 @@
                         @Html.LabelFor(model => model.pager_Auth_Results.First().Measure_Type, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9" style="display: flex;">
                             @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Type_ID, new SelectList(Model.measure_Type, "Measure_Type_ID", "Measure_Type_Name", selectedValue: Model.pager_Auth_Results.First().Measure_Type_ID), "Select Measure Type", new { @class = "selectpicker", @style = "height: 30px", @id = "measure_type" })
-                            <button class="btn btn-success">Create</button>
-                            <button class="btn btn-info">Modify</button>
+                            <button id="create_measure_type_btn" class="btn btn-success" data-toggle="modal" data-target="#create_measure_type_modal">Create</button>
+                            <button id="modify_measure_type_btn" class="btn btn-info">Modify</button>
+                        </div>
+                    </div>
+
+                    <!--Create Measure Type Modal -->
+                    <div class="modal fade" id="create_measure_type_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Create Measure Type</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="new_measure_type">Measure Type Name</label>
+                                        <input id="new_measure_type" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button id="save_new_measure_type" type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -194,8 +200,32 @@
                         @Html.LabelFor(model => model.pager_Auth_Results.First().Scope, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9" style="display: flex">
                             @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Scope_ID, new SelectList(Model.scope, "Scope_ID", "Scope_Name", selectedValue: Model.pager_Auth_Results.First().Measure_Scope_ID), "Select Scope", new { @class = "selectpicker", @style = "height: 30px", @id = "scope" })
-                            <button class="btn btn-success">Create</button>
-                            <button class="btn btn-info">Modify</button>
+                            <button id="create_scope_btn" class="btn btn-success" data-toggle="modal" data-target="#create_scope_modal">Create</button>
+                            <button id="modify_scope_btn" class="btn btn-info">Modify</button>
+                        </div>
+                    </div>
+
+                    <!--Create Measure Scope Modal -->
+                    <div class="modal fade" id="create_scope_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Create Measure Scope</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="new_scope">Measure Scope Name</label>
+                                        <input id="new_scope" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button id="save_new_scope" type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -205,7 +235,6 @@
                             @Html.TextBoxFor(model => model.pager_Auth_Results.First().Threshold, new { @class = "form-control", @style = "width: 220px", @id = "threshold" })
                         </div>
                     </div>
-
                 </td>
 
                 <td>
@@ -248,13 +277,10 @@
                                 @Html.ValidationMessageFor(model => model.pager_Results.First().Threshold, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                     }
                 </td>
             </tr>
         </table>
-
-
     </div>
 
     <span class="anchor" id="section2"></span>
@@ -272,9 +298,7 @@
                         @Html.TextAreaFor(model => model.pager_Auth_Results.First().Data_Collection_Method, new { @class = "form-control", @cols = "80", @rows = "5", @id = "data_collection_method" })
                         @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Data_Collection_Method, "", new { @class = "text-danger" })
                     </div>
-
                 </td>
-
 
                 <td>
                     @if (hasPublishedVersion)
@@ -284,11 +308,9 @@
                             @Html.ValidationMessageFor(model => model.pager_Results.First().Data_Collection_Method, "", new { @class = "text-danger" })
                         </div>
                     }
-
                 </td>
             </tr>
         </table>
-
     </div>
 
     <span class="anchor" id="section3"></span>
@@ -305,7 +327,6 @@
                         @Html.TextAreaFor(model => model.pager_Auth_Results.First().Description, new { @class = "form-control", @cols = "80", @rows = "5", @id = "description" })
                         @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Description, "", new { @class = "text-danger" })
                     </div>
-
                 </td>
                 <td>
                     @if (hasPublishedVersion)
@@ -334,7 +355,6 @@
                         @Html.TextAreaFor(model => model.pager_Auth_Results.First().Measure_Summary, new { @class = "form-control", @cols = "80", @rows = "5", @id = "measure_summary" })
                         @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Measure_Summary, "", new { @class = "text-danger" })
                     </div>
-
                 </td>
                 <td>
                     @if (hasPublishedVersion)
@@ -363,7 +383,6 @@
                         @Html.TextAreaFor(model => model.pager_Auth_Results.First().Inclusions, new { @class = "form-control", @cols = "80", @rows = "5", @id = "inclusions" })
                         @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Inclusions, "", new { @class = "text-danger" })
                     </div>
-
                 </td>
                 <td>
                     @if (hasPublishedVersion)
@@ -392,7 +411,6 @@
                         @Html.TextAreaFor(model => model.pager_Auth_Results.First().Exclusions, new { @class = "form-control", @cols = "80", @rows = "5", @id = "exclusions" })
                         @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Exclusions, "", new { @class = "text-danger" })
                     </div>
-
                 </td>
                 <td>
                     @if (hasPublishedVersion)
@@ -421,7 +439,6 @@
                         @Html.TextAreaFor(model => model.pager_Auth_Results.First().Success, new { @class = "form-control", @cols = "80", @rows = "5", @id = "success" })
                         @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Success, "", new { @class = "text-danger" })
                     </div>
-
                 </td>
                 <td>
                     @if (hasPublishedVersion)
@@ -455,14 +472,11 @@
                                 if (item.Responsible_Provider_ID == Model.pager_Auth_Results.First().Responsible_Provider_ID)
                                 {
                                     <option class="provider_option" value="@item.Responsible_Provider_ID" selected="selected">@item.Responsible_Provider_Name</option>
-
                                 }
                                 else
                                 {
-
                                     <option class="provider_option" value="@item.Responsible_Provider_ID">@item.Responsible_Provider_Name</option>
                                 }
-
                             }
 
                         </select>
@@ -470,7 +484,6 @@
                         @if (Model.pager_Auth_Results.First().Responsible_Provider_ID != null)
                         {
                             <textarea readonly name="editor1">@Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Auth_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
-
                         }
                         else
                         {
@@ -482,18 +495,14 @@
                         <button class="btn btn-warning" id="create_new_provider" style="white-space: normal; width: 65px;">Create New Provider</button>
                     </div>
                 </td>
-                
-                
-
 
                 <td>
                     <div class="col-md-10" style="word-wrap:break-word">
                         @if (hasPublishedVersion && hasPublishedProvider)
                         {
-                            <textarea id="haspublished" readonly name="editor2" cols="40" rows="10" wrap="hard">@Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea> 
-                        }  
-                    </div>                   
-                    
+                            <textarea id="haspublished" readonly name="editor2" cols="40" rows="10" wrap="hard">@Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
+                        }
+                    </div>
                 </td>
             </tr>
         </table>
@@ -513,7 +522,6 @@
                         @Html.TextAreaFor(model => model.pager_Auth_Results.First().Risk_Adjustment, new { @class = "form-control", @cols = "80", @rows = "5", @id = "risk_adjustment" })
                         @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Risk_Adjustment, "", new { @class = "text-danger" })
                     </div>
-
                 </td>
                 <td>
                     @if (hasPublishedVersion)
@@ -542,7 +550,6 @@
                         @Html.TextAreaFor(model => model.pager_Auth_Results.First().Reference, new { @class = "form-control", @cols = "80", @rows = "5", @id = "references" })
                         @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Reference, "", new { @class = "text-danger" })
                     </div>
-
                 </td>
                 <td>
                     @if (hasPublishedVersion)
@@ -562,13 +569,13 @@
     <button id="publish">Publish</button>
 
     <script type="text/javascript">
-
         $(document).ready(function () {
             function strip(html) {
                 var tmp = document.createElement("div");
                 tmp.innerHTML = html;
                 return tmp.textContent || tmp.innerText || "";
             }
+
             $('option').each(function () {
                 this.text = strip(this.text);
             })
@@ -579,8 +586,7 @@
             if (document.getElementById('haspublished') != null) {
                 CKEDITOR.replace('editor2');
             }
-            
-            
+
             $('.provider_option').each(function () {
                 if (this.text.length >= 100) {
                     this.text = $.trim(this.text).substring(0, 100) + "..."
@@ -603,7 +609,10 @@
                     },
                     success: function (data) {
                         if (data.success) {
-                            console.log(data)
+                            console.log(data);
+                            alert(data.message);
+                            $('#create_domain_modal').modal('hide');
+                            window.location.reload();
                         }
                         else {
                             console.log(data.message)
@@ -612,9 +621,67 @@
                     error: function (error) {
                         console.log(error);
                     }
-
                 })
+            })
 
+          $('#save_new_measure_type').click(function () {
+                var new_measure_type = $('#new_measure_type').val();
+                if (new_measure_type == null || new_measure_type == '') {
+                    alert('cannot create empty measure type name!')
+                }
+                var measure_id = @Model.pager_Auth_Results.First().Measure_ID;
+                $.ajax({
+                    url: '@Url.Action("SaveNewMeasureType")',
+                    type: 'POST',
+                    data: {
+                        'measure_id': measure_id,
+                        'new_measure_type': new_measure_type
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            console.log(data);
+                            alert(data.message);
+                            $('#create_measure_type_modal').modal('hide');
+                            window.location.reload();
+                        }
+                        else {
+                            console.log(data.message)
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                })
+            })
+
+            $('#save_new_scope').click(function () {
+                var new_scope = $('#new_scope').val();
+                if (new_scope == null || new_scope == '') {
+                    alert('cannot create empty measure scope name!')
+                }
+                var measure_id = @Model.pager_Auth_Results.First().Measure_ID;
+                $.ajax({
+                    url: '@Url.Action("SaveNewMeasureScope")',
+                    type: 'POST',
+                    data: {
+                        'measure_id': measure_id,
+                        'new_scope': new_scope
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            console.log(data);
+                            alert(data.message);
+                            $('#create_scope_modal').modal('hide');
+                            window.location.reload();
+                        }
+                        else {
+                            console.log(data.message)
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                })
             })
 
             $('#modify').click(function () {
@@ -625,10 +692,38 @@
                     alert("please select a provider!");
                     return;
                 }
-            
                 window.location.href = '@Url.Action("ModifyProvider", "Pager")' + "?measure=" + measure + "&provider=" + provider;
             })
 
+            $('#modify_domain_btn').click(function () {              
+                var domain = $('#nqs_domain').val();
+                var measure = @Model.pager_Auth_Results.First().Measure_ID;
+                if (domain <= 0) {
+                    alert("please select a domain!");
+                    return;
+                }
+                window.location.href = '@Url.Action("ModifyDomain", "Pager")' + "?measure=" + measure + "&domain=" + domain;
+            })
+
+            $('#modify_measure_type_btn').click(function () {
+                var measure_type = $('#measure_type').val();
+                var measure = @Model.pager_Auth_Results.First().Measure_ID;
+                if (measure_type <= 0) {
+                    alert("please select a measure type!");
+                    return;
+                }
+                window.location.href = '@Url.Action("ModifyMeasureType", "Pager")' + "?measure=" + measure + "&measure_type=" + measure_type;
+            })
+
+            $('#modify_scope_btn').click(function () {
+                var scope = $('#scope').val();
+                var measure = @Model.pager_Auth_Results.First().Measure_ID;
+                if (scope <= 0) {
+                    alert("please select a scope!");
+                    return;
+                }
+                window.location.href = '@Url.Action("ModifyScope", "Pager")' + "?measure=" + measure + "&scope=" + scope;
+            })
 
             function createNewProvider() {
                 CKEDITOR.instances.editor1.setData('');
@@ -637,10 +732,10 @@
             }
 
             $('#create_new_provider').click(createNewProvider);
-                        
+
             $('#responsible_provider_select').on("change", function () {
                 console.log(this.value);
-                if (this.value > 0) {                   
+                if (this.value > 0) {
                     $.ajax({
                         url: '@Url.Action("FindProvider")',
                         datatype: "json",
@@ -659,9 +754,7 @@
                             console.log(error);
                         }
                     })
-                    
                 }
-            
             })
 
             function Autocomplete() {
@@ -695,7 +788,6 @@
                     },
                     select: function (event, ui) {
                         var id = $(this).prop('id');
-
                         $('#' + id + "input").val(ui.item.id);
                     }
                 })
@@ -721,10 +813,28 @@
                 var success = $('#success').val();
                 var risk_adjustment = $('#risk_adjustment').val();
                 var references = $('#references').val();
-                var measure_id = $('#Measure_ID').val();   
+                var measure_id = $('#Measure_ID').val();
                 var provider = $('#responsible_provider_select').val();
-                var new_provider = CKEDITOR.instances.editor1.getData();              
-                              
+                var new_provider = CKEDITOR.instances.editor1.getData();
+                //data = {
+                //    'measure_id': measure_id,
+                //    'measure_abbreviation': measure_abbreviation,
+                //    'nqs_domain': nqs_domain,
+                //    'measure_type': measure_type,
+                //    'scope': scope,
+                //    'threshold': threshold,
+                //    'data_collection_method': data_collection_method,
+                //    'description': description,
+                //    'measure_summary': measure_summary,
+                //    'inclusions': inclusions,
+                //    'exclusions': exclusions,
+                //    'success': success,
+                //    'risk_adjustment': risk_adjustment,
+                //    'references': references,
+                //    'provider': provider,
+                //    'new_provider': new_provider
+                //};
+                //console.log(data)
                 $.ajax({
                     url: '@Url.Action("Save")',
                     type: 'POST',
@@ -757,21 +867,16 @@
                             console.log(data.message);
                             alert('Failed to save pager!');
                         }
-
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.log(jqXHR);
                         console.log(textStatus);
                         console.log(errorThrown);
                     }
-
-
                 })
-
             })
         })
     </script>
-
 </body>
 </html>
 

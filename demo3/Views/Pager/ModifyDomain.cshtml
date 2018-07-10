@@ -1,0 +1,142 @@
+﻿@model demo3.Models.ModifyDomain
+@{
+    ViewBag.Title = "ModifyDomain";
+}
+
+<div style="display:flex; justify-content: space-between">
+    <h2>Modify NQS Domain</h2>
+    <button id="back" class="btn btn-default" style="height: 30px; display: none">Back to selection</button>
+</div>
+
+<div id="alert" class="alert alert-danger">
+    You are changing the NQS Domain of <strong>unpublished</strong> measures:
+    @foreach (var item in Model.unpublished_Domains)
+    {
+        <text>@item.Unpublished_Measure_Abbreviation; </text>
+    }
+    <br />
+    You are changing the NQS Domain of <strong>published</strong> measures:
+    @foreach (var item in Model.published_Domains)
+    {
+        <text>@item.Published_Measure_Abbreviation; </text>
+    }
+    <br />
+    Would you like to modify the NQS Domain for all the measures?
+    <button id="modify_all">Yes</button>
+    <button id="modify_only">No, just for the measure <text>@ViewBag.measure_Name</text></button>
+</div>
+
+<div id="all" style="display: none">
+    <div class="alert alert-warning">
+        You are changing the NQS Domain of <strong>unpublished</strong> measures:
+        @foreach (var item in Model.unpublished_Domains)
+        {
+            <text>@item.Unpublished_Measure_Abbreviation; </text>
+        }
+        <br />
+        You are changing the NQS Domain of <strong>published</strong> measures:
+        @foreach (var item in Model.published_Domains)
+        {
+            <text>@item.Published_Measure_Abbreviation; </text>
+        }
+    </div>
+    <input id="editor1" class="form-control" value="@ViewBag.domain_content "/>          
+    <br />
+    <button class="btn btn-danger" id="confirm_all">Confirm Editing</button>
+</div>
+
+<div id="only" style="display: none">
+    <div class="alert alert-warning">
+        You are changing the NQS Domain of just measure <strong>@ViewBag.measure_Name</strong>
+    </div>
+    <input id="editor2" class="form-control" value="@ViewBag.domain_content" />     
+    <br />
+    <button class="btn btn-danger" id="confirm_only">Confirm Editing</button>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#modify_all').click(function () {
+            $('#all').show();
+            $('#alert').hide();
+            $('#back').show();
+        })
+
+        $('#modify_only').click(function () {
+            $('#only').show();
+            $('#back').show();
+            $('#alert').hide();
+        })
+
+        $('#back').click(function () {
+            window.location.reload();
+        })
+
+        $('#confirm_all').click(function () {
+            var domain_content = $('#editor1').val();
+            var domain_id = @ViewBag.domain_id;
+            console.log(domain_content);
+            $.ajax({
+                url: '@Url.Action("Save_all_domain")',
+                type: 'POST',
+                data: {
+                    'domain_id': domain_id,
+                    'domain_content': domain_content
+                },
+                success: function (data) {
+                    if (data.success) {
+                        //console.log(data.message);
+                        console.log(data);
+                        alert('Updated NQS Domain successfully!');
+                        window.location.href = "/Pager/Edit/" + @ViewBag.measure_ID;
+                    }
+                    else {
+                        console.log(data.message);
+                        alert('Failed to update NQS Domain!');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            })
+        })
+
+        $('#confirm_only').click(function () {
+            var new_domain = $('#editor2').val();
+            console.log(new_domain);
+            if (new_domain == '') {
+                alert('please enter domain content!')
+                return;
+            }
+            var measure_id = @ViewBag.measure_ID;
+            $.ajax({
+                url: '@Url.Action("Save_new_domain")',
+                type: 'POST',
+                data: {
+                    'measure_id': measure_id,
+                    'new_domain': new_domain
+                },
+                success: function (data) {
+                    if (data.success) {
+                        console.log(data);
+                        alert('Created NQS Domain successfully!');
+                        window.location.href = "/Pager/Edit/" + @ViewBag.measure_ID;
+                    }
+                    else {
+                        console.log(data.message);
+                        alert('Failed to update NQS Domain!');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            })
+        })
+    })
+</script>

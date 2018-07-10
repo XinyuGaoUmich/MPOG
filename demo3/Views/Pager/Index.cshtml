@@ -6,7 +6,8 @@
     Layout = null;
     Boolean isLoggedin = false;
     Boolean isQI = false;
-    //Boolean hasMeasure = false;
+    Boolean hasPublishedVersion = true;
+    Boolean hasPublishedProvider = true;
     if (Session["userid"] != null)
     {
         isLoggedin = true;
@@ -15,7 +16,17 @@
     {
         isQI = true;
     }
- 
+
+    if (Model.pager_Results.Count() == 0)
+    {
+        hasPublishedVersion = false;
+    }
+
+    if (hasPublishedVersion && Model.pager_Results.First().Responsible_Provider == null)
+    {
+        hasPublishedProvider = false;
+    }
+
 
 }
 
@@ -117,8 +128,7 @@
             }
 
 
-        </div>
-
+        </div>       
         <h2>@Model.pager_Auth_Results.First().Measure_Abbreviation Basic Info</h2>
         <table>
             <tr>
@@ -174,7 +184,7 @@
                             NQS Domain
                         </dt>
                         <dd>
-                            @if (Model.pager_Results.First().NQS_Domain_ID != null) {
+                            @if (hasPublishedVersion && Model.pager_Results.First().NQS_Domain_ID != null) {
                                 @Model.nQS_Domain.Where(o => o.NQS_Domain_ID == Model.pager_Results.First().NQS_Domain_ID).First().NQS_Domain_Name
                             }
                         </dd>
@@ -183,7 +193,7 @@
                             Measure Type
                         </dt>
                         <dd>
-                            @if (Model.pager_Results.First().Measure_Type_ID != null)
+                            @if (hasPublishedVersion && Model.pager_Results.First().Measure_Type_ID != null)
                             {
                                 @Model.measure_Type.Where(o => o.Measure_Type_ID == Model.pager_Results.First().Measure_Type_ID).First().Measure_Type_Name
                             }
@@ -193,7 +203,7 @@
                             Scope
                         </dt>
                         <dd>
-                            @if (Model.pager_Results.First().Measure_Scope_ID != null)
+                            @if (hasPublishedVersion && Model.pager_Results.First().Measure_Scope_ID != null)
                             {
                                 @Model.scope.Where(o => o.Scope_ID == Model.pager_Results.First().Measure_Scope_ID).First().Scope_Name
                             }
@@ -203,7 +213,7 @@
                             Threshold
                         </dt>
                         <dd>
-                            @if (Model.pager_Results.First().Threshold != null)
+                            @if (hasPublishedVersion && Model.pager_Results.First().Threshold != null)
                             {
                                 @Model.pager_Results.First().Threshold.Value.ToString("P");
                             }
@@ -229,7 +239,9 @@
                     @Model.pager_Auth_Results.First().Data_Collection_Method
                 </td>
                 <td>
-                    @Model.pager_Results.First().Data_Collection_Method
+                    @if(hasPublishedVersion) {
+                        @Model.pager_Results.First().Data_Collection_Method
+                    }
                 </td>
             </tr>
         </table>
@@ -248,7 +260,9 @@
                     @Model.pager_Auth_Results.First().Description
                 </td>
                 <td>
-                    @Model.pager_Results.First().Description
+                    @if(hasPublishedVersion) {
+                        @Model.pager_Results.First().Description
+                    }
                 </td>
             </tr>
         </table>
@@ -266,7 +280,9 @@
                     @Model.pager_Auth_Results.First().Measure_Summary
                 </td>
                 <td>
-                    @Model.pager_Results.First().Measure_Summary
+                    @if(hasPublishedVersion) {
+                        @Model.pager_Results.First().Measure_Summary
+                    }
                 </td>
             </tr>
         </table>
@@ -286,9 +302,11 @@
 
                 </td>
                 <td>
-                    @Model.pager_Results.First().Inclusions
-
-                </td>
+                    @if (hasPublishedVersion)
+                    {
+                        @Model.pager_Results.First().Inclusions
+                    }
+                    </td>
             </tr>
         </table>
     </div>
@@ -307,8 +325,10 @@
 
                 </td>
                 <td>
-                    @Model.pager_Results.First().Exclusions
-
+                    @if (hasPublishedVersion)
+                    {
+                        @Model.pager_Results.First().Exclusions
+                    }
                 </td>
             </tr>
         </table>
@@ -326,8 +346,10 @@
                     @Model.pager_Auth_Results.First().Success
                 </td>
                 <td>
-                    @Model.pager_Results.First().Success
-
+                    @if (hasPublishedVersion)
+                    {
+                        @Model.pager_Results.First().Success
+                    }
                 </td>
             </tr>
         </table>
@@ -351,7 +373,7 @@
                 </td>
                 <td>
                     <div class="col-md-10" style="word-wrap:break-word">
-                        @if (Model.pager_Results.First().Responsible_Provider_ID != null)
+                        @if (hasPublishedVersion && Model.pager_Results.First().Responsible_Provider_ID != null)
                         {
                             <textarea id="textarea2" name="editor2" readonly cols="60" rows="10" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
                         }
@@ -374,8 +396,11 @@
                 </td>
 
                 <td>
-                    @Model.pager_Results.First().Risk_Adjustment
-                </td>
+                    @if (hasPublishedVersion)
+                    {
+                        @Model.pager_Results.First().Risk_Adjustment
+                    }
+                    </td>
             </tr>
         </table>
     </div>
@@ -392,7 +417,10 @@
                     @Model.pager_Auth_Results.First().Reference
                 </td>
                 <td>
-                    @Model.pager_Results.First().Reference
+                    @if (hasPublishedVersion)
+                    {
+                        @Model.pager_Results.First().Reference
+                    }
                 </td>
             </tr>
         </table>

@@ -21,7 +21,7 @@
         <text>@item.Published_Measure_Abbreviation; </text>
     }
     <br />
-    Would you like to modify the provider for all the providers?
+    Would you like to modify the provider for all the measures?
     <button id="modify_all">Yes</button>
     <button id="modify_only">No, just for the measure <text>@ViewBag.measure_Name</text></button>
 </div>
@@ -101,14 +101,12 @@
                         console.log(data.message);
                         alert('Failed to update provider!');
                     }
-
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR);
                     console.log(textStatus);
                     console.log(errorThrown);
                 }
-
             })
         })
 
@@ -137,7 +135,6 @@
                         console.log(data.message);
                         alert('Failed to update provider!');
                     }
-
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR);
@@ -146,12 +143,5 @@
                 }
             })
         })
-
-
-
-
     })
-
-
-
 </script>

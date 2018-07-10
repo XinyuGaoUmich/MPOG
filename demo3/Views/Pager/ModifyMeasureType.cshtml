@@ -1,0 +1,146 @@
+﻿@model demo3.Models.ModifyMeasureType
+@{
+    ViewBag.Title = "Modify Measure Type";
+}
+
+<div style="display:flex; justify-content: space-between">
+    <h2>Modify Measure Type</h2>
+    <button id="back" class="btn btn-default" style="height: 30px; display: none">Back to selection</button>
+</div>
+
+<div id="alert" class="alert alert-danger">
+    You are changing the Measure Type of <strong>unpublished</strong> measures:
+    @foreach (var item in Model.unpublished_Measure_Types)
+    {
+        <text>@item.Unpublished_Measure_Abbreviation; </text>
+    }
+    <br />
+    You are changing the Measure Type of <strong>published</strong> measures:
+    @foreach (var item in Model.published_Measure_Types)
+    {
+        <text>@item.Published_Measure_Abbreviation; </text>
+    }
+    <br />
+    Would you like to modify the Measure Type for all the measures?
+    <button id="modify_all">Yes</button>
+    <button id="modify_only">No, just for the measure <text>@ViewBag.measure_Name</text></button>
+</div>
+
+<div id="all" style="display: none">
+    <div class="alert alert-warning">
+        You are changing the Measure Type of <strong>unpublished</strong> measures:
+        @foreach (var item in Model.unpublished_Measure_Types)
+        {
+            <text>@item.Unpublished_Measure_Abbreviation; </text>
+        }
+        <br />
+        You are changing the Measure Type of <strong>published</strong> measures:
+        @foreach (var item in Model.published_Measure_Types)
+        {
+            <text>@item.Published_Measure_Abbreviation; </text>
+        }
+    </div>
+    <input id="editor1" class="form-control" value="@ViewBag.measure_type_content"/>          
+    <br />
+    <button class="btn btn-danger" id="confirm_all">Confirm Editing</button>
+</div>
+
+<div id="only" style="display: none">
+    <div class="alert alert-warning">
+        You are changing the Measure Type of just measure <strong>@ViewBag.measure_Name</strong>
+    </div>
+    <input id="editor2" class="form-control" value="@ViewBag.measure_type_content" />     
+    <br />
+    <button class="btn btn-danger" id="confirm_only">Confirm Editing</button>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#modify_all').click(function () {
+            $('#all').show();
+            $('#alert').hide();
+            $('#back').show();
+        })
+
+        $('#modify_only').click(function () {
+            $('#only').show();
+            $('#back').show();
+            $('#alert').hide();
+        })
+
+        $('#back').click(function () {
+            window.location.reload();
+        })
+
+        $('#confirm_all').click(function () {
+            var measure_type_content = $('#editor1').val();
+            if (measure_type_content == '') {
+                alert('please enter measure type content!')
+                return;
+            }
+            var measure_type_id = @ViewBag.measure_type_id;
+            console.log(measure_type_content);
+            $.ajax({
+                url: '@Url.Action("Save_all_measure_type")',
+                type: 'POST',
+                data: {
+                    'measure_type_id': measure_type_id,
+                    'measure_type_content': measure_type_content
+                },
+                success: function (data) {
+                    if (data.success) {
+                        //console.log(data.message);
+                        console.log(data);
+                        alert('Updated Measure Type successfully!');
+                        window.location.href = "/Pager/Edit/" + @ViewBag.measure_ID;
+                    }
+                    else {
+                        console.log(data.message);
+                        alert('Failed to update Measure Type!');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            })
+        })
+
+        $('#confirm_only').click(function () {
+            var new_measure_type = $('#editor2').val();
+            console.log(new_measure_type);
+            if (new_measure_type == '') {
+                alert('please enter measure type content!')
+                return;
+            }
+            var measure_id = @ViewBag.measure_ID;
+            $.ajax({
+                url: '@Url.Action("Save_new_measure_type")',
+                type: 'POST',
+                data: {
+                    'measure_id': measure_id,
+                    'new_measure_type': new_measure_type
+                },
+                success: function (data) {
+                    if (data.success) {
+                        console.log(data);
+                        alert('Created Measure Type successfully!');
+                        window.location.href = "/Pager/Edit/" + @ViewBag.measure_ID;
+                    }
+                    else {
+                        console.log(data.message);
+                        alert('Failed to update Measure Type!');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            })
+        })
+    })
+</script>

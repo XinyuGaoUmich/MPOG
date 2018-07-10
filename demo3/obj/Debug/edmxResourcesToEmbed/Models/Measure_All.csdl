@@ -102,6 +102,48 @@
       <Parameter Name="Responsible_Provider_ID" Mode="In" Type="Int32" />
       <Parameter Name="Responsible_Provider_Name" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="Add_New_Domain">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+      <Parameter Name="NQS_Domain_Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Add_New_Measure_Type">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Measure_Type_Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Add_New_Measure_Scope">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Scope_Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Measure_Of_Domain_Published" ReturnType="Collection(MPOG_XinyuModel1.Measure_Of_Domain_Published_Result)">
+      <Parameter Name="NQS_Domain_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Measure_Of_Domain_Unpublished" ReturnType="Collection(MPOG_XinyuModel1.Measure_Of_Domain_Unpublished_Result)">
+      <Parameter Name="NQS_Domain_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Measure_Of_Measure_Type_Published" ReturnType="Collection(MPOG_XinyuModel1.Measure_Of_Measure_Type_Published_Result)">
+      <Parameter Name="Measure_Type_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Measure_Of_Measure_Type_Unpublished" ReturnType="Collection(MPOG_XinyuModel1.Measure_Of_Measure_Type_Unpublished_Result)">
+      <Parameter Name="Measure_Type_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Measure_Of_Scope_Published" ReturnType="Collection(MPOG_XinyuModel1.Measure_Of_Scope_Published_Result)">
+      <Parameter Name="Measure_Scope_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Measure_Of_Scope_Unpublished" ReturnType="Collection(MPOG_XinyuModel1.Measure_Of_Scope_Unpublished_Result)">
+      <Parameter Name="Measure_Scope_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Edit_Domain">
+      <Parameter Name="NQS_Domain_ID" Mode="In" Type="Int32" />
+      <Parameter Name="NQS_Domain_Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Edit_Measure_Scope">
+      <Parameter Name="Measure_Scope_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Measure_Scope_Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Edit_Measure_Type">
+      <Parameter Name="Measure_Type_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Measure_Type_Name" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="Details_All_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -301,6 +343,30 @@
     <Property Type="String" Name="Published_Measure_Abbreviation" Nullable="true" MaxLength="20" />
   </ComplexType>
   <ComplexType Name="Measure_Of_Provider_Unpublished_Result">
+    <Property Type="Int32" Name="Unpublished_Measure_ID" Nullable="false" />
+    <Property Type="String" Name="Unpublished_Measure_Abbreviation" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="Measure_Of_Domain_Published_Result">
+    <Property Type="Int32" Name="Published_Measure_ID" Nullable="false" />
+    <Property Type="String" Name="Published_Measure_Abbreviation" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="Measure_Of_Domain_Unpublished_Result">
+    <Property Type="Int32" Name="Unpublished_Measure_ID" Nullable="false" />
+    <Property Type="String" Name="Unpublished_Measure_Abbreviation" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="Measure_Of_Measure_Type_Published_Result">
+    <Property Type="Int32" Name="Published_Measure_ID" Nullable="false" />
+    <Property Type="String" Name="Published_Measure_Abbreviation" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="Measure_Of_Measure_Type_Unpublished_Result">
+    <Property Type="Int32" Name="Unpublished_Measure_ID" Nullable="false" />
+    <Property Type="String" Name="Unpublished_Measure_Abbreviation" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="Measure_Of_Scope_Published_Result">
+    <Property Type="Int32" Name="Published_Measure_ID" Nullable="false" />
+    <Property Type="String" Name="Published_Measure_Abbreviation" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="Measure_Of_Scope_Unpublished_Result">
     <Property Type="Int32" Name="Unpublished_Measure_ID" Nullable="false" />
     <Property Type="String" Name="Unpublished_Measure_Abbreviation" Nullable="true" MaxLength="20" />
   </ComplexType>
