@@ -98,14 +98,15 @@
 
     <div id="section1">
         <div style="display:flex; justify-content: space-between;">
-            <div style="display:flex; justify-content:space-between; width:50%">
-                <h4>
-                    @Html.ActionLink("Go Back to Measure List", "Index", "Measures")
-                </h4>
-                <h4>
-                    @Html.ActionLink("View " + (String)Model.pager_Auth_Results.First().Measure_Abbreviation + " Spec", "Index", "Spec", new { id = @Model.pager_Auth_Results.First().Measure_ID }, null)
-                </h4>
-            </div>
+            <h4>
+                @Html.ActionLink("Go Back to Measure List", "Index", "Measures")
+            </h4>
+            <h4>
+                @Html.ActionLink("View " + (String)Model.pager_Auth_Results.First().Measure_Abbreviation + " Spec", "Index", "Spec", new { id = @Model.pager_Auth_Results.First().Measure_ID }, null)
+            </h4>
+            <h4>
+                @Html.ActionLink("Discard change and view " + (String)Model.pager_Auth_Results.First().Measure_Abbreviation + " Pager", "Index", "Pager", new { id = @Model.pager_Auth_Results.First().Measure_ID }, null)
+            </h4>
         </div>
 
         <h2>@Model.pager_Auth_Results.First().Measure_Abbreviation Basic Info</h2>
@@ -408,16 +409,16 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Exclusions, new { @class = "form-control", @cols = "80", @rows = "5", @id = "exclusions" })
-                        @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Exclusions, "", new { @class = "text-danger" })
+                        <textarea id="exclusions" name="editor_exclusions">@Model.pager_Auth_Results.First().Exclusions</textarea>
+                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Exclusions, new { @class = "form-control", @cols = "80", @rows = "5", @id = "exclusions", @name="editor_success" })*@
                     </div>
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
                         <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.pager_Results.First().Exclusions, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
-                            @Html.ValidationMessageFor(model => model.pager_Results.First().Exclusions, "", new { @class = "text-danger" })
+                            <textarea name="editor_exclusions_published">@Model.pager_Results.First().Exclusions</textarea>
+                            @*@Html.TextAreaFor(model => model.pager_Results.First().Exclusions, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })*@
                         </div>
                     }
                 </td>
@@ -436,17 +437,17 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Success, new { @class = "form-control", @cols = "80", @rows = "5", @id = "success" })
-                        @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Success, "", new { @class = "text-danger" })
+                        <textarea id="success" name="editor_success">@Model.pager_Auth_Results.First().Success</textarea>
+                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Success, new { @class = "form-control", @cols = "80", @rows = "5", @id = "success" })*@
                     </div>
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.pager_Results.First().Success, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
-                            @Html.ValidationMessageFor(model => model.pager_Results.First().Success, "", new { @class = "text-danger" })
-                        </div>
+                    <div class="col-md-10">
+                        <textarea name="editor_success_published">@Model.pager_Results.First().Success</textarea>
+                        @*@Html.TextAreaFor(model => model.pager_Results.First().Success, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })*@
+                    </div>
                     }
                 </td>
             </tr>
@@ -547,28 +548,49 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Reference, new { @class = "form-control", @cols = "80", @rows = "5", @id = "references" })
-                        @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Reference, "", new { @class = "text-danger" })
+                        <textarea id="references" name="editor_references">@Model.pager_Auth_Results.First().Reference</textarea>
+                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Reference, new { @class = "form-control", @cols = "80", @rows = "5", @id = "references" })*@
                     </div>
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.pager_Results.First().Reference, new { @class = "form-control", @cols = "80", @rows = "3", @readonly = "readonly" })
-                            @Html.ValidationMessageFor(model => model.pager_Results.First().Reference, "", new { @class = "text-danger" })
-                        </div>
+                    <div class="col-md-10">
+                        <textarea name="editor_references_published">@Model.pager_Auth_Results.First().Reference</textarea>
+                        @*@Html.TextAreaFor(model => model.pager_Results.First().Reference, new { @class = "form-control", @cols = "80", @rows = "3", @readonly = "readonly" })*@
+                    </div>
                     }
                 </td>
             </tr>
         </table>
     </div>
 
-    <button id="top">Top</button>
-    <button id="save">Save</button>
-    <button id="publish">Publish</button>
+    <Alert Modal -->
+        <div class="modal fade" id="alert_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLabel">Warning</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        You are leaving the website and <strong>changes will NOT be saved</strong>, are you sure to leave?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Back to save</button>
+                        <button id="proceed" type="button" class="btn btn-primary">Proceed to modify</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <script type="text/javascript">
+        <button id="top">Top</button>
+        <button id="save">Save</button>
+        <button id="publish">Publish</button>
+
+        <script type="text/javascript">
         $(document).ready(function () {
             function strip(html) {
                 var tmp = document.createElement("div");
@@ -582,9 +604,16 @@
 
             $('#responsible_provider_select').select2();
 
-            CKEDITOR.replace('editor1');
+            //CKEITOR replace
+            CKEDITOR.replace('editor1');            
+            CKEDITOR.replace('editor_exclusions');
+            CKEDITOR.replace('editor_success');
+            CKEDITOR.replace('editor_references');
             if (document.getElementById('haspublished') != null) {
                 CKEDITOR.replace('editor2');
+                CKEDITOR.replace('editor_exclusions_published');
+                CKEDITOR.replace('editor_success_published');
+                CKEDITOR.replace('editor_references_published');
             }
 
             $('.provider_option').each(function () {
@@ -686,43 +715,55 @@
 
             $('#modify').click(function () {
                 //CKEDITOR.instances.editor1.setReadOnly(false);
-                var provider = $('#responsible_provider_select').val();
-                var measure = @Model.pager_Auth_Results.First().Measure_ID;
-                if (provider <= 0) {
-                    alert("please select a provider!");
-                    return;
-                }
-                window.location.href = '@Url.Action("ModifyProvider", "Pager")' + "?measure=" + measure + "&provider=" + provider;
+                $('#alert_modal').modal('show');
+                $('#proceed').click(function () {
+                    var provider = $('#responsible_provider_select').val();
+                    var measure = @Model.pager_Auth_Results.First().Measure_ID;
+                    if (provider <= 0) {
+                        alert("please select a provider!");
+                        return;
+                    }
+                    window.location.href = '@Url.Action("ModifyProvider", "Pager")' + "?measure=" + measure + "&provider=" + provider;
+                })
             })
 
-            $('#modify_domain_btn').click(function () {              
-                var domain = $('#nqs_domain').val();
-                var measure = @Model.pager_Auth_Results.First().Measure_ID;
-                if (domain <= 0) {
-                    alert("please select a domain!");
-                    return;
-                }
-                window.location.href = '@Url.Action("ModifyDomain", "Pager")' + "?measure=" + measure + "&domain=" + domain;
+            $('#modify_domain_btn').click(function () {
+                $('#alert_modal').modal('show');
+                $('#proceed').click(function () {
+                    var domain = $('#nqs_domain').val();
+                    var measure = @Model.pager_Auth_Results.First().Measure_ID;
+                    if (domain <= 0) {
+                        alert("please select a domain!");
+                        return;
+                    }
+                    window.location.href = '@Url.Action("ModifyDomain", "Pager")' + "?measure=" + measure + "&domain=" + domain;
+                })
             })
 
             $('#modify_measure_type_btn').click(function () {
-                var measure_type = $('#measure_type').val();
+                $('#alert_modal').modal('show');
+                $('#proceed').click(function () {
+                     var measure_type = $('#measure_type').val();
                 var measure = @Model.pager_Auth_Results.First().Measure_ID;
                 if (measure_type <= 0) {
                     alert("please select a measure type!");
                     return;
                 }
                 window.location.href = '@Url.Action("ModifyMeasureType", "Pager")' + "?measure=" + measure + "&measure_type=" + measure_type;
+                })
             })
 
             $('#modify_scope_btn').click(function () {
-                var scope = $('#scope').val();
-                var measure = @Model.pager_Auth_Results.First().Measure_ID;
-                if (scope <= 0) {
-                    alert("please select a scope!");
-                    return;
-                }
-                window.location.href = '@Url.Action("ModifyScope", "Pager")' + "?measure=" + measure + "&scope=" + scope;
+                $('#alert_modal').modal('show');
+                $('#proceed').click(function () {
+                     var scope = $('#scope').val();
+                    var measure = @Model.pager_Auth_Results.First().Measure_ID;
+                    if (scope <= 0) {
+                        alert("please select a scope!");
+                        return;
+                    }
+                    window.location.href = '@Url.Action("ModifyScope", "Pager")' + "?measure=" + measure + "&scope=" + scope;
+                })
             })
 
             function createNewProvider() {
@@ -809,10 +850,13 @@
                 var description = $('#description').val();
                 var measure_summary = $('#measure_summary').val();
                 var inclusions = $('#inclusions').val();
-                var exclusions = $('#exclusions').val();
-                var success = $('#success').val();
+                //var exclusions = $('#exclusions').val();
+                var exclusions = CKEDITOR.instances["exclusions"].getData();
+                //var success = $('#success').val();
+                var success = CKEDITOR.instances["success"].getData();
                 var risk_adjustment = $('#risk_adjustment').val();
-                var references = $('#references').val();
+                //var references = $('#references').val();
+                var references = CKEDITOR.instances["references"].getData();
                 var measure_id = $('#Measure_ID').val();
                 var provider = $('#responsible_provider_select').val();
                 var new_provider = CKEDITOR.instances.editor1.getData();
@@ -834,7 +878,7 @@
                 //    'provider': provider,
                 //    'new_provider': new_provider
                 //};
-                //console.log(data)
+                console.log(references)
                 $.ajax({
                     url: '@Url.Action("Save")',
                     type: 'POST',
@@ -875,8 +919,88 @@
                     }
                 })
             })
+
+            $('#publish').click(function () {
+                var measure_abbreviation = $('#measure_abbreviation').val()
+                var nqs_domain = $('#nqs_domain').val();
+                var measure_type = $('#measure_type').val();
+                var scope = $('#scope').val();
+                var threshold = $('#threshold').val();
+                var data_collection_method = $('#data_collection_method').val();
+                var description = $('#description').val();
+                var measure_summary = $('#measure_summary').val();
+                var inclusions = $('#inclusions').val();
+                var exclusions = $('#exclusions').val();
+                var success = $('#success').val();
+                var risk_adjustment = $('#risk_adjustment').val();
+                var references = $('#references').val();
+                var measure_id = $('#Measure_ID').val();
+                var provider = $('#responsible_provider_select').val();
+                var new_provider = CKEDITOR.instances.editor1.getData();
+                var domain_content = $('#nqs_domain :selected').text();
+                //data = {
+                //    'measure_id': measure_id,
+                //    'measure_abbreviation': measure_abbreviation,
+                //    'nqs_domain': nqs_domain,
+                //    'domain_content': domain_content,
+                //    'measure_type': measure_type,
+                //    'scope': scope,
+                //    'threshold': threshold,
+                //    'data_collection_method': data_collection_method,
+                //    'description': description,
+                //    'measure_summary': measure_summary,
+                //    'inclusions': inclusions,
+                //    'exclusions': exclusions,
+                //    'success': success,
+                //    'risk_adjustment': risk_adjustment,
+                //    'references': references,
+                //    'provider': provider,
+                //    'new_provider': new_provider
+                //};
+                //console.log(JSON.stringify(data));
+                $.ajax({
+                    url: '@Url.Action("Publish")',
+                    type: 'POST',
+                    data: {
+                        'measure_id': measure_id,
+                        'measure_abbreviation': measure_abbreviation,
+                        'nqs_domain': nqs_domain,
+                        'domain_content': domain_content,
+                        'measure_type': measure_type,
+                        'scope': scope,
+                        'threshold': threshold,
+                        'data_collection_method': data_collection_method,
+                        'description': description,
+                        'measure_summary': measure_summary,
+                        'inclusions': inclusions,
+                        'exclusions': exclusions,
+                        'success': success,
+                        'risk_adjustment': risk_adjustment,
+                        'references': references,
+                        'provider': provider,
+                        'new_provider': new_provider
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            //console.log(data.message);
+                            console.log(data);
+                            alert('Publish pager successfully!');
+                            window.location.href = "/Pager/Index/" + measure_id;
+                        }
+                        else {
+                            console.log(data.message);
+                            alert('Failed to publish pager!');
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR);
+                        console.log(textStatus);
+                        console.log(errorThrown);
+                    }
+                })
+            })
         })
-    </script>
+        </script>
 </body>
 </html>
 

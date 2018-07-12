@@ -111,7 +111,42 @@ namespace demo3.Controllers
             }
            
         }
-      
+
+        [ValidateInput(false)]
+        public JsonResult Publish(int measure_id, string measure_abbreviation, int? nqs_domain, string domain_content, int? measure_type, int? scope, decimal threshold, string data_collection_method, string description, string measure_summary, string inclusions, string exclusions, string success, string risk_adjustment, string references, int provider, string new_provider)
+        {
+            try
+            {
+                if (provider > 0)
+                {
+                    db2.Publish_Pager(measure_id, measure_abbreviation, data_collection_method, description, nqs_domain, domain_content, measure_type, scope, measure_summary, inclusions, exclusions, success, threshold, provider, risk_adjustment, references);
+                }
+
+                db2.Publish_Pager(measure_id, measure_abbreviation, data_collection_method, description, nqs_domain, domain_content, measure_type, scope, measure_summary, inclusions, exclusions, success, threshold, null, risk_adjustment, references);
+
+                if (provider == -1 && new_provider != "")
+                {
+                    db2.Add_New_Provider_Published(measure_id, new_provider);
+                }
+                return Json(new
+                {
+                    success = true,
+                    message = "success"
+                });
+
+
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = e.Message
+                });
+            }
+
+        }
+
         public JsonResult FindProvider (int id)
         {
            try

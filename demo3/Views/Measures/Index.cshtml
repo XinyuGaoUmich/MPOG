@@ -11,7 +11,11 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/checkbox-custom.css" rel="stylesheet" type="text/css" />
-
+<link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.datatables.net/fixedcolumns/3.2.6/css/fixedColumns.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/fixedcolumns/3.2.6/js/dataTables.fixedColumns.min.js"></script>
 <div style="display: flex; justify-content: space-between">
     <div style="margin-right:100px;">
         <p>
@@ -21,8 +25,8 @@
     </div>
     <div class="btn_check">
         <input type="checkbox" id="check">
-        <label class="btn btn-default" for="check" >
-            <i class="fa fa-square-o"></i> 
+        <label class="btn btn-default" for="check">
+            <i class="fa fa-square-o"></i>
             <span id="checkDisplay">  Check to display Archived Measures</span>
 
         </label>
@@ -35,17 +39,16 @@
 
 
 <div style="overflow-x: auto; text-align:center">
-    <table  class="table table-striped table-bordered"  id="IndexTable" style="width:100%; visibility:hidden" >
+    <table class="table table-striped table-bordered" id="IndexTable" style="width:100%; visibility:hidden">
         <thead id="myHeader" class="header">
             <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Measure_List_Results.First().Measure_Abbreviation)
+                </th>
                 <th width="200px">
                     Measure Status
                     <button class="btn btn-secondary btn-sm" onclick="SendData(this)">Submit Change</button>
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Measure_List_Results.First().Measure_Abbreviation)
-                </th>
-
                 <th>
                     @Html.DisplayNameFor(model => model.Measure_List_Results.First().Measure_Title)
                 </th>
@@ -70,10 +73,6 @@
                     @Html.DisplayNameFor(model => model.Measure_List_Results.First().Developer)
                 </th>
 
-                @*<th>
-                        @Html.DisplayNameFor(model => model.Measure_List_Results.First().Measure_Spec_Completed)
-                    </th>*@
-
                 <th>
                     @Html.DisplayNameFor(model => model.Measure_List_Results.First().Date_Published)
                 </th>
@@ -83,10 +82,10 @@
                 </th>
                 <th>
                     Spec
-                </th>              
+                </th>
                 <th>
                     Operations
-                </th>               
+                </th>
             </tr>
         </thead>
 
@@ -94,16 +93,15 @@
 
 
             @foreach (var item in Model.Measure_List_Results)
-            {            
-                <tr class="@item.Status_ID">                    
+            {
+                <tr class="@item.Status_ID">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Measure_Abbreviation).ToString().Replace("-", " ")
+                    </td>
                     <td style="width: 200px">
                         @Html.DropDownList("Status_ID", new SelectList(Model.Status_Types, "Status_ID", "Status_Name", selectedValue: item.Status_ID), new { @class = "form-control", style = "width: 170px", @id = item.Measure_ID, onchange = "Update_Selection(this)" })
 
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Measure_Abbreviation).ToString().Replace("-", " ")
-                    </td>
-
                     <td>
                         @Html.DisplayFor(modelItem => item.Measure_Title)
                     </td>
@@ -168,7 +166,7 @@
                     <td>
                         @Html.ActionLink(item.Measure_Abbreviation.ToString().Replace("-", " ") + " Spec", "Spec", new { id = item.Measure_ID })
                     </td>
-                   
+
                     <td style="text-align: left">
                         <ul>
                             <li>
@@ -176,9 +174,9 @@
                             </li>
                             <li>
                                 @Html.ActionLink("Details", "Details", new { id = item.Measure_ID })
-                            </li>                              
+                            </li>
                         </ul>
-                    </td>                   
+                    </td>
                 </tr>
 
             }
@@ -188,10 +186,6 @@
 <input value="" id="record_id" type="hidden" />
 <input value="" id="record_selection" type="hidden" />
 
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
 
 
 <script type="text/javascript">
@@ -204,26 +198,34 @@
         document.getElementById("record_selection").value = selection.value;
     }
 
- 
-   
+
+
 
     $(document).ready(function () {
         $('#IndexTable tbody tr.6').hide()
+
         document.getElementById('IndexTable').style.visibility = "visible";
         var iStart = new Date().getTime();
         var oTable = $('#IndexTable').dataTable(
             {
                 "sScrollY": "400px",
                 "sScrollX": "100%",
-                "sScrollXInner": "100%",
-                "bScrollCollapse": true,
+               // "sScrollXInner": "100%",
+                //"bScrollCollapse": true,
+               
+                "fixedColumns": {
+                    leftColumns: 1
+                },
+                "paging": false
                 //"bPaginate": false,
-                //"bFilter": false  
+                //"bFilter": false
                 //"sAjaxSource": "Index",
                 //"bJqueryUI": true,
 
             });
-       
+
+
+
     });
      function SendData() {
         var record_id = document.getElementById("record_id").value;
@@ -246,10 +248,10 @@
             type: 'POST',
             data: dataPost,
             url: '@Url.Action("Update_Status","Measures")',
-            success: function (data) { 
+            success: function (data) {
                 alert(data);
-                window.location.href = '@Url.Action("Index", "Measures")';             
-                
+                window.location.href = '@Url.Action("Index", "Measures")';
+
             },
             error: function (data) {
                 alert("fail to update measure status!");
@@ -263,12 +265,12 @@
             console.log("checked");
             $('#checkDisplay').text('Uncheck to hide Archived Measures')
             $('#IndexTable tbody tr.6').show()
-        }            
+        }
           else {
             console.log("unchecked");
             $('#checkDisplay').text('Check to display Archived Measures');
             $('#IndexTable tbody tr.6').hide();
-        }         
+        }
     })
 
 

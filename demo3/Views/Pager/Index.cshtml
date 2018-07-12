@@ -236,11 +236,16 @@
             </tr>
             <tr>
                 <td>
-                    @Model.pager_Auth_Results.First().Data_Collection_Method
+                    <div class="col-md-11" style="word-wrap:break-word">
+                        @Model.pager_Auth_Results.First().Data_Collection_Method
+                    </div>
                 </td>
                 <td>
-                    @if(hasPublishedVersion) {
-                        @Model.pager_Results.First().Data_Collection_Method
+                    @if (hasPublishedVersion)
+                    {
+                        <div class="col-md-11" style="word-wrap:break-word">
+                            @Model.pager_Results.First().Data_Collection_Method
+                        </div>
                     }
                 </td>
             </tr>
@@ -257,11 +262,16 @@
             </tr>
             <tr>
                 <td>
-                    @Model.pager_Auth_Results.First().Description
+                    <div class="col-md-11" style="word-wrap:break-word">
+                        @Model.pager_Auth_Results.First().Description
+                    </div>                  
                 </td>
                 <td>
-                    @if(hasPublishedVersion) {
-                        @Model.pager_Results.First().Description
+                    @if(hasPublishedVersion)
+                    {
+                        <div class="col-md-11" style="word-wrap:break-word">
+                            @Model.pager_Results.First().Description
+                        </div>                      
                     }
                 </td>
             </tr>
@@ -277,11 +287,16 @@
             </tr>
             <tr>
                 <td>
-                    @Model.pager_Auth_Results.First().Measure_Summary
+                    <div class="col-md-11" style="word-wrap:break-word">
+                        @Model.pager_Auth_Results.First().Measure_Summary
+                    </div>
                 </td>
                 <td>
-                    @if(hasPublishedVersion) {
-                        @Model.pager_Results.First().Measure_Summary
+                    @if (hasPublishedVersion)
+                    {
+                        <div class="col-md-11" style="word-wrap:break-word">
+                            @Model.pager_Results.First().Measure_Summary
+                        </div>
                     }
                 </td>
             </tr>
@@ -297,16 +312,18 @@
             </tr>
             <tr>
                 <td>
-                    @Model.pager_Auth_Results.First().Inclusions
-
-
+                    <div class="col-md-11" style="word-wrap:break-word">
+                        @Model.pager_Auth_Results.First().Inclusions
+                    </div>                 
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        @Model.pager_Results.First().Inclusions
+                        <div class="col-md-11" style="word-wrap:break-word">
+                            @Model.pager_Results.First().Inclusions
+                        </div>
                     }
-                    </td>
+                </td>
             </tr>
         </table>
     </div>
@@ -320,14 +337,18 @@
             </tr>
             <tr>
                 <td>
-                    @Model.pager_Auth_Results.First().Exclusions
-
-
+                    <div class="col-md-11" style="word-wrap:break-word">
+                        @*@Model.pager_Auth_Results.First().Exclusions*@
+                        <textarea id="textarea_exclusions" name="editor_exclusions" readonly cols="60" rows="10" wrap="hard">@Model.pager_Auth_Results.First().Exclusions</textarea>
+                    </div>
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        @Model.pager_Results.First().Exclusions
+                        <div class="col-md-11" style="word-wrap:break-word">
+                            <textarea id="textarea_exclusions_published" name="editor_exclusions_published" readonly cols="60" rows="10" wrap="hard">@Model.pager_Results.First().Exclusions</textarea>
+                            @*@Model.pager_Results.First().Exclusions*@
+                        </div>
                     }
                 </td>
             </tr>
@@ -343,12 +364,17 @@
             </tr>
             <tr>
                 <td>
-                    @Model.pager_Auth_Results.First().Success
-                </td>
+                    <div class="col-md-11" style="word-wrap:break-word">
+                        @*@Model.pager_Auth_Results.First().Success*@
+                        <textarea id="textarea_success" name="editor_success" readonly cols="60" rows="10" wrap="hard">@Model.pager_Auth_Results.First().Success</textarea>
+                    </div>
+                 </td>
                 <td>
                     @if (hasPublishedVersion)
-                    {
-                        @Model.pager_Results.First().Success
+                    {   <div class="col-md-11" style="word-wrap:break-word">
+                            <textarea id="textarea_success_published" name="editor_success_published" readonly cols="60" rows="10" wrap="hard">@Model.pager_Results.First().Success</textarea>
+                            @*@Model.pager_Results.First().Success*@
+                        </div>
                     }
                 </td>
             </tr>
@@ -364,7 +390,7 @@
             </tr>
             <tr>
                 <td>
-                    <div class="col-md-10" style="word-wrap:break-word">
+                    <div class="col-md-11" style="word-wrap:break-word">
                         @if (Model.pager_Auth_Results.First().Responsible_Provider_ID != null)
                         {
                         <textarea id="textarea1" name="editor1" readonly cols="60" rows="10" wrap="hard">@Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Auth_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
@@ -372,7 +398,7 @@
                     </div>
                 </td>
                 <td>
-                    <div class="col-md-10" style="word-wrap:break-word">
+                    <div class="col-md-11" style="word-wrap:break-word">
                         @if (hasPublishedVersion && Model.pager_Results.First().Responsible_Provider_ID != null)
                         {
                             <textarea id="textarea2" name="editor2" readonly cols="60" rows="10" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
@@ -392,15 +418,19 @@
             </tr>
             <tr>
                 <td>
-                    @Model.pager_Auth_Results.First().Risk_Adjustment
+                    <div class="col-md-11" style="word-wrap:break-word">
+                        @Model.pager_Auth_Results.First().Risk_Adjustment
+                    </div>
                 </td>
 
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        @Model.pager_Results.First().Risk_Adjustment
+                        <div class="col-md-11" style="word-wrap:break-word">
+                            @Model.pager_Results.First().Risk_Adjustment
+                        </div>                       
                     }
-                    </td>
+                </td>
             </tr>
         </table>
     </div>
@@ -414,12 +444,18 @@
             </tr>
             <tr>
                 <td>
-                    @Model.pager_Auth_Results.First().Reference
+                    <div class="col-md-11" style="word-wrap:break-word">
+                        <textarea id="textarea_references" name="editor_references" readonly cols="60" rows="10" wrap="hard">@Model.pager_Auth_Results.First().Reference</textarea>
+                        @*@Model.pager_Auth_Results.First().Reference*@
+                    </div>
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        @Model.pager_Results.First().Reference
+                        <div class="col-md-11" style="word-wrap:break-word">
+                            <textarea id="textarea_references_published" name="editor_references_published" readonly cols="60" rows="10" wrap="hard">@Model.pager_Results.First().Reference</textarea>
+                            @*@Model.pager_Results.First().Reference*@
+                        </div>                      
                     }
                 </td>
             </tr>
@@ -437,6 +473,24 @@
             }
             if (document.getElementById('textarea2')) {
                 CKEDITOR.replace('editor2');
+            }
+            if (document.getElementById('textarea_exclusions')) {
+                CKEDITOR.replace('editor_exclusions');
+            }
+            if (document.getElementById('textarea_exclusions_published')) {
+                CKEDITOR.replace('editor_exclusions_published');
+            }
+            if (document.getElementById('textarea_success')) {
+                CKEDITOR.replace('editor_success');
+            }
+            if (document.getElementById('textarea_success_published')) {
+                CKEDITOR.replace('editor_success_published');
+            }
+            if (document.getElementById('textarea_references')) {
+                CKEDITOR.replace('editor_references');
+            }
+            if (document.getElementById('textarea_references_published')) {
+                CKEDITOR.replace('editor_references_published');
             }
         })
     </script>
