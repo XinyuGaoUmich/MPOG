@@ -133,10 +133,13 @@
 
                     <div class="form-group" style="display:inline">
                         @Html.LabelFor(model => model.pager_Auth_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-3" })
-                        <div class="col-md-9" style="display: flex">
-                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().NQS_Domain_ID, new SelectList(Model.nQS_Domain, "NQS_Domain_ID", "NQS_Domain_Name", selectedValue: Model.pager_Auth_Results.First().NQS_Domain_ID), "Select NQS Domain", new { @class = "selectpicker", @style = "height: 30px", @id = "nqs_domain" })
+                        <div class="col-md-9" style="display: flex;">
+                            <div style="width:220px">
+                                @Html.DropDownListFor(model => model.pager_Auth_Results.First().NQS_Domain_ID, new SelectList(Model.nQS_Domain, "NQS_Domain_ID", "NQS_Domain_Name", selectedValue: Model.pager_Auth_Results.First().NQS_Domain_ID), "Select NQS Domain", new { @class = "selectpicker", @style = "height: 30px; width: 220px", @id = "nqs_domain" })
+                            </div>
                             <button id="create_domain_btn" class="btn btn-success" data-toggle="modal" data-target="#create_domain_modal">Create</button>
                             <button id="modify_domain_btn" class="btn btn-info">Modify</button>
+                            <button id="delete_domain_btn" class="btn btn-warning">Delete</button>
                         </div>
                     </div>
 
@@ -296,18 +299,20 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Data_Collection_Method, new { @class = "form-control", @cols = "80", @rows = "5", @id = "data_collection_method" })
-                        @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Data_Collection_Method, "", new { @class = "text-danger" })
+                        <textarea id="data_collection_method" name="editor_data_collection_method">@Model.pager_Auth_Results.First().Data_Collection_Method</textarea>
+                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Data_Collection_Method, new { @class = "form-control", @cols = "80", @rows = "5", @id = "data_collection_method" })*@
                     </div>
                 </td>
 
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.pager_Results.First().Data_Collection_Method, new { @class = "form-control", @readonly = "readonly", @cols = "80", @rows = "5" })
-                            @Html.ValidationMessageFor(model => model.pager_Results.First().Data_Collection_Method, "", new { @class = "text-danger" })
-                        </div>
+                        <input type="hidden" id="haspublished" />
+                    <div class="col-md-10">
+                        @Html.Raw(Model.pager_Results.First().Data_Collection_Method)
+                        @*<textarea readonly name="editor_data_collection_method_published">@Model.pager_Results.First().Data_Collection_Method</textarea>*@
+                        @*@Html.TextAreaFor(model => model.pager_Results.First().Data_Collection_Method, new { @class = "form-control", @readonly = "readonly", @cols = "80", @rows = "5" })*@
+                    </div>
                     }
                 </td>
             </tr>
@@ -325,17 +330,18 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Description, new { @class = "form-control", @cols = "80", @rows = "5", @id = "description" })
-                        @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Description, "", new { @class = "text-danger" })
+                        <textarea id="description" name="editor_description">@Model.pager_Auth_Results.First().Description</textarea>
+                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Description, new { @class = "form-control", @cols = "80", @rows = "5", @id = "description" })*@
                     </div>
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.pager_Results.First().Description, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
-                            @Html.ValidationMessageFor(model => model.pager_Results.First().Description, "", new { @class = "text-danger" })
-                        </div>
+                    <div class="col-md-10">
+                        @Html.Raw(Model.pager_Results.First().Description)
+                        @*<textarea readonly name="editor_description_published">@Model.pager_Results.First().Description</textarea>*@
+                        @*@Html.TextAreaFor(model => model.pager_Results.First().Description, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })*@
+                    </div>
                     }
                 </td>
             </tr>
@@ -353,17 +359,17 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Measure_Summary, new { @class = "form-control", @cols = "80", @rows = "5", @id = "measure_summary" })
-                        @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Measure_Summary, "", new { @class = "text-danger" })
+                        <textarea id="measure_summary" name="editor_measure_summary">@Model.pager_Auth_Results.First().Measure_Summary</textarea>
+                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Measure_Summary, new { @class = "form-control", @cols = "80", @rows = "5", @id = "measure_summary" })*@
                     </div>
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.pager_Results.First().Measure_Summary, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
-                            @Html.ValidationMessageFor(model => model.pager_Results.First().Measure_Summary, "", new { @class = "text-danger" })
-                        </div>
+                    <div class="col-md-10">
+                        @Html.Raw(Model.pager_Results.First().Measure_Summary)
+                        @*<textarea readonly name="editor_measure_summary_published">@Model.pager_Results.First().Measure_Summary</textarea>*@
+                    </div>
                     }
                 </td>
             </tr>
@@ -381,17 +387,18 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Inclusions, new { @class = "form-control", @cols = "80", @rows = "5", @id = "inclusions" })
-                        @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Inclusions, "", new { @class = "text-danger" })
+                        <textarea id="inclusions" name="editor_inclusions">@Model.pager_Auth_Results.First().Inclusions</textarea>
+                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Inclusions, new { @class = "form-control", @cols = "80", @rows = "5", @id = "inclusions" })*@
                     </div>
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.pager_Results.First().Inclusions, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
-                            @Html.ValidationMessageFor(model => model.pager_Results.First().Inclusions, "", new { @class = "text-danger" })
-                        </div>
+                    <div class="col-md-10">
+                        @Html.Raw(Model.pager_Results.First().Inclusions)
+                        @*<textarea readonly name="editor_inclusions_published">@Model.pager_Results.First().Inclusions</textarea>*@
+                        @*@Html.TextAreaFor(model => model.pager_Results.First().Inclusions, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })*@
+                    </div>
                     }
                 </td>
             </tr>
@@ -417,7 +424,8 @@
                     @if (hasPublishedVersion)
                     {
                         <div class="col-md-10">
-                            <textarea name="editor_exclusions_published">@Model.pager_Results.First().Exclusions</textarea>
+                            @Html.Raw(Model.pager_Results.First().Exclusions)
+                            @*<textarea readonly name="editor_exclusions_published">@Model.pager_Results.First().Exclusions</textarea>*@
                             @*@Html.TextAreaFor(model => model.pager_Results.First().Exclusions, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })*@
                         </div>
                     }
@@ -445,7 +453,8 @@
                     @if (hasPublishedVersion)
                     {
                     <div class="col-md-10">
-                        <textarea name="editor_success_published">@Model.pager_Results.First().Success</textarea>
+                        @Html.Raw(Model.pager_Results.First().Success)
+                        @*<textarea readonly name="editor_success_published">@Model.pager_Results.First().Success</textarea>*@
                         @*@Html.TextAreaFor(model => model.pager_Results.First().Success, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })*@
                     </div>
                     }
@@ -493,7 +502,7 @@
                     </div>
                     <div>
                         <button class="btn btn-warning" id="modify" style="white-space: normal; width: 65px;">Modify</button>
-                        <button class="btn btn-warning" id="create_new_provider" style="white-space: normal; width: 65px;">Create New Provider</button>
+                        <button class="btn btn-warning" id="create_new_provider" style="white-space: normal; width: 65px;">Create New Attribute</button>
                     </div>
                 </td>
 
@@ -501,7 +510,8 @@
                     <div class="col-md-10" style="word-wrap:break-word">
                         @if (hasPublishedVersion && hasPublishedProvider)
                         {
-                            <textarea id="haspublished" readonly name="editor2" cols="40" rows="10" wrap="hard">@Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
+                            @Html.Raw(Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name)
+                            @*<textarea id="haspublishedprovider" readonly name="editor2" cols="40" rows="10" wrap="hard">@Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>*@
                         }
                     </div>
                 </td>
@@ -520,17 +530,18 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.pager_Auth_Results.First().Risk_Adjustment, new { @class = "form-control", @cols = "80", @rows = "5", @id = "risk_adjustment" })
-                        @Html.ValidationMessageFor(model => model.pager_Auth_Results.First().Risk_Adjustment, "", new { @class = "text-danger" })
+                        <textarea id="risk_adjustment" name="editor_risk_adjustment">@Model.pager_Auth_Results.First().Risk_Adjustment</textarea>
+                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Risk_Adjustment, new { @class = "form-control", @cols = "80", @rows = "5", @id = "risk_adjustment" })*@
                     </div>
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.pager_Results.First().Risk_Adjustment, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })
-                            @Html.ValidationMessageFor(model => model.pager_Results.First().Risk_Adjustment, "", new { @class = "text-danger" })
-                        </div>
+                    <div class="col-md-10">
+                        @Html.Raw(Model.pager_Results.First().Risk_Adjustment)
+                        @*<textarea readonly name="editor_risk_adjustment_published">@Model.pager_Auth_Results.First().Risk_Adjustment</textarea>*@
+                        @*@Html.TextAreaFor(model => model.pager_Results.First().Risk_Adjustment, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })*@
+                    </div>
                     }
                 </td>
             </tr>
@@ -556,7 +567,8 @@
                     @if (hasPublishedVersion)
                     {
                     <div class="col-md-10">
-                        <textarea name="editor_references_published">@Model.pager_Auth_Results.First().Reference</textarea>
+                        @Html.Raw(Model.pager_Results.First().Reference)
+                        @*<textarea readonly name="editor_references_published">@Model.pager_Auth_Results.First().Reference</textarea>*@
                         @*@Html.TextAreaFor(model => model.pager_Results.First().Reference, new { @class = "form-control", @cols = "80", @rows = "3", @readonly = "readonly" })*@
                     </div>
                     }
@@ -605,16 +617,28 @@
             $('#responsible_provider_select').select2();
 
             //CKEITOR replace
-            CKEDITOR.replace('editor1');            
+            CKEDITOR.replace('editor1'); 
+            CKEDITOR.replace('editor_data_collection_method'); 
+            CKEDITOR.replace('editor_description'); 
+            CKEDITOR.replace('editor_measure_summary'); 
+            CKEDITOR.replace('editor_inclusions'); 
             CKEDITOR.replace('editor_exclusions');
             CKEDITOR.replace('editor_success');
+            CKEDITOR.replace('editor_risk_adjustment');
             CKEDITOR.replace('editor_references');
-            if (document.getElementById('haspublished') != null) {
-                CKEDITOR.replace('editor2');
-                CKEDITOR.replace('editor_exclusions_published');
-                CKEDITOR.replace('editor_success_published');
-                CKEDITOR.replace('editor_references_published');
-            }
+            //if (document.getElementById('haspublished') != null) {
+            //    if (document.getElementById('haspublishedprovider') != null) {
+            //        CKEDITOR.replace('editor2');
+            //    }              
+            //    CKEDITOR.replace('editor_data_collection_method_published');
+            //    CKEDITOR.replace('editor_description_published');
+            //    CKEDITOR.replace('editor_measure_summary_published');
+            //    CKEDITOR.replace('editor_inclusions_published');
+            //    CKEDITOR.replace('editor_exclusions_published');
+            //    CKEDITOR.replace('editor_success_published');
+            //    CKEDITOR.replace('editor_risk_adjustment_published');
+            //    CKEDITOR.replace('editor_references_published');
+            //}
 
             $('.provider_option').each(function () {
                 if (this.text.length >= 100) {
@@ -846,15 +870,20 @@
                 var measure_type = $('#measure_type').val();
                 var scope = $('#scope').val();
                 var threshold = $('#threshold').val();
-                var data_collection_method = $('#data_collection_method').val();
-                var description = $('#description').val();
-                var measure_summary = $('#measure_summary').val();
-                var inclusions = $('#inclusions').val();
+                var data_collection_method = CKEDITOR.instances["data_collection_method"].getData();
+                //var data_collection_method = $('#data_collection_method').val();
+                var description = CKEDITOR.instances["description"].getData();
+                //var description = $('#description').val();
+                var measure_summary = CKEDITOR.instances["measure_summary"].getData();
+                //var measure_summary = $('#measure_summary').val();              
+                var inclusions = CKEDITOR.instances["inclusions"].getData();
+                //var inclusions = $('#inclusions').val();
                 //var exclusions = $('#exclusions').val();
                 var exclusions = CKEDITOR.instances["exclusions"].getData();
                 //var success = $('#success').val();
                 var success = CKEDITOR.instances["success"].getData();
-                var risk_adjustment = $('#risk_adjustment').val();
+                var risk_adjustment = CKEDITOR.instances["risk_adjustment"].getData();
+                //var risk_adjustment = $('#risk_adjustment').val();
                 //var references = $('#references').val();
                 var references = CKEDITOR.instances["references"].getData();
                 var measure_id = $('#Measure_ID').val();

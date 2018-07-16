@@ -494,6 +494,7 @@
     <Content Include="Views\Pager\ModifyDomain.cshtml" />
     <Content Include="Views\Pager\ModifyMeasureType.cshtml" />
     <Content Include="Views\Pager\ModifyScope.cshtml" />
+    <Content Include="Views\Pager\Public.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

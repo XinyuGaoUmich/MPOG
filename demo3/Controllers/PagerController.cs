@@ -34,6 +34,18 @@ namespace demo3.Controllers
             return View(model);
         }
 
+
+        public ActionResult Public(int? id)
+        {
+            List<Pager_Auth_Result> pager_auth = db2.Pager_Auth(id).ToList();
+            var nQS_Domain = db2.Enumeration_NQS_Domain;
+            var measure_Type = db2.Enumeration_Measure_Type;
+            var scope = db2.Enumeration_Scope;
+            var responsible_provider = db2.Enumeration_Responsible_Provider;
+            List<Pager_Result> pager = db2.Pager(id).ToList();
+            var model = new EditPager { pager_Auth_Results = pager_auth, pager_Results = pager, nQS_Domain = nQS_Domain, measure_Type = measure_Type, scope = scope, responsible_Provider = responsible_provider };
+            return View(model);
+        }
         // GET: Pager/Edit/5
         public ActionResult Edit(int id)
         {
