@@ -19,6 +19,30 @@ namespace demo3.Models
             set;
         }
 
+        public IEnumerable<Enumeration_NQS_Domain> nQS_Domain
+        {
+            get;
+            set;
+        }
+
+        public IEnumerable<Enumeration_Measure_Type> measure_Type
+        {
+            get;
+            set;
+        }
+
+        public IEnumerable<Enumeration_Scope> scope
+        {
+            get;
+            set;
+        }
+
+        public IEnumerable<Enumeration_Responsible_Provider> responsible_Provider
+        {
+            get;
+            set;
+        }
+
         public IEnumerable<Collations_Result> collations_Results
         {
             get;

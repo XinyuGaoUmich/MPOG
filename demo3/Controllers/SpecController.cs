@@ -12,13 +12,21 @@ namespace demo3.Controllers
         private MPOG_XinyuEntities4 db2 = new MPOG_XinyuEntities4();
         // GET: Spec
         public ActionResult Index(int? id)
-        {        
-            ViewBag.basic = db2.Spec(id).First();
-            ViewBag.collations = db2.Collations(id);
-            ViewBag.diagnostics = db2.Data_Diagnostics_Affected(id);
-            ViewBag.concept = db2.MPOG_Concept_ID_Required(id);
-            ViewBag.published = db2.Spec_Published(id).First();
-            return View();
+        {
+            //List<Pager_Auth_Result> pager_auth = db2.Pager_Auth(id).ToList();
+            List<Spec_Result> spec_Results = db2.Spec(id).ToList();
+            var nQS_Domain = db2.Enumeration_NQS_Domain;
+            var measure_Type = db2.Enumeration_Measure_Type;
+            var scope = db2.Enumeration_Scope;
+            var responsible_provider = db2.Enumeration_Responsible_Provider;
+            var collations = db2.Collations(id);
+            var data_diagnostic = db2.Data_Diagnostics_Affected(id);
+            var mpog_concept_id = db2.MPOG_Concept_ID_Required(id);
+            //List<Pager_Result> pager = db2.Pager(id).ToList();
+            List<Spec_Published_Result> spec_Published_Results = db2.Spec_Published(id).ToList();
+            //var model = new EditPager { pager_Auth_Results = pager_auth, pager_Results = pager, nQS_Domain = nQS_Domain, measure_Type = measure_Type, scope = scope, responsible_Provider = responsible_provider };
+            var model = new EditSpec { spec_Results = spec_Results, spec_Published_Results = spec_Published_Results, collations_Results = collations, concept_ID_Required_Results = mpog_concept_id, data_Diagnostics_Affected_Results = data_diagnostic, measure_Type = measure_Type, nQS_Domain = nQS_Domain, responsible_Provider = responsible_provider, scope = scope };
+            return View(model);           
         }
 
         public ActionResult Edit(int? id)

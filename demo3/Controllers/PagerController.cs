@@ -18,12 +18,6 @@ namespace demo3.Controllers
         private MPOG_XinyuEntities4 db2 = new MPOG_XinyuEntities4();
         public ActionResult Index(int? id)
         {
-
-            //ViewBag.basic = db2.Pager_Auth(id).First();        
-            //ViewBag.published = db2.Pager(id).First();
-            //ViewBag.responsible_provider = db2.Enumeration_Responsible_Provider;
-            //ViewBag.responsible_provider_id = db2.Responsible_Provider_Unpublished.Where(o => o.Measure_ID == id);
-
             List<Pager_Auth_Result> pager_auth = db2.Pager_Auth(id).ToList();
             var nQS_Domain = db2.Enumeration_NQS_Domain;
             var measure_Type = db2.Enumeration_Measure_Type;
