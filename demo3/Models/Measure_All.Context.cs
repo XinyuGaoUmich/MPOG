@@ -34,6 +34,8 @@ namespace demo3.Models
         public virtual DbSet<Enumeration_Responsible_Provider> Enumeration_Responsible_Provider { get; set; }
         public virtual DbSet<Enumeration_Scope> Enumeration_Scope { get; set; }
         public virtual DbSet<Responsible_Provider_Published> Responsible_Provider_Published { get; set; }
+        public virtual DbSet<Concept_Each_Header> Concept_Each_Header { get; set; }
+        public virtual DbSet<MPOG_Concepts> MPOG_Concepts { get; set; }
     
         public virtual ObjectResult<Details_All_Result> Details_All(Nullable<int> measure_ID)
         {

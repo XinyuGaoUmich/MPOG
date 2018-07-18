@@ -61,5 +61,17 @@ namespace demo3.Models
             set;
         }
 
+        public IEnumerable<Concept_Each_Header> all_Concept_ids
+        {
+            get;
+            set;
+        }
+
+        public IEnumerable<MPOG_Concepts> all_Concepts
+        {
+            get;
+            set;
+        }
+
     }
 }

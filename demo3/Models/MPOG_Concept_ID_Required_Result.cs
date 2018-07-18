@@ -13,9 +13,7 @@ namespace demo3.Models
     
     public partial class MPOG_Concept_ID_Required_Result
     {
-        public int Measure_ID { get; set; }
         public string MPOG_Concept_Header_Name { get; set; }
-        public Nullable<int> MPOG_Concept_ID { get; set; }
-        public string concept_desc { get; set; }
+        public int MPOG_Concept_Header_ID { get; set; }
     }
 }

@@ -402,18 +402,25 @@
             <tr>
                 <td>
                     <div class="col-md-11" style="word-wrap:break-word">
-                        @Html.Raw(Model.concept_ID_Required_Results.First().MPOG_Concept_Header_Name)
-                        @*@Model.pager_Auth_Results.First().Exclusions*@
-                        @*<textarea id="textarea_exclusions" name="editor_exclusions" readonly cols="60" rows="10" wrap="hard">@Model.pager_Auth_Results.First().Exclusions</textarea>*@
+                        @foreach (var header in Model.concept_ID_Required_Results)
+                        {
+                            <strong>@header.MPOG_Concept_Header_Name</strong>
+                            <ul>
+                                @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID))
+                                {
+                                    <li>
+                                        @item.MPOG_Concept_ID
+                                        @Model.all_Concepts.Where(o => o.MPOG_Concept_ID == item.MPOG_Concept_ID).First().concept_desc
+                                    </li>
+                                }
+                            </ul>
+                        }
                     </div>
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
                         <div class="col-md-11" style="word-wrap:break-word">
-                            @*@Html.Raw(Model.concept_ID_Required_Results)*@
-                            @*<textarea id="textarea_exclusions_published" name="editor_exclusions_published" readonly cols="60" rows="10" wrap="hard">@Model.pager_Results.First().Exclusions</textarea>*@
-                            @*@Model.pager_Results.First().Exclusions*@
                         </div>
                     }
                 </td>
@@ -434,18 +441,20 @@
             <tr>
                 <td>
                     <div class="col-md-11" style="word-wrap:break-word">
-                        @*@Html.Raw(Model.concept_ID_Required_Results.First().MPOG_Concept_Header_Name)*@
-                        @*@Model.pager_Auth_Results.First().Exclusions*@
-                        @*<textarea id="textarea_exclusions" name="editor_exclusions" readonly cols="60" rows="10" wrap="hard">@Model.pager_Auth_Results.First().Exclusions</textarea>*@
+                        <ul>
+                            @foreach(var item in Model.data_Diagnostics_Affected_Results)
+                            {
+                                <li>
+                                    @item.Display_Name
+                                </li>
+                            }
+                        </ul>
                     </div>
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-11" style="word-wrap:break-word">
-                            @*@Html.Raw(Model.concept_ID_Required_Results)*@
-                            @*<textarea id="textarea_exclusions_published" name="editor_exclusions_published" readonly cols="60" rows="10" wrap="hard">@Model.pager_Results.First().Exclusions</textarea>*@
-                            @*@Model.pager_Results.First().Exclusions*@
+                        <div class="col-md-11" style="word-wrap:break-word">                          
                         </div>
                     }
                 </td>
@@ -466,18 +475,20 @@
             <tr>
                 <td>
                     <div class="col-md-11" style="word-wrap:break-word">
-                        @*@Html.Raw(Model.concept_ID_Required_Results.First().MPOG_Concept_Header_Name)*@
-                        @*@Model.pager_Auth_Results.First().Exclusions*@
-                        @*<textarea id="textarea_exclusions" name="editor_exclusions" readonly cols="60" rows="10" wrap="hard">@Model.pager_Auth_Results.First().Exclusions</textarea>*@
+                        <ul>
+                            @foreach (var item in Model.collations_Results)
+                            {
+                                <li>
+                                    @item.Collation_Name
+                                </li>
+                            }
+                        </ul>
                     </div>
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
                         <div class="col-md-11" style="word-wrap:break-word">
-                            @*@Html.Raw(Model.concept_ID_Required_Results)*@
-                            @*<textarea id="textarea_exclusions_published" name="editor_exclusions_published" readonly cols="60" rows="10" wrap="hard">@Model.pager_Results.First().Exclusions</textarea>*@
-                            @*@Model.pager_Results.First().Exclusions*@
                         </div>
                     }
                 </td>
@@ -499,8 +510,6 @@
                 <td>
                     <div class="col-md-11" style="word-wrap:break-word">
                         @Html.Raw(Model.spec_Results.First().Other_Build_Details)
-                        @*@Model.pager_Auth_Results.First().Exclusions*@
-                        @*<textarea id="textarea_exclusions" name="editor_exclusions" readonly cols="60" rows="10" wrap="hard">@Model.pager_Auth_Results.First().Exclusions</textarea>*@
                     </div>
                 </td>
                 <td>
@@ -508,8 +517,6 @@
                     {
                         <div class="col-md-11" style="word-wrap:break-word">
                             @Html.Raw(Model.spec_Published_Results.First().Other_Build_Details)
-                            @*<textarea id="textarea_exclusions_published" name="editor_exclusions_published" readonly cols="60" rows="10" wrap="hard">@Model.pager_Results.First().Exclusions</textarea>*@
-                            @*@Model.pager_Results.First().Exclusions*@
                         </div>
                     }
                 </td>
@@ -527,17 +534,13 @@
             <tr>
                 <td>
                     <div class="col-md-11" style="word-wrap:break-word">
-                        @*@Model.pager_Auth_Results.First().Success*@
                         @Html.Raw(Model.spec_Results.First().Success)
-                        @*<textarea id="textarea_success" name="editor_success" readonly cols="60" rows="10" wrap="hard">@Model.pager_Auth_Results.First().Success</textarea>*@
                     </div>
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {<div class="col-md-11" style="word-wrap:break-word">
                             @Html.Raw(Model.spec_Published_Results.First().Success)
-                            @*<textarea id="textarea_success_published" name="editor_success_published" readonly cols="60" rows="10" wrap="hard">@Model.pager_Results.First().Success</textarea>*@
-                            @*@Model.pager_Results.First().Success*@
                         </div>
                     }
                 </td>
@@ -558,7 +561,6 @@
                         @if (Model.spec_Results.First().Responsible_Provider_ID != null)
                         {
                             @Html.Raw(Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.spec_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name)
-                            @*<textarea id="textarea1" name="editor1" readonly cols="60" rows="10" wrap="hard">@Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Auth_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>*@
                         }
                     </div>
                 </td>
@@ -567,7 +569,6 @@
                         @if (hasPublishedVersion && Model.spec_Published_Results.First().Responsible_Provider_ID != null)
                         {
                             @Html.Raw(Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.spec_Published_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name)
-                            @*<textarea id="textarea2" name="editor2" readonly cols="60" rows="10" wrap="hard">@Model.responsible_Provider.Where(o=>o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>*@
                         }
                     </div>
                 </td>
@@ -586,8 +587,6 @@
                 <td>
                     <div class="col-md-11" style="word-wrap:break-word">
                         @Html.Raw(Model.spec_Results.First().Risk_Adjustment)
-                        @*@Model.pager_Auth_Results.First().Risk_Adjustment*@
-                        @*<textarea id="textarea_risk_adjustment" name="editor_risk_adjustment" readonly cols="60" rows="10" wrap="hard">@Model.pager_Auth_Results.First().Risk_Adjustment</textarea>*@
                     </div>
                 </td>
 
@@ -596,8 +595,6 @@
                     {
                         <div class="col-md-11" style="word-wrap:break-word">
                             @Html.Raw(Model.spec_Published_Results.First().Risk_Adjustment)
-                            @*@Model.pager_Results.First().Risk_Adjustment*@
-                            @*<textarea id="textarea_risk_adjustment_published" name="editor_risk_adjustment_published" readonly cols="60" rows="10" wrap="hard">@Model.pager_Results.First().Risk_Adjustment</textarea>*@
                         </div>
                     }
                 </td>
@@ -616,8 +613,6 @@
                 <td>
                     <div class="col-md-11" style="word-wrap:break-word">
                         @Html.Raw(Model.spec_Results.First().Flow_Chart)
-                        @*<textarea id="textarea_references" name="editor_references" readonly cols="60" rows="10" wrap="hard">@Model.pager_Auth_Results.First().Reference</textarea>*@
-                        @*@Model.pager_Auth_Results.First().Reference*@
                     </div>
                 </td>
                 <td>
@@ -625,8 +620,6 @@
                     {
                         <div class="col-md-11" style="word-wrap:break-word">
                             @Html.Raw(Model.spec_Published_Results.First().Flow_Chart)
-                            @*<textarea id="textarea_references_published" name="editor_references_published" readonly cols="60" rows="10" wrap="hard">@Model.pager_Results.First().Reference</textarea>*@
-                            @*@Model.pager_Results.First().Reference*@
                         </div>
                     }
                 </td>
@@ -645,8 +638,6 @@
                 <td>
                     <div class="col-md-11" style="word-wrap:break-word">
                         @Html.Raw(Model.spec_Results.First().Reference)
-                        @*<textarea id="textarea_references" name="editor_references" readonly cols="60" rows="10" wrap="hard">@Model.pager_Auth_Results.First().Reference</textarea>*@
-                        @*@Model.pager_Auth_Results.First().Reference*@
                     </div>
                 </td>
                 <td>
@@ -654,8 +645,6 @@
                     {
                         <div class="col-md-11" style="word-wrap:break-word">
                             @Html.Raw(Model.spec_Published_Results.First().Reference)
-                            @*<textarea id="textarea_references_published" name="editor_references_published" readonly cols="60" rows="10" wrap="hard">@Model.pager_Results.First().Reference</textarea>*@
-                            @*@Model.pager_Results.First().Reference*@
                         </div>
                     }
                 </td>

@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MPOG_XinyuModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Concept_Each_Header">
+          <Key>
+            <PropertyRef Name="auto_id" />
+          </Key>
+          <Property Name="MPOG_Concept_Header_ID" Type="int" />
+          <Property Name="MPOG_Concept_ID" Type="int" />
+          <Property Name="auto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="Enumeration_Measure_Type">
           <Key>
             <PropertyRef Name="Measure_Type_ID" />
@@ -32,6 +40,17 @@
           </Key>
           <Property Name="Scope_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Scope_Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MPOG_Concepts">
+          <Key>
+            <PropertyRef Name="MPOG_Concept_ID" />
+          </Key>
+          <Property Name="MPOG_Concept_ID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="MPOG_Concept_Type_ID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="concept_desc" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="active_from" Type="datetime" />
+          <Property Name="active_to" Type="datetime" />
+          <Property Name="active" Type="numeric" Precision="18" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="Responsible_Provider_Published">
           <Key>
@@ -211,10 +230,12 @@
           <Parameter Name="Status_ID" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="MPOG_XinyuModel1StoreContainer">
+          <EntitySet Name="Concept_Each_Header" EntityType="Self.Concept_Each_Header" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Enumeration_Measure_Type" EntityType="Self.Enumeration_Measure_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Enumeration_NQS_Domain" EntityType="Self.Enumeration_NQS_Domain" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Enumeration_Responsible_Provider" EntityType="Self.Enumeration_Responsible_Provider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Enumeration_Scope" EntityType="Self.Enumeration_Scope" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MPOG_Concepts" EntityType="Self.MPOG_Concepts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Responsible_Provider_Published" EntityType="Self.Responsible_Provider_Published" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Responsible_Provider_Unpublished" EntityType="Self.Responsible_Provider_Unpublished" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status_Type" EntityType="Self.Status_Type" Schema="dbo" store:Type="Tables" />
@@ -389,6 +410,8 @@
             <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
             <Parameter Name="Reference" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Concept_Each_Header" EntityType="MPOG_XinyuModel1.Concept_Each_Header" />
+          <EntitySet Name="MPOG_Concepts" EntityType="MPOG_XinyuModel1.MPOG_Concepts" />
         </EntityContainer>
         <ComplexType Name="Details_All_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -415,11 +438,9 @@
           <Property Type="String" Name="Display_Name" Nullable="false" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="MPOG_Concept_ID_Required_Result">
-          <Property Type="Int32" Name="Measure_ID" Nullable="false" />
           <Property Type="String" Name="MPOG_Concept_Header_Name" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="MPOG_Concept_ID" Nullable="true" />
-          <Property Type="String" Name="concept_desc" Nullable="false" MaxLength="255" />
-        </ComplexType>
+          <Property Type="Int32" Name="MPOG_Concept_Header_ID" Nullable="false" />
+          </ComplexType>
         <ComplexType Name="Pager_Result">
           <Property Type="String" Name="NQS_Domain" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Responsible_Provider" Nullable="true" MaxLength="50" />
@@ -615,6 +636,25 @@
           <Property Type="Int32" Name="Unpublished_Measure_ID" Nullable="false" />
           <Property Type="String" Name="Unpublished_Measure_Abbreviation" Nullable="true" MaxLength="20" />
         </ComplexType>
+        <EntityType Name="Concept_Each_Header">
+          <Key>
+            <PropertyRef Name="auto_id" />
+          </Key>
+          <Property Name="MPOG_Concept_Header_ID" Type="Int32" />
+          <Property Name="MPOG_Concept_ID" Type="Int32" />
+          <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="MPOG_Concepts">
+          <Key>
+            <PropertyRef Name="MPOG_Concept_ID" />
+          </Key>
+          <Property Name="MPOG_Concept_ID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="MPOG_Concept_Type_ID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="concept_desc" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="active_from" Type="DateTime" Precision="3" />
+          <Property Name="active_to" Type="DateTime" Precision="3" />
+          <Property Name="active" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -660,11 +700,9 @@
           <FunctionImportMapping FunctionImportName="MPOG_Concept_ID_Required" FunctionName="MPOG_XinyuModel1.Store.MPOG_Concept_ID_Required">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MPOG_XinyuModel1.MPOG_Concept_ID_Required_Result">
-                <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
                 <ScalarProperty Name="MPOG_Concept_Header_Name" ColumnName="MPOG_Concept_Header_Name" />
-                <ScalarProperty Name="MPOG_Concept_ID" ColumnName="MPOG_Concept_ID" />
-                <ScalarProperty Name="concept_desc" ColumnName="concept_desc" />
-              </ComplexTypeMapping>
+                <ScalarProperty Name="MPOG_Concept_Header_ID" ColumnName="MPOG_Concept_Header_ID" />
+                </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Pager" FunctionName="MPOG_XinyuModel1.Store.Pager">
@@ -940,6 +978,27 @@
           <FunctionImportMapping FunctionImportName="Add_New_Provider_Published" FunctionName="MPOG_XinyuModel1.Store.Add_New_Provider_Published" />
           <FunctionImportMapping FunctionImportName="Publish_Pager" FunctionName="MPOG_XinyuModel1.Store.Publish_Pager" />
           <FunctionImportMapping FunctionImportName="Save_Pager" FunctionName="MPOG_XinyuModel1.Store.Save_Pager" />
+          <EntitySetMapping Name="Concept_Each_Header">
+            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Concept_Each_Header">
+              <MappingFragment StoreEntitySet="Concept_Each_Header">
+                <ScalarProperty Name="auto_id" ColumnName="auto_id" />
+                <ScalarProperty Name="MPOG_Concept_ID" ColumnName="MPOG_Concept_ID" />
+                <ScalarProperty Name="MPOG_Concept_Header_ID" ColumnName="MPOG_Concept_Header_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MPOG_Concepts">
+            <EntityTypeMapping TypeName="MPOG_XinyuModel1.MPOG_Concepts">
+              <MappingFragment StoreEntitySet="MPOG_Concepts">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="active_to" ColumnName="active_to" />
+                <ScalarProperty Name="active_from" ColumnName="active_from" />
+                <ScalarProperty Name="concept_desc" ColumnName="concept_desc" />
+                <ScalarProperty Name="MPOG_Concept_Type_ID" ColumnName="MPOG_Concept_Type_ID" />
+                <ScalarProperty Name="MPOG_Concept_ID" ColumnName="MPOG_Concept_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

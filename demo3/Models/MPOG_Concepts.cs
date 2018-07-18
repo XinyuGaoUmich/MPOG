@@ -20,7 +20,5 @@ namespace demo3.Models
         public Nullable<System.DateTime> active_from { get; set; }
         public Nullable<System.DateTime> active_to { get; set; }
         public decimal active { get; set; }
-    
-        public virtual MPOG_Concept_Types MPOG_Concept_Types { get; set; }
     }
 }

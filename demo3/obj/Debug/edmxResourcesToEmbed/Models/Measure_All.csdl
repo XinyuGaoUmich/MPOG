@@ -166,6 +166,8 @@
       <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
       <Parameter Name="Reference" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="Concept_Each_Header" EntityType="MPOG_XinyuModel1.Concept_Each_Header" />
+    <EntitySet Name="MPOG_Concepts" EntityType="MPOG_XinyuModel1.MPOG_Concepts" />
   </EntityContainer>
   <ComplexType Name="Details_All_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -192,10 +194,8 @@
     <Property Type="String" Name="Display_Name" Nullable="false" MaxLength="100" />
   </ComplexType>
   <ComplexType Name="MPOG_Concept_ID_Required_Result">
-    <Property Type="Int32" Name="Measure_ID" Nullable="false" />
     <Property Type="String" Name="MPOG_Concept_Header_Name" Nullable="true" MaxLength="50" />
-    <Property Type="Int32" Name="MPOG_Concept_ID" Nullable="true" />
-    <Property Type="String" Name="concept_desc" Nullable="false" MaxLength="255" />
+    <Property Type="Int32" Name="MPOG_Concept_Header_ID" Nullable="false" />
   </ComplexType>
   <ComplexType Name="Pager_Result">
     <Property Type="String" Name="NQS_Domain" Nullable="true" MaxLength="50" />
@@ -392,4 +392,23 @@
     <Property Type="Int32" Name="Unpublished_Measure_ID" Nullable="false" />
     <Property Type="String" Name="Unpublished_Measure_Abbreviation" Nullable="true" MaxLength="20" />
   </ComplexType>
+  <EntityType Name="Concept_Each_Header">
+    <Key>
+      <PropertyRef Name="auto_id" />
+    </Key>
+    <Property Name="MPOG_Concept_Header_ID" Type="Int32" />
+    <Property Name="MPOG_Concept_ID" Type="Int32" />
+    <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="MPOG_Concepts">
+    <Key>
+      <PropertyRef Name="MPOG_Concept_ID" />
+    </Key>
+    <Property Name="MPOG_Concept_ID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="MPOG_Concept_Type_ID" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="concept_desc" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="active_from" Type="DateTime" Precision="3" />
+    <Property Name="active_to" Type="DateTime" Precision="3" />
+    <Property Name="active" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+  </EntityType>
 </Schema>

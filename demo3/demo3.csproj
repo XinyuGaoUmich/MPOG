@@ -260,6 +260,9 @@
     <Compile Include="Models\Collations_Result.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Concept_Each_Header.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Data_Diagnostics_Affected_Result.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
@@ -358,7 +361,7 @@
     <Compile Include="Models\ModifyProvider.cs" />
     <Compile Include="Models\ModifyScope.cs" />
     <Compile Include="Models\MPOG_Concepts.cs">
-      <DependentUpon>Measure.tt</DependentUpon>
+      <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\MPOG_Concept_ID_Required_Result.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
