@@ -498,6 +498,10 @@
     <Content Include="Views\Pager\ModifyMeasureType.cshtml" />
     <Content Include="Views\Pager\ModifyScope.cshtml" />
     <Content Include="Views\Pager\Public.cshtml" />
+    <Content Include="Views\Spec\ModifyScope.cshtml" />
+    <Content Include="Views\Spec\ModifyDomain.cshtml" />
+    <Content Include="Views\Spec\ModifyMeasureType.cshtml" />
+    <Content Include="Views\Spec\ModifyProvider.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

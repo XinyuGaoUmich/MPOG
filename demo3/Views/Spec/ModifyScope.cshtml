@@ -1,0 +1,142 @@
+﻿@model demo3.Models.ModifyScope
+@{
+    ViewBag.Title = "Modify Scope";
+}
+
+<div style="display:flex; justify-content: space-between">
+    <h2>Modify Scope</h2>
+    <button id="back" class="btn btn-default" style="height: 30px; display: none">Back to selection</button>
+</div>
+
+<div id="alert" class="alert alert-danger">
+    You are changing the Scope of <strong>unpublished</strong> measures:
+    @foreach (var item in Model.unpublished_Scopes)
+    {
+        <text>@item.Unpublished_Measure_Abbreviation; </text>
+    }
+    <br />
+    You are changing the Scope of <strong>published</strong> measures:
+    @foreach (var item in Model.published_Scopes)
+    {
+        <text>@item.Published_Measure_Abbreviation; </text>
+    }
+    <br />
+    Would you like to modify the Scope for all the measures?
+    <button id="modify_all">Yes</button>
+    <button id="modify_only">No, just for the measure <text>@ViewBag.measure_Name</text></button>
+</div>
+
+<div id="all" style="display: none">
+    <div class="alert alert-warning">
+        You are changing the Scope of <strong>unpublished</strong> measures:
+        @foreach (var item in Model.unpublished_Scopes)
+        {
+            <text>@item.Unpublished_Measure_Abbreviation; </text>
+        }
+        <br />
+        You are changing the Scope of <strong>published</strong> measures:
+        @foreach (var item in Model.published_Scopes)
+        {
+            <text>@item.Published_Measure_Abbreviation; </text>
+        }
+    </div>
+    <input id="editor1" class="form-control" value="@ViewBag.scope_content " />
+    <br />
+    <button class="btn btn-danger" id="confirm_all">Confirm Editing</button>
+</div>
+
+<div id="only" style="display: none">
+    <div class="alert alert-warning">
+        You are changing the Scope of just measure <strong>@ViewBag.measure_Name</strong>
+    </div>
+    <input id="editor2" class="form-control" value="@ViewBag.scope_content" />
+    <br />
+    <button class="btn btn-danger" id="confirm_only">Confirm Editing</button>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#modify_all').click(function () {
+            $('#all').show();
+            $('#alert').hide();
+            $('#back').show();
+        })
+
+        $('#modify_only').click(function () {
+            $('#only').show();
+            $('#back').show();
+            $('#alert').hide();
+        })
+
+        $('#back').click(function () {
+            window.location.reload();
+        })
+
+        $('#confirm_all').click(function () {
+            var scope_content = $('#editor1').val();
+            var scope_id = @ViewBag.scope_id;
+            console.log(scope_content);
+            $.ajax({
+                url: '@Url.Action("Save_all_scope")',
+                type: 'POST',
+                data: {
+                    'scope_id': scope_id,
+                    'scope_content': scope_content
+                },
+                success: function (data) {
+                    if (data.success) {
+                        //console.log(data.message);
+                        console.log(data);
+                        alert('Updated Scope successfully!');
+                        window.location.href = "/Pager/Edit/" + @ViewBag.measure_ID;
+                    }
+                    else {
+                        console.log(data.message);
+                        alert('Failed to update Scope!');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            })
+        })
+
+        $('#confirm_only').click(function () {
+            var new_scope = $('#editor2').val();
+            console.log(new_scope);
+            if (new_scope == '') {
+                alert('please enter scope content!')
+                return;
+            }
+            var measure_id = @ViewBag.measure_ID;
+            $.ajax({
+                url: '@Url.Action("Save_new_scope")',
+                type: 'POST',
+                data: {
+                    'measure_id': measure_id,
+                    'new_scope': new_scope
+                },
+                success: function (data) {
+                    if (data.success) {
+                        console.log(data);
+                        alert('Created Scope successfully!');
+                        window.location.href = "/Pager/Edit/" + @ViewBag.measure_ID;
+                    }
+                    else {
+                        console.log(data.message);
+                        alert('Failed to update Scope!');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            })
+        })
+    })
+</script>

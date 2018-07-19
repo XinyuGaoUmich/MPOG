@@ -1,4 +1,4 @@
-﻿@model demo3.Models.EditPager
+﻿@model demo3.Models.EditSpec
 @{
     Layout = null;
     Boolean isLoggedin = false;
@@ -9,12 +9,13 @@
         isLoggedin = true;
     }
 
-    if (Model.pager_Results.Count() == 0)
+    if (Model.spec_Published_Results.Count() == 0)
     {
         hasPublishedVersion = false;
     }
 
-    if (hasPublishedVersion && Model.pager_Results.First().Responsible_Provider == null)
+
+    if (hasPublishedVersion && Model.spec_Published_Results.First().Responsible_Provider == null)
     {
         hasPublishedProvider = false;
     }
@@ -23,7 +24,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pager Page</title>
+    <title>Spec Page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -75,7 +76,7 @@
         <div class="collapse navbar-collapse" id="myNavbar" style="box-sizing:content-box">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">@Model.pager_Auth_Results.First().Measure_Abbreviation Basic Info<span class="caret"></span></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">@Model.spec_Results.First().Measure_Abbreviation Basic Info<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">NQS Domain</a></li>
                         <li><a href="#">Measure Type</a></li>
@@ -108,14 +109,14 @@
                 @Html.ActionLink("Go Back to Measure List", "Index", "Measures")
             </h4>
             <h4>
-                @Html.ActionLink("View " + (String)Model.pager_Auth_Results.First().Measure_Abbreviation + " Spec", "Index", "Spec", new { id = @Model.pager_Auth_Results.First().Measure_ID }, null)
+                @Html.ActionLink("View " + (String)Model.spec_Results.First().Measure_Abbreviation + " Pager", "Index", "pager", new { id = @Model.spec_Results.First().Measure_ID }, null)
             </h4>
             <h4>
-                @Html.ActionLink("Discard change and view " + (String)Model.pager_Auth_Results.First().Measure_Abbreviation + " Pager", "Index", "Pager", new { id = @Model.pager_Auth_Results.First().Measure_ID }, null)
+                @Html.ActionLink("Discard change and view " + (String)Model.spec_Results.First().Measure_Abbreviation + " Spec", "Index", "Spec", new { id = @Model.spec_Results.First().Measure_ID }, null)
             </h4>
         </div>
 
-        <h2>@Model.pager_Auth_Results.First().Measure_Abbreviation Basic Info</h2>
+        <h2>@Model.spec_Results.First().Measure_Abbreviation Basic Info</h2>
         <table>
             <tr>
                 <th>Unpublished</th>
@@ -124,24 +125,24 @@
             <tr>
                 <td>
                     <div class="form-group" style="display:none">
-                        @Html.LabelFor(model => model.pager_Auth_Results.First().Measure_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.LabelFor(model => model.spec_Results.First().Measure_ID, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.pager_Auth_Results.First().Measure_ID, new { htmlAttributes = new { @class = "selectpicker" } })
+                            @Html.EditorFor(model => model.spec_Results.First().Measure_ID, new { htmlAttributes = new { @class = "selectpicker" } })
                         </div>
                     </div>
 
                     <div class="form-group" style="display:inline">
-                        @Html.LabelFor(model => model.pager_Auth_Results.First().Measure_Abbreviation, htmlAttributes: new { @class = "control-label col-md-3" })
+                        @Html.LabelFor(model => model.spec_Results.First().Measure_Abbreviation, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.TextBoxFor(model => model.pager_Auth_Results.First().Measure_Abbreviation, new { @class = "form-control", @style = "width: 220px", @id = "measure_abbreviation" })
+                            @Html.TextBoxFor(model => model.spec_Results.First().Measure_Abbreviation, new { @class = "form-control", @style = "width: 220px", @id = "measure_abbreviation" })
                         </div>
                     </div>
 
                     <div class="form-group" style="display:inline">
-                        @Html.LabelFor(model => model.pager_Auth_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-3" })
+                        @Html.LabelFor(model => model.spec_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9" style="display: flex;">
                             <div style="width:220px">
-                                @Html.DropDownListFor(model => model.pager_Auth_Results.First().NQS_Domain_ID, new SelectList(Model.nQS_Domain, "NQS_Domain_ID", "NQS_Domain_Name", selectedValue: Model.pager_Auth_Results.First().NQS_Domain_ID), "Select NQS Domain", new { @class = "selectpicker", @style = "height: 30px; width: 220px", @id = "nqs_domain" })
+                                @Html.DropDownListFor(model => model.spec_Results.First().NQS_Domain_ID, new SelectList(Model.nQS_Domain, "NQS_Domain_ID", "NQS_Domain_Name", selectedValue: Model.spec_Results.First().NQS_Domain_ID), "Select NQS Domain", new { @class = "selectpicker", @style = "height: 30px; width: 220px", @id = "nqs_domain" })
                             </div>
                             <button id="create_domain_btn" class="btn btn-success" data-toggle="modal" data-target="#create_domain_modal">Create</button>
                             <button id="modify_domain_btn" class="btn btn-info">Modify</button>
@@ -174,9 +175,9 @@
                     </div>
 
                     <div class="form-group" style="display:inline">
-                        @Html.LabelFor(model => model.pager_Auth_Results.First().Measure_Type, htmlAttributes: new { @class = "control-label col-md-3" })
+                        @Html.LabelFor(model => model.spec_Results.First().Measure_Type, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9" style="display: flex;">
-                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Type_ID, new SelectList(Model.measure_Type, "Measure_Type_ID", "Measure_Type_Name", selectedValue: Model.pager_Auth_Results.First().Measure_Type_ID), "Select Measure Type", new { @class = "selectpicker", @style = "height: 30px", @id = "measure_type" })
+                            @Html.DropDownListFor(model => model.spec_Results.First().Measure_Type_ID, new SelectList(Model.measure_Type, "Measure_Type_ID", "Measure_Type_Name", selectedValue: Model.spec_Results.First().Measure_Type_ID), "Select Measure Type", new { @class = "selectpicker", @style = "height: 30px", @id = "measure_type" })
                             <button id="create_measure_type_btn" class="btn btn-success" data-toggle="modal" data-target="#create_measure_type_modal">Create</button>
                             <button id="modify_measure_type_btn" class="btn btn-info">Modify</button>
                         </div>
@@ -207,9 +208,9 @@
                     </div>
 
                     <div class="form-group" style="display:inline">
-                        @Html.LabelFor(model => model.pager_Auth_Results.First().Scope, htmlAttributes: new { @class = "control-label col-md-3" })
+                        @Html.LabelFor(model => model.spec_Results.First().Scope, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9" style="display: flex">
-                            @Html.DropDownListFor(model => model.pager_Auth_Results.First().Measure_Scope_ID, new SelectList(Model.scope, "Scope_ID", "Scope_Name", selectedValue: Model.pager_Auth_Results.First().Measure_Scope_ID), "Select Scope", new { @class = "selectpicker", @style = "height: 30px", @id = "scope" })
+                            @Html.DropDownListFor(model => model.spec_Results.First().Measure_Scope_ID, new SelectList(Model.scope, "Scope_ID", "Scope_Name", selectedValue: Model.spec_Results.First().Measure_Scope_ID), "Select Scope", new { @class = "selectpicker", @style = "height: 30px", @id = "scope" })
                             <button id="create_scope_btn" class="btn btn-success" data-toggle="modal" data-target="#create_scope_modal">Create</button>
                             <button id="modify_scope_btn" class="btn btn-info">Modify</button>
                         </div>
@@ -240,9 +241,9 @@
                     </div>
 
                     <div class="form-group" style="display:inline">
-                        @Html.LabelFor(model => model.pager_Auth_Results.First().Threshold, htmlAttributes: new { @class = "control-label col-md-3" })
+                        @Html.LabelFor(model => model.spec_Results.First().Threshold, htmlAttributes: new { @class = "control-label col-md-3" })
                         <div class="col-md-9">
-                            @Html.TextBoxFor(model => model.pager_Auth_Results.First().Threshold, new { @class = "form-control", @style = "width: 220px", @id = "threshold" })
+                            @Html.TextBoxFor(model => model.spec_Results.First().Threshold, new { @class = "form-control", @style = "width: 220px", @id = "threshold" })
                         </div>
                     </div>
                 </td>
@@ -251,40 +252,40 @@
                     @if (hasPublishedVersion)
                     {
                         <div class="form-group" style="display:inline">
-                            @Html.LabelFor(model => model.pager_Auth_Results.First().Measure_Abbreviation, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.LabelFor(model => model.spec_Published_Results.First().Measure_Abbreviation, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                @Html.TextBoxFor(model => model.pager_Results.First().Measure_Abbreviation, new { @class = "form-control", @readonly = "readonly", @style = "width:220px; height: 34px" })
+                                @Html.TextBoxFor(model => model.spec_Published_Results.First().Measure_Abbreviation, new { @class = "form-control", @readonly = "readonly", @style = "width:220px; height: 34px" })
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.pager_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.LabelFor(model => model.spec_Published_Results.First().NQS_Domain, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                @Html.TextBoxFor(model => model.pager_Results.First().NQS_Domain, new { @class = "form-control", @readonly = "readonly", @style = "width:220px; height: 34px" })
-                                @Html.ValidationMessageFor(model => model.pager_Results.First().NQS_Domain, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.pager_Results.First().Measure_Type, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
-                                @Html.TextBoxFor(model => model.pager_Results.First().Measure_Type, new { @class = "form-control", @readonly = "readonly", @style = "width:220px; height: 34px" })
-                                @Html.ValidationMessageFor(model => model.pager_Results.First().Measure_Type, "", new { @class = "text-danger" })
+                                @Html.TextBoxFor(model => model.spec_Published_Results.First().NQS_Domain, new { @class = "form-control", @readonly = "readonly", @style = "width:220px; height: 34px" })
+                                @Html.ValidationMessageFor(model => model.spec_Published_Results.First().NQS_Domain, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.pager_Results.First().Scope, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.LabelFor(model => model.spec_Published_Results.First().Measure_Type, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                @Html.TextBoxFor(model => model.pager_Results.First().Scope, new { @class = "form-control", @readonly = "readonly", @style = "width:220px; height: 34px" })
-                                @Html.ValidationMessageFor(model => model.pager_Results.First().Scope, "", new { @class = "text-danger" })
+                                @Html.TextBoxFor(model => model.spec_Published_Results.First().Measure_Type, new { @class = "form-control", @readonly = "readonly", @style = "width:220px; height: 34px" })
+                                @Html.ValidationMessageFor(model => model.spec_Published_Results.First().Measure_Type, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.pager_Results.First().Threshold, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.LabelFor(model => model.spec_Published_Results.First().Scope, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                @Html.TextBoxFor(model => model.pager_Results.First().Threshold, new { @class = "form-control", @readonly = "readonly", @style = "width:220px; height: 34px" })
-                                @Html.ValidationMessageFor(model => model.pager_Results.First().Threshold, "", new { @class = "text-danger" })
+                                @Html.TextBoxFor(model => model.spec_Published_Results.First().Scope, new { @class = "form-control", @readonly = "readonly", @style = "width:220px; height: 34px" })
+                                @Html.ValidationMessageFor(model => model.spec_Published_Results.First().Scope, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.spec_Published_Results.First().Threshold, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.TextBoxFor(model => model.spec_Published_Results.First().Threshold, new { @class = "form-control", @readonly = "readonly", @style = "width:220px; height: 34px" })
+                                @Html.ValidationMessageFor(model => model.spec_Published_Results.First().Threshold, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     }
@@ -305,8 +306,7 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        <textarea id="data_collection_method" name="editor_data_collection_method">@Model.pager_Auth_Results.First().Data_Collection_Method</textarea>
-                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Data_Collection_Method, new { @class = "form-control", @cols = "80", @rows = "5", @id = "data_collection_method" })*@
+                        <textarea id="data_collection_method" name="editor_data_collection_method">@Model.spec_Results.First().Data_Collection_Method</textarea>
                     </div>
                 </td>
 
@@ -315,7 +315,7 @@
                     {
                         <input type="hidden" id="haspublished" />
                         <div class="col-md-10">
-                            @Html.Raw(Model.pager_Results.First().Data_Collection_Method)
+                            @Html.Raw(Model.spec_Published_Results.First().Data_Collection_Method)
                             @*<textarea readonly name="editor_data_collection_method_published">@Model.pager_Results.First().Data_Collection_Method</textarea>*@
                             @*@Html.TextAreaFor(model => model.pager_Results.First().Data_Collection_Method, new { @class = "form-control", @readonly = "readonly", @cols = "80", @rows = "5" })*@
                         </div>
@@ -336,17 +336,14 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        <textarea id="description" name="editor_description">@Model.pager_Auth_Results.First().Description</textarea>
-                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Description, new { @class = "form-control", @cols = "80", @rows = "5", @id = "description" })*@
+                        <textarea id="description" name="editor_description">@Model.spec_Results.First().Description</textarea>
                     </div>
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
                         <div class="col-md-10">
-                            @Html.Raw(Model.pager_Results.First().Description)
-                            @*<textarea readonly name="editor_description_published">@Model.pager_Results.First().Description</textarea>*@
-                            @*@Html.TextAreaFor(model => model.pager_Results.First().Description, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })*@
+                            @Html.Raw(Model.spec_Published_Results.First().Description)
                         </div>
                     }
                 </td>
@@ -365,7 +362,7 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        <textarea id="measure_summary" name="editor_measure_summary">@Model.pager_Auth_Results.First().Measure_Summary</textarea>
+                        <textarea id="measure_summary" name="editor_measure_summary">@Model.spec_Results.First().Measure_Summary</textarea>
                         @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Measure_Summary, new { @class = "form-control", @cols = "80", @rows = "5", @id = "measure_summary" })*@
                     </div>
                 </td>
@@ -373,7 +370,7 @@
                     @if (hasPublishedVersion)
                     {
                         <div class="col-md-10">
-                            @Html.Raw(Model.pager_Results.First().Measure_Summary)
+                            @Html.Raw(Model.spec_Published_Results.First().Measure_Summary)
                             @*<textarea readonly name="editor_measure_summary_published">@Model.pager_Results.First().Measure_Summary</textarea>*@
                         </div>
                     }
@@ -383,7 +380,10 @@
     </div>
 
     <span class="anchor" id="section5"></span>
-    <div id="section55">
+    <div></div>
+
+    <span class="anchor" id="section6"></span>
+    <div id="section66">
         <h2>Inclusions</h2>
         <table>
             <tr>
@@ -393,46 +393,14 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        <textarea id="inclusions" name="editor_inclusions">@Model.pager_Auth_Results.First().Inclusions</textarea>
-                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Inclusions, new { @class = "form-control", @cols = "80", @rows = "5", @id = "inclusions" })*@
+                        <textarea id="inclusions" name="editor_inclusions">@Model.spec_Results.First().Inclusions</textarea>
                     </div>
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
                         <div class="col-md-10">
-                            @Html.Raw(Model.pager_Results.First().Inclusions)
-                            @*<textarea readonly name="editor_inclusions_published">@Model.pager_Results.First().Inclusions</textarea>*@
-                            @*@Html.TextAreaFor(model => model.pager_Results.First().Inclusions, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })*@
-                        </div>
-                    }
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <span class="anchor" id="section6"></span>
-    <div id="section66">
-        <h2>Exclusions</h2>
-        <table>
-            <tr>
-                <th>Unpublished</th>
-                <th>Published</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="col-md-10">
-                        <textarea id="exclusions" name="editor_exclusions">@Model.pager_Auth_Results.First().Exclusions</textarea>
-                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Exclusions, new { @class = "form-control", @cols = "80", @rows = "5", @id = "exclusions", @name="editor_success" })*@
-                    </div>
-                </td>
-                <td>
-                    @if (hasPublishedVersion)
-                    {
-                        <div class="col-md-10">
-                            @Html.Raw(Model.pager_Results.First().Exclusions)
-                            @*<textarea readonly name="editor_exclusions_published">@Model.pager_Results.First().Exclusions</textarea>*@
-                            @*@Html.TextAreaFor(model => model.pager_Results.First().Exclusions, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })*@
+                            @Html.Raw(Model.spec_Published_Results.First().Inclusions)
                         </div>
                     }
                 </td>
@@ -442,6 +410,40 @@
 
     <span class="anchor" id="section7"></span>
     <div id="section77">
+        <h2>Exclusions</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="col-md-10">
+                        <textarea id="exclusions" name="editor_exclusions">@Model.spec_Results.First().Exclusions</textarea>
+                    </div>
+                </td>
+                <td>
+                    @if (hasPublishedVersion)
+                    {
+                        <div class="col-md-10">
+                            @Html.Raw(Model.spec_Published_Results.First().Exclusions)
+                        </div>
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <!--
+         <li><a href="#section8">MPOG Concept IDs Required</a></li>
+                <li><a href="#section9">Data Diagnostics Affected</a></li>
+                <li><a href="#section10">Collations Used</a></li>
+                <li><a href="#section11">Other Measure Build Details</a></li>
+    -->
+
+    <span class="anchor" id="section12"></span>
+    <div id="section1212">
         <h2>Success</h2>
         <table>
             <tr>
@@ -451,7 +453,7 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        <textarea id="success" name="editor_success">@Model.pager_Auth_Results.First().Success</textarea>
+                        <textarea id="success" name="editor_success">@Model.spec_Results.First().Success</textarea>
                         @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Success, new { @class = "form-control", @cols = "80", @rows = "5", @id = "success" })*@
                     </div>
                 </td>
@@ -459,7 +461,7 @@
                     @if (hasPublishedVersion)
                     {
                         <div class="col-md-10">
-                            @Html.Raw(Model.pager_Results.First().Success)
+                            @Html.Raw(Model.spec_Published_Results.First().Success)
                             @*<textarea readonly name="editor_success_published">@Model.pager_Results.First().Success</textarea>*@
                             @*@Html.TextAreaFor(model => model.pager_Results.First().Success, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })*@
                         </div>
@@ -469,8 +471,8 @@
         </table>
     </div>
 
-    <span class="anchor" id="section8"></span>
-    <div id="section88">
+    <span class="anchor" id="section13"></span>
+    <div id="section1313">
         <h2>Responsible Provider</h2>
         <table>
             <tr>
@@ -479,13 +481,13 @@
             </tr>
             <tr>
                 <td>
-                    <div class="col-md-10" style="word-wrap:break-word" id="@(Model.pager_Auth_Results.First().Responsible_Provider_ID + "div")">
+                    <div class="col-md-10" style="word-wrap:break-word" id="@(Model.spec_Results.First().Responsible_Provider_ID + "div")">
                         <select id="responsible_provider_select" style="width: 440px">
                             <option value="0">Select Responsible Provider</option>
                             <option value="-1">Add New Provider</option>
                             @foreach (var item in Model.responsible_Provider)
                             {
-                                if (item.Responsible_Provider_ID == Model.pager_Auth_Results.First().Responsible_Provider_ID)
+                                if (item.Responsible_Provider_ID == Model.spec_Results.First().Responsible_Provider_ID)
                                 {
                                     <option class="provider_option" value="@item.Responsible_Provider_ID" selected="selected">@item.Responsible_Provider_Name</option>
                                 }
@@ -496,10 +498,10 @@
                             }
 
                         </select>
-                        <input type='hidden' class="providerId originalProviderId" id="@(Model.pager_Auth_Results.First().Responsible_Provider_ID + "input")" value="@Model.pager_Auth_Results.First().Responsible_Provider_ID" />
-                        @if (Model.pager_Auth_Results.First().Responsible_Provider_ID != null)
+                        <input type='hidden' class="providerId originalProviderId" id="@(Model.spec_Results.First().Responsible_Provider_ID + "input")" value="@Model.spec_Results.First().Responsible_Provider_ID" />
+                        @if (Model.spec_Results.First().Responsible_Provider_ID != null)
                         {
-                            <textarea readonly name="editor1">@Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Auth_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
+                            <textarea readonly name="editor1">@Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.spec_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>
                         }
                         else
                         {
@@ -516,8 +518,7 @@
                     <div class="col-md-10" style="word-wrap:break-word">
                         @if (hasPublishedVersion && hasPublishedProvider)
                         {
-                            @Html.Raw(Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name)
-                            @*<textarea id="haspublishedprovider" readonly name="editor2" cols="40" rows="10" wrap="hard">@Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>*@
+                            @Html.Raw(Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.spec_Published_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name)
                         }
                     </div>
                 </td>
@@ -525,8 +526,8 @@
         </table>
     </div>
 
-    <span class="anchor" id="section9"></span>
-    <div id="section99">
+    <span class="anchor" id="section14"></span>
+    <div id="section1414">
         <h2>Risk Adjustment</h2>
         <table>
             <tr>
@@ -536,17 +537,14 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        <textarea id="risk_adjustment" name="editor_risk_adjustment">@Model.pager_Auth_Results.First().Risk_Adjustment</textarea>
-                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Risk_Adjustment, new { @class = "form-control", @cols = "80", @rows = "5", @id = "risk_adjustment" })*@
+                        <textarea id="risk_adjustment" name="editor_risk_adjustment">@Model.spec_Results.First().Risk_Adjustment</textarea>
                     </div>
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
                         <div class="col-md-10">
-                            @Html.Raw(Model.pager_Results.First().Risk_Adjustment)
-                            @*<textarea readonly name="editor_risk_adjustment_published">@Model.pager_Auth_Results.First().Risk_Adjustment</textarea>*@
-                            @*@Html.TextAreaFor(model => model.pager_Results.First().Risk_Adjustment, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })*@
+                            @Html.Raw(Model.spec_Published_Results.First().Risk_Adjustment)
                         </div>
                     }
                 </td>
@@ -554,8 +552,13 @@
         </table>
     </div>
 
-    <span class="anchor" id="section10"></span>
-    <div id="section1010">
+
+    <!--
+        section 15
+    -->
+
+    <span class="anchor" id="section16"></span>
+    <div id="section1616">
         <h2>References</h2>
         <table>
             <tr>
@@ -565,17 +568,14 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        <textarea id="references" name="editor_references">@Model.pager_Auth_Results.First().Reference</textarea>
-                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Reference, new { @class = "form-control", @cols = "80", @rows = "5", @id = "references" })*@
+                        <textarea id="references" name="editor_references">@Model.spec_Results.First().Reference</textarea>
                     </div>
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
                         <div class="col-md-10">
-                            @Html.Raw(Model.pager_Results.First().Reference)
-                            @*<textarea readonly name="editor_references_published">@Model.pager_Auth_Results.First().Reference</textarea>*@
-                            @*@Html.TextAreaFor(model => model.pager_Results.First().Reference, new { @class = "form-control", @cols = "80", @rows = "3", @readonly = "readonly" })*@
+                            @Html.Raw(Model.spec_Published_Results.First().Reference)
                         </div>
                     }
                 </td>
@@ -583,7 +583,7 @@
         </table>
     </div>
 
-    <Alert Modal -->
+    <!-Alert Modal -->
         <div class="modal fade" id="alert_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -632,19 +632,6 @@
             CKEDITOR.replace('editor_success');
             CKEDITOR.replace('editor_risk_adjustment');
             CKEDITOR.replace('editor_references');
-            //if (document.getElementById('haspublished') != null) {
-            //    if (document.getElementById('haspublishedprovider') != null) {
-            //        CKEDITOR.replace('editor2');
-            //    }
-            //    CKEDITOR.replace('editor_data_collection_method_published');
-            //    CKEDITOR.replace('editor_description_published');
-            //    CKEDITOR.replace('editor_measure_summary_published');
-            //    CKEDITOR.replace('editor_inclusions_published');
-            //    CKEDITOR.replace('editor_exclusions_published');
-            //    CKEDITOR.replace('editor_success_published');
-            //    CKEDITOR.replace('editor_risk_adjustment_published');
-            //    CKEDITOR.replace('editor_references_published');
-            //}
 
             $('.provider_option').each(function () {
                 if (this.text.length >= 100) {
@@ -657,7 +644,7 @@
                 if (new_domain == null || new_domain == '') {
                     alert('cannot create empty domain name!')
                 }
-                var measure_id = @Model.pager_Auth_Results.First().Measure_ID;
+                var measure_id = @Model.spec_Results.First().Measure_ID;
                 console.log(new_domain);
                 $.ajax({
                     url: '@Url.Action("SaveNewDomain")',
@@ -688,7 +675,7 @@
                 if (new_measure_type == null || new_measure_type == '') {
                     alert('cannot create empty measure type name!')
                 }
-                var measure_id = @Model.pager_Auth_Results.First().Measure_ID;
+                var measure_id = @Model.spec_Results.First().Measure_ID;
                 $.ajax({
                     url: '@Url.Action("SaveNewMeasureType")',
                     type: 'POST',
@@ -718,7 +705,7 @@
                 if (new_scope == null || new_scope == '') {
                     alert('cannot create empty measure scope name!')
                 }
-                var measure_id = @Model.pager_Auth_Results.First().Measure_ID;
+                var measure_id = @Model.spec_Results.First().Measure_ID;
                 $.ajax({
                     url: '@Url.Action("SaveNewMeasureScope")',
                     type: 'POST',
@@ -748,7 +735,7 @@
                 $('#alert_modal').modal('show');
                 $('#proceed').click(function () {
                     var provider = $('#responsible_provider_select').val();
-                    var measure = @Model.pager_Auth_Results.First().Measure_ID;
+                    var measure = @Model.spec_Results.First().Measure_ID;
                     if (provider <= 0) {
                         alert("please select a provider!");
                         return;
@@ -761,7 +748,7 @@
                 $('#alert_modal').modal('show');
                 $('#proceed').click(function () {
                     var domain = $('#nqs_domain').val();
-                    var measure = @Model.pager_Auth_Results.First().Measure_ID;
+                    var measure = @Model.spec_Results.First().Measure_ID;
                     if (domain <= 0) {
                         alert("please select a domain!");
                         return;
@@ -774,7 +761,7 @@
                 $('#alert_modal').modal('show');
                 $('#proceed').click(function () {
                      var measure_type = $('#measure_type').val();
-                var measure = @Model.pager_Auth_Results.First().Measure_ID;
+                var measure = @Model.spec_Results.First().Measure_ID;
                 if (measure_type <= 0) {
                     alert("please select a measure type!");
                     return;
@@ -787,7 +774,7 @@
                 $('#alert_modal').modal('show');
                 $('#proceed').click(function () {
                      var scope = $('#scope').val();
-                    var measure = @Model.pager_Auth_Results.First().Measure_ID;
+                    var measure = @Model.spec_Results.First().Measure_ID;
                     if (scope <= 0) {
                         alert("please select a scope!");
                         return;
@@ -877,20 +864,12 @@
                 var scope = $('#scope').val();
                 var threshold = $('#threshold').val();
                 var data_collection_method = CKEDITOR.instances["data_collection_method"].getData();
-                //var data_collection_method = $('#data_collection_method').val();
                 var description = CKEDITOR.instances["description"].getData();
-                //var description = $('#description').val();
                 var measure_summary = CKEDITOR.instances["measure_summary"].getData();
-                //var measure_summary = $('#measure_summary').val();
                 var inclusions = CKEDITOR.instances["inclusions"].getData();
-                //var inclusions = $('#inclusions').val();
-                //var exclusions = $('#exclusions').val();
                 var exclusions = CKEDITOR.instances["exclusions"].getData();
-                //var success = $('#success').val();
                 var success = CKEDITOR.instances["success"].getData();
                 var risk_adjustment = CKEDITOR.instances["risk_adjustment"].getData();
-                //var risk_adjustment = $('#risk_adjustment').val();
-                //var references = $('#references').val();
                 var references = CKEDITOR.instances["references"].getData();
                 var measure_id = $('#Measure_ID').val();
                 var provider = $('#responsible_provider_select').val();

@@ -176,6 +176,33 @@
                         </div>
                     </div>
 
+                    <!--Delete Domain Modal -->
+                    <div class="modal fade" id="delete_domain_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete NQS Domain</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    You are deleting the NQS domain of <strong>Unpublished</strong> Measure:
+                                    <br />
+                                    <strong id="unpublished"></strong>
+                                    <br />
+                                    You are deleting the NQS domain of <strong>Published</strong> Measure: 
+                                    <br />
+                                    <strong id="published"></strong>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button id="confirm_delete" type="button" class="btn btn-primary">Confirm Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!--Create Measure Type Modal -->
                     <div class="modal fade" id="create_measure_type_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -245,7 +272,7 @@
                     @if (hasPublishedVersion)
                     {
                         <div class="form-group" style="display:inline">
-                            @Html.LabelFor(model => model.pager_Auth_Results.First().Measure_Abbreviation, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.LabelFor(model => model.pager_Results.First().Measure_Abbreviation, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
                                 @Html.TextBoxFor(model => model.pager_Results.First().Measure_Abbreviation, new { @class = "form-control", @readonly = "readonly", @style = "width:220px; height: 34px" })
                             </div>
@@ -300,7 +327,6 @@
                 <td>
                     <div class="col-md-10">
                         <textarea id="data_collection_method" name="editor_data_collection_method">@Model.pager_Auth_Results.First().Data_Collection_Method</textarea>
-                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Data_Collection_Method, new { @class = "form-control", @cols = "80", @rows = "5", @id = "data_collection_method" })*@
                     </div>
                 </td>
 
@@ -310,8 +336,6 @@
                         <input type="hidden" id="haspublished" />
                     <div class="col-md-10">
                         @Html.Raw(Model.pager_Results.First().Data_Collection_Method)
-                        @*<textarea readonly name="editor_data_collection_method_published">@Model.pager_Results.First().Data_Collection_Method</textarea>*@
-                        @*@Html.TextAreaFor(model => model.pager_Results.First().Data_Collection_Method, new { @class = "form-control", @readonly = "readonly", @cols = "80", @rows = "5" })*@
                     </div>
                     }
                 </td>
@@ -331,7 +355,6 @@
                 <td>
                     <div class="col-md-10">
                         <textarea id="description" name="editor_description">@Model.pager_Auth_Results.First().Description</textarea>
-                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Description, new { @class = "form-control", @cols = "80", @rows = "5", @id = "description" })*@
                     </div>
                 </td>
                 <td>
@@ -339,8 +362,6 @@
                     {
                     <div class="col-md-10">
                         @Html.Raw(Model.pager_Results.First().Description)
-                        @*<textarea readonly name="editor_description_published">@Model.pager_Results.First().Description</textarea>*@
-                        @*@Html.TextAreaFor(model => model.pager_Results.First().Description, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })*@
                     </div>
                     }
                 </td>
@@ -360,7 +381,6 @@
                 <td>
                     <div class="col-md-10">
                         <textarea id="measure_summary" name="editor_measure_summary">@Model.pager_Auth_Results.First().Measure_Summary</textarea>
-                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Measure_Summary, new { @class = "form-control", @cols = "80", @rows = "5", @id = "measure_summary" })*@
                     </div>
                 </td>
                 <td>
@@ -368,7 +388,6 @@
                     {
                     <div class="col-md-10">
                         @Html.Raw(Model.pager_Results.First().Measure_Summary)
-                        @*<textarea readonly name="editor_measure_summary_published">@Model.pager_Results.First().Measure_Summary</textarea>*@
                     </div>
                     }
                 </td>
@@ -388,7 +407,6 @@
                 <td>
                     <div class="col-md-10">
                         <textarea id="inclusions" name="editor_inclusions">@Model.pager_Auth_Results.First().Inclusions</textarea>
-                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Inclusions, new { @class = "form-control", @cols = "80", @rows = "5", @id = "inclusions" })*@
                     </div>
                 </td>
                 <td>
@@ -396,8 +414,6 @@
                     {
                     <div class="col-md-10">
                         @Html.Raw(Model.pager_Results.First().Inclusions)
-                        @*<textarea readonly name="editor_inclusions_published">@Model.pager_Results.First().Inclusions</textarea>*@
-                        @*@Html.TextAreaFor(model => model.pager_Results.First().Inclusions, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })*@
                     </div>
                     }
                 </td>
@@ -417,7 +433,6 @@
                 <td>
                     <div class="col-md-10">
                         <textarea id="exclusions" name="editor_exclusions">@Model.pager_Auth_Results.First().Exclusions</textarea>
-                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Exclusions, new { @class = "form-control", @cols = "80", @rows = "5", @id = "exclusions", @name="editor_success" })*@
                     </div>
                 </td>
                 <td>
@@ -425,8 +440,6 @@
                     {
                         <div class="col-md-10">
                             @Html.Raw(Model.pager_Results.First().Exclusions)
-                            @*<textarea readonly name="editor_exclusions_published">@Model.pager_Results.First().Exclusions</textarea>*@
-                            @*@Html.TextAreaFor(model => model.pager_Results.First().Exclusions, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })*@
                         </div>
                     }
                 </td>
@@ -446,7 +459,6 @@
                 <td>
                     <div class="col-md-10">
                         <textarea id="success" name="editor_success">@Model.pager_Auth_Results.First().Success</textarea>
-                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Success, new { @class = "form-control", @cols = "80", @rows = "5", @id = "success" })*@
                     </div>
                 </td>
                 <td>
@@ -454,8 +466,6 @@
                     {
                     <div class="col-md-10">
                         @Html.Raw(Model.pager_Results.First().Success)
-                        @*<textarea readonly name="editor_success_published">@Model.pager_Results.First().Success</textarea>*@
-                        @*@Html.TextAreaFor(model => model.pager_Results.First().Success, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })*@
                     </div>
                     }
                 </td>
@@ -511,7 +521,6 @@
                         @if (hasPublishedVersion && hasPublishedProvider)
                         {
                             @Html.Raw(Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name)
-                            @*<textarea id="haspublishedprovider" readonly name="editor2" cols="40" rows="10" wrap="hard">@Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.pager_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name</textarea>*@
                         }
                     </div>
                 </td>
@@ -531,7 +540,6 @@
                 <td>
                     <div class="col-md-10">
                         <textarea id="risk_adjustment" name="editor_risk_adjustment">@Model.pager_Auth_Results.First().Risk_Adjustment</textarea>
-                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Risk_Adjustment, new { @class = "form-control", @cols = "80", @rows = "5", @id = "risk_adjustment" })*@
                     </div>
                 </td>
                 <td>
@@ -539,8 +547,6 @@
                     {
                     <div class="col-md-10">
                         @Html.Raw(Model.pager_Results.First().Risk_Adjustment)
-                        @*<textarea readonly name="editor_risk_adjustment_published">@Model.pager_Auth_Results.First().Risk_Adjustment</textarea>*@
-                        @*@Html.TextAreaFor(model => model.pager_Results.First().Risk_Adjustment, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })*@
                     </div>
                     }
                 </td>
@@ -560,7 +566,6 @@
                 <td>
                     <div class="col-md-10">
                         <textarea id="references" name="editor_references">@Model.pager_Auth_Results.First().Reference</textarea>
-                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Reference, new { @class = "form-control", @cols = "80", @rows = "5", @id = "references" })*@
                     </div>
                 </td>
                 <td>
@@ -568,8 +573,6 @@
                     {
                     <div class="col-md-10">
                         @Html.Raw(Model.pager_Results.First().Reference)
-                        @*<textarea readonly name="editor_references_published">@Model.pager_Auth_Results.First().Reference</textarea>*@
-                        @*@Html.TextAreaFor(model => model.pager_Results.First().Reference, new { @class = "form-control", @cols = "80", @rows = "3", @readonly = "readonly" })*@
                     </div>
                     }
                 </td>
@@ -625,20 +628,7 @@
             CKEDITOR.replace('editor_exclusions');
             CKEDITOR.replace('editor_success');
             CKEDITOR.replace('editor_risk_adjustment');
-            CKEDITOR.replace('editor_references');
-            //if (document.getElementById('haspublished') != null) {
-            //    if (document.getElementById('haspublishedprovider') != null) {
-            //        CKEDITOR.replace('editor2');
-            //    }              
-            //    CKEDITOR.replace('editor_data_collection_method_published');
-            //    CKEDITOR.replace('editor_description_published');
-            //    CKEDITOR.replace('editor_measure_summary_published');
-            //    CKEDITOR.replace('editor_inclusions_published');
-            //    CKEDITOR.replace('editor_exclusions_published');
-            //    CKEDITOR.replace('editor_success_published');
-            //    CKEDITOR.replace('editor_risk_adjustment_published');
-            //    CKEDITOR.replace('editor_references_published');
-            //}
+            CKEDITOR.replace('editor_references');          
 
             $('.provider_option').each(function () {
                 if (this.text.length >= 100) {
@@ -764,6 +754,59 @@
                 })
             })
 
+             $('#delete_domain_btn').click(function () {
+                $('#alert_modal').modal('show');
+                 $('#proceed').click(function () {
+
+                    var domain = $('#nqs_domain').val();
+                    var measure = @Model.pager_Auth_Results.First().Measure_ID;
+                    if (domain <= 0) {
+                        alert("please select a domain!");
+                        return;
+                    }
+                    $.ajax({
+                        url: '@Url.Action("DeleteDomain", "Pager")',
+                        type: 'POST',
+                        data: {
+                            'domain': domain,
+                            'measure': measure
+                        },
+                        success: function (data) {
+                            if (data.success) {
+                                comma_sep_list_un = [];
+                                for (var i = 0; i < data.unpublishedList.length; i++) {
+                                    if (i == data.unpublishedList.length - 1) {
+                                        comma_sep_list_un.push(data.unpublishedList[i] + '; ')
+                                    }
+                                    else {
+                                        comma_sep_list_un.push(data.unpublishedList[i] + ', ')
+                                    };                                    
+                                }
+                                comma_sep_list_p = [];
+                                for (var i = 0; i < data.publishedList.length; i++) {
+                                    if (i == data.publishedList.length - 1) {
+                                        comma_sep_list_p.push(data.publishedList[i] + '; ')
+                                    }
+                                    else {
+                                        comma_sep_list_p.push(data.publishedList[i] + ', ')
+                                    };
+                                }
+                                $('#unpublished').html(comma_sep_list_un);
+                                $('#published').html(comma_sep_list_p);
+                                $('#alert_modal').modal('hide');
+                                $('#delete_domain_modal').modal('show');
+                            }
+                            else {
+                                alert('fail to get result from database!')
+                            }
+                        },
+                        error: function () {
+                            
+                        }
+                    })
+                })
+            })
+
             $('#modify_measure_type_btn').click(function () {
                 $('#alert_modal').modal('show');
                 $('#proceed').click(function () {
@@ -871,20 +914,12 @@
                 var scope = $('#scope').val();
                 var threshold = $('#threshold').val();
                 var data_collection_method = CKEDITOR.instances["data_collection_method"].getData();
-                //var data_collection_method = $('#data_collection_method').val();
                 var description = CKEDITOR.instances["description"].getData();
-                //var description = $('#description').val();
                 var measure_summary = CKEDITOR.instances["measure_summary"].getData();
-                //var measure_summary = $('#measure_summary').val();              
                 var inclusions = CKEDITOR.instances["inclusions"].getData();
-                //var inclusions = $('#inclusions').val();
-                //var exclusions = $('#exclusions').val();
                 var exclusions = CKEDITOR.instances["exclusions"].getData();
-                //var success = $('#success').val();
                 var success = CKEDITOR.instances["success"].getData();
                 var risk_adjustment = CKEDITOR.instances["risk_adjustment"].getData();
-                //var risk_adjustment = $('#risk_adjustment').val();
-                //var references = $('#references').val();
                 var references = CKEDITOR.instances["references"].getData();
                 var measure_id = $('#Measure_ID').val();
                 var provider = $('#responsible_provider_select').val();

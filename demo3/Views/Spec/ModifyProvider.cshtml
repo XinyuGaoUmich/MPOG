@@ -1,0 +1,147 @@
+﻿@model demo3.Models.ModifyProvider
+@{
+    ViewBag.Title = "ModifyProvider";
+}
+<script src="https://cdn.ckeditor.com/4.9.2/basic/ckeditor.js"></script>
+<div style="display:flex; justify-content: space-between">
+    <h2>Modify Provider</h2>
+    <button id="back" class="btn btn-default" style="height: 30px; display: none">Back to selection</button>
+</div>
+
+<div id="alert" class="alert alert-danger">
+    You are changing the provider of <strong>unpublished</strong> measures:
+    @foreach (var item in Model.unpublished_Providers)
+    {
+        <text>@item.Unpublished_Measure_Abbreviation; </text>
+    }
+    <br />
+    You are changing the provider of <strong>published</strong> measures:
+    @foreach (var item in Model.published_Providers)
+    {
+        <text>@item.Published_Measure_Abbreviation; </text>
+    }
+    <br />
+    Would you like to modify the provider for all the measures?
+    <button id="modify_all">Yes</button>
+    <button id="modify_only">No, just for the measure <text>@ViewBag.measure_Name</text></button>
+</div>
+
+<div id="all" style="display: none">
+    <div class="alert alert-warning">
+        You are changing the provider of <strong>unpublished</strong> measures:
+        @foreach (var item in Model.unpublished_Providers)
+        {
+            <text>@item.Unpublished_Measure_Abbreviation; </text>
+        }
+        <br />
+        You are changing the provider of <strong>published</strong> measures:
+        @foreach (var item in Model.published_Providers)
+        {
+            <text>@item.Published_Measure_Abbreviation; </text>
+        }
+    </div>
+    <textarea name="editor1">
+        @ViewBag.provider_content
+    </textarea>
+    <br />
+    <button class="btn btn-danger" id="confirm_all">Confirm Editing</button>
+</div>
+
+<div id="only" style="display: none">
+    <div class="alert alert-warning">
+        You are changing the provider of just measure <strong>@ViewBag.measure_Name</strong>
+    </div>
+    <textarea name="editor2">
+        @ViewBag.provider_content
+    </textarea>
+    <br />
+    <button class="btn btn-danger" id="confirm_only">Confirm Editing</button>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        CKEDITOR.replace('editor1');
+        CKEDITOR.replace('editor2');
+
+        $('#modify_all').click(function () {         
+            $('#all').show();
+            $('#alert').hide();
+            $('#back').show();
+        })
+
+        $('#modify_only').click(function () {
+            $('#only').show();
+            $('#back').show();
+            $('#alert').hide();
+        })
+
+        $('#back').click(function () {           
+            window.location.reload();           
+        })
+
+        $('#confirm_all').click(function () {          
+            var provider_content = CKEDITOR.instances.editor1.getData();
+            var provider_id = @ViewBag.provider_id;       
+            $.ajax({
+                url: '@Url.Action("Save_all_provider")',
+                type: 'POST',
+                data: {
+                    'provider_id': provider_id,
+                    'provider_content': provider_content
+                },
+                success: function (data) {
+                    if (data.success) {
+                        //console.log(data.message);
+                        console.log(data);
+                        alert('Updated provider successfully!');
+                        window.location.href = "/Pager/Edit/" + @ViewBag.measure_ID;
+                    }
+                    else {
+                        console.log(data.message);
+                        alert('Failed to update provider!');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            })
+        })
+
+        $('#confirm_only').click(function () {
+            var new_provider = CKEDITOR.instances.editor2.getData();
+            console.log(new_provider);
+            if (new_provider == '') {
+                alert('please enter provider content!')
+                return;
+            }
+            var measure_id = @ViewBag.measure_ID;
+            $.ajax({
+                url: '@Url.Action("Save_new_provider")',
+                type: 'POST',
+                data: {
+                    'measure_id': measure_id,
+                    'new_provider': new_provider
+                },
+                success: function (data) {
+                    if (data.success) {
+                        console.log(data);
+                        alert('Created provider successfully!');
+                        window.location.href = "/Pager/Edit/" + @ViewBag.measure_ID;
+                    }
+                    else {
+                        console.log(data.message);
+                        alert('Failed to update provider!');
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            })
+        })
+    })
+</script>

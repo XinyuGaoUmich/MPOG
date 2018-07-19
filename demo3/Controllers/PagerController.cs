@@ -276,6 +276,44 @@ namespace demo3.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public JsonResult DeleteDomain(int? measure, int? domain)
+        {            
+            try
+            {
+                var published = db2.Measure_Of_Domain_Published(domain).ToList();
+                var unpublished = db2.Measure_Of_Domain_Unpublished(domain).ToList();
+                var domain_content = db2.Enumeration_NQS_Domain.Where(o => o.NQS_Domain_ID == domain).Select(o => o.NQS_Domain_Name).First();
+                var unpublishedList = new List<string>();
+                var publishedList = new List<string>();
+                foreach (var item in unpublished)
+                {
+                    var itemName = db2.Pager_Auth(item.Unpublished_Measure_ID).Select(o => o.Measure_Abbreviation).First();
+                    unpublishedList.Add(itemName);
+                }
+                foreach (var item in published)
+                {
+                    var itemName = db2.Pager(item.Published_Measure_ID).Select(o => o.Measure_Abbreviation).First();
+                    publishedList.Add(itemName);
+                }
+                return Json(new
+                {
+                    success = true,
+                    domain_id = domain,
+                    unpublishedList,
+                    publishedList
+                });
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = e.Message
+                });
+            }
+        }
+
         public ActionResult ModifyMeasureType(int? measure, int? measure_type)
         {
             if (Session["roles"] == null || !Session["roles"].ToString().Contains("MeasureSpecEditor"))
