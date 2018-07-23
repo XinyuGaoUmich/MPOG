@@ -574,5 +574,14 @@ namespace demo3.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Save_Pager", measure_IDParameter, measure_AbbreviationParameter, data_Collection_MethodParameter, descriptionParameter, nQS_DomainParameter, measure_TypeParameter, scopeParameter, measure_SummaryParameter, inclusionsParameter, exclusionsParameter, successParameter, thresholdParameter, responsible_ProviderParameter, risk_AdjustmentParameter, referenceParameter);
         }
+    
+        public virtual int Delete_Domain(Nullable<int> domain_ID)
+        {
+            var domain_IDParameter = domain_ID.HasValue ?
+                new ObjectParameter("Domain_ID", domain_ID) :
+                new ObjectParameter("Domain_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_Domain", domain_IDParameter);
+        }
     }
 }

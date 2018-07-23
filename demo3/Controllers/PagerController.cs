@@ -56,10 +56,7 @@ namespace demo3.Controllers
             List<Pager_Result> pager = db2.Pager(id).ToList();
             var model = new EditPager { pager_Auth_Results = pager_auth, pager_Results = pager, nQS_Domain = nQS_Domain, measure_Type = measure_Type, scope = scope, responsible_Provider = responsible_provider };
             return View(model);
-        }
-
-      
-        
+        }             
         
         public JsonResult AutocompleteProvider(string term)
         {
@@ -104,8 +101,6 @@ namespace demo3.Controllers
                     success = true,
                     message = "success"
                 });
-
-
             }
             catch (Exception e)
             {
@@ -305,6 +300,26 @@ namespace demo3.Controllers
                 });
             }
             catch (Exception e)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = e.Message
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult ConfirmDelete(int? domain_id)
+        {
+            try {
+                db2.Delete_Domain(domain_id);
+                return Json(new
+                {
+                    success = true,
+                    message = "success"
+                });
+            } catch (Exception e)
             {
                 return Json(new
                 {

@@ -339,5 +339,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Delete_Domain" FunctionName="MPOG_XinyuModel1.Store.Delete_Domain" />
   </EntityContainerMapping>
 </Mapping>

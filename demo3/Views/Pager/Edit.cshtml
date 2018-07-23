@@ -807,6 +807,29 @@
                 })
             })
 
+            $('#confirm_delete').click(function () {
+                var domain_id = $('#nqs_domain').val();
+                $.ajax({
+                    url: '@Url.Action("ConfirmDelete", "Pager")',
+                    type: 'POST',
+                    data: {
+                        'domain_id': domain_id
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            alert('Delete NQS Domain successfully!');
+                            $('#delete_domain_modal').modal('hide');
+                            window.location.reload();
+                        } else {
+                            console.log(data.message);
+                        }
+                    },
+                    error: function () {
+                       
+                    }
+                })               
+            })
+
             $('#modify_measure_type_btn').click(function () {
                 $('#alert_modal').modal('show');
                 $('#proceed').click(function () {

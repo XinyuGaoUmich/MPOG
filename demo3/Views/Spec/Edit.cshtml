@@ -150,6 +150,33 @@
                         </div>
                     </div>
 
+                    <!--Delete Domain Modal -->
+                    <div class="modal fade" id="delete_domain_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete NQS Domain</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    You are deleting the NQS domain of <strong>Unpublished</strong> Measure:
+                                    <br />
+                                    <strong id="unpublished"></strong>
+                                    <br />
+                                    You are deleting the NQS domain of <strong>Published</strong> Measure:
+                                    <br />
+                                    <strong id="published"></strong>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button id="confirm_delete" type="button" class="btn btn-primary">Confirm Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!--Create Domain Modal -->
                     <div class="modal fade" id="create_domain_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -316,8 +343,6 @@
                         <input type="hidden" id="haspublished" />
                         <div class="col-md-10">
                             @Html.Raw(Model.spec_Published_Results.First().Data_Collection_Method)
-                            @*<textarea readonly name="editor_data_collection_method_published">@Model.pager_Results.First().Data_Collection_Method</textarea>*@
-                            @*@Html.TextAreaFor(model => model.pager_Results.First().Data_Collection_Method, new { @class = "form-control", @readonly = "readonly", @cols = "80", @rows = "5" })*@
                         </div>
                     }
                 </td>
@@ -363,7 +388,6 @@
                 <td>
                     <div class="col-md-10">
                         <textarea id="measure_summary" name="editor_measure_summary">@Model.spec_Results.First().Measure_Summary</textarea>
-                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Measure_Summary, new { @class = "form-control", @cols = "80", @rows = "5", @id = "measure_summary" })*@
                     </div>
                 </td>
                 <td>
@@ -371,7 +395,6 @@
                     {
                         <div class="col-md-10">
                             @Html.Raw(Model.spec_Published_Results.First().Measure_Summary)
-                            @*<textarea readonly name="editor_measure_summary_published">@Model.pager_Results.First().Measure_Summary</textarea>*@
                         </div>
                     }
                 </td>
@@ -380,7 +403,30 @@
     </div>
 
     <span class="anchor" id="section5"></span>
-    <div></div>
+    <div id="section55">
+        <h2>Rationale</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="col-md-10">
+                        <textarea id="rationale" name="editor_rationale">@Model.spec_Results.First().Rationale</textarea>
+                    </div>
+                </td>
+                <td>
+                    @if (hasPublishedVersion)
+                    {
+                        <div class="col-md-10">
+                            @Html.Raw(Model.spec_Published_Results.First().Rationale)
+                        </div>
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
 
     <span class="anchor" id="section6"></span>
     <div id="section66">
@@ -434,13 +480,76 @@
         </table>
     </div>
 
+    <span class="anchor" id="section8"></span>
+    <div id="section88">
+        <h2>MPOG concept ID Required</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="col-md-10">                      
+                        @foreach (var header in Model.concept_ID_Required_Results)
+                        {
+                            <strong class="header" id='@("header"+header.MPOG_Concept_Header_ID)'>@header.MPOG_Concept_Header_Name</strong> <span id='@("cross"+header.MPOG_Concept_Header_ID)' aria-hidden="true" style="cursor: pointer">&times;</span>
+                            <input type="text" id='@("input"+header.MPOG_Concept_Header_ID)' style="display: none"/>
+                            <ul>
+                                @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID))
+                                {
+                                    <li>
+                                        @item.MPOG_Concept_ID
+                                        @Model.all_Concepts.Where(o => o.MPOG_Concept_ID == item.MPOG_Concept_ID).First().concept_desc
+                                        <span aria-hidden="true" style="cursor: pointer">&times;</span>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </div>
+                </td>
+                <td>
+                    @if (hasPublishedVersion)
+                    {
+                        <div class="col-md-10">
+                        </div>
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
 
     <!--
          <li><a href="#section8">MPOG Concept IDs Required</a></li>
                 <li><a href="#section9">Data Diagnostics Affected</a></li>
-                <li><a href="#section10">Collations Used</a></li>
-                <li><a href="#section11">Other Measure Build Details</a></li>
+                <li><a href="#section10">Collations Used</a></li>              
     -->
+
+    <span class="anchor" id="section11"></span>
+    <div id="section1111">
+        <h2>Other Measure Build Details</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="col-md-10">
+                        <textarea id="other_measure_build_details" name="editor_other_measure_build_details">@Model.spec_Results.First().Other_Build_Details</textarea>
+                    </div>
+                </td>
+                <td>
+                    @if (hasPublishedVersion)
+                    {
+                        <div class="col-md-10">
+                            @Html.Raw(Model.spec_Published_Results.First().Other_Build_Details)
+                        </div>
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
 
     <span class="anchor" id="section12"></span>
     <div id="section1212">
@@ -454,7 +563,6 @@
                 <td>
                     <div class="col-md-10">
                         <textarea id="success" name="editor_success">@Model.spec_Results.First().Success</textarea>
-                        @*@Html.TextAreaFor(model => model.pager_Auth_Results.First().Success, new { @class = "form-control", @cols = "80", @rows = "5", @id = "success" })*@
                     </div>
                 </td>
                 <td>
@@ -462,8 +570,6 @@
                     {
                         <div class="col-md-10">
                             @Html.Raw(Model.spec_Published_Results.First().Success)
-                            @*<textarea readonly name="editor_success_published">@Model.pager_Results.First().Success</textarea>*@
-                            @*@Html.TextAreaFor(model => model.pager_Results.First().Success, new { @class = "form-control", @cols = "80", @rows = "5", @readonly = "readonly", })*@
                         </div>
                     }
                 </td>
@@ -556,6 +662,30 @@
     <!--
         section 15
     -->
+    <span class="anchor" id="section15"></span>
+    <div id="section1515">
+        <h2>Flow Chart</h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="col-md-10">
+
+                    </div>
+                </td>
+                <td>
+                    @if (hasPublishedVersion)
+                    {
+                        <div class="col-md-10">
+                        </div>
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
 
     <span class="anchor" id="section16"></span>
     <div id="section1616">
@@ -583,32 +713,32 @@
         </table>
     </div>
 
-    <!-Alert Modal -->
-        <div class="modal fade" id="alert_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="exampleModalLabel">Warning</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        You are leaving the website and <strong>changes will NOT be saved</strong>, are you sure to leave?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Back to save</button>
-                        <button id="proceed" type="button" class="btn btn-primary">Proceed to modify</button>
-                    </div>
+    <!--Alert Modal -->
+    <div class="modal fade" id="alert_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Warning</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    You are leaving the website and <strong>changes will NOT be saved</strong>, are you sure to leave?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Back to save</button>
+                    <button id="proceed" type="button" class="btn btn-primary">Proceed to modify</button>
                 </div>
             </div>
         </div>
+    </div>
 
-        <button id="top">Top</button>
-        <button id="save">Save</button>
-        <button id="publish">Publish</button>
+    <button id="top">Top</button>
+    <button id="save">Save</button>
+    <button id="publish">Publish</button>
 
-        <script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function () {
             function strip(html) {
                 var tmp = document.createElement("div");
@@ -627,11 +757,14 @@
             CKEDITOR.replace('editor_data_collection_method');
             CKEDITOR.replace('editor_description');
             CKEDITOR.replace('editor_measure_summary');
+            CKEDITOR.replace('editor_rationale');
             CKEDITOR.replace('editor_inclusions');
             CKEDITOR.replace('editor_exclusions');
+            CKEDITOR.replace('editor_other_measure_build_details');
             CKEDITOR.replace('editor_success');
             CKEDITOR.replace('editor_risk_adjustment');
             CKEDITOR.replace('editor_references');
+
 
             $('.provider_option').each(function () {
                 if (this.text.length >= 100) {
@@ -645,9 +778,8 @@
                     alert('cannot create empty domain name!')
                 }
                 var measure_id = @Model.spec_Results.First().Measure_ID;
-                console.log(new_domain);
                 $.ajax({
-                    url: '@Url.Action("SaveNewDomain")',
+                    url: '@Url.Action("SaveNewDomain", "Spec")',
                     type: 'POST',
                     data: {
                         'measure_id': measure_id,
@@ -740,7 +872,7 @@
                         alert("please select a provider!");
                         return;
                     }
-                    window.location.href = '@Url.Action("ModifyProvider", "Pager")' + "?measure=" + measure + "&provider=" + provider;
+                    window.location.href = '@Url.Action("ModifyProvider", "Spec")' + "?measure=" + measure + "&provider=" + provider;
                 })
             })
 
@@ -753,7 +885,83 @@
                         alert("please select a domain!");
                         return;
                     }
-                    window.location.href = '@Url.Action("ModifyDomain", "Pager")' + "?measure=" + measure + "&domain=" + domain;
+                    window.location.href = '@Url.Action("ModifyDomain", "Spec")' + "?measure=" + measure + "&domain=" + domain;
+                })
+            })
+
+               $('#delete_domain_btn').click(function () {
+                $('#alert_modal').modal('show');
+                 $('#proceed').click(function () {
+
+                    var domain = $('#nqs_domain').val();
+                    var measure = @Model.spec_Results.First().Measure_ID;
+                    if (domain <= 0) {
+                        alert("please select a domain!");
+                        return;
+                    }
+                    $.ajax({
+                        url: '@Url.Action("DeleteDomain", "Spec")',
+                        type: 'POST',
+                        data: {
+                            'domain': domain,
+                            'measure': measure
+                        },
+                        success: function (data) {
+                            if (data.success) {
+                                comma_sep_list_un = [];
+                                for (var i = 0; i < data.unpublishedList.length; i++) {
+                                    if (i == data.unpublishedList.length - 1) {
+                                        comma_sep_list_un.push(data.unpublishedList[i] + '; ')
+                                    }
+                                    else {
+                                        comma_sep_list_un.push(data.unpublishedList[i] + ', ')
+                                    };
+                                }
+                                comma_sep_list_p = [];
+                                for (var i = 0; i < data.publishedList.length; i++) {
+                                    if (i == data.publishedList.length - 1) {
+                                        comma_sep_list_p.push(data.publishedList[i] + '; ')
+                                    }
+                                    else {
+                                        comma_sep_list_p.push(data.publishedList[i] + ', ')
+                                    };
+                                }
+                                $('#unpublished').html(comma_sep_list_un);
+                                $('#published').html(comma_sep_list_p);
+                                $('#alert_modal').modal('hide');
+                                $('#delete_domain_modal').modal('show');
+                            }
+                            else {
+                                alert('fail to get result from database!')
+                            }
+                        },
+                        error: function () {
+
+                        }
+                    })
+                })
+            })
+
+            $('#confirm_delete').click(function () {
+                var domain_id = $('#nqs_domain').val();
+                $.ajax({
+                    url: '@Url.Action("ConfirmDelete", "Spec")',
+                    type: 'POST',
+                    data: {
+                        'domain_id': domain_id
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            alert('Delete NQS Domain successfully!');
+                            $('#delete_domain_modal').modal('hide');
+                            window.location.reload();
+                        } else {
+                            console.log(data.message);
+                        }
+                    },
+                    error: function () {
+
+                    }
                 })
             })
 
@@ -766,7 +974,7 @@
                     alert("please select a measure type!");
                     return;
                 }
-                window.location.href = '@Url.Action("ModifyMeasureType", "Pager")' + "?measure=" + measure + "&measure_type=" + measure_type;
+                window.location.href = '@Url.Action("ModifyMeasureType", "Spec")' + "?measure=" + measure + "&measure_type=" + measure_type;
                 })
             })
 
@@ -779,7 +987,7 @@
                         alert("please select a scope!");
                         return;
                     }
-                    window.location.href = '@Url.Action("ModifyScope", "Pager")' + "?measure=" + measure + "&scope=" + scope;
+                    window.location.href = '@Url.Action("ModifyScope", "Spec")' + "?measure=" + measure + "&scope=" + scope;
                 })
             })
 
@@ -856,6 +1064,26 @@
             $("#top").click(function () {
                 $("html, body").animate({ scrollTop: 0 }, 600)
             })
+
+            $('.header').each(function () {
+                //console.log(this.id);
+                var headerid = this.id;
+                var id = headerid.replace('header', '');
+                var inputid = 'input' + id;
+                var crossid = 'cross' + id; 
+                $('#' + headerid).click(function () {
+                    $(this).hide();
+                    $(this).siblings('#' + crossid).hide();
+                    $(this).siblings('#' + inputid).show().val($(this).text()).focus();
+                })
+
+                $('#' + inputid).focusout(function () {
+                    $(this).hide();
+                    $(this).siblings('#' + crossid).show();
+                    $(this).siblings('#' + headerid).show().text($(this).val());
+                })
+
+            })                     
 
             $('#save').click(function () {
                 var measure_abbreviation = $('#measure_abbreviation').val()
@@ -1014,7 +1242,7 @@
                 })
             })
         })
-        </script>
+    </script>
 </body>
 </html>
 

@@ -113,6 +113,9 @@
         <Function Name="Data_Diagnostics_Affected" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="Delete_Domain" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Domain_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="Delete_Provider" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
           <Parameter Name="Responsible_Provider_ID" Type="int" Mode="In" />
@@ -412,6 +415,9 @@
           </FunctionImport>
           <EntitySet Name="Concept_Each_Header" EntityType="MPOG_XinyuModel1.Concept_Each_Header" />
           <EntitySet Name="MPOG_Concepts" EntityType="MPOG_XinyuModel1.MPOG_Concepts" />
+          <FunctionImport Name="Delete_Domain">
+            <Parameter Name="Domain_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Details_All_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -999,6 +1005,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Delete_Domain" FunctionName="MPOG_XinyuModel1.Store.Delete_Domain" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
