@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="~/Content/fixed_button.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/table_in_edit.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -404,7 +405,7 @@
 
     <span class="anchor" id="section5"></span>
     <div id="section55">
-        <h2>Rationale</h2>
+        <h2>Rationale &nbsp;&nbsp;<code>Spec Only</code></h2>
         <table>
             <tr>
                 <th>Unpublished</th>
@@ -482,7 +483,9 @@
 
     <span class="anchor" id="section8"></span>
     <div id="section88">
-        <h2>MPOG concept ID Required</h2>
+        <div style="display: flex; justify-content: space-between; width: 50%">
+            <h2>MPOG concept ID Required &nbsp;&nbsp;<code>Spec Only</code></h2>
+        </div>
         <table>
             <tr>
                 <th>Unpublished</th>
@@ -490,12 +493,12 @@
             </tr>
             <tr>
                 <td>
-                    <div class="col-md-10">                      
+                    <div class="col-md-10">
                         @foreach (var header in Model.concept_ID_Required_Results)
                         {
                             <strong class="header" id='@("header"+header.MPOG_Concept_Header_ID)'>@header.MPOG_Concept_Header_Name</strong> <span id='@("cross"+header.MPOG_Concept_Header_ID)' aria-hidden="true" style="cursor: pointer">&times;</span>
-                            <input type="text" id='@("input"+header.MPOG_Concept_Header_ID)' style="display: none"/>
-                            <ul>
+                            <input type="text" id='@("input"+header.MPOG_Concept_Header_ID)' style="display: none" />
+                            <ul id='@("ul"+header.MPOG_Concept_Header_ID)'>
                                 @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID))
                                 {
                                     <li>
@@ -504,6 +507,7 @@
                                         <span aria-hidden="true" style="cursor: pointer">&times;</span>
                                     </li>
                                 }
+                                <li id='@("last"+header.MPOG_Concept_Header_ID)'><button id='@("add"+header.MPOG_Concept_Header_ID)'>Add New Concept</button></li>
                             </ul>
                         }
                     </div>
@@ -520,14 +524,43 @@
     </div>
 
     <!--
-         <li><a href="#section8">MPOG Concept IDs Required</a></li>
                 <li><a href="#section9">Data Diagnostics Affected</a></li>
-                <li><a href="#section10">Collations Used</a></li>              
     -->
+    <span class="anchor" id="section9"></span>
+    <div id="section99">
+        <h2>Data Diagnostics Affected &nbsp;&nbsp;<code>Spec Only</code></h2>
+        <table>
+            <tr>
+                <th>Unpublished</th>
+                <th>Published</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="col-md-10">
+                    </div>
+                </td>
+                <td>
+                    @if (hasPublishedVersion)
+                    {
+                        <div class="col-md-10">
+                        </div>
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <span class="anchor" id="section10"></span>
+    <div id="section1010">
+        <h2>Collations Used &nbsp;&nbsp;<code>Spec Only</code></h2>
+        <button type="button" id="viewcollations">View Collations</button>
+        <div id="collations">
+        </div>
+    </div>
 
     <span class="anchor" id="section11"></span>
     <div id="section1111">
-        <h2>Other Measure Build Details</h2>
+        <h2>Other Measure Build Details &nbsp;&nbsp;<code>Spec Only</code></h2>
         <table>
             <tr>
                 <th>Unpublished</th>
@@ -664,7 +697,7 @@
     -->
     <span class="anchor" id="section15"></span>
     <div id="section1515">
-        <h2>Flow Chart</h2>
+        <h2>Flow Chart &nbsp;&nbsp;<code>Spec Only</code></h2>
         <table>
             <tr>
                 <th>Unpublished</th>
@@ -1058,8 +1091,38 @@
                     }
                 })
             }
-
+             @*@foreach (var item in Model.collations_Results)
+                            {
+                                <li>
+                                    @item.Collation_Name
+                                </li>
+                            }*@
            // $(".provider").each(Autocomplete);
+            $('#viewcollations').click(function () {
+                $('#viewcollations').html('<i class="fa fa-spin fa-spinner"></i> loading');
+                var measure_id = @Model.spec_Results.First().Measure_ID;
+                $.ajax({
+                    url: '@Url.Action("ViewCollations","Spec")',
+                    type: 'POST',
+                    data: {
+                        'measure_id': measure_id
+                    },
+                    success: function (data) {
+                        if (data.success) {                                              
+                            var content = '<ul>'
+                            for (var i = 0; i < data.collations.length; i++) {
+                                var li = '<li>';
+                                li = li.concat(data.collations[i].Collation_Name, '</li>')
+                                content = content.concat(li);
+                            }
+                            content.concat('</ul>');
+                            $('#viewcollations').remove();
+                            $('#collations').html(content);
+                        }
+                    }
+                })
+            });
+           
 
             $("#top").click(function () {
                 $("html, body").animate({ scrollTop: 0 }, 600)
@@ -1070,7 +1133,9 @@
                 var headerid = this.id;
                 var id = headerid.replace('header', '');
                 var inputid = 'input' + id;
-                var crossid = 'cross' + id; 
+                var crossid = 'cross' + id;
+                var buttonid = 'add' + id;
+                var lastid = 'last' + id;
                 $('#' + headerid).click(function () {
                     $(this).hide();
                     $(this).siblings('#' + crossid).hide();
@@ -1083,7 +1148,10 @@
                     $(this).siblings('#' + headerid).show().text($(this).val());
                 })
 
-            })                     
+                $('#' + buttonid).click(function () {
+                    $('<li><input /><span aria-hidden="true" style="cursor: pointer">&times;</span></li>').insertBefore('#' + lastid);
+                })
+            })
 
             $('#save').click(function () {
                 var measure_abbreviation = $('#measure_abbreviation').val()

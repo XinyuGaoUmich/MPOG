@@ -33,8 +33,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="~/Content/table_in_spec.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/table_in_edit.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/fixed_button.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.9.2/basic/ckeditor.js"></script>
@@ -213,7 +216,8 @@
         </table>
     </div>
 
-    <div id="section2" class="container-fluid">
+    <span class="anchor" id="section2"></span>
+    <div id="section22">
         <h2>Data Collection Method</h2>
         <table>
             <tr>
@@ -238,7 +242,8 @@
         </table>
     </div>
 
-    <div id="section3" class="container-fluid">
+    <span class="anchor" id="section3"></span>
+    <div id="section33">
         <h2>Description</h2>
         <table>
             <tr>
@@ -263,7 +268,8 @@
         </table>
     </div>
 
-    <div id="section4" class="container-fluid">
+    <span class="anchor" id="section4"></span>
+    <div id="section44">
         <h2>Measure Summary</h2>
         <table>
             <tr>
@@ -288,7 +294,8 @@
         </table>
     </div>
 
-    <div id="section5" class="container-fluid">
+    <span class="anchor" id="section5"></span>
+    <div id="section55">
         <h2>Rationale</h2>
         <table>
             <tr>
@@ -313,7 +320,8 @@
         </table>
     </div>
 
-    <div id="section6" class="container-fluid">
+    <span class="anchor" id="section6"></span>
+    <div id="section66">
         <h2>Inclusions</h2>
         <table>
             <tr>
@@ -342,7 +350,8 @@
         </table>
     </div>
 
-    <div id="section7" class="container-fluid">
+    <span class="anchor" id="section7"></span>
+    <div id="section77">
         <h2>Exclusions</h2>
         <table>
             <tr>
@@ -370,7 +379,8 @@
     <!--
         Concept ID
     -->
-    <div id="section8" class="container-fluid">
+    <span class="anchor" id="section8"></span>
+    <div id="section88">
         <h2>MPOG Concept IDs Required</h2>
         <table>
             <tr>
@@ -409,7 +419,8 @@
     <!--
         Data Diagnostics Affected
     -->
-    <div id="section9" class="container-fluid">
+    <span class="anchor" id="section9"></span>
+    <div id="section99">
         <h2>Data Diagnostics Affected</h2>
         <table>
             <tr>
@@ -420,44 +431,10 @@
                 <td>
                     <div class="col-md-11" style="word-wrap:break-word">
                         <ul>
-                            @foreach(var item in Model.data_Diagnostics_Affected_Results)
+                            @foreach (var item in Model.data_Diagnostics_Affected_Results)
                             {
                                 <li>
                                     @item.Display_Name
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </td>
-                <td>
-                    @if (hasPublishedVersion)
-                    {
-                        <div class="col-md-11" style="word-wrap:break-word">                          
-                        </div>
-                    }
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <!--
-        Collations Used
-    -->
-    <div id="section10" class="container-fluid">
-        <h2>Collations Used</h2>
-        <table>
-            <tr>
-                <th>Unpublished</th>
-                <th>Published</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="col-md-11" style="word-wrap:break-word">
-                        <ul>
-                            @foreach (var item in Model.collations_Results)
-                            {
-                                <li>
-                                    @item.Collation_Name
                                 </li>
                             }
                         </ul>
@@ -475,9 +452,21 @@
     </div>
 
     <!--
+        Collations Used
+    -->
+    <span class="anchor" id="section10"></span>
+    <div id="section1010">
+        <h2>Collations Used</h2>
+        <button type="button" id="viewcollations">View Collations</button>
+        <div id="collations">
+        </div>
+    </div>
+
+    <!--
         Other Measure Build Details
     -->
-    <div id="section11" class="container-fluid">
+    <span class="anchor" id="section11"></span>
+    <div id="section1111">
         <h2>Other Measure Build Details</h2>
         <table>
             <tr>
@@ -502,7 +491,8 @@
         </table>
     </div>
 
-    <div id="section12" class="container-fluid">
+    <span class="anchor" id="section12"></span>
+    <div id="section1212">
         <h2>Success</h2>
         <table>
             <tr>
@@ -526,7 +516,8 @@
         </table>
     </div>
 
-    <div id="section13" class="container-fluid">
+    <span class="anchor" id="section13"></span>
+    <div id="section1313">
         <h2>Responsible Provider</h2>
         <table>
             <tr>
@@ -554,7 +545,8 @@
         </table>
     </div>
 
-    <div id="section14" class="container-fluid">
+    <span class="anchor" id="section14"></span>
+    <div id="section1414">
         <h2>Risk Adjustment</h2>
         <table>
             <tr>
@@ -579,7 +571,8 @@
         </table>
     </div>
 
-    <div id="section15" class="container-fluid">
+    <span class="anchor" id="section15"></span>
+    <div id="section1515">
         <h2>Flow Chart</h2>
         <table>
             <tr>
@@ -604,7 +597,8 @@
         </table>
     </div>
 
-    <div id="section16" class="container-fluid">
+    <span class="anchor" id="section16"></span>
+    <div id="section1616">
         <h2>References</h2>
         <table>
             <tr>
@@ -628,11 +622,38 @@
             </tr>
         </table>
     </div>
-
     <button id="top">Top</button>
+    <script type="text/javascript">
+         $('#viewcollations').click(function () {
+                $('#viewcollations').html('<i class="fa fa-spin fa-spinner"></i> loading');
+                var measure_id = @Model.spec_Results.First().Measure_ID;
+                $.ajax({
+                    url: '@Url.Action("ViewCollations","Spec")',
+                    type: 'POST',
+                    data: {
+                        'measure_id': measure_id
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            var content = '<ul>'
+                            for (var i = 0; i < data.collations.length; i++) {
+                                var li = '<li>';
+                                li = li.concat(data.collations[i].Collation_Name, '</li>')
+                                content = content.concat(li);
+                            }
+                            content.concat('</ul>');
+                            $('#viewcollations').remove();
+                            $('#collations').html(content);
+                        }
+                    }
+                })
+            });
 
-    <script>
-
+        $(document).ready(function () {
+            $("#top").click(function () {
+                $("html, body").animate({ scrollTop: 0 }, 500)
+            });
+        })
     </script>
 </body>
 </html>
