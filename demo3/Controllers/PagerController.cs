@@ -28,7 +28,6 @@ namespace demo3.Controllers
             return View(model);
         }
 
-
         public ActionResult Public(int? id)
         {
             List<Pager_Auth_Result> pager_auth = db2.Pager_Auth(id).ToList();
@@ -76,8 +75,7 @@ namespace demo3.Controllers
                     success = false,
                     message = e.Message
                 });
-            }
-           
+            }          
         }
 
         [ValidateInput(false)]
@@ -109,8 +107,7 @@ namespace demo3.Controllers
                     success = false,
                     message = e.Message
                 });
-            }
-           
+            }         
         }
 
         [ValidateInput(false)]
@@ -122,9 +119,7 @@ namespace demo3.Controllers
                 {
                     db2.Publish_Pager(measure_id, measure_abbreviation, data_collection_method, description, nqs_domain, domain_content, measure_type, scope, measure_summary, inclusions, exclusions, success, threshold, provider, risk_adjustment, references);
                 }
-
                 db2.Publish_Pager(measure_id, measure_abbreviation, data_collection_method, description, nqs_domain, domain_content, measure_type, scope, measure_summary, inclusions, exclusions, success, threshold, null, risk_adjustment, references);
-
                 if (provider == -1 && new_provider != "")
                 {
                     db2.Add_New_Provider_Published(measure_id, new_provider);
@@ -134,8 +129,6 @@ namespace demo3.Controllers
                     success = true,
                     message = "success"
                 });
-
-
             }
             catch (Exception e)
             {
@@ -145,7 +138,6 @@ namespace demo3.Controllers
                     message = e.Message
                 });
             }
-
         }
 
         public JsonResult FindProvider (int id)
@@ -243,7 +235,6 @@ namespace demo3.Controllers
             {
                 return RedirectToAction("LoginWithoutAccess", "NoAccess");
             }
-
             var published = db2.Measure_Of_Provider_Published(provider).ToList();
             var unpublished = db2.Measure_Of_Provider_Unpublished(provider).ToList();
             ViewBag.provider_id = provider;
@@ -260,7 +251,6 @@ namespace demo3.Controllers
             {
                 return RedirectToAction("LoginWithoutAccess", "NoAccess");
             }
-
             var published = db2.Measure_Of_Domain_Published(domain).ToList();
             var unpublished = db2.Measure_Of_Domain_Unpublished(domain).ToList();
             ViewBag.domain_id = domain;
@@ -335,7 +325,6 @@ namespace demo3.Controllers
             {
                 return RedirectToAction("LoginWithoutAccess", "NoAccess");
             }
-
             var published = db2.Measure_Of_Measure_Type_Published(measure_type).ToList();
             var unpublished = db2.Measure_Of_Measure_Type_Unpublished(measure_type).ToList();
             ViewBag.measure_type_id = measure_type;
@@ -352,7 +341,6 @@ namespace demo3.Controllers
             {
                 return RedirectToAction("LoginWithoutAccess", "NoAccess");
             }
-
             var published = db2.Measure_Of_Scope_Published(scope).ToList();
             var unpublished = db2.Measure_Of_Scope_Unpublished(scope).ToList();
             ViewBag.scope_id = scope;
@@ -548,6 +536,5 @@ namespace demo3.Controllers
                 });
             }
         }
-
     }
 }

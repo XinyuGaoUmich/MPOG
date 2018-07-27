@@ -316,8 +316,6 @@
     <FunctionImportMapping FunctionImportName="Edit_Measure_Scope" FunctionName="MPOG_XinyuModel1.Store.Edit_Measure_Scope" />
     <FunctionImportMapping FunctionImportName="Edit_Measure_Type" FunctionName="MPOG_XinyuModel1.Store.Edit_Measure_Type" />
     <FunctionImportMapping FunctionImportName="Add_New_Provider_Published" FunctionName="MPOG_XinyuModel1.Store.Add_New_Provider_Published" />
-    <FunctionImportMapping FunctionImportName="Publish_Pager" FunctionName="MPOG_XinyuModel1.Store.Publish_Pager" />
-    <FunctionImportMapping FunctionImportName="Save_Pager" FunctionName="MPOG_XinyuModel1.Store.Save_Pager" />
     <EntitySetMapping Name="Concept_Each_Header">
       <EntityTypeMapping TypeName="MPOG_XinyuModel1.Concept_Each_Header">
         <MappingFragment StoreEntitySet="Concept_Each_Header">
@@ -340,5 +338,9 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="Delete_Domain" FunctionName="MPOG_XinyuModel1.Store.Delete_Domain" />
+    <FunctionImportMapping FunctionImportName="Save_Pager" FunctionName="MPOG_XinyuModel1.Store.Save_Pager" />
+    <FunctionImportMapping FunctionImportName="Publish_Pager" FunctionName="MPOG_XinyuModel1.Store.Publish_Pager" />
+    <FunctionImportMapping FunctionImportName="Save_Spec" FunctionName="MPOG_XinyuModel1.Store.Save_Spec" />
+    <FunctionImportMapping FunctionImportName="Publish_Spec" FunctionName="MPOG_XinyuModel1.Store.Publish_Spec" />
   </EntityContainerMapping>
 </Mapping>

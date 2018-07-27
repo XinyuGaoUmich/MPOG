@@ -486,6 +486,7 @@
         <div style="display: flex; justify-content: space-between; width: 50%">
             <h2>MPOG concept ID Required &nbsp;&nbsp;<code>Spec Only</code></h2>
         </div>
+        <mark style="margin-left: 10px">click concept title to modify</mark>
         <table>
             <tr>
                 <th>Unpublished</th>
@@ -496,15 +497,15 @@
                     <div class="col-md-10">
                         @foreach (var header in Model.concept_ID_Required_Results)
                         {
-                            <strong class="header" id='@("header"+header.MPOG_Concept_Header_ID)'>@header.MPOG_Concept_Header_Name</strong> <span id='@("cross"+header.MPOG_Concept_Header_ID)' aria-hidden="true" style="cursor: pointer">&times;</span>
+                            <strong class="header" id='@("header"+header.MPOG_Concept_Header_ID)'>@header.MPOG_Concept_Header_Name</strong> <span id='@("cross"+header.MPOG_Concept_Header_ID)' aria-hidden="true" style="cursor: pointer" class="delete_header">&times;</span>
                             <input type="text" id='@("input"+header.MPOG_Concept_Header_ID)' style="display: none" />
                             <ul id='@("ul"+header.MPOG_Concept_Header_ID)'>
-                                @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID))
+                                @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID).OrderBy(o => o.MPOG_Concept_ID))
                                 {
-                                    <li>
+                                    <li id='@("concept"+item.MPOG_Concept_ID)'>
                                         @item.MPOG_Concept_ID
                                         @Model.all_Concepts.Where(o => o.MPOG_Concept_ID == item.MPOG_Concept_ID).First().concept_desc
-                                        <span aria-hidden="true" style="cursor: pointer">&times;</span>
+                                        <span aria-hidden="true" style="cursor: pointer" class="delete_concept_existing_header">&times;</span>
                                     </li>
                                 }
                                 <li id='@("last"+header.MPOG_Concept_Header_ID)'><button id='@("add"+header.MPOG_Concept_Header_ID)'>Add New Concept</button></li>
@@ -523,9 +524,6 @@
         </table>
     </div>
 
-    <!--
-                <li><a href="#section9">Data Diagnostics Affected</a></li>
-    -->
     <span class="anchor" id="section9"></span>
     <div id="section99">
         <h2>Data Diagnostics Affected &nbsp;&nbsp;<code>Spec Only</code></h2>
@@ -772,20 +770,24 @@
     <button id="publish">Publish</button>
 
     <script type="text/javascript">
+        var count = 0;
+        var existing_header_name = {};
+        var delete_existing_header = {};
+        var add_existing_header = {};
+        //var delete_count = 0;
         $(document).ready(function () {
-            function strip(html) {
-                var tmp = document.createElement("div");
-                tmp.innerHTML = html;
-                return tmp.textContent || tmp.innerText || "";
-            }
+                        function strip(html) {
+                            var tmp = document.createElement("div");
+                            tmp.innerHTML = html;
+                            return tmp.textContent || tmp.innerText || "";
+                        }
 
             $('option').each(function () {
-                this.text = strip(this.text);
-            })
+                            this.text = strip(this.text);
+                        })
 
             $('#responsible_provider_select').select2();
 
-            //CKEITOR replace
             CKEDITOR.replace('editor1');
             CKEDITOR.replace('editor_data_collection_method');
             CKEDITOR.replace('editor_description');
@@ -798,180 +800,179 @@
             CKEDITOR.replace('editor_risk_adjustment');
             CKEDITOR.replace('editor_references');
 
-
             $('.provider_option').each(function () {
-                if (this.text.length >= 100) {
-                    this.text = $.trim(this.text).substring(0, 100) + "..."
-                }
-            })
+                            if (this.text.length >= 100) {
+                                this.text = $.trim(this.text).substring(0, 100) + "..."
+                            }
+                        })
 
             $('#save_new_domain').click(function () {
-                var new_domain = $('#new_domain').val();
-                if (new_domain == null || new_domain == '') {
-                    alert('cannot create empty domain name!')
-                }
-                var measure_id = @Model.spec_Results.First().Measure_ID;
+                            var new_domain = $('#new_domain').val();
+                            if (new_domain == null || new_domain == '') {
+                                alert('cannot create empty domain name!')
+                            }
+                            var measure_id = @Model.spec_Results.First().Measure_ID;
                 $.ajax({
-                    url: '@Url.Action("SaveNewDomain", "Spec")',
+                                url: '@Url.Action("SaveNewDomain", "Spec")',
                     type: 'POST',
                     data: {
-                        'measure_id': measure_id,
+                                    'measure_id': measure_id,
                         'new_domain': new_domain
                     },
                     success: function (data) {
-                        if (data.success) {
-                            console.log(data);
-                            alert(data.message);
+                                    if (data.success) {
+                                        console.log(data);
+                                        alert(data.message);
                             $('#create_domain_modal').modal('hide');
-                            window.location.reload();
-                        }
-                        else {
-                            console.log(data.message)
-                        }
-                    },
+                                        window.location.reload();
+                                    }
+                                    else {
+                                        console.log(data.message)
+                                    }
+                                },
                     error: function (error) {
-                        console.log(error);
-                    }
-                })
+                                    console.log(error);
+                                }
+                            })
             })
 
           $('#save_new_measure_type').click(function () {
-                var new_measure_type = $('#new_measure_type').val();
-                if (new_measure_type == null || new_measure_type == '') {
-                    alert('cannot create empty measure type name!')
-                }
-                var measure_id = @Model.spec_Results.First().Measure_ID;
+                            var new_measure_type = $('#new_measure_type').val();
+                            if (new_measure_type == null || new_measure_type == '') {
+                                alert('cannot create empty measure type name!')
+                            }
+                            var measure_id = @Model.spec_Results.First().Measure_ID;
                 $.ajax({
-                    url: '@Url.Action("SaveNewMeasureType")',
+                                url: '@Url.Action("SaveNewMeasureType")',
                     type: 'POST',
                     data: {
-                        'measure_id': measure_id,
+                                    'measure_id': measure_id,
                         'new_measure_type': new_measure_type
                     },
                     success: function (data) {
-                        if (data.success) {
-                            console.log(data);
-                            alert(data.message);
+                                    if (data.success) {
+                                        console.log(data);
+                                        alert(data.message);
                             $('#create_measure_type_modal').modal('hide');
-                            window.location.reload();
-                        }
-                        else {
-                            console.log(data.message)
-                        }
-                    },
+                                        window.location.reload();
+                                    }
+                                    else {
+                                        console.log(data.message)
+                                    }
+                                },
                     error: function (error) {
-                        console.log(error);
-                    }
-                })
+                                    console.log(error);
+                                }
+                            })
             })
 
             $('#save_new_scope').click(function () {
-                var new_scope = $('#new_scope').val();
-                if (new_scope == null || new_scope == '') {
-                    alert('cannot create empty measure scope name!')
-                }
-                var measure_id = @Model.spec_Results.First().Measure_ID;
+                            var new_scope = $('#new_scope').val();
+                            if (new_scope == null || new_scope == '') {
+                                alert('cannot create empty measure scope name!')
+                            }
+                            var measure_id = @Model.spec_Results.First().Measure_ID;
                 $.ajax({
-                    url: '@Url.Action("SaveNewMeasureScope")',
+                                url: '@Url.Action("SaveNewMeasureScope")',
                     type: 'POST',
                     data: {
-                        'measure_id': measure_id,
+                                    'measure_id': measure_id,
                         'new_scope': new_scope
                     },
                     success: function (data) {
-                        if (data.success) {
-                            console.log(data);
-                            alert(data.message);
+                                    if (data.success) {
+                                        console.log(data);
+                                        alert(data.message);
                             $('#create_scope_modal').modal('hide');
-                            window.location.reload();
-                        }
-                        else {
-                            console.log(data.message)
-                        }
-                    },
+                                        window.location.reload();
+                                    }
+                                    else {
+                                        console.log(data.message)
+                                    }
+                                },
                     error: function (error) {
-                        console.log(error);
-                    }
-                })
+                                    console.log(error);
+                                }
+                            })
             })
 
             $('#modify').click(function () {
                 //CKEDITOR.instances.editor1.setReadOnly(false);
                 $('#alert_modal').modal('show');
                 $('#proceed').click(function () {
-                    var provider = $('#responsible_provider_select').val();
-                    var measure = @Model.spec_Results.First().Measure_ID;
-                    if (provider <= 0) {
-                        alert("please select a provider!");
-                        return;
-                    }
-                    window.location.href = '@Url.Action("ModifyProvider", "Spec")' + "?measure=" + measure + "&provider=" + provider;
-                })
+                                var provider = $('#responsible_provider_select').val();
+                                var measure = @Model.spec_Results.First().Measure_ID;
+                                if (provider <= 0) {
+                                    alert("please select a provider!");
+                                    return;
+                                }
+                                window.location.href = '@Url.Action("ModifyProvider", "Spec")' + "?measure=" + measure + "&provider=" + provider;
+                            })
             })
 
             $('#modify_domain_btn').click(function () {
                 $('#alert_modal').modal('show');
                 $('#proceed').click(function () {
-                    var domain = $('#nqs_domain').val();
-                    var measure = @Model.spec_Results.First().Measure_ID;
-                    if (domain <= 0) {
-                        alert("please select a domain!");
-                        return;
-                    }
-                    window.location.href = '@Url.Action("ModifyDomain", "Spec")' + "?measure=" + measure + "&domain=" + domain;
-                })
+                                var domain = $('#nqs_domain').val();
+                                var measure = @Model.spec_Results.First().Measure_ID;
+                                if (domain <= 0) {
+                                    alert("please select a domain!");
+                                    return;
+                                }
+                                window.location.href = '@Url.Action("ModifyDomain", "Spec")' + "?measure=" + measure + "&domain=" + domain;
+                            })
             })
 
                $('#delete_domain_btn').click(function () {
                 $('#alert_modal').modal('show');
                  $('#proceed').click(function () {
 
-                    var domain = $('#nqs_domain').val();
-                    var measure = @Model.spec_Results.First().Measure_ID;
-                    if (domain <= 0) {
-                        alert("please select a domain!");
-                        return;
-                    }
+                                var domain = $('#nqs_domain').val();
+                                var measure = @Model.spec_Results.First().Measure_ID;
+                                if (domain <= 0) {
+                                    alert("please select a domain!");
+                                    return;
+                                }
                     $.ajax({
-                        url: '@Url.Action("DeleteDomain", "Spec")',
+                                    url: '@Url.Action("DeleteDomain", "Spec")',
                         type: 'POST',
                         data: {
-                            'domain': domain,
+                                        'domain': domain,
                             'measure': measure
                         },
                         success: function (data) {
-                            if (data.success) {
-                                comma_sep_list_un = [];
-                                for (var i = 0; i < data.unpublishedList.length; i++) {
-                                    if (i == data.unpublishedList.length - 1) {
-                                        comma_sep_list_un.push(data.unpublishedList[i] + '; ')
-                                    }
-                                    else {
-                                        comma_sep_list_un.push(data.unpublishedList[i] + ', ')
-                                    };
-                                }
-                                comma_sep_list_p = [];
-                                for (var i = 0; i < data.publishedList.length; i++) {
-                                    if (i == data.publishedList.length - 1) {
-                                        comma_sep_list_p.push(data.publishedList[i] + '; ')
-                                    }
-                                    else {
-                                        comma_sep_list_p.push(data.publishedList[i] + ', ')
-                                    };
-                                }
+                                        if (data.success) {
+                                            comma_sep_list_un = [];
+                                            for (var i = 0; i < data.unpublishedList.length; i++) {
+                                                if (i == data.unpublishedList.length - 1) {
+                                                    comma_sep_list_un.push(data.unpublishedList[i] + '; ')
+                                                }
+                                                else {
+                                                    comma_sep_list_un.push(data.unpublishedList[i] + ', ')
+                                                };
+                                            }
+                                            comma_sep_list_p = [];
+                                            for (var i = 0; i < data.publishedList.length; i++) {
+                                                if (i == data.publishedList.length - 1) {
+                                                    comma_sep_list_p.push(data.publishedList[i] + '; ')
+                                                }
+                                                else {
+                                                    comma_sep_list_p.push(data.publishedList[i] + ', ')
+                                                };
+                                            }
                                 $('#unpublished').html(comma_sep_list_un);
                                 $('#published').html(comma_sep_list_p);
                                 $('#alert_modal').modal('hide');
                                 $('#delete_domain_modal').modal('show');
-                            }
-                            else {
-                                alert('fail to get result from database!')
-                            }
-                        },
+                                        }
+                                        else {
+                                            alert('fail to get result from database!')
+                                        }
+                                    },
                         error: function () {
 
-                        }
-                    })
+                                    }
+                                })
                 })
             })
 
@@ -981,157 +982,157 @@
                     url: '@Url.Action("ConfirmDelete", "Spec")',
                     type: 'POST',
                     data: {
-                        'domain_id': domain_id
+                       'domain_id': domain_id
                     },
                     success: function (data) {
-                        if (data.success) {
-                            alert('Delete NQS Domain successfully!');
+                                    if (data.success) {
+                                        alert('Delete NQS Domain successfully!');
                             $('#delete_domain_modal').modal('hide');
-                            window.location.reload();
-                        } else {
-                            console.log(data.message);
-                        }
-                    },
-                    error: function () {
-
-                    }
-                })
+                                        window.location.reload();
+                                    } else {
+                                        console.log(data.message);
+                                    }
+                                },
+                    error: function () { }
+                            })
             })
 
             $('#modify_measure_type_btn').click(function () {
                 $('#alert_modal').modal('show');
                 $('#proceed').click(function () {
-                     var measure_type = $('#measure_type').val();
-                var measure = @Model.spec_Results.First().Measure_ID;
-                if (measure_type <= 0) {
-                    alert("please select a measure type!");
-                    return;
-                }
-                window.location.href = '@Url.Action("ModifyMeasureType", "Spec")' + "?measure=" + measure + "&measure_type=" + measure_type;
-                })
+                                var measure_type = $('#measure_type').val();
+                                var measure = @Model.spec_Results.First().Measure_ID;
+                                if (measure_type <= 0) {
+                                    alert("please select a measure type!");
+                                    return;
+                                }
+                                window.location.href = '@Url.Action("ModifyMeasureType", "Spec")' + "?measure=" + measure + "&measure_type=" + measure_type;
+                            })
             })
 
             $('#modify_scope_btn').click(function () {
                 $('#alert_modal').modal('show');
                 $('#proceed').click(function () {
-                     var scope = $('#scope').val();
-                    var measure = @Model.spec_Results.First().Measure_ID;
-                    if (scope <= 0) {
-                        alert("please select a scope!");
-                        return;
-                    }
-                    window.location.href = '@Url.Action("ModifyScope", "Spec")' + "?measure=" + measure + "&scope=" + scope;
-                })
+                                var scope = $('#scope').val();
+                                var measure = @Model.spec_Results.First().Measure_ID;
+                                if (scope <= 0) {
+                                    alert("please select a scope!");
+                                    return;
+                                }
+                                window.location.href = '@Url.Action("ModifyScope", "Spec")' + "?measure=" + measure + "&scope=" + scope;
+                            })
             })
 
             function createNewProvider() {
-                CKEDITOR.instances.editor1.setData('');
-                CKEDITOR.instances.editor1.setReadOnly(false);
+                            CKEDITOR.instances.editor1.setData('');
+                            CKEDITOR.instances.editor1.setReadOnly(false);
                 $('#responsible_provider_select').val("-1").change();
-            }
+                        }
 
             $('#create_new_provider').click(createNewProvider);
 
             $('#responsible_provider_select').on("change", function () {
-                console.log(this.value);
-                if (this.value > 0) {
+                            console.log(this.value);
+                            if (this.value > 0) {
                     $.ajax({
-                        url: '@Url.Action("FindProvider")',
+                                    url: '@Url.Action("FindProvider")',
                         datatype: "json",
                         data: {
-                            id: parseInt(this.value)
+                                        id: parseInt(this.value)
                         },
                         success: function (data) {
-                            if (data.success) {
-                                CKEDITOR.instances.editor1.setData(data.provider);
-                            }
-                            else {
-                                console.log(data.message)
-                            }
-                        },
+                                        if (data.success) {
+                                            CKEDITOR.instances.editor1.setData(data.provider);
+                                        }
+                                        else {
+                                            console.log(data.message)
+                                        }
+                                    },
                         error: function (error) {
-                            console.log(error);
-                        }
-                    })
+                                        console.log(error);
+                                    }
+                                })
                 }
-            })
+                        })
 
             function Autocomplete() {
-                var id = $(this).prop('id');
+                            var id = $(this).prop('id');
                 $(this).autocomplete({
-                    source: function (request, response) {
+                                source: function (request, response) {
                         $.ajax({
-                            url: '@Url.Action("AutocompleteProvider")',
+                                        url: '@Url.Action("AutocompleteConcept")',
                             datatype: "json",
                             data: {
-                                term: request.term
+                                            term: request.term
                             },
                             success: function (data) {
-                                console.log(data.message);
-                                response($.map(data.providerList, function (val, item) {
-                                    return {
-                                        label: val.provider,
-                                        value: val.provider,
+                                            // console.log(data.message);
+                                            response($.map(data.conceptList, function (val, item) {
+                                                return {
+                                                    label: val.concept,
+                                        value: val.id + ' ' + val.concept,
                                         id: val.id
-                                    }
-                                }))
+                                                }
+                                            }))
                             }
-                        })
+                })
                     },
                     change: function (event, ui) {
-                        if (ui.item == null || ui.item == undefined) {
-                            console.log(id);
-                            $('#' + id + "input").val('');
+                if (ui.item == null || ui.item == undefined) {
+                    console.log(id);
+                            //$('#' + id + "input").val('');
                             $('#' + id).val('');
-                        }
-                    },
+                }
+            },
                     select: function (event, ui) {
                         var id = $(this).prop('id');
                         $('#' + id + "input").val(ui.item.id);
-                    }
-                })
+                        var header = this.parentElement.parentElement.id.replace("ul", "");
+                        if (!(header in add_existing_header)) {
+                            add_existing_header[header] = [];
+                        }
+                        add_existing_header[header].push(ui.item.id);
+                        console.log(add_existing_header);
             }
-             @*@foreach (var item in Model.collations_Results)
-                            {
-                                <li>
-                                    @item.Collation_Name
-                                </li>
-                            }*@
+        })
+            }
+
            // $(".provider").each(Autocomplete);
             $('#viewcollations').click(function () {
                 $('#viewcollations').html('<i class="fa fa-spin fa-spinner"></i> loading');
-                var measure_id = @Model.spec_Results.First().Measure_ID;
+            var measure_id = @Model.spec_Results.First().Measure_ID;
                 $.ajax({
-                    url: '@Url.Action("ViewCollations","Spec")',
+                url: '@Url.Action("ViewCollations","Spec")',
                     type: 'POST',
                     data: {
-                        'measure_id': measure_id
+                    'measure_id': measure_id
                     },
                     success: function (data) {
-                        if (data.success) {                                              
-                            var content = '<ul>'
+                    if (data.success) {
+                        var content = '<ul>'
                             for (var i = 0; i < data.collations.length; i++) {
-                                var li = '<li>';
-                                li = li.concat(data.collations[i].Collation_Name, '</li>')
+                            var li = '<li>';
+                            li = li.concat(data.collations[i].Collation_Name, '</li>')
                                 content = content.concat(li);
-                            }
-                            content.concat('</ul>');
+                        }
+                        content.concat('</ul>');
                             $('#viewcollations').remove();
                             $('#collations').html(content);
-                        }
                     }
-                })
+                }
+            })
             });
-           
+
 
             $("#top").click(function () {
                 $("html, body").animate({ scrollTop: 0 }, 600)
             })
 
             $('.header').each(function () {
-                //console.log(this.id);
+            //console.log(this.id);
                 var headerid = this.id;
                 var id = headerid.replace('header', '');
+                existing_header_name[id] = this.textContent;
                 var inputid = 'input' + id;
                 var crossid = 'cross' + id;
                 var buttonid = 'add' + id;
@@ -1140,7 +1141,7 @@
                     $(this).hide();
                     $(this).siblings('#' + crossid).hide();
                     $(this).siblings('#' + inputid).show().val($(this).text()).focus();
-                })
+            })
 
                 $('#' + inputid).focusout(function () {
                     $(this).hide();
@@ -1148,10 +1149,55 @@
                     $(this).siblings('#' + headerid).show().text($(this).val());
                 })
 
+                //add new concept
                 $('#' + buttonid).click(function () {
-                    $('<li><input /><span aria-hidden="true" style="cursor: pointer">&times;</span></li>').insertBefore('#' + lastid);
+                    $(`<li><input id="newconcept${count}" class="form-control newconcept"/><span aria-hidden="true" style="cursor: pointer" class="delete_concept_new_added">&times;</span></li>`).insertBefore('#' + lastid);
+                    $('.newconcept').each(Autocomplete);
+                    $('.delete_concept_new_added').off('click').on('click',(deleteConceptNewAdded));
+        count++;
                 })
             })
+
+            function deleteConceptNewAdded() {
+                //delete_count++;
+                var content = this.previousElementSibling.value;
+                if (content == "") {
+                    return;
+                }
+                var conceptid = content.substring(0, content.indexOf(" "));
+                if (this.parentElement.parentElement == null) {
+                    debugger;
+                }
+                var header = this.parentElement.parentElement.id.replace("ul", "");
+                if (header in add_existing_header) {
+                    remove(add_existing_header[header], conceptid);
+                    this.parentElement.remove();
+                    if (add_existing_header[header].length == 0) {
+                        delete add_existing_header[header];
+                    }
+                }
+                
+                console.log(add_existing_header);
+               
+            }
+
+            function remove(array, element) {
+                const index = array.indexOf(element);
+                array.splice(index, 1);
+            }
+
+            $('.delete_concept_existing_header').click(deleteConceptExistingHeader);
+
+            function deleteConceptExistingHeader() {
+                var item = this.parentElement.id.replace("concept", "");
+                var header = this.parentElement.parentElement.id.replace("ul", "");
+                if (!(header in delete_existing_header)) {
+                    delete_existing_header[header] = [];
+                }
+                delete_existing_header[header].push(item);
+                //console.log(delete_existing_header);
+                this.parentElement.remove();
+            }
 
             $('#save').click(function () {
                 var measure_abbreviation = $('#measure_abbreviation').val()
@@ -1162,14 +1208,22 @@
                 var data_collection_method = CKEDITOR.instances["data_collection_method"].getData();
                 var description = CKEDITOR.instances["description"].getData();
                 var measure_summary = CKEDITOR.instances["measure_summary"].getData();
+                var rationale = CKEDITOR.instances["rationale"].getData();
                 var inclusions = CKEDITOR.instances["inclusions"].getData();
                 var exclusions = CKEDITOR.instances["exclusions"].getData();
+                var other_measure_build_details = CKEDITOR.instances["other_measure_build_details"].getData();
                 var success = CKEDITOR.instances["success"].getData();
                 var risk_adjustment = CKEDITOR.instances["risk_adjustment"].getData();
                 var references = CKEDITOR.instances["references"].getData();
                 var measure_id = $('#Measure_ID').val();
                 var provider = $('#responsible_provider_select').val();
                 var new_provider = CKEDITOR.instances.editor1.getData();
+                for (var key in existing_header_name) {
+                    existing_header_name[key] = $('#header' + key).text();
+                }
+                //existing_header_name = { 1: "Race MPOG Concept IDs askjfhakjshdf", 2: "Ht/Wt MPOG Concept IDs asjkdhfkj", 3: "Creatinine Lab Concept ID asdjfhjkh" }
+                //console.log(delete_existing_header);
+                //delete_existing_header = {1: array(1),2: array(2)}
                 //data = {
                 //    'measure_id': measure_id,
                 //    'measure_abbreviation': measure_abbreviation,
@@ -1188,12 +1242,12 @@
                 //    'provider': provider,
                 //    'new_provider': new_provider
                 //};
-                console.log(references)
+               // console.log(references)
                 $.ajax({
-                    url: '@Url.Action("Save")',
+                url: '@Url.Action("Save", "Spec")',
                     type: 'POST',
                     data: {
-                        'measure_id': measure_id,
+                    'measure_id': measure_id,
                         'measure_abbreviation': measure_abbreviation,
                         'nqs_domain': nqs_domain,
                         'measure_type': measure_type,
@@ -1202,8 +1256,10 @@
                         'data_collection_method': data_collection_method,
                         'description': description,
                         'measure_summary': measure_summary,
+                        'rationale': rationale,
                         'inclusions': inclusions,
                         'exclusions': exclusions,
+                        'other_measure_build_details': other_measure_build_details,
                         'success': success,
                         'risk_adjustment': risk_adjustment,
                         'references': references,
@@ -1211,43 +1267,45 @@
                         'new_provider': new_provider
                     },
                     success: function (data) {
-                        if (data.success) {
-                            //console.log(data.message);
-                            console.log(data);
-                            alert('Saved pager successfully!');
-                            window.location.href = "/Pager/Index/" + measure_id;
-                        }
-                        else {
-                            console.log(data.message);
-                            alert('Failed to save pager!');
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log(jqXHR);
-                        console.log(textStatus);
-                        console.log(errorThrown);
+                    if (data.success) {
+                        //console.log(data.message);
+                        console.log(data);
+                        alert('Saved spec successfully!');
+                        window.location.href = "/Spec/Index/" + measure_id;
                     }
-                })
+                    else {
+                        console.log(data.message);
+                        alert('Failed to save pager!');
+                    }
+                },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            })
             })
 
             $('#publish').click(function () {
-                var measure_abbreviation = $('#measure_abbreviation').val()
+            var measure_abbreviation = $('#measure_abbreviation').val()
                 var nqs_domain = $('#nqs_domain').val();
-                var measure_type = $('#measure_type').val();
-                var scope = $('#scope').val();
-                var threshold = $('#threshold').val();
-                var data_collection_method = $('#data_collection_method').val();
-                var description = $('#description').val();
-                var measure_summary = $('#measure_summary').val();
-                var inclusions = $('#inclusions').val();
-                var exclusions = $('#exclusions').val();
-                var success = $('#success').val();
-                var risk_adjustment = $('#risk_adjustment').val();
-                var references = $('#references').val();
-                var measure_id = $('#Measure_ID').val();
-                var provider = $('#responsible_provider_select').val();
-                var new_provider = CKEDITOR.instances.editor1.getData();
-                var domain_content = $('#nqs_domain :selected').text();
+            var measure_type = $('#measure_type').val();
+            var scope = $('#scope').val();
+            var threshold = $('#threshold').val();
+            var data_collection_method = CKEDITOR.instances["data_collection_method"].getData();
+            var description = CKEDITOR.instances["description"].getData();
+            var measure_summary = CKEDITOR.instances["measure_summary"].getData();
+            var rationale = CKEDITOR.instances["rationale"].getData();
+            var inclusions = CKEDITOR.instances["inclusions"].getData();
+            var exclusions = CKEDITOR.instances["exclusions"].getData();
+            var other_measure_build_details = CKEDITOR.instances["other_measure_build_details"].getData();
+            var success = CKEDITOR.instances["success"].getData();
+            var risk_adjustment = CKEDITOR.instances["risk_adjustment"].getData();
+            var references = CKEDITOR.instances["references"].getData();
+            var measure_id = $('#Measure_ID').val();
+            var provider = $('#responsible_provider_select').val();
+            var new_provider = CKEDITOR.instances.editor1.getData();
+            var domain_content = $('#nqs_domain :selected').text();
                 //data = {
                 //    'measure_id': measure_id,
                 //    'measure_abbreviation': measure_abbreviation,
@@ -1269,10 +1327,10 @@
                 //};
                 //console.log(JSON.stringify(data));
                 $.ajax({
-                    url: '@Url.Action("Publish")',
+                url: '@Url.Action("Publish")',
                     type: 'POST',
                     data: {
-                        'measure_id': measure_id,
+                    'measure_id': measure_id,
                         'measure_abbreviation': measure_abbreviation,
                         'nqs_domain': nqs_domain,
                         'domain_content': domain_content,
@@ -1282,8 +1340,10 @@
                         'data_collection_method': data_collection_method,
                         'description': description,
                         'measure_summary': measure_summary,
+                        'rationale': rationale,
                         'inclusions': inclusions,
                         'exclusions': exclusions,
+                        'other_measure_build_details': other_measure_build_details,
                         'success': success,
                         'risk_adjustment': risk_adjustment,
                         'references': references,
@@ -1291,23 +1351,23 @@
                         'new_provider': new_provider
                     },
                     success: function (data) {
-                        if (data.success) {
-                            //console.log(data.message);
-                            console.log(data);
-                            alert('Publish pager successfully!');
-                            window.location.href = "/Pager/Index/" + measure_id;
-                        }
-                        else {
-                            console.log(data.message);
-                            alert('Failed to publish pager!');
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log(jqXHR);
-                        console.log(textStatus);
-                        console.log(errorThrown);
+                    if (data.success) {
+                        //console.log(data.message);
+                        console.log(data);
+                        alert('Publish spec successfully!');
+                        window.location.href = "/Spec/Index/" + measure_id;
                     }
-                })
+                    else {
+                        console.log(data.message);
+                        alert('Failed to publish pager!');
+                    }
+                },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            })
             })
         })
     </script>

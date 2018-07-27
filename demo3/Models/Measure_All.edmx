@@ -205,6 +205,26 @@
           <Parameter Name="Risk_Adjustment" Type="varchar(max)" Mode="In" />
           <Parameter Name="Reference" Type="varchar(max)" Mode="In" />
         </Function>
+        <Function Name="Publish_Spec" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+          <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
+          <Parameter Name="Data_Collection_Method" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Description" Type="varchar(max)" Mode="In" />
+          <Parameter Name="NQS_Domain" Type="int" Mode="In" />
+          <Parameter Name="NQS_Domain_Content" Type="varchar" Mode="In" />
+          <Parameter Name="Measure_Type" Type="int" Mode="In" />
+          <Parameter Name="Scope" Type="int" Mode="In" />
+          <Parameter Name="Measure_Summary" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Rationale" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Inclusions" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Exclusions" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Other_Build_Details" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Success" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Threshold" Type="numeric" Mode="In" />
+          <Parameter Name="Responsible_Provider" Type="int" Mode="In" />
+          <Parameter Name="Risk_Adjustment" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Reference" Type="varchar(max)" Mode="In" />
+        </Function>
         <Function Name="Save_Pager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
           <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
@@ -216,6 +236,25 @@
           <Parameter Name="Measure_Summary" Type="varchar(max)" Mode="In" />
           <Parameter Name="Inclusions" Type="varchar(max)" Mode="In" />
           <Parameter Name="Exclusions" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Success" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Threshold" Type="numeric" Mode="In" />
+          <Parameter Name="Responsible_Provider" Type="int" Mode="In" />
+          <Parameter Name="Risk_Adjustment" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Reference" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="Save_Spec" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+          <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
+          <Parameter Name="Data_Collection_Method" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Description" Type="varchar(max)" Mode="In" />
+          <Parameter Name="NQS_Domain" Type="int" Mode="In" />
+          <Parameter Name="Measure_Type" Type="int" Mode="In" />
+          <Parameter Name="Scope" Type="int" Mode="In" />
+          <Parameter Name="Measure_Summary" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Rationale" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Inclusions" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Exclusions" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Other_Build_Details" Type="varchar(max)" Mode="In" />
           <Parameter Name="Success" Type="varchar(max)" Mode="In" />
           <Parameter Name="Threshold" Type="numeric" Mode="In" />
           <Parameter Name="Responsible_Provider" Type="int" Mode="In" />
@@ -378,23 +417,10 @@
             <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
             <Parameter Name="Responsible_Provider_Name" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="Publish_Pager">
-            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
-            <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
-            <Parameter Name="Data_Collection_Method" Mode="In" Type="String" />
-            <Parameter Name="Description" Mode="In" Type="String" />
-            <Parameter Name="NQS_Domain" Mode="In" Type="Int32" />
-            <Parameter Name="NQS_Domain_Content" Mode="In" Type="String" />
-            <Parameter Name="Measure_Type" Mode="In" Type="Int32" />
-            <Parameter Name="Scope" Mode="In" Type="Int32" />
-            <Parameter Name="Measure_Summary" Mode="In" Type="String" />
-            <Parameter Name="Inclusions" Mode="In" Type="String" />
-            <Parameter Name="Exclusions" Mode="In" Type="String" />
-            <Parameter Name="Success" Mode="In" Type="String" />
-            <Parameter Name="Threshold" Mode="In" Type="Decimal" />
-            <Parameter Name="Responsible_Provider" Mode="In" Type="Int32" />
-            <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
-            <Parameter Name="Reference" Mode="In" Type="String" />
+          <EntitySet Name="Concept_Each_Header" EntityType="MPOG_XinyuModel1.Concept_Each_Header" />
+          <EntitySet Name="MPOG_Concepts" EntityType="MPOG_XinyuModel1.MPOG_Concepts" />
+          <FunctionImport Name="Delete_Domain">
+          <Parameter Name="Domain_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Save_Pager">
             <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
@@ -413,10 +439,62 @@
             <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
             <Parameter Name="Reference" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="Concept_Each_Header" EntityType="MPOG_XinyuModel1.Concept_Each_Header" />
-          <EntitySet Name="MPOG_Concepts" EntityType="MPOG_XinyuModel1.MPOG_Concepts" />
-          <FunctionImport Name="Delete_Domain">
-            <Parameter Name="Domain_ID" Mode="In" Type="Int32" />
+          <FunctionImport Name="Publish_Pager">
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
+            <Parameter Name="Data_Collection_Method" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="NQS_Domain" Mode="In" Type="Int32" />
+            <Parameter Name="NQS_Domain_Content" Mode="In" Type="String" />
+            <Parameter Name="Measure_Type" Mode="In" Type="Int32" />
+            <Parameter Name="Scope" Mode="In" Type="Int32" />
+            <Parameter Name="Measure_Summary" Mode="In" Type="String" />
+            <Parameter Name="Inclusions" Mode="In" Type="String" />
+            <Parameter Name="Exclusions" Mode="In" Type="String" />
+            <Parameter Name="Success" Mode="In" Type="String" />
+            <Parameter Name="Threshold" Mode="In" Type="Decimal" />
+            <Parameter Name="Responsible_Provider" Mode="In" Type="Int32" />
+            <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
+            <Parameter Name="Reference" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Save_Spec">
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
+            <Parameter Name="Data_Collection_Method" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="NQS_Domain" Mode="In" Type="Int32" />
+            <Parameter Name="Measure_Type" Mode="In" Type="Int32" />
+            <Parameter Name="Scope" Mode="In" Type="Int32" />
+            <Parameter Name="Measure_Summary" Mode="In" Type="String" />
+            <Parameter Name="Rationale" Mode="In" Type="String" />
+            <Parameter Name="Inclusions" Mode="In" Type="String" />
+            <Parameter Name="Exclusions" Mode="In" Type="String" />
+            <Parameter Name="Other_Build_Details" Mode="In" Type="String" />
+            <Parameter Name="Success" Mode="In" Type="String" />
+            <Parameter Name="Threshold" Mode="In" Type="Decimal" />
+            <Parameter Name="Responsible_Provider" Mode="In" Type="Int32" />
+            <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
+            <Parameter Name="Reference" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Publish_Spec">
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
+            <Parameter Name="Data_Collection_Method" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="NQS_Domain" Mode="In" Type="Int32" />
+            <Parameter Name="NQS_Domain_Content" Mode="In" Type="String" />
+            <Parameter Name="Measure_Type" Mode="In" Type="Int32" />
+            <Parameter Name="Scope" Mode="In" Type="Int32" />
+            <Parameter Name="Measure_Summary" Mode="In" Type="String" />
+            <Parameter Name="Rationale" Mode="In" Type="String" />
+            <Parameter Name="Inclusions" Mode="In" Type="String" />
+            <Parameter Name="Exclusions" Mode="In" Type="String" />
+            <Parameter Name="Other_Build_Details" Mode="In" Type="String" />
+            <Parameter Name="Success" Mode="In" Type="String" />
+            <Parameter Name="Threshold" Mode="In" Type="Decimal" />
+            <Parameter Name="Responsible_Provider" Mode="In" Type="Int32" />
+            <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
+            <Parameter Name="Reference" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Details_All_Result">
@@ -982,8 +1060,6 @@
           <FunctionImportMapping FunctionImportName="Edit_Measure_Scope" FunctionName="MPOG_XinyuModel1.Store.Edit_Measure_Scope" />
           <FunctionImportMapping FunctionImportName="Edit_Measure_Type" FunctionName="MPOG_XinyuModel1.Store.Edit_Measure_Type" />
           <FunctionImportMapping FunctionImportName="Add_New_Provider_Published" FunctionName="MPOG_XinyuModel1.Store.Add_New_Provider_Published" />
-          <FunctionImportMapping FunctionImportName="Publish_Pager" FunctionName="MPOG_XinyuModel1.Store.Publish_Pager" />
-          <FunctionImportMapping FunctionImportName="Save_Pager" FunctionName="MPOG_XinyuModel1.Store.Save_Pager" />
           <EntitySetMapping Name="Concept_Each_Header">
             <EntityTypeMapping TypeName="MPOG_XinyuModel1.Concept_Each_Header">
               <MappingFragment StoreEntitySet="Concept_Each_Header">
@@ -1006,6 +1082,10 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Delete_Domain" FunctionName="MPOG_XinyuModel1.Store.Delete_Domain" />
+          <FunctionImportMapping FunctionImportName="Save_Pager" FunctionName="MPOG_XinyuModel1.Store.Save_Pager" />
+          <FunctionImportMapping FunctionImportName="Publish_Pager" FunctionName="MPOG_XinyuModel1.Store.Publish_Pager" />
+          <FunctionImportMapping FunctionImportName="Save_Spec" FunctionName="MPOG_XinyuModel1.Store.Save_Spec" />
+          <FunctionImportMapping FunctionImportName="Publish_Spec" FunctionName="MPOG_XinyuModel1.Store.Publish_Spec" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -200,6 +200,26 @@
     <Parameter Name="Risk_Adjustment" Type="varchar(max)" Mode="In" />
     <Parameter Name="Reference" Type="varchar(max)" Mode="In" />
   </Function>
+  <Function Name="Publish_Spec" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+    <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
+    <Parameter Name="Data_Collection_Method" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Description" Type="varchar(max)" Mode="In" />
+    <Parameter Name="NQS_Domain" Type="int" Mode="In" />
+    <Parameter Name="NQS_Domain_Content" Type="varchar" Mode="In" />
+    <Parameter Name="Measure_Type" Type="int" Mode="In" />
+    <Parameter Name="Scope" Type="int" Mode="In" />
+    <Parameter Name="Measure_Summary" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Rationale" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Inclusions" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Exclusions" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Other_Build_Details" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Success" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Threshold" Type="numeric" Mode="In" />
+    <Parameter Name="Responsible_Provider" Type="int" Mode="In" />
+    <Parameter Name="Risk_Adjustment" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Reference" Type="varchar(max)" Mode="In" />
+  </Function>
   <Function Name="Save_Pager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
     <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
@@ -211,6 +231,25 @@
     <Parameter Name="Measure_Summary" Type="varchar(max)" Mode="In" />
     <Parameter Name="Inclusions" Type="varchar(max)" Mode="In" />
     <Parameter Name="Exclusions" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Success" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Threshold" Type="numeric" Mode="In" />
+    <Parameter Name="Responsible_Provider" Type="int" Mode="In" />
+    <Parameter Name="Risk_Adjustment" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Reference" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="Save_Spec" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+    <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
+    <Parameter Name="Data_Collection_Method" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Description" Type="varchar(max)" Mode="In" />
+    <Parameter Name="NQS_Domain" Type="int" Mode="In" />
+    <Parameter Name="Measure_Type" Type="int" Mode="In" />
+    <Parameter Name="Scope" Type="int" Mode="In" />
+    <Parameter Name="Measure_Summary" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Rationale" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Inclusions" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Exclusions" Type="varchar(max)" Mode="In" />
+    <Parameter Name="Other_Build_Details" Type="varchar(max)" Mode="In" />
     <Parameter Name="Success" Type="varchar(max)" Mode="In" />
     <Parameter Name="Threshold" Type="numeric" Mode="In" />
     <Parameter Name="Responsible_Provider" Type="int" Mode="In" />

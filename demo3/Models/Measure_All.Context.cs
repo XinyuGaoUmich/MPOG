@@ -441,6 +441,80 @@ namespace demo3.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_New_Provider_Published", measure_IDParameter, responsible_Provider_NameParameter);
         }
     
+        public virtual int Delete_Domain(Nullable<int> domain_ID)
+        {
+            var domain_IDParameter = domain_ID.HasValue ?
+                new ObjectParameter("Domain_ID", domain_ID) :
+                new ObjectParameter("Domain_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_Domain", domain_IDParameter);
+        }
+    
+        public virtual int Save_Pager(Nullable<int> measure_ID, string measure_Abbreviation, string data_Collection_Method, string description, Nullable<int> nQS_Domain, Nullable<int> measure_Type, Nullable<int> scope, string measure_Summary, string inclusions, string exclusions, string success, Nullable<decimal> threshold, Nullable<int> responsible_Provider, string risk_Adjustment, string reference)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var measure_AbbreviationParameter = measure_Abbreviation != null ?
+                new ObjectParameter("Measure_Abbreviation", measure_Abbreviation) :
+                new ObjectParameter("Measure_Abbreviation", typeof(string));
+    
+            var data_Collection_MethodParameter = data_Collection_Method != null ?
+                new ObjectParameter("Data_Collection_Method", data_Collection_Method) :
+                new ObjectParameter("Data_Collection_Method", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            var nQS_DomainParameter = nQS_Domain.HasValue ?
+                new ObjectParameter("NQS_Domain", nQS_Domain) :
+                new ObjectParameter("NQS_Domain", typeof(int));
+    
+            var measure_TypeParameter = measure_Type.HasValue ?
+                new ObjectParameter("Measure_Type", measure_Type) :
+                new ObjectParameter("Measure_Type", typeof(int));
+    
+            var scopeParameter = scope.HasValue ?
+                new ObjectParameter("Scope", scope) :
+                new ObjectParameter("Scope", typeof(int));
+    
+            var measure_SummaryParameter = measure_Summary != null ?
+                new ObjectParameter("Measure_Summary", measure_Summary) :
+                new ObjectParameter("Measure_Summary", typeof(string));
+    
+            var inclusionsParameter = inclusions != null ?
+                new ObjectParameter("Inclusions", inclusions) :
+                new ObjectParameter("Inclusions", typeof(string));
+    
+            var exclusionsParameter = exclusions != null ?
+                new ObjectParameter("Exclusions", exclusions) :
+                new ObjectParameter("Exclusions", typeof(string));
+    
+            var successParameter = success != null ?
+                new ObjectParameter("Success", success) :
+                new ObjectParameter("Success", typeof(string));
+    
+            var thresholdParameter = threshold.HasValue ?
+                new ObjectParameter("Threshold", threshold) :
+                new ObjectParameter("Threshold", typeof(decimal));
+    
+            var responsible_ProviderParameter = responsible_Provider.HasValue ?
+                new ObjectParameter("Responsible_Provider", responsible_Provider) :
+                new ObjectParameter("Responsible_Provider", typeof(int));
+    
+            var risk_AdjustmentParameter = risk_Adjustment != null ?
+                new ObjectParameter("Risk_Adjustment", risk_Adjustment) :
+                new ObjectParameter("Risk_Adjustment", typeof(string));
+    
+            var referenceParameter = reference != null ?
+                new ObjectParameter("Reference", reference) :
+                new ObjectParameter("Reference", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Save_Pager", measure_IDParameter, measure_AbbreviationParameter, data_Collection_MethodParameter, descriptionParameter, nQS_DomainParameter, measure_TypeParameter, scopeParameter, measure_SummaryParameter, inclusionsParameter, exclusionsParameter, successParameter, thresholdParameter, responsible_ProviderParameter, risk_AdjustmentParameter, referenceParameter);
+        }
+    
         public virtual int Publish_Pager(Nullable<int> measure_ID, string measure_Abbreviation, string data_Collection_Method, string description, Nullable<int> nQS_Domain, string nQS_Domain_Content, Nullable<int> measure_Type, Nullable<int> scope, string measure_Summary, string inclusions, string exclusions, string success, Nullable<decimal> threshold, Nullable<int> responsible_Provider, string risk_Adjustment, string reference)
         {
             var measure_IDParameter = measure_ID.HasValue ?
@@ -510,7 +584,7 @@ namespace demo3.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Publish_Pager", measure_IDParameter, measure_AbbreviationParameter, data_Collection_MethodParameter, descriptionParameter, nQS_DomainParameter, nQS_Domain_ContentParameter, measure_TypeParameter, scopeParameter, measure_SummaryParameter, inclusionsParameter, exclusionsParameter, successParameter, thresholdParameter, responsible_ProviderParameter, risk_AdjustmentParameter, referenceParameter);
         }
     
-        public virtual int Save_Pager(Nullable<int> measure_ID, string measure_Abbreviation, string data_Collection_Method, string description, Nullable<int> nQS_Domain, Nullable<int> measure_Type, Nullable<int> scope, string measure_Summary, string inclusions, string exclusions, string success, Nullable<decimal> threshold, Nullable<int> responsible_Provider, string risk_Adjustment, string reference)
+        public virtual int Save_Spec(Nullable<int> measure_ID, string measure_Abbreviation, string data_Collection_Method, string description, Nullable<int> nQS_Domain, Nullable<int> measure_Type, Nullable<int> scope, string measure_Summary, string rationale, string inclusions, string exclusions, string other_Build_Details, string success, Nullable<decimal> threshold, Nullable<int> responsible_Provider, string risk_Adjustment, string reference)
         {
             var measure_IDParameter = measure_ID.HasValue ?
                 new ObjectParameter("Measure_ID", measure_ID) :
@@ -544,6 +618,10 @@ namespace demo3.Models
                 new ObjectParameter("Measure_Summary", measure_Summary) :
                 new ObjectParameter("Measure_Summary", typeof(string));
     
+            var rationaleParameter = rationale != null ?
+                new ObjectParameter("Rationale", rationale) :
+                new ObjectParameter("Rationale", typeof(string));
+    
             var inclusionsParameter = inclusions != null ?
                 new ObjectParameter("Inclusions", inclusions) :
                 new ObjectParameter("Inclusions", typeof(string));
@@ -551,6 +629,10 @@ namespace demo3.Models
             var exclusionsParameter = exclusions != null ?
                 new ObjectParameter("Exclusions", exclusions) :
                 new ObjectParameter("Exclusions", typeof(string));
+    
+            var other_Build_DetailsParameter = other_Build_Details != null ?
+                new ObjectParameter("Other_Build_Details", other_Build_Details) :
+                new ObjectParameter("Other_Build_Details", typeof(string));
     
             var successParameter = success != null ?
                 new ObjectParameter("Success", success) :
@@ -572,16 +654,84 @@ namespace demo3.Models
                 new ObjectParameter("Reference", reference) :
                 new ObjectParameter("Reference", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Save_Pager", measure_IDParameter, measure_AbbreviationParameter, data_Collection_MethodParameter, descriptionParameter, nQS_DomainParameter, measure_TypeParameter, scopeParameter, measure_SummaryParameter, inclusionsParameter, exclusionsParameter, successParameter, thresholdParameter, responsible_ProviderParameter, risk_AdjustmentParameter, referenceParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Save_Spec", measure_IDParameter, measure_AbbreviationParameter, data_Collection_MethodParameter, descriptionParameter, nQS_DomainParameter, measure_TypeParameter, scopeParameter, measure_SummaryParameter, rationaleParameter, inclusionsParameter, exclusionsParameter, other_Build_DetailsParameter, successParameter, thresholdParameter, responsible_ProviderParameter, risk_AdjustmentParameter, referenceParameter);
         }
     
-        public virtual int Delete_Domain(Nullable<int> domain_ID)
+        public virtual int Publish_Spec(Nullable<int> measure_ID, string measure_Abbreviation, string data_Collection_Method, string description, Nullable<int> nQS_Domain, string nQS_Domain_Content, Nullable<int> measure_Type, Nullable<int> scope, string measure_Summary, string rationale, string inclusions, string exclusions, string other_Build_Details, string success, Nullable<decimal> threshold, Nullable<int> responsible_Provider, string risk_Adjustment, string reference)
         {
-            var domain_IDParameter = domain_ID.HasValue ?
-                new ObjectParameter("Domain_ID", domain_ID) :
-                new ObjectParameter("Domain_ID", typeof(int));
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_Domain", domain_IDParameter);
+            var measure_AbbreviationParameter = measure_Abbreviation != null ?
+                new ObjectParameter("Measure_Abbreviation", measure_Abbreviation) :
+                new ObjectParameter("Measure_Abbreviation", typeof(string));
+    
+            var data_Collection_MethodParameter = data_Collection_Method != null ?
+                new ObjectParameter("Data_Collection_Method", data_Collection_Method) :
+                new ObjectParameter("Data_Collection_Method", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            var nQS_DomainParameter = nQS_Domain.HasValue ?
+                new ObjectParameter("NQS_Domain", nQS_Domain) :
+                new ObjectParameter("NQS_Domain", typeof(int));
+    
+            var nQS_Domain_ContentParameter = nQS_Domain_Content != null ?
+                new ObjectParameter("NQS_Domain_Content", nQS_Domain_Content) :
+                new ObjectParameter("NQS_Domain_Content", typeof(string));
+    
+            var measure_TypeParameter = measure_Type.HasValue ?
+                new ObjectParameter("Measure_Type", measure_Type) :
+                new ObjectParameter("Measure_Type", typeof(int));
+    
+            var scopeParameter = scope.HasValue ?
+                new ObjectParameter("Scope", scope) :
+                new ObjectParameter("Scope", typeof(int));
+    
+            var measure_SummaryParameter = measure_Summary != null ?
+                new ObjectParameter("Measure_Summary", measure_Summary) :
+                new ObjectParameter("Measure_Summary", typeof(string));
+    
+            var rationaleParameter = rationale != null ?
+                new ObjectParameter("Rationale", rationale) :
+                new ObjectParameter("Rationale", typeof(string));
+    
+            var inclusionsParameter = inclusions != null ?
+                new ObjectParameter("Inclusions", inclusions) :
+                new ObjectParameter("Inclusions", typeof(string));
+    
+            var exclusionsParameter = exclusions != null ?
+                new ObjectParameter("Exclusions", exclusions) :
+                new ObjectParameter("Exclusions", typeof(string));
+    
+            var other_Build_DetailsParameter = other_Build_Details != null ?
+                new ObjectParameter("Other_Build_Details", other_Build_Details) :
+                new ObjectParameter("Other_Build_Details", typeof(string));
+    
+            var successParameter = success != null ?
+                new ObjectParameter("Success", success) :
+                new ObjectParameter("Success", typeof(string));
+    
+            var thresholdParameter = threshold.HasValue ?
+                new ObjectParameter("Threshold", threshold) :
+                new ObjectParameter("Threshold", typeof(decimal));
+    
+            var responsible_ProviderParameter = responsible_Provider.HasValue ?
+                new ObjectParameter("Responsible_Provider", responsible_Provider) :
+                new ObjectParameter("Responsible_Provider", typeof(int));
+    
+            var risk_AdjustmentParameter = risk_Adjustment != null ?
+                new ObjectParameter("Risk_Adjustment", risk_Adjustment) :
+                new ObjectParameter("Risk_Adjustment", typeof(string));
+    
+            var referenceParameter = reference != null ?
+                new ObjectParameter("Reference", reference) :
+                new ObjectParameter("Reference", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Publish_Spec", measure_IDParameter, measure_AbbreviationParameter, data_Collection_MethodParameter, descriptionParameter, nQS_DomainParameter, nQS_Domain_ContentParameter, measure_TypeParameter, scopeParameter, measure_SummaryParameter, rationaleParameter, inclusionsParameter, exclusionsParameter, other_Build_DetailsParameter, successParameter, thresholdParameter, responsible_ProviderParameter, risk_AdjustmentParameter, referenceParameter);
         }
     }
 }

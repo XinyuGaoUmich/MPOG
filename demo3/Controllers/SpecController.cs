@@ -21,7 +21,7 @@ namespace demo3.Controllers
             //var collations = db2.Collations(id).ToList();
             var data_diagnostic = db2.Data_Diagnostics_Affected(id).ToList();
             var mpog_concept_header = db2.MPOG_Concept_ID_Required(id).ToList();
-            var all_concept_ids = db2.Concept_Each_Header;
+            var all_concept_ids = db2.Concept_Each_Header.OrderBy(o => o.MPOG_Concept_ID);
             var all_concepts = db2.MPOG_Concepts;
             List<Spec_Published_Result> spec_Published_Results = db2.Spec_Published(id).ToList();
             var model = new EditSpec { spec_Results = spec_Results, spec_Published_Results = spec_Published_Results, collations_Results = null, concept_ID_Required_Results = mpog_concept_header, data_Diagnostics_Affected_Results = data_diagnostic, measure_Type = measure_Type, nQS_Domain = nQS_Domain, responsible_Provider = responsible_provider, scope = scope, all_Concept_ids = all_concept_ids, all_Concepts = all_concepts };
@@ -472,7 +472,89 @@ namespace demo3.Controllers
             }
         }
 
-    
+        public JsonResult AutocompleteConcept(string term)
+        {
+            try
+            {
+                //var providerList = db2.Enumeration_Responsible_Provider.Where(o => o.Responsible_Provider_Name.ToUpper().Contains(term.ToUpper())).Select(o => new { id = o.Responsible_Provider_ID, provider = o.Responsible_Provider_Name }).Distinct().ToList();
+                var conceptList = db2.MPOG_Concepts.Where(o => o.concept_desc.ToUpper().Contains(term.ToUpper())).Select(o => new { id = o.MPOG_Concept_ID, concept = o.concept_desc }).Distinct().ToList();
+                return Json(new
+                {
+                    sucess = true,
+                    message = "success",
+                    conceptList
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = e.Message
+                });
+            }
+        }
 
+        [ValidateInput(false)]
+        public JsonResult Save(int measure_id, string measure_abbreviation, int? nqs_domain, int? measure_type, int? scope, decimal threshold, string data_collection_method, string description, string measure_summary, string rationale, string inclusions, string exclusions, string other_measure_build_details, string success, string risk_adjustment, string references, int provider, string new_provider)
+        {
+            try
+            {
+                if (provider > 0)
+                {
+                    db2.Save_Spec(measure_id, measure_abbreviation, data_collection_method, description, nqs_domain, measure_type, scope, measure_summary, rationale, inclusions, exclusions, other_measure_build_details, success, threshold, provider, risk_adjustment, references);
+                }
+
+                db2.Save_Spec(measure_id, measure_abbreviation, data_collection_method, description, nqs_domain, measure_type, scope, measure_summary, rationale, inclusions, exclusions, other_measure_build_details, success, threshold, null, risk_adjustment, references);
+
+                if (provider == -1 && new_provider != "")
+                {
+                    db2.Add_New_Provider(measure_id, new_provider);
+                }
+                return Json(new
+                {
+                    success = true,
+                    message = "success"
+                });
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = e.Message
+                });
+            }
+        }
+
+        [ValidateInput(false)]
+        public JsonResult Publish(int measure_id, string measure_abbreviation, int? nqs_domain, string domain_content, int? measure_type, int? scope, decimal threshold, string data_collection_method, string description, string measure_summary, string rationale, string inclusions, string exclusions, string other_measure_build_details, string success, string risk_adjustment, string references, int provider, string new_provider)
+        {
+            try
+            {
+                if (provider > 0)
+                {
+                    db2.Publish_Spec(measure_id, measure_abbreviation, data_collection_method, description, nqs_domain, domain_content, measure_type, scope, measure_summary, rationale, inclusions, exclusions, other_measure_build_details, success, threshold, provider, risk_adjustment, references);
+                }
+                db2.Publish_Spec(measure_id, measure_abbreviation, data_collection_method, description, nqs_domain, domain_content, measure_type, scope, measure_summary, rationale, inclusions, exclusions, other_measure_build_details, success, threshold, null, risk_adjustment, references);
+                if (provider == -1 && new_provider != "")
+                {
+                    db2.Add_New_Provider_Published(measure_id, new_provider);
+                }
+                return Json(new
+                {
+                    success = true,
+                    message = "success"
+                });
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = e.Message
+                });
+            }
+        }
     }
 }
