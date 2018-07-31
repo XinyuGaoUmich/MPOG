@@ -511,6 +511,9 @@
                                 <li id='@("last"+header.MPOG_Concept_Header_ID)'><button id='@("add"+header.MPOG_Concept_Header_ID)'>Add New Concept</button></li>
                             </ul>
                         }
+                        <div>
+                            <button id="addNewHeader" type="button">Add New Concept Header</button>
+                        </div>
                     </div>
                 </td>
                 <td>
@@ -771,9 +774,13 @@
 
     <script type="text/javascript">
         var count = 0;
-        var existing_header_name = {};
-        var delete_existing_header = {};
-        var add_existing_header = {};
+        var existing_header_nametmp = {};
+        var existing_header_name = [];
+        var delete_existing_headertmp = {};
+        var delete_existing_header = [];
+        var add_existing_headertmp = {};
+        var add_existing_header = [];
+        var newConceptHeader = 0;
         //var delete_count = 0;
         $(document).ready(function () {
                         function strip(html) {
@@ -1088,11 +1095,11 @@
                         var id = $(this).prop('id');
                         $('#' + id + "input").val(ui.item.id);
                         var header = this.parentElement.parentElement.id.replace("ul", "");
-                        if (!(header in add_existing_header)) {
-                            add_existing_header[header] = [];
+                        if (!(header in add_existing_headertmp)) {
+                            add_existing_headertmp[header] = [];
                         }
-                        add_existing_header[header].push(ui.item.id);
-                        console.log(add_existing_header);
+                        add_existing_headertmp[header].push(ui.item.id);
+                        //console.log(add_existing_headertmp);
             }
         })
             }
@@ -1132,7 +1139,7 @@
             //console.log(this.id);
                 var headerid = this.id;
                 var id = headerid.replace('header', '');
-                existing_header_name[id] = this.textContent;
+                existing_header_nametmp[id] = this.textContent;
                 var inputid = 'input' + id;
                 var crossid = 'cross' + id;
                 var buttonid = 'add' + id;
@@ -1158,10 +1165,23 @@
                 })
             })
 
+            $('#addNewHeader').click(function () {
+                $(`<div class="newConceptHeader"><input class="form-control"/><ul id='${newConceptHeader}'><li id='${newConceptHeader}li'><button id='${newConceptHeader}addbutton'>Add New Concept</button></li></ul></div>`).insertBefore(this);   
+                $(`#${newConceptHeader}addbutton`).click(function () {
+                    var number = this.id.replace("addbutton", "");
+                    $(`<li><input id="newconcept${count}" class="form-control newconcept"/><span aria-hidden="true" style="cursor: pointer" class="delete_concept_new_added">&times;</span></li>`).insertBefore(`#${number}li`);
+                    $('.newconcept').each(Autocomplete);
+                    $('.delete_concept_new_added').off('click').on('click', (deleteConceptNewAdded));
+                    count++;
+                })
+                newConceptHeader++;
+            })
+
             function deleteConceptNewAdded() {
                 //delete_count++;
                 var content = this.previousElementSibling.value;
                 if (content == "") {
+                    this.parentElement.remove();
                     return;
                 }
                 var conceptid = content.substring(0, content.indexOf(" "));
@@ -1169,16 +1189,13 @@
                     debugger;
                 }
                 var header = this.parentElement.parentElement.id.replace("ul", "");
-                if (header in add_existing_header) {
-                    remove(add_existing_header[header], conceptid);
+                if (header in add_existing_headertmp) {
+                    remove(add_existing_headertmp[header], conceptid);
                     this.parentElement.remove();
-                    if (add_existing_header[header].length == 0) {
-                        delete add_existing_header[header];
+                    if (add_existing_headertmp[header].length == 0) {
+                        delete add_existing_headertmp[header];
                     }
-                }
-                
-                console.log(add_existing_header);
-               
+                }             
             }
 
             function remove(array, element) {
@@ -1191,15 +1208,30 @@
             function deleteConceptExistingHeader() {
                 var item = this.parentElement.id.replace("concept", "");
                 var header = this.parentElement.parentElement.id.replace("ul", "");
-                if (!(header in delete_existing_header)) {
-                    delete_existing_header[header] = [];
+                if (!(header in delete_existing_headertmp)) {
+                    delete_existing_headertmp[header] = [];
                 }
-                delete_existing_header[header].push(item);
-                //console.log(delete_existing_header);
+                delete_existing_headertmp[header].push(item);
+                //console.log(delete_existing_headertmp);
                 this.parentElement.remove();
             }
 
             $('#save').click(function () {
+                var newConceptHeader = 0;
+                var empty = false;
+                var newConcept
+                $('.newConceptHeader').each(function () {
+                    var headerName = this.firstElementChild.value;
+                    if (headerName == "") {
+                        empty = true;
+                        return;
+                    }
+                    var  
+                })
+                if (empty) {
+                    alert("Header name cannot be empty!")
+                    return;
+                }
                 var measure_abbreviation = $('#measure_abbreviation').val()
                 var nqs_domain = $('#nqs_domain').val();
                 var measure_type = $('#measure_type').val();
@@ -1218,36 +1250,29 @@
                 var measure_id = $('#Measure_ID').val();
                 var provider = $('#responsible_provider_select').val();
                 var new_provider = CKEDITOR.instances.editor1.getData();
-                for (var key in existing_header_name) {
-                    existing_header_name[key] = $('#header' + key).text();
+                for (var key in existing_header_nametmp) {
+                    existing_header_nametmp[key] = $('#header' + key).text();
+                }              
+                for (var key in existing_header_nametmp) {
+                    existing_header_name.push({ key: key, value: $('#header' + key).text() });                 
+                }  
+                for (var key in delete_existing_headertmp) {
+                    delete_existing_header.push({ key: key, value: delete_existing_headertmp[key]})
                 }
-                //existing_header_name = { 1: "Race MPOG Concept IDs askjfhakjshdf", 2: "Ht/Wt MPOG Concept IDs asjkdhfkj", 3: "Creatinine Lab Concept ID asdjfhjkh" }
-                //console.log(delete_existing_header);
-                //delete_existing_header = {1: array(1),2: array(2)}
-                //data = {
-                //    'measure_id': measure_id,
-                //    'measure_abbreviation': measure_abbreviation,
-                //    'nqs_domain': nqs_domain,
-                //    'measure_type': measure_type,
-                //    'scope': scope,
-                //    'threshold': threshold,
-                //    'data_collection_method': data_collection_method,
-                //    'description': description,
-                //    'measure_summary': measure_summary,
-                //    'inclusions': inclusions,
-                //    'exclusions': exclusions,
-                //    'success': success,
-                //    'risk_adjustment': risk_adjustment,
-                //    'references': references,
-                //    'provider': provider,
-                //    'new_provider': new_provider
-                //};
-               // console.log(references)
+                for (var key in add_existing_headertmp) {
+                    add_existing_header.push({ key: key, value: add_existing_headertmp[key] })
+                }
+
+                $('.newConceptHeader').each(function () {
+                    this.firstElementChild.value
+                    debugger;
+                })
+               
                 $.ajax({
                 url: '@Url.Action("Save", "Spec")',
                     type: 'POST',
                     data: {
-                    'measure_id': measure_id,
+                        'measure_id': measure_id,
                         'measure_abbreviation': measure_abbreviation,
                         'nqs_domain': nqs_domain,
                         'measure_type': measure_type,
@@ -1264,14 +1289,17 @@
                         'risk_adjustment': risk_adjustment,
                         'references': references,
                         'provider': provider,
-                        'new_provider': new_provider
+                        'new_provider': new_provider,
+                        'existing_header_name': existing_header_name,
+                        'delete_existing_header': delete_existing_header,
+                        'add_existing_header': add_existing_header,
                     },
                     success: function (data) {
                     if (data.success) {
                         //console.log(data.message);
                         console.log(data);
                         alert('Saved spec successfully!');
-                        window.location.href = "/Spec/Index/" + measure_id;
+                        //window.location.href = "/Spec/Index/" + measure_id;
                     }
                     else {
                         console.log(data.message);
@@ -1330,7 +1358,7 @@
                 url: '@Url.Action("Publish")',
                     type: 'POST',
                     data: {
-                    'measure_id': measure_id,
+                        'measure_id': measure_id,
                         'measure_abbreviation': measure_abbreviation,
                         'nqs_domain': nqs_domain,
                         'domain_content': domain_content,

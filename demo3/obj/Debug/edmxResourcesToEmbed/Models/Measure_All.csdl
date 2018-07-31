@@ -210,6 +210,18 @@
       <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
       <Parameter Name="Reference" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="Modify_Header_Name">
+      <Parameter Name="Header_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Header_Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Delete_Concept">
+      <Parameter Name="Header_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Concept_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Add_Concept_Existing_Header">
+      <Parameter Name="Header_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Concept_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="Details_All_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />
