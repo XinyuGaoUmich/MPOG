@@ -497,9 +497,10 @@
                     <div class="col-md-10">
                         @foreach (var header in Model.concept_ID_Required_Results)
                         {
-                            <strong class="header" id='@("header"+header.MPOG_Concept_Header_ID)'>@header.MPOG_Concept_Header_Name</strong> <span id='@("cross"+header.MPOG_Concept_Header_ID)' aria-hidden="true" style="cursor: pointer" class="delete_header">&times;</span>
+                            <div>
                             <input type="text" id='@("input"+header.MPOG_Concept_Header_ID)' style="display: none" />
-                            <ul id='@("ul"+header.MPOG_Concept_Header_ID)'>
+                            <strong class="header" id='@("header"+header.MPOG_Concept_Header_ID)'>@header.MPOG_Concept_Header_Name</strong> <span id='@("cross"+header.MPOG_Concept_Header_ID)' aria-hidden="true" style="cursor: pointer" class="delete_header">&times;</span>
+                            <ul id='@("existingul"+header.MPOG_Concept_Header_ID)'>
                                 @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID).OrderBy(o => o.MPOG_Concept_ID))
                                 {
                                     <li id='@("concept"+item.MPOG_Concept_ID)'>
@@ -510,6 +511,7 @@
                                 }
                                 <li id='@("last"+header.MPOG_Concept_Header_ID)'><button id='@("add"+header.MPOG_Concept_Header_ID)'>Add New Concept</button></li>
                             </ul>
+                            </div>
                         }
                         <div>
                             <button id="addNewHeader" type="button">Add New Concept Header</button>
@@ -781,7 +783,7 @@
         var add_existing_headertmp = {};
         var add_existing_header = [];
         var newConceptHeader = 0;
-        //var delete_count = 0;
+        var delete_header = [];
         $(document).ready(function () {
                         function strip(html) {
                             var tmp = document.createElement("div");
@@ -1094,7 +1096,8 @@
                     select: function (event, ui) {
                         var id = $(this).prop('id');
                         $('#' + id + "input").val(ui.item.id);
-                        var header = this.parentElement.parentElement.id.replace("ul", "");
+                        if (!this.parentElement.parentElement.id.includes("existing")) { return };
+                        var header = this.parentElement.parentElement.id.replace("existingul", "");
                         if (!(header in add_existing_headertmp)) {
                             add_existing_headertmp[header] = [];
                         }
@@ -1166,7 +1169,8 @@
             })
 
             $('#addNewHeader').click(function () {
-                $(`<div class="newConceptHeader"><input class="form-control"/><ul id='${newConceptHeader}'><li id='${newConceptHeader}li'><button id='${newConceptHeader}addbutton'>Add New Concept</button></li></ul></div>`).insertBefore(this);   
+                $(`<div class="newConceptHeader"><input class="form-control"/><span aria-hidden="true" style="cursor: pointer" class="delete_header">&times;</span><ul id='${newConceptHeader}'><li id='${newConceptHeader}li'><button id='${newConceptHeader}addbutton'>Add New Concept</button></li></ul></div>`).insertBefore(this);   
+                $('.delete_header').off('click').on('click', deleteHeader);
                 $(`#${newConceptHeader}addbutton`).click(function () {
                     var number = this.id.replace("addbutton", "");
                     $(`<li><input id="newconcept${count}" class="form-control newconcept"/><span aria-hidden="true" style="cursor: pointer" class="delete_concept_new_added">&times;</span></li>`).insertBefore(`#${number}li`);
@@ -1177,8 +1181,33 @@
                 newConceptHeader++;
             })
 
+            $('.delete_header').each(function () {
+                $(this).on('click',deleteHeader);
+            });
+
+            function deleteHeader() { 
+                var count = this.nextElementSibling.childElementCount;
+                if (count > 1) {
+                    alert('cannot delete non-empty header!');
+                    return;
+                }
+                else {
+                    //delete newly added header or existing header?
+                    debugger;
+                    //newly added header
+                    if (this.previousElementSibling.classList.contains("form-control")) {
+
+                    } else {
+                        delete_header.push(this.previousElementSibling.innerText);
+                    }
+                    
+                    this.parentElement.remove();
+                }
+            }
+
             function deleteConceptNewAdded() {
                 //delete_count++;
+                debugger;
                 var content = this.previousElementSibling.value;
                 if (content == "") {
                     this.parentElement.remove();
@@ -1206,32 +1235,41 @@
             $('.delete_concept_existing_header').click(deleteConceptExistingHeader);
 
             function deleteConceptExistingHeader() {
+               
                 var item = this.parentElement.id.replace("concept", "");
-                var header = this.parentElement.parentElement.id.replace("ul", "");
+                var header = this.parentElement.parentElement.id.replace("existingul", "");
                 if (!(header in delete_existing_headertmp)) {
                     delete_existing_headertmp[header] = [];
                 }
                 delete_existing_headertmp[header].push(item);
-                //console.log(delete_existing_headertmp);
                 this.parentElement.remove();
             }
 
             $('#save').click(function () {
-                var newConceptHeader = 0;
+                var newConceptHeader = 0; 
+                var newConceptHeaderDic = {};
                 var empty = false;
-                var newConcept
+
                 $('.newConceptHeader').each(function () {
                     var headerName = this.firstElementChild.value;
                     if (headerName == "") {
                         empty = true;
                         return;
                     }
-                    var  
+                    newConceptHeaderDic[headerName] = [];
+                    var ul = this.lastElementChild;
+                    for (var i = 0; i < ul.children.length - 1; i++) {
+                        var array = ul.children[i].children[0].value
+                        var conceptId = array.substring(0, array.indexOf(" "));
+                        newConceptHeaderDic[headerName].push(conceptId);
+                    }
+                    newConceptHeader++; 
                 })
                 if (empty) {
                     alert("Header name cannot be empty!")
                     return;
                 }
+                
                 var measure_abbreviation = $('#measure_abbreviation').val()
                 var nqs_domain = $('#nqs_domain').val();
                 var measure_type = $('#measure_type').val();
@@ -1255,19 +1293,70 @@
                 }              
                 for (var key in existing_header_nametmp) {
                     existing_header_name.push({ key: key, value: $('#header' + key).text() });                 
-                }  
+                }            
+
+                var delete_existing_header = [];
                 for (var key in delete_existing_headertmp) {
-                    delete_existing_header.push({ key: key, value: delete_existing_headertmp[key]})
+                    var value = delete_existing_headertmp[key];
+                    var stringForm = "";
+                    for (var item in value) {
+                        if (item != value.length - 1) {
+                            stringForm = stringForm.concat(value[item], ",");
+                        }
+                        else {
+                            stringForm = stringForm.concat(value[item]);
+                        }
+                        
+                    }
+                    delete_existing_header.push({ key: key.toString(), value: stringForm });
                 }
-                for (var key in add_existing_headertmp) {
-                    add_existing_header.push({ key: key, value: add_existing_headertmp[key] })
+                if (delete_existing_header.length == 0) {
+                    delete_existing_header.push({ key: "empty", value: "" })
                 }
 
-                $('.newConceptHeader').each(function () {
-                    this.firstElementChild.value
-                    debugger;
-                })
-               
+                var add_existing_header = [];
+                for (var key in add_existing_headertmp) {
+                    var value = add_existing_headertmp[key];
+                    var stringForm = "";
+                    for (var item in value) {
+                        if (item != value.length - 1) {
+                            stringForm = stringForm.concat(value[item], ",");
+                        }
+                        else {
+                            stringForm = stringForm.concat(value[item]);
+                        }
+                    }
+                    add_existing_header.push({ key: key.toString(), value: stringForm });
+                }
+                if (add_existing_header.length == 0) {
+                    add_existing_header.push({ key: "empty", value: "" })
+                }
+
+
+                var newConceptHeaderTocontroller = [];
+                for (var key in newConceptHeaderDic) {
+                    var value = newConceptHeaderDic[key];
+                    var stringForm = "";
+                    for (var item in value) {
+                        if (item != value.length - 1) {
+                            stringForm = stringForm.concat(value[item], ",");
+                        }
+                        else {
+                            stringForm = stringForm.concat(value[item]);
+                        }
+                        console.log(stringForm);
+                    }
+                    newConceptHeaderTocontroller.push({ key: key.toString(), value: stringForm });
+                }
+                if (newConceptHeaderTocontroller.length == 0) {
+                    newConceptHeaderTocontroller.push({key: "-1", value: ""})
+                }
+                //console.log(existing_header_name);
+                //console.log(delete_existing_header);
+                console.log(add_existing_header);
+                //console.log(newConceptHeaderTocontroller);   
+                console.log(delete_header);
+                return;
                 $.ajax({
                 url: '@Url.Action("Save", "Spec")',
                     type: 'POST',
@@ -1293,10 +1382,10 @@
                         'existing_header_name': existing_header_name,
                         'delete_existing_header': delete_existing_header,
                         'add_existing_header': add_existing_header,
+                        'newConceptHeaderTocontroller': newConceptHeaderTocontroller,
                     },
                     success: function (data) {
                     if (data.success) {
-                        //console.log(data.message);
                         console.log(data);
                         alert('Saved spec successfully!');
                         //window.location.href = "/Spec/Index/" + measure_id;

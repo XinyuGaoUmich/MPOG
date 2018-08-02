@@ -345,5 +345,6 @@
     <FunctionImportMapping FunctionImportName="Modify_Header_Name" FunctionName="MPOG_XinyuModel1.Store.Modify_Header_Name" />
     <FunctionImportMapping FunctionImportName="Delete_Concept" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept" />
     <FunctionImportMapping FunctionImportName="Add_Concept_Existing_Header" FunctionName="MPOG_XinyuModel1.Store.Add_Concept_Existing_Header" />
+    <FunctionImportMapping FunctionImportName="Add_New_Header" FunctionName="MPOG_XinyuModel1.Store.Add_New_Header" />
   </EntityContainerMapping>
 </Mapping>

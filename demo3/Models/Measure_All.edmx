@@ -95,6 +95,11 @@
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
           <Parameter Name="NQS_Domain_Name" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="Add_New_Header" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+          <Parameter Name="Header_Name" Type="varchar" Mode="In" />
+          <Parameter Name="New_header_Id" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="Add_New_Measure_Scope" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
           <Parameter Name="Scope_Name" Type="varchar" Mode="In" />
@@ -519,6 +524,11 @@
           <FunctionImport Name="Add_Concept_Existing_Header">
             <Parameter Name="Header_ID" Mode="In" Type="Int32" />
             <Parameter Name="Concept_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Add_New_Header">
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Header_Name" Mode="In" Type="String" />
+            <Parameter Name="New_header_Id" Mode="InOut" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Details_All_Result">
@@ -1113,6 +1123,7 @@
           <FunctionImportMapping FunctionImportName="Modify_Header_Name" FunctionName="MPOG_XinyuModel1.Store.Modify_Header_Name" />
           <FunctionImportMapping FunctionImportName="Delete_Concept" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept" />
           <FunctionImportMapping FunctionImportName="Add_Concept_Existing_Header" FunctionName="MPOG_XinyuModel1.Store.Add_Concept_Existing_Header" />
+          <FunctionImportMapping FunctionImportName="Add_New_Header" FunctionName="MPOG_XinyuModel1.Store.Add_New_Header" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

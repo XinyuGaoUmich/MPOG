@@ -772,5 +772,18 @@ namespace demo3.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_Concept_Existing_Header", header_IDParameter, concept_IDParameter);
         }
+    
+        public virtual int Add_New_Header(Nullable<int> measure_ID, string header_Name, ObjectParameter new_header_Id)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var header_NameParameter = header_Name != null ?
+                new ObjectParameter("Header_Name", header_Name) :
+                new ObjectParameter("Header_Name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_New_Header", measure_IDParameter, header_NameParameter, new_header_Id);
+        }
     }
 }

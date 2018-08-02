@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -496,7 +497,7 @@ namespace demo3.Controllers
         }
 
         [ValidateInput(false)]
-        public JsonResult Save(int measure_id, string measure_abbreviation, int? nqs_domain, int? measure_type, int? scope, decimal threshold, string data_collection_method, string description, string measure_summary, string rationale, string inclusions, string exclusions, string other_measure_build_details, string success, string risk_adjustment, string references, int provider, string new_provider, Dictionary<int, string> existing_header_name, Dictionary<int, int[]> delete_existing_header, Dictionary<int, int[]> add_existing_header)
+        public JsonResult Save(int measure_id, string measure_abbreviation, int? nqs_domain, int? measure_type, int? scope, decimal threshold, string data_collection_method, string description, string measure_summary, string rationale, string inclusions, string exclusions, string other_measure_build_details, string success, string risk_adjustment, string references, int provider, string new_provider, Dictionary<int, string> existing_header_name, Dictionary<string, string> delete_existing_header, Dictionary<string, string> add_existing_header, Dictionary<string, string> newConceptHeaderTocontroller)
         {
             try
             {
@@ -511,9 +512,10 @@ namespace demo3.Controllers
                 {
                     db2.Add_New_Provider(measure_id, new_provider);
                 }
-                bool ModifyHeaderName = existing_header_name.Count() != 0;
-                bool DeleteConcept = delete_existing_header.Count() != 0;
-                bool AddConceptExistingHeader = add_existing_header.Count() != 0;              
+                bool ModifyHeaderName = (existing_header_name != null && existing_header_name.Count() != 0);
+                bool DeleteConcept = (delete_existing_header != null && delete_existing_header.Count() != 0);
+                bool AddConceptExistingHeader = (add_existing_header != null && add_existing_header.Count() != 0);
+                bool AddConceptNewHeader = (newConceptHeaderTocontroller != null && newConceptHeaderTocontroller.Count() != 0);
                 if (ModifyHeaderName) {
                     foreach(KeyValuePair<int, string> entry in existing_header_name)
                     {
@@ -523,25 +525,69 @@ namespace demo3.Controllers
                 }
                 if (DeleteConcept)
                 {
-                    foreach (KeyValuePair<int, int[]> entry in delete_existing_header)
-                    {
-                        int headerId = entry.Key;
-                        int[] delete_concept_Id = entry.Value;
+                    foreach (KeyValuePair<string, string> entry in delete_existing_header)
+                    {                     
+                        string headerIDstring = entry.Key;
+                        if (headerIDstring == "empty")
+                        {
+                            break;
+                        }
+
+                        int headerId = Convert.ToInt32(headerIDstring);
+                        string[] delete_concept_Id = entry.Value.Split(',');                    
                         for (int i = 0; i < delete_concept_Id.Length; i++)
                         {
-                            db2.Delete_Concept(headerId, delete_concept_Id[i]);
+                            int conceptId = Convert.ToInt32(delete_concept_Id[i]);
+                            db2.Delete_Concept(headerId, conceptId);
                         }
                     }
                 }
                 if(AddConceptExistingHeader)
                 {
-                    foreach (KeyValuePair<int, int[]> entry in add_existing_header)
+                    foreach (KeyValuePair<string, string> entry in add_existing_header)
                     {
-                        int headerId = entry.Key;
-                        int[] add_concept_Id = entry.Value;
+                        string headerstring = entry.Key;
+                        if(headerstring == "empty")
+                        {
+                            break;
+                        }
+                        int headerId = Convert.ToInt32(headerstring);
+                        string[] add_concept_Id = entry.Value.Split(',');
                         for (int i = 0; i < add_concept_Id.Length; i++)
                         {
-                            db2.Add_Concept_Existing_Header(headerId, add_concept_Id[i]);
+                            int conceptId = Convert.ToInt32(add_concept_Id[i]);
+                            db2.Add_Concept_Existing_Header(headerId, conceptId);
+                        }
+                    }
+                }
+                if (AddConceptNewHeader)
+                {                   
+                    foreach (KeyValuePair<string, string> entry in newConceptHeaderTocontroller)
+                    {
+                        
+                        string headername = entry.Key; 
+                        if (headername == "-1")
+                        {
+                            continue;
+                        }
+                        ObjectParameter headerId = new ObjectParameter("new_header_id", 0);
+                        db2.Add_New_Header(measure_id, headername, headerId);
+                        int headerIDtoint = Convert.ToInt32(headerId.Value);
+                        if(entry.Value == null)
+                        {
+                            continue;
+                        }
+                        string[] conceptIds = entry.Value.Split(',');
+
+                       
+                        for (int i = 0; i < conceptIds.Length; i++)
+                        {
+                            if(conceptIds[i] == "")
+                            {
+                                continue;
+                            }
+                            int conceptID = Convert.ToInt32(conceptIds[i]);
+                            db2.Add_Concept_Existing_Header(headerIDtoint, conceptID);
                         }
                     }
                 }
@@ -551,6 +597,8 @@ namespace demo3.Controllers
                 {
                     success = true,
                     message = "success",
+                    delete_existing_header,
+                    add_existing_header
                 });
             }
             catch (Exception e)
@@ -558,7 +606,9 @@ namespace demo3.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = e.Message
+                    message = e.Message,
+                  
+                    newConceptHeaderTocontroller
                 });
             }
         }

@@ -90,6 +90,11 @@
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
     <Parameter Name="NQS_Domain_Name" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="Add_New_Header" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+    <Parameter Name="Header_Name" Type="varchar" Mode="In" />
+    <Parameter Name="New_header_Id" Type="int" Mode="InOut" />
+  </Function>
   <Function Name="Add_New_Measure_Scope" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
     <Parameter Name="Scope_Name" Type="varchar" Mode="In" />
