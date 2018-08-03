@@ -1207,24 +1207,20 @@
 
             function deleteConceptNewAdded() {
                 //delete_count++;
-                debugger;
                 var content = this.previousElementSibling.value;
                 if (content == "") {
                     this.parentElement.remove();
                     return;
                 }
-                var conceptid = content.substring(0, content.indexOf(" "));
-                if (this.parentElement.parentElement == null) {
-                    debugger;
-                }
-                var header = this.parentElement.parentElement.id.replace("ul", "");
+                var conceptid = content.substring(0, content.indexOf(" "));            
+                var header = this.parentElement.parentElement.id.replace("existingul", "");
                 if (header in add_existing_headertmp) {
                     remove(add_existing_headertmp[header], conceptid);
-                    this.parentElement.remove();
                     if (add_existing_headertmp[header].length == 0) {
                         delete add_existing_headertmp[header];
                     }
-                }             
+                }
+                this.parentElement.remove();
             }
 
             function remove(array, element) {
@@ -1344,7 +1340,6 @@
                         else {
                             stringForm = stringForm.concat(value[item]);
                         }
-                        console.log(stringForm);
                     }
                     newConceptHeaderTocontroller.push({ key: key.toString(), value: stringForm });
                 }
@@ -1353,7 +1348,7 @@
                 }
                 //console.log(existing_header_name);
                 //console.log(delete_existing_header);
-                console.log(add_existing_header);
+                //console.log(add_existing_header);
                 //console.log(newConceptHeaderTocontroller);   
                 console.log(delete_header);
                 return;
