@@ -14,8 +14,8 @@ namespace demo3.Models
     
     public partial class Concept_Each_Header
     {
-        public Nullable<int> MPOG_Concept_Header_ID { get; set; }
-        public Nullable<int> MPOG_Concept_ID { get; set; }
-        public int auto_id { get; set; }
+        public int MPOG_Concept_Header_ID { get; set; }
+        public int MPOG_Concept_ID { get; set; }
+        public Nullable<byte> Concept_Status { get; set; }
     }
 }

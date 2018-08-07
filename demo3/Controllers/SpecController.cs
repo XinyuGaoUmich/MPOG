@@ -478,7 +478,9 @@ namespace demo3.Controllers
             try
             {
                 //var providerList = db2.Enumeration_Responsible_Provider.Where(o => o.Responsible_Provider_Name.ToUpper().Contains(term.ToUpper())).Select(o => new { id = o.Responsible_Provider_ID, provider = o.Responsible_Provider_Name }).Distinct().ToList();
-                var conceptList = db2.MPOG_Concepts.Where(o => o.concept_desc.ToUpper().Contains(term.ToUpper())).Select(o => new { id = o.MPOG_Concept_ID, concept = o.concept_desc }).Distinct().ToList();
+                var conceptList1 = db2.MPOG_Concepts.Where(o => o.concept_desc.ToUpper().Contains(term.ToUpper())).Select(o => new { id = o.MPOG_Concept_ID, concept = o.concept_desc }).Distinct().ToList();
+                var conceptList2 = db2.MPOG_Concepts.Where(o => o.MPOG_Concept_ID.ToString().Contains(term)).Select(o => new { id = o.MPOG_Concept_ID, concept = o.concept_desc }).Distinct().ToList();
+                var conceptList = conceptList1.Union(conceptList2);
                 return Json(new
                 {
                     sucess = true,

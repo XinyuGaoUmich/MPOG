@@ -339,14 +339,14 @@
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="Delete_Domain" FunctionName="MPOG_XinyuModel1.Store.Delete_Domain" />
     <FunctionImportMapping FunctionImportName="Save_Pager" FunctionName="MPOG_XinyuModel1.Store.Save_Pager" />
-    <FunctionImportMapping FunctionImportName="Publish_Pager" FunctionName="MPOG_XinyuModel1.Store.Publish_Pager" />
     <FunctionImportMapping FunctionImportName="Save_Spec" FunctionName="MPOG_XinyuModel1.Store.Save_Spec" />
-    <FunctionImportMapping FunctionImportName="Publish_Spec" FunctionName="MPOG_XinyuModel1.Store.Publish_Spec" />
     <FunctionImportMapping FunctionImportName="Modify_Header_Name" FunctionName="MPOG_XinyuModel1.Store.Modify_Header_Name" />
     <FunctionImportMapping FunctionImportName="Delete_Concept" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept" />
     <FunctionImportMapping FunctionImportName="Add_Concept_Existing_Header" FunctionName="MPOG_XinyuModel1.Store.Add_Concept_Existing_Header" />
     <FunctionImportMapping FunctionImportName="Add_New_Header" FunctionName="MPOG_XinyuModel1.Store.Add_New_Header" />
     <FunctionImportMapping FunctionImportName="Delete_Concept_Header" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept_Header" />
     <FunctionImportMapping FunctionImportName="Delete_All_Under_Header" FunctionName="MPOG_XinyuModel1.Store.Delete_All_Under_Header" />
+    <FunctionImportMapping FunctionImportName="Publish_Pager" FunctionName="MPOG_XinyuModel1.Store.Publish_Pager" />
+    <FunctionImportMapping FunctionImportName="Publish_Spec" FunctionName="MPOG_XinyuModel1.Store.Publish_Spec" />
   </EntityContainerMapping>
 </Mapping>

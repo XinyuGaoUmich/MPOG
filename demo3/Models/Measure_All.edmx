@@ -7,11 +7,12 @@
     <Schema Namespace="MPOG_XinyuModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Concept_Each_Header">
           <Key>
-            <PropertyRef Name="auto_id" />
+            <PropertyRef Name="MPOG_Concept_Header_ID" />
+            <PropertyRef Name="MPOG_Concept_ID" />
           </Key>
-          <Property Name="MPOG_Concept_Header_ID" Type="int" />
-          <Property Name="MPOG_Concept_ID" Type="int" />
-          <Property Name="auto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MPOG_Concept_Header_ID" Type="int" Nullable="false" />
+          <Property Name="MPOG_Concept_ID" Type="int" Nullable="false" />
+          <Property Name="Concept_Status" Type="tinyint" />
         </EntityType>
         <EntityType Name="Enumeration_Measure_Type">
           <Key>
@@ -41,6 +42,32 @@
           <Property Name="Scope_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Scope_Name" Type="varchar" MaxLength="50" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Measure_Sections_Unpublished">
+          <Key>
+            <PropertyRef Name="Measure_ID" />
+          </Key>
+          <Property Name="Measure_ID" Type="int" Nullable="false" />
+          <Property Name="Measure_Abbreviation" Type="varchar" MaxLength="20" />
+          <Property Name="Data_Collection_Method" Type="varchar(max)" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="NQS_Domain" Type="int" />
+          <Property Name="Measure_Type" Type="int" />
+          <Property Name="Scope" Type="int" />
+          <Property Name="Measure_Summary" Type="varchar(max)" />
+          <Property Name="Rationale" Type="varchar(max)" />
+          <Property Name="Inclusions" Type="varchar(max)" />
+          <Property Name="Exclusions" Type="varchar(max)" />
+          <Property Name="Other_Build_Details" Type="varchar(max)" />
+          <Property Name="Success" Type="varchar(max)" />
+          <Property Name="Threshold" Type="numeric" Precision="18" Scale="3" />
+          <Property Name="Responsible_Provider" Type="int" />
+          <Property Name="Risk_Adjustment" Type="varchar(max)" />
+          <Property Name="Flow_Chart" Type="nchar" MaxLength="10" />
+          <Property Name="Reference" Type="varchar(max)" />
+          <Property Name="Status_ID" Type="int" />
+        </EntityType>
         <EntityType Name="MPOG_Concepts">
           <Key>
             <PropertyRef Name="MPOG_Concept_ID" />
@@ -54,19 +81,19 @@
         </EntityType>
         <EntityType Name="Responsible_Provider_Published">
           <Key>
-            <PropertyRef Name="auto_id" />
+            <PropertyRef Name="Measure_ID" />
+            <PropertyRef Name="Responsible_Provider_ID" />
           </Key>
-          <Property Name="auto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Measure_ID" Type="int" />
-          <Property Name="Responsible_Provider_ID" Type="int" />
+          <Property Name="Measure_ID" Type="int" Nullable="false" />
+          <Property Name="Responsible_Provider_ID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Responsible_Provider_Unpublished">
           <Key>
-            <PropertyRef Name="auto_id" />
+            <PropertyRef Name="Measure_ID" />
+            <PropertyRef Name="Responsible_Provider_ID" />
           </Key>
-          <Property Name="auto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Measure_ID" Type="int" Nullable="false" />
-          <Property Name="Responsible_Provider_ID" Type="int" />
+          <Property Name="Responsible_Provider_ID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Status_Type">
           <Key>
@@ -306,6 +333,29 @@
           <EntitySet Name="Responsible_Provider_Published" EntityType="Self.Responsible_Provider_Published" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Responsible_Provider_Unpublished" EntityType="Self.Responsible_Provider_Unpublished" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status_Type" EntityType="Self.Status_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Measure_Sections_Unpublished" EntityType="Self.Measure_Sections_Unpublished" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Measure_Sections_Unpublished].[Measure_ID] AS [Measure_ID], 
+    [Measure_Sections_Unpublished].[Measure_Abbreviation] AS [Measure_Abbreviation], 
+    [Measure_Sections_Unpublished].[Data_Collection_Method] AS [Data_Collection_Method], 
+    [Measure_Sections_Unpublished].[Description] AS [Description], 
+    [Measure_Sections_Unpublished].[NQS_Domain] AS [NQS_Domain], 
+    [Measure_Sections_Unpublished].[Measure_Type] AS [Measure_Type], 
+    [Measure_Sections_Unpublished].[Scope] AS [Scope], 
+    [Measure_Sections_Unpublished].[Measure_Summary] AS [Measure_Summary], 
+    [Measure_Sections_Unpublished].[Rationale] AS [Rationale], 
+    [Measure_Sections_Unpublished].[Inclusions] AS [Inclusions], 
+    [Measure_Sections_Unpublished].[Exclusions] AS [Exclusions], 
+    [Measure_Sections_Unpublished].[Other_Build_Details] AS [Other_Build_Details], 
+    [Measure_Sections_Unpublished].[Success] AS [Success], 
+    [Measure_Sections_Unpublished].[Threshold] AS [Threshold], 
+    [Measure_Sections_Unpublished].[Responsible_Provider] AS [Responsible_Provider], 
+    [Measure_Sections_Unpublished].[Risk_Adjustment] AS [Risk_Adjustment], 
+    [Measure_Sections_Unpublished].[Flow_Chart] AS [Flow_Chart], 
+    [Measure_Sections_Unpublished].[Reference] AS [Reference], 
+    [Measure_Sections_Unpublished].[Status_ID] AS [Status_ID]
+    FROM [dbo].[Measure_Sections_Unpublished] AS [Measure_Sections_Unpublished]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -368,7 +418,6 @@
           <FunctionImport Name="Spec_Published" ReturnType="Collection(MPOG_XinyuModel1.Spec_Published_Result)">
           <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="Responsible_Provider_Unpublished" EntityType="MPOG_XinyuModel1.Responsible_Provider_Unpublished" />
           <EntitySet Name="Enumeration_Measure_Type" EntityType="MPOG_XinyuModel1.Enumeration_Measure_Type" />
           <EntitySet Name="Enumeration_NQS_Domain" EntityType="MPOG_XinyuModel1.Enumeration_NQS_Domain" />
           <EntitySet Name="Enumeration_Responsible_Provider" EntityType="MPOG_XinyuModel1.Enumeration_Responsible_Provider" />
@@ -385,7 +434,6 @@
             <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
             <Parameter Name="Responsible_Provider_ID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="Responsible_Provider_Published" EntityType="MPOG_XinyuModel1.Responsible_Provider_Published" />
           <FunctionImport Name="Measure_Of_Provider_Published" ReturnType="Collection(MPOG_XinyuModel1.Measure_Of_Provider_Published_Result)">
           <Parameter Name="Responsible_Provider_ID" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -442,7 +490,6 @@
             <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
             <Parameter Name="Responsible_Provider_Name" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="Concept_Each_Header" EntityType="MPOG_XinyuModel1.Concept_Each_Header" />
           <EntitySet Name="MPOG_Concepts" EntityType="MPOG_XinyuModel1.MPOG_Concepts" />
           <FunctionImport Name="Delete_Domain">
           <Parameter Name="Domain_ID" Mode="In" Type="Int32" />
@@ -464,50 +511,12 @@
             <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
             <Parameter Name="Reference" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="Publish_Pager">
-            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
-            <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
-            <Parameter Name="Data_Collection_Method" Mode="In" Type="String" />
-            <Parameter Name="Description" Mode="In" Type="String" />
-            <Parameter Name="NQS_Domain" Mode="In" Type="Int32" />
-            <Parameter Name="NQS_Domain_Content" Mode="In" Type="String" />
-            <Parameter Name="Measure_Type" Mode="In" Type="Int32" />
-            <Parameter Name="Scope" Mode="In" Type="Int32" />
-            <Parameter Name="Measure_Summary" Mode="In" Type="String" />
-            <Parameter Name="Inclusions" Mode="In" Type="String" />
-            <Parameter Name="Exclusions" Mode="In" Type="String" />
-            <Parameter Name="Success" Mode="In" Type="String" />
-            <Parameter Name="Threshold" Mode="In" Type="Decimal" />
-            <Parameter Name="Responsible_Provider" Mode="In" Type="Int32" />
-            <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
-            <Parameter Name="Reference" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="Save_Spec">
             <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
             <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
             <Parameter Name="Data_Collection_Method" Mode="In" Type="String" />
             <Parameter Name="Description" Mode="In" Type="String" />
             <Parameter Name="NQS_Domain" Mode="In" Type="Int32" />
-            <Parameter Name="Measure_Type" Mode="In" Type="Int32" />
-            <Parameter Name="Scope" Mode="In" Type="Int32" />
-            <Parameter Name="Measure_Summary" Mode="In" Type="String" />
-            <Parameter Name="Rationale" Mode="In" Type="String" />
-            <Parameter Name="Inclusions" Mode="In" Type="String" />
-            <Parameter Name="Exclusions" Mode="In" Type="String" />
-            <Parameter Name="Other_Build_Details" Mode="In" Type="String" />
-            <Parameter Name="Success" Mode="In" Type="String" />
-            <Parameter Name="Threshold" Mode="In" Type="Decimal" />
-            <Parameter Name="Responsible_Provider" Mode="In" Type="Int32" />
-            <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
-            <Parameter Name="Reference" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="Publish_Spec">
-            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
-            <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
-            <Parameter Name="Data_Collection_Method" Mode="In" Type="String" />
-            <Parameter Name="Description" Mode="In" Type="String" />
-            <Parameter Name="NQS_Domain" Mode="In" Type="Int32" />
-            <Parameter Name="NQS_Domain_Content" Mode="In" Type="String" />
             <Parameter Name="Measure_Type" Mode="In" Type="Int32" />
             <Parameter Name="Scope" Mode="In" Type="Int32" />
             <Parameter Name="Measure_Summary" Mode="In" Type="String" />
@@ -546,6 +555,48 @@
             <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
             <Parameter Name="Header_ID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="Publish_Pager">
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
+            <Parameter Name="Data_Collection_Method" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="NQS_Domain" Mode="In" Type="Int32" />
+            <Parameter Name="NQS_Domain_Content" Mode="In" Type="String" />
+            <Parameter Name="Measure_Type" Mode="In" Type="Int32" />
+            <Parameter Name="Scope" Mode="In" Type="Int32" />
+            <Parameter Name="Measure_Summary" Mode="In" Type="String" />
+            <Parameter Name="Inclusions" Mode="In" Type="String" />
+            <Parameter Name="Exclusions" Mode="In" Type="String" />
+            <Parameter Name="Success" Mode="In" Type="String" />
+            <Parameter Name="Threshold" Mode="In" Type="Decimal" />
+            <Parameter Name="Responsible_Provider" Mode="In" Type="Int32" />
+            <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
+            <Parameter Name="Reference" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Publish_Spec">
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
+            <Parameter Name="Data_Collection_Method" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="NQS_Domain" Mode="In" Type="Int32" />
+            <Parameter Name="NQS_Domain_Content" Mode="In" Type="String" />
+            <Parameter Name="Measure_Type" Mode="In" Type="Int32" />
+            <Parameter Name="Scope" Mode="In" Type="Int32" />
+            <Parameter Name="Measure_Summary" Mode="In" Type="String" />
+            <Parameter Name="Rationale" Mode="In" Type="String" />
+            <Parameter Name="Inclusions" Mode="In" Type="String" />
+            <Parameter Name="Exclusions" Mode="In" Type="String" />
+            <Parameter Name="Other_Build_Details" Mode="In" Type="String" />
+            <Parameter Name="Success" Mode="In" Type="String" />
+            <Parameter Name="Threshold" Mode="In" Type="Decimal" />
+            <Parameter Name="Responsible_Provider" Mode="In" Type="Int32" />
+            <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
+            <Parameter Name="Reference" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Concept_Each_Header" EntityType="MPOG_XinyuModel1.Concept_Each_Header" />
+          <EntitySet Name="Responsible_Provider_Published" EntityType="MPOG_XinyuModel1.Responsible_Provider_Published" />
+          <EntitySet Name="Measure_Sections_Unpublished" EntityType="MPOG_XinyuModel1.Measure_Sections_Unpublished" />
+          <EntitySet Name="Responsible_Provider_Unpublished" EntityType="MPOG_XinyuModel1.Responsible_Provider_Unpublished" />
         </EntityContainer>
         <ComplexType Name="Details_All_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -694,14 +745,6 @@
           <Property Type="Int32" Name="Measure_Type_ID" Nullable="true" />
           <Property Type="Int32" Name="Measure_Scope_ID" Nullable="true" />
         </ComplexType>
-        <EntityType Name="Responsible_Provider_Unpublished">
-          <Key>
-            <PropertyRef Name="auto_id" />
-          </Key>
-          <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Measure_ID" Type="Int32" Nullable="false" />
-          <Property Name="Responsible_Provider_ID" Type="Int32" />
-        </EntityType>
         <EntityType Name="Enumeration_Measure_Type">
           <Key>
             <PropertyRef Name="Measure_Type_ID" />
@@ -729,14 +772,6 @@
           </Key>
           <Property Name="Scope_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Scope_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Responsible_Provider_Published">
-          <Key>
-            <PropertyRef Name="auto_id" />
-          </Key>
-          <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Measure_ID" Type="Int32" />
-          <Property Name="Responsible_Provider_ID" Type="Int32" />
         </EntityType>
         <ComplexType Name="Measure_Of_Provider_Published_Result">
           <Property Type="Int32" Name="Published_Measure_ID" Nullable="false" />
@@ -770,14 +805,6 @@
           <Property Type="Int32" Name="Unpublished_Measure_ID" Nullable="false" />
           <Property Type="String" Name="Unpublished_Measure_Abbreviation" Nullable="true" MaxLength="20" />
         </ComplexType>
-        <EntityType Name="Concept_Each_Header">
-          <Key>
-            <PropertyRef Name="auto_id" />
-          </Key>
-          <Property Name="MPOG_Concept_Header_ID" Type="Int32" />
-          <Property Name="MPOG_Concept_ID" Type="Int32" />
-          <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
         <EntityType Name="MPOG_Concepts">
           <Key>
             <PropertyRef Name="MPOG_Concept_ID" />
@@ -788,6 +815,55 @@
           <Property Name="active_from" Type="DateTime" Precision="3" />
           <Property Name="active_to" Type="DateTime" Precision="3" />
           <Property Name="active" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Concept_Each_Header">
+          <Key>
+            <PropertyRef Name="MPOG_Concept_Header_ID" />
+            <PropertyRef Name="MPOG_Concept_ID" />
+          </Key>
+          <Property Name="MPOG_Concept_Header_ID" Type="Int32" Nullable="false" />
+          <Property Name="MPOG_Concept_ID" Type="Int32" Nullable="false" />
+          <Property Name="Concept_Status" Type="Byte" />
+        </EntityType>
+        <EntityType Name="Responsible_Provider_Published">
+          <Key>
+            <PropertyRef Name="Measure_ID" />
+            <PropertyRef Name="Responsible_Provider_ID" />
+          </Key>
+          <Property Name="Measure_ID" Type="Int32" Nullable="false" />
+          <Property Name="Responsible_Provider_ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Measure_Sections_Unpublished">
+          <Key>
+            <PropertyRef Name="Measure_ID" />
+          </Key>
+          <Property Name="Measure_ID" Type="Int32" Nullable="false" />
+          <Property Name="Measure_Abbreviation" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Data_Collection_Method" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NQS_Domain" Type="Int32" />
+          <Property Name="Measure_Type" Type="Int32" />
+          <Property Name="Scope" Type="Int32" />
+          <Property Name="Measure_Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Rationale" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Inclusions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Exclusions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Other_Build_Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Success" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Threshold" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="Responsible_Provider" Type="Int32" />
+          <Property Name="Risk_Adjustment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Flow_Chart" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Reference" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status_ID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Responsible_Provider_Unpublished">
+          <Key>
+            <PropertyRef Name="Measure_ID" />
+            <PropertyRef Name="Responsible_Provider_ID" />
+          </Key>
+          <Property Name="Measure_ID" Type="Int32" Nullable="false" />
+          <Property Name="Responsible_Provider_ID" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -986,15 +1062,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="Responsible_Provider_Unpublished">
-            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Responsible_Provider_Unpublished">
-              <MappingFragment StoreEntitySet="Responsible_Provider_Unpublished">
-                <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
-                <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
-                <ScalarProperty Name="auto_id" ColumnName="auto_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Enumeration_Measure_Type">
             <EntityTypeMapping TypeName="MPOG_XinyuModel1.Enumeration_Measure_Type">
               <MappingFragment StoreEntitySet="Enumeration_Measure_Type">
@@ -1029,15 +1096,6 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Add_New_Provider" FunctionName="MPOG_XinyuModel1.Store.Add_New_Provider" />
           <FunctionImportMapping FunctionImportName="Delete_Provider" FunctionName="MPOG_XinyuModel1.Store.Delete_Provider" />
-          <EntitySetMapping Name="Responsible_Provider_Published">
-            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Responsible_Provider_Published">
-              <MappingFragment StoreEntitySet="Responsible_Provider_Published">
-                <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
-                <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
-                <ScalarProperty Name="auto_id" ColumnName="auto_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Measure_Of_Provider_Published" FunctionName="MPOG_XinyuModel1.Store.Measure_Of_Provider_Published">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Measure_Of_Provider_Published_Result">
@@ -1110,15 +1168,6 @@
           <FunctionImportMapping FunctionImportName="Edit_Measure_Scope" FunctionName="MPOG_XinyuModel1.Store.Edit_Measure_Scope" />
           <FunctionImportMapping FunctionImportName="Edit_Measure_Type" FunctionName="MPOG_XinyuModel1.Store.Edit_Measure_Type" />
           <FunctionImportMapping FunctionImportName="Add_New_Provider_Published" FunctionName="MPOG_XinyuModel1.Store.Add_New_Provider_Published" />
-          <EntitySetMapping Name="Concept_Each_Header">
-            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Concept_Each_Header">
-              <MappingFragment StoreEntitySet="Concept_Each_Header">
-                <ScalarProperty Name="auto_id" ColumnName="auto_id" />
-                <ScalarProperty Name="MPOG_Concept_ID" ColumnName="MPOG_Concept_ID" />
-                <ScalarProperty Name="MPOG_Concept_Header_ID" ColumnName="MPOG_Concept_Header_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="MPOG_Concepts">
             <EntityTypeMapping TypeName="MPOG_XinyuModel1.MPOG_Concepts">
               <MappingFragment StoreEntitySet="MPOG_Concepts">
@@ -1133,15 +1182,65 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Delete_Domain" FunctionName="MPOG_XinyuModel1.Store.Delete_Domain" />
           <FunctionImportMapping FunctionImportName="Save_Pager" FunctionName="MPOG_XinyuModel1.Store.Save_Pager" />
-          <FunctionImportMapping FunctionImportName="Publish_Pager" FunctionName="MPOG_XinyuModel1.Store.Publish_Pager" />
           <FunctionImportMapping FunctionImportName="Save_Spec" FunctionName="MPOG_XinyuModel1.Store.Save_Spec" />
-          <FunctionImportMapping FunctionImportName="Publish_Spec" FunctionName="MPOG_XinyuModel1.Store.Publish_Spec" />
           <FunctionImportMapping FunctionImportName="Modify_Header_Name" FunctionName="MPOG_XinyuModel1.Store.Modify_Header_Name" />
           <FunctionImportMapping FunctionImportName="Delete_Concept" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept" />
           <FunctionImportMapping FunctionImportName="Add_Concept_Existing_Header" FunctionName="MPOG_XinyuModel1.Store.Add_Concept_Existing_Header" />
           <FunctionImportMapping FunctionImportName="Add_New_Header" FunctionName="MPOG_XinyuModel1.Store.Add_New_Header" />
           <FunctionImportMapping FunctionImportName="Delete_Concept_Header" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept_Header" />
           <FunctionImportMapping FunctionImportName="Delete_All_Under_Header" FunctionName="MPOG_XinyuModel1.Store.Delete_All_Under_Header" />
+          <FunctionImportMapping FunctionImportName="Publish_Pager" FunctionName="MPOG_XinyuModel1.Store.Publish_Pager" />
+          <FunctionImportMapping FunctionImportName="Publish_Spec" FunctionName="MPOG_XinyuModel1.Store.Publish_Spec" />
+          <EntitySetMapping Name="Concept_Each_Header">
+            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Concept_Each_Header">
+              <MappingFragment StoreEntitySet="Concept_Each_Header">
+                <ScalarProperty Name="Concept_Status" ColumnName="Concept_Status" />
+                <ScalarProperty Name="MPOG_Concept_ID" ColumnName="MPOG_Concept_ID" />
+                <ScalarProperty Name="MPOG_Concept_Header_ID" ColumnName="MPOG_Concept_Header_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Responsible_Provider_Published">
+            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Responsible_Provider_Published">
+              <MappingFragment StoreEntitySet="Responsible_Provider_Published">
+                <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
+                <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Measure_Sections_Unpublished">
+            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Measure_Sections_Unpublished">
+              <MappingFragment StoreEntitySet="Measure_Sections_Unpublished">
+                <ScalarProperty Name="Status_ID" ColumnName="Status_ID" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="Flow_Chart" ColumnName="Flow_Chart" />
+                <ScalarProperty Name="Risk_Adjustment" ColumnName="Risk_Adjustment" />
+                <ScalarProperty Name="Responsible_Provider" ColumnName="Responsible_Provider" />
+                <ScalarProperty Name="Threshold" ColumnName="Threshold" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Other_Build_Details" ColumnName="Other_Build_Details" />
+                <ScalarProperty Name="Exclusions" ColumnName="Exclusions" />
+                <ScalarProperty Name="Inclusions" ColumnName="Inclusions" />
+                <ScalarProperty Name="Rationale" ColumnName="Rationale" />
+                <ScalarProperty Name="Measure_Summary" ColumnName="Measure_Summary" />
+                <ScalarProperty Name="Scope" ColumnName="Scope" />
+                <ScalarProperty Name="Measure_Type" ColumnName="Measure_Type" />
+                <ScalarProperty Name="NQS_Domain" ColumnName="NQS_Domain" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Data_Collection_Method" ColumnName="Data_Collection_Method" />
+                <ScalarProperty Name="Measure_Abbreviation" ColumnName="Measure_Abbreviation" />
+                <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Responsible_Provider_Unpublished">
+            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Responsible_Provider_Unpublished">
+              <MappingFragment StoreEntitySet="Responsible_Provider_Unpublished">
+                <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
+                <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

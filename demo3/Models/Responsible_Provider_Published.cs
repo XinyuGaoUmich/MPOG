@@ -14,8 +14,7 @@ namespace demo3.Models
     
     public partial class Responsible_Provider_Published
     {
-        public int auto_id { get; set; }
-        public Nullable<int> Measure_ID { get; set; }
-        public Nullable<int> Responsible_Provider_ID { get; set; }
+        public int Measure_ID { get; set; }
+        public int Responsible_Provider_ID { get; set; }
     }
 }

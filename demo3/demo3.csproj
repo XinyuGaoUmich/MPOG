@@ -391,6 +391,8 @@
     <Compile Include="Models\Section_fields.cs">
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SpecMetadata.cs" />
+    <Compile Include="Models\SpecPubMetadata.cs" />
     <Compile Include="Models\Spec_Published_Result.cs">
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>

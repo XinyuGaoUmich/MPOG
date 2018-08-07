@@ -784,7 +784,7 @@
                     You are deleting the concept Header, and all its concept IDs will be removed.
                     <br />
                     Are you sure to delete this header?
-                    <input id="delete_header_id"  />
+                    <input id="delete_header_id" type="hidden"/>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -1104,9 +1104,9 @@
                                             // console.log(data.message);
                                             response($.map(data.conceptList, function (val, item) {
                                                 return {
-                                                    label: val.concept,
-                                        value: val.id + ' ' + val.concept,
-                                        id: val.id
+                                                    label: val.id + ' ' + val.concept,
+                                                    value: val.id + ' ' + val.concept,
+                                                    id: val.id
                                                 }
                                             }))
                             }
@@ -1421,7 +1421,7 @@
                
                 //console.log(existing_header_name);
                 //console.log(delete_existing_header);
-                console.log(deleteAllUnderHeaderToBackend);
+                //console.log(deleteAllUnderHeaderToBackend);
                 //console.log(newConceptHeaderTocontroller);
                 //console.log(delete_header_string);
                 $.ajax({
@@ -1457,7 +1457,7 @@
                     if (data.success) {
                         console.log(data);
                         alert('Saved spec successfully!');
-                        //window.location.href = "/Spec/Index/" + measure_id;
+                        window.location.href = "/Spec/Index/" + measure_id;
                     }
                     else {
                         console.log(data.message);
