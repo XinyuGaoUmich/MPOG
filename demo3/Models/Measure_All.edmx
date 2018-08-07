@@ -122,9 +122,17 @@
         <Function Name="Data_Diagnostics_Affected" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="Delete_All_Under_Header" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+          <Parameter Name="Header_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="Delete_Concept" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Header_ID" Type="int" Mode="In" />
           <Parameter Name="Concept_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Delete_Concept_Header" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+          <Parameter Name="Header_ID" Type="int" Mode="In" />
         </Function>
         <Function Name="Delete_Domain" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Domain_ID" Type="int" Mode="In" />
@@ -529,6 +537,14 @@
             <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
             <Parameter Name="Header_Name" Mode="In" Type="String" />
             <Parameter Name="New_header_Id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Delete_Concept_Header">
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Header_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Delete_All_Under_Header">
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Header_ID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Details_All_Result">
@@ -1124,6 +1140,8 @@
           <FunctionImportMapping FunctionImportName="Delete_Concept" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept" />
           <FunctionImportMapping FunctionImportName="Add_Concept_Existing_Header" FunctionName="MPOG_XinyuModel1.Store.Add_Concept_Existing_Header" />
           <FunctionImportMapping FunctionImportName="Add_New_Header" FunctionName="MPOG_XinyuModel1.Store.Add_New_Header" />
+          <FunctionImportMapping FunctionImportName="Delete_Concept_Header" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept_Header" />
+          <FunctionImportMapping FunctionImportName="Delete_All_Under_Header" FunctionName="MPOG_XinyuModel1.Store.Delete_All_Under_Header" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

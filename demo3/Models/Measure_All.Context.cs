@@ -785,5 +785,31 @@ namespace demo3.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_New_Header", measure_IDParameter, header_NameParameter, new_header_Id);
         }
+    
+        public virtual int Delete_Concept_Header(Nullable<int> measure_ID, Nullable<int> header_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var header_IDParameter = header_ID.HasValue ?
+                new ObjectParameter("Header_ID", header_ID) :
+                new ObjectParameter("Header_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_Concept_Header", measure_IDParameter, header_IDParameter);
+        }
+    
+        public virtual int Delete_All_Under_Header(Nullable<int> measure_ID, Nullable<int> header_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var header_IDParameter = header_ID.HasValue ?
+                new ObjectParameter("Header_ID", header_ID) :
+                new ObjectParameter("Header_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_All_Under_Header", measure_IDParameter, header_IDParameter);
+        }
     }
 }

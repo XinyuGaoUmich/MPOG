@@ -227,6 +227,14 @@
       <Parameter Name="Header_Name" Mode="In" Type="String" />
       <Parameter Name="New_header_Id" Mode="InOut" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="Delete_Concept_Header">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Header_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Delete_All_Under_Header">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Header_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="Details_All_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />
