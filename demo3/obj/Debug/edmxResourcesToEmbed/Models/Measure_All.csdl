@@ -57,7 +57,6 @@
     <FunctionImport Name="Spec_Published" ReturnType="Collection(MPOG_XinyuModel1.Spec_Published_Result)">
       <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
     </FunctionImport>
-    <EntitySet Name="Responsible_Provider_Unpublished" EntityType="MPOG_XinyuModel1.Responsible_Provider_Unpublished" />
     <EntitySet Name="Enumeration_Measure_Type" EntityType="MPOG_XinyuModel1.Enumeration_Measure_Type" />
     <EntitySet Name="Enumeration_NQS_Domain" EntityType="MPOG_XinyuModel1.Enumeration_NQS_Domain" />
     <EntitySet Name="Enumeration_Responsible_Provider" EntityType="MPOG_XinyuModel1.Enumeration_Responsible_Provider" />
@@ -74,7 +73,6 @@
       <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
       <Parameter Name="Responsible_Provider_ID" Mode="In" Type="Int32" />
     </FunctionImport>
-    <EntitySet Name="Responsible_Provider_Published" EntityType="MPOG_XinyuModel1.Responsible_Provider_Published" />
     <FunctionImport Name="Measure_Of_Provider_Published" ReturnType="Collection(MPOG_XinyuModel1.Measure_Of_Provider_Published_Result)">
       <Parameter Name="Responsible_Provider_ID" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -131,7 +129,6 @@
       <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
       <Parameter Name="Responsible_Provider_Name" Mode="In" Type="String" />
     </FunctionImport>
-    <EntitySet Name="Concept_Each_Header" EntityType="MPOG_XinyuModel1.Concept_Each_Header" />
     <EntitySet Name="MPOG_Concepts" EntityType="MPOG_XinyuModel1.MPOG_Concepts" />
     <FunctionImport Name="Delete_Domain">
       <Parameter Name="Domain_ID" Mode="In" Type="Int32" />
@@ -172,31 +169,6 @@
       <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
       <Parameter Name="Reference" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="Modify_Header_Name">
-      <Parameter Name="Header_ID" Mode="In" Type="Int32" />
-      <Parameter Name="Header_Name" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="Delete_Concept">
-      <Parameter Name="Header_ID" Mode="In" Type="Int32" />
-      <Parameter Name="Concept_ID" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="Add_Concept_Existing_Header">
-      <Parameter Name="Header_ID" Mode="In" Type="Int32" />
-      <Parameter Name="Concept_ID" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="Add_New_Header">
-      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
-      <Parameter Name="Header_Name" Mode="In" Type="String" />
-      <Parameter Name="New_header_Id" Mode="InOut" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="Delete_Concept_Header">
-      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
-      <Parameter Name="Header_ID" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="Delete_All_Under_Header">
-      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
-      <Parameter Name="Header_ID" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="Publish_Pager">
       <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
       <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
@@ -235,6 +207,39 @@
       <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
       <Parameter Name="Reference" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="Concept_Each_Header" EntityType="MPOG_XinyuModel1.Concept_Each_Header" />
+    <EntitySet Name="Responsible_Provider_Published" EntityType="MPOG_XinyuModel1.Responsible_Provider_Published" />
+    <EntitySet Name="Measure_Sections_Unpublished" EntityType="MPOG_XinyuModel1.Measure_Sections_Unpublished" />
+    <EntitySet Name="Responsible_Provider_Unpublished" EntityType="MPOG_XinyuModel1.Responsible_Provider_Unpublished" />
+    <FunctionImport Name="Add_Concept_Existing_Header">
+      <Parameter Name="Header_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Concept_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Add_New_Header">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Header_Name" Mode="In" Type="String" />
+      <Parameter Name="New_header_Id" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Delete_All_Under_Header">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Header_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Delete_Concept">
+      <Parameter Name="Header_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Concept_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Delete_Concept_Header">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Header_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Modify_Header_Name">
+      <Parameter Name="Header_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Header_Name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Add_Deleted_Header_Back">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Header_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="Details_All_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -263,6 +268,8 @@
   <ComplexType Name="MPOG_Concept_ID_Required_Result">
     <Property Type="String" Name="MPOG_Concept_Header_Name" Nullable="true" MaxLength="50" />
     <Property Type="Int32" Name="MPOG_Concept_Header_ID" Nullable="false" />
+    <Property Type="Byte" Name="Header_Status" Nullable="true" />
+    <Property Type="String" Name="Header_Unpublished_Name" Nullable="true" MaxLength="50" />
   </ComplexType>
   <ComplexType Name="Pager_Result">
     <Property Type="String" Name="NQS_Domain" Nullable="true" MaxLength="50" />
@@ -383,14 +390,6 @@
     <Property Type="Int32" Name="Measure_Type_ID" Nullable="true" />
     <Property Type="Int32" Name="Measure_Scope_ID" Nullable="true" />
   </ComplexType>
-  <EntityType Name="Responsible_Provider_Unpublished">
-    <Key>
-      <PropertyRef Name="auto_id" />
-    </Key>
-    <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Measure_ID" Type="Int32" Nullable="false" />
-    <Property Name="Responsible_Provider_ID" Type="Int32" />
-  </EntityType>
   <EntityType Name="Enumeration_Measure_Type">
     <Key>
       <PropertyRef Name="Measure_Type_ID" />
@@ -418,14 +417,6 @@
     </Key>
     <Property Name="Scope_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Scope_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="Responsible_Provider_Published">
-    <Key>
-      <PropertyRef Name="auto_id" />
-    </Key>
-    <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Measure_ID" Type="Int32" />
-    <Property Name="Responsible_Provider_ID" Type="Int32" />
   </EntityType>
   <ComplexType Name="Measure_Of_Provider_Published_Result">
     <Property Type="Int32" Name="Published_Measure_ID" Nullable="false" />
@@ -459,14 +450,6 @@
     <Property Type="Int32" Name="Unpublished_Measure_ID" Nullable="false" />
     <Property Type="String" Name="Unpublished_Measure_Abbreviation" Nullable="true" MaxLength="20" />
   </ComplexType>
-  <EntityType Name="Concept_Each_Header">
-    <Key>
-      <PropertyRef Name="auto_id" />
-    </Key>
-    <Property Name="MPOG_Concept_Header_ID" Type="Int32" />
-    <Property Name="MPOG_Concept_ID" Type="Int32" />
-    <Property Name="auto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-  </EntityType>
   <EntityType Name="MPOG_Concepts">
     <Key>
       <PropertyRef Name="MPOG_Concept_ID" />
@@ -477,5 +460,54 @@
     <Property Name="active_from" Type="DateTime" Precision="3" />
     <Property Name="active_to" Type="DateTime" Precision="3" />
     <Property Name="active" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="Concept_Each_Header">
+    <Key>
+      <PropertyRef Name="MPOG_Concept_Header_ID" />
+      <PropertyRef Name="MPOG_Concept_ID" />
+    </Key>
+    <Property Name="MPOG_Concept_Header_ID" Type="Int32" Nullable="false" />
+    <Property Name="MPOG_Concept_ID" Type="Int32" Nullable="false" />
+    <Property Name="Concept_Status" Type="Byte" />
+  </EntityType>
+  <EntityType Name="Responsible_Provider_Published">
+    <Key>
+      <PropertyRef Name="Measure_ID" />
+      <PropertyRef Name="Responsible_Provider_ID" />
+    </Key>
+    <Property Name="Measure_ID" Type="Int32" Nullable="false" />
+    <Property Name="Responsible_Provider_ID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Measure_Sections_Unpublished">
+    <Key>
+      <PropertyRef Name="Measure_ID" />
+    </Key>
+    <Property Name="Measure_ID" Type="Int32" Nullable="false" />
+    <Property Name="Measure_Abbreviation" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Data_Collection_Method" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="NQS_Domain" Type="Int32" />
+    <Property Name="Measure_Type" Type="Int32" />
+    <Property Name="Scope" Type="Int32" />
+    <Property Name="Measure_Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Rationale" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Inclusions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Exclusions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Other_Build_Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Success" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Threshold" Type="Decimal" Precision="18" Scale="3" />
+    <Property Name="Responsible_Provider" Type="Int32" />
+    <Property Name="Risk_Adjustment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Flow_Chart" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="Reference" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Status_ID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Responsible_Provider_Unpublished">
+    <Key>
+      <PropertyRef Name="Measure_ID" />
+      <PropertyRef Name="Responsible_Provider_ID" />
+    </Key>
+    <Property Name="Measure_ID" Type="Int32" Nullable="false" />
+    <Property Name="Responsible_Provider_ID" Type="Int32" Nullable="false" />
   </EntityType>
 </Schema>

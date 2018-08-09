@@ -342,7 +342,7 @@
                     @if (hasPublishedVersion)
                     {
                         <input type="hidden" id="haspublished" />
-                        <div class="col-md-10">
+                        <div class="col-md-10" id="data_collection_method_pub">
                             @Html.Raw(Model.spec_Published_Results.First().Data_Collection_Method)
                         </div>
                     }
@@ -368,7 +368,7 @@
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
+                        <div class="col-md-10" id="description_pub">
                             @Html.Raw(Model.spec_Published_Results.First().Description)
                         </div>
                     }
@@ -394,7 +394,7 @@
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
+                        <div class="col-md-10" id="measure_summary_pub">
                             @Html.Raw(Model.spec_Published_Results.First().Measure_Summary)
                         </div>
                     }
@@ -420,7 +420,7 @@
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
+                        <div class="col-md-10" id="rationale_pub">
                             @Html.Raw(Model.spec_Published_Results.First().Rationale)
                         </div>
                     }
@@ -446,7 +446,7 @@
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
+                        <div class="col-md-10" id="inclusions_pub">
                             @Html.Raw(Model.spec_Published_Results.First().Inclusions)
                         </div>
                     }
@@ -472,7 +472,7 @@
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
+                        <div class="col-md-10" id="exclusions_pub">
                             @Html.Raw(Model.spec_Published_Results.First().Exclusions)
                         </div>
                     }
@@ -495,17 +495,25 @@
             <tr>
                 <td>
                     <div class="col-md-10">
-                        @foreach (var header in Model.concept_ID_Required_Results)
+                        @foreach (var header in Model.concept_ID_Required_Results.Where(o => o.Header_Status != 2))
                         {
                             <div id='@("div"+header.MPOG_Concept_Header_ID)'>
                                 <input type="text" id='@("input"+header.MPOG_Concept_Header_ID)' style="display: none" />
-                                <strong class="header" id='@("header"+header.MPOG_Concept_Header_ID)'>@header.MPOG_Concept_Header_Name</strong> <span id='@("cross"+header.MPOG_Concept_Header_ID)' aria-hidden="true" style="cursor: pointer" class="delete_header">&times;</span>
+                                <strong class="header" id='@("header"+header.MPOG_Concept_Header_ID)'>@header.Header_Unpublished_Name</strong> <span id='@("cross"+header.MPOG_Concept_Header_ID)' aria-hidden="true" style="cursor: pointer" class="delete_header">&times;</span>
                                 <ul id='@("existingul"+header.MPOG_Concept_Header_ID)'>
-                                    @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID).OrderBy(o => o.MPOG_Concept_ID))
+                                    @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID && o.Concept_Status != 2).OrderBy(o => o.MPOG_Concept_ID))
                                     {
                                         <li id='@("concept"+item.MPOG_Concept_ID)'>
                                             @item.MPOG_Concept_ID
-                                            @Model.all_Concepts.Where(o => o.MPOG_Concept_ID == item.MPOG_Concept_ID).First().concept_desc
+                                            @Model.all_Concepts.Where(o => o.MPOG_Concept_ID == item.MPOG_Concept_ID).First().concept_desc                                          
+                                            <span aria-hidden="true" style="cursor: pointer" class="delete_concept_existing_header">&times;</span>
+                                        </li>
+                                    }
+                                    @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID && o.Concept_Status == 2).OrderBy(o => o.MPOG_Concept_ID))
+                                    {
+                                        <li id='@("concept"+item.MPOG_Concept_ID)' style="text-decoration:line-through">
+                                            @item.MPOG_Concept_ID
+                                            @Model.all_Concepts.Where(o => o.MPOG_Concept_ID == item.MPOG_Concept_ID).First().concept_desc                                          
                                             <span aria-hidden="true" style="cursor: pointer" class="delete_concept_existing_header">&times;</span>
                                         </li>
                                     }
@@ -513,15 +521,44 @@
                                 </ul>
                             </div>
                         }
+                        @foreach (var header in Model.concept_ID_Required_Results.Where(o => o.Header_Status == 2))
+                        {
+                            <div id='@("div"+header.MPOG_Concept_Header_ID)' >
+                                <strong style="text-decoration:line-through">@header.Header_Unpublished_Name</strong> <span id='@("plus"+header.MPOG_Concept_Header_ID)' aria-hidden="true" style="cursor: pointer" class="add_deleted_header_back">+</span>
+                                <ul id='@("existingul"+header.MPOG_Concept_Header_ID)' style="text-decoration:line-through">
+                                    @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID))
+                                    {
+                                        <li >
+                                            @item.MPOG_Concept_ID
+                                            @Model.all_Concepts.Where(o => o.MPOG_Concept_ID == item.MPOG_Concept_ID).First().concept_desc
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
                         <div>
                             <button id="addNewHeader" type="button">Add New Concept Header</button>
                         </div>
                     </div>
+                    
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
+                        <div class="col-md-11" style="word-wrap:break-word" >
+                            @foreach (var header in Model.concept_ID_Required_Results.Where(o => o.Header_Status == 1))
+                            {
+                                <strong>@header.MPOG_Concept_Header_Name</strong>
+                                <ul>
+                                    @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID && o.Concept_Status != 0))
+                                    {
+                                        <li>
+                                            @item.MPOG_Concept_ID
+                                            @Model.all_Concepts.Where(o => o.MPOG_Concept_ID == item.MPOG_Concept_ID).First().concept_desc                                        
+                                        </li>
+                                    }
+                                </ul>
+                            }
                         </div>
                     }
                 </td>
@@ -578,7 +615,7 @@
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
+                        <div class="col-md-10" id="other_measure_build_details_pub">
                             @Html.Raw(Model.spec_Published_Results.First().Other_Build_Details)
                         </div>
                     }
@@ -604,7 +641,7 @@
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
+                        <div class="col-md-10" id="success_pub">
                             @Html.Raw(Model.spec_Published_Results.First().Success)
                         </div>
                     }
@@ -657,7 +694,7 @@
                 </td>
 
                 <td>
-                    <div class="col-md-10" style="word-wrap:break-word">
+                    <div class="col-md-10" style="word-wrap:break-word" id="provider_pub">
                         @if (hasPublishedVersion && hasPublishedProvider)
                         {
                             @Html.Raw(Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.spec_Published_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name)
@@ -685,7 +722,7 @@
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
+                        <div class="col-md-10" id="risk_adjustment_pub">
                             @Html.Raw(Model.spec_Published_Results.First().Risk_Adjustment)
                         </div>
                     }
@@ -740,7 +777,7 @@
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
+                        <div class="col-md-10" id="references_pub">
                             @Html.Raw(Model.spec_Published_Results.First().Reference)
                         </div>
                     }
@@ -810,6 +847,7 @@
         var delete_header = [];
         var autocompletedic = {};
         var deleteAllUnderHeader = [];
+        var addDeletedHeaderBack = [];
         $(document).ready(function () {
                         function strip(html) {
                             var tmp = document.createElement("div");
@@ -823,17 +861,50 @@
 
             $('#responsible_provider_select').select2();
 
-            CKEDITOR.replace('editor1');
-            CKEDITOR.replace('editor_data_collection_method');
-            CKEDITOR.replace('editor_description');
-            CKEDITOR.replace('editor_measure_summary');
-            CKEDITOR.replace('editor_rationale');
-            CKEDITOR.replace('editor_inclusions');
-            CKEDITOR.replace('editor_exclusions');
-            CKEDITOR.replace('editor_other_measure_build_details');
-            CKEDITOR.replace('editor_success');
-            CKEDITOR.replace('editor_risk_adjustment');
-            CKEDITOR.replace('editor_references');
+            CKEDITOR.replace('editor1', {
+                height: Math.max($('#provider_pub').height() - 48, 150),
+
+            });
+            CKEDITOR.replace('editor_data_collection_method', {
+                height: Math.max($('#data_collection_method_pub').height() - 48, 150),
+                width: '120%'
+            });
+            CKEDITOR.replace('editor_description', {
+                height: Math.max($('#description_pub').height() - 48, 150),
+                width: '120%',
+            });
+            CKEDITOR.replace('editor_measure_summary', {
+                height: Math.max($('#measure_summary_pub').height() - 48, 150),
+                width: '120%',
+            });
+            CKEDITOR.replace('editor_rationale', {
+                height: Math.max($('#rationale_pub').height() - 48, 150),
+                width: '120%',
+            });
+            CKEDITOR.replace('editor_inclusions', {
+                height: Math.max($('#inclusions_pub').height() - 48, 150),
+                width: '120%',
+            });
+            CKEDITOR.replace('editor_exclusions', {               
+                height: Math.max($('#exclusions_pub').height() - 48, 150),
+                width: '120%',
+            });
+            CKEDITOR.replace('editor_other_measure_build_details', {
+                height: Math.max($('#other_measure_build_details_pub').height() - 48, 150),
+                width: '120%',
+            });
+            CKEDITOR.replace('editor_success', {
+                height: Math.max($('#success_pub').height() - 48, 150),
+                width: '120%',
+            });
+            CKEDITOR.replace('editor_risk_adjustment', {
+                height: Math.max($('#risk_adjustment_pub').height() - 48, 150),
+                width: '120%',
+            });
+            CKEDITOR.replace('editor_references', {
+                height: Math.max($('#references_pub').height() - 48, 150),
+                width: '120%',
+            });
 
             $('.provider_option').each(function () {
                             if (this.text.length >= 100) {
@@ -842,76 +913,76 @@
                         })
 
             $('#save_new_domain').click(function () {
-                            var new_domain = $('#new_domain').val();
-                            if (new_domain == null || new_domain == '') {
-                                alert('cannot create empty domain name!')
-                            }
-                            var measure_id = @Model.spec_Results.First().Measure_ID;
+                var new_domain = $('#new_domain').val();
+                if (new_domain == null || new_domain == '') {
+                    alert('cannot create empty domain name!')
+                }
+                var measure_id = @Model.spec_Results.First().Measure_ID;
                 $.ajax({
-                                url: '@Url.Action("SaveNewDomain", "Spec")',
+                    url: '@Url.Action("SaveNewDomain", "Spec")',
                     type: 'POST',
                     data: {
-                                    'measure_id': measure_id,
+                        'measure_id': measure_id,
                         'new_domain': new_domain
                     },
                     success: function (data) {
-                                    if (data.success) {
-                                        console.log(data);
-                                        alert(data.message);
+                        if (data.success) {
+                            console.log(data);
+                            alert(data.message);
                             $('#create_domain_modal').modal('hide');
-                                        window.location.reload();
-                                    }
-                                    else {
-                                        console.log(data.message)
-                                    }
-                                },
+                                window.location.reload();
+                            }
+                            else {
+                                console.log(data.message)
+                            }
+                    },
                     error: function (error) {
-                                    console.log(error);
-                                }
-                            })
+                        console.log(error);
+                            }
+                    })
             })
 
           $('#save_new_measure_type').click(function () {
-                            var new_measure_type = $('#new_measure_type').val();
-                            if (new_measure_type == null || new_measure_type == '') {
-                                alert('cannot create empty measure type name!')
-                            }
-                            var measure_id = @Model.spec_Results.First().Measure_ID;
+                var new_measure_type = $('#new_measure_type').val();
+                if (new_measure_type == null || new_measure_type == '') {
+                    alert('cannot create empty measure type name!')
+                }
+                var measure_id = @Model.spec_Results.First().Measure_ID;
                 $.ajax({
-                                url: '@Url.Action("SaveNewMeasureType")',
+                    url: '@Url.Action("SaveNewMeasureType")',
                     type: 'POST',
                     data: {
-                                    'measure_id': measure_id,
+                        'measure_id': measure_id,
                         'new_measure_type': new_measure_type
                     },
                     success: function (data) {
-                                    if (data.success) {
-                                        console.log(data);
-                                        alert(data.message);
-                            $('#create_measure_type_modal').modal('hide');
-                                        window.location.reload();
-                                    }
-                                    else {
-                                        console.log(data.message)
-                                    }
-                                },
+                            if (data.success) {
+                                console.log(data);
+                                alert(data.message);
+                                $('#create_measure_type_modal').modal('hide');
+                                window.location.reload();
+                            }
+                            else {
+                                console.log(data.message)
+                            }
+                        },
                     error: function (error) {
                                     console.log(error);
-                                }
-                            })
+                            }
+                    })
             })
 
             $('#save_new_scope').click(function () {
-                            var new_scope = $('#new_scope').val();
-                            if (new_scope == null || new_scope == '') {
-                                alert('cannot create empty measure scope name!')
-                            }
-                            var measure_id = @Model.spec_Results.First().Measure_ID;
+                var new_scope = $('#new_scope').val();
+                if (new_scope == null || new_scope == '') {
+                    alert('cannot create empty measure scope name!')
+                }
+                var measure_id = @Model.spec_Results.First().Measure_ID;
                 $.ajax({
-                                url: '@Url.Action("SaveNewMeasureScope")',
+                    url: '@Url.Action("SaveNewMeasureScope")',
                     type: 'POST',
                     data: {
-                                    'measure_id': measure_id,
+                        'measure_id': measure_id,
                         'new_scope': new_scope
                     },
                     success: function (data) {
@@ -1288,6 +1359,14 @@
                 this.parentElement.remove();
             }
 
+            $('.add_deleted_header_back').click(function () {
+                var id = this.parentElement.id.replace("div", "");
+                addDeletedHeaderBack.push(id);
+                this.previousElementSibling.removeAttribute("style");
+                this.nextElementSibling.removeAttribute("style");
+                this.remove();
+            })
+
             $('#save').click(function () {
                 var newConceptHeader = 0;
                 var newConceptHeaderDic = {};
@@ -1418,12 +1497,28 @@
                         }                        
                     }
                 }
-               
-                //console.log(existing_header_name);
-                //console.log(delete_existing_header);
-                //console.log(deleteAllUnderHeaderToBackend);
-                //console.log(newConceptHeaderTocontroller);
-                //console.log(delete_header_string);
+
+                var addDeletedHeaderBackToString = "";
+                if (addDeletedHeaderBack.length < 1) {
+                    addDeletedHeaderBackToString = "empty";
+                } else {
+                    for (var i = 0; i < addDeletedHeaderBack.length; i++) {
+                        if (i != addDeletedHeaderBack.length - 1) {
+                            addDeletedHeaderBackToString = addDeletedHeaderBackToString.concat(addDeletedHeaderBack[i], ",");
+                        } else {
+                            addDeletedHeaderBackToString = addDeletedHeaderBackToString.concat(addDeletedHeaderBack[i]);
+                        }   
+                    }
+                }
+
+                console.log(existing_header_name);
+                console.log(delete_existing_header);
+                console.log(add_existing_header);
+                console.log(newConceptHeaderTocontroller);
+                console.log(delete_header_string);
+                console.log(deleteAllUnderHeaderToBackend);
+                console.log(addDeletedHeaderBackToString);
+
                 $.ajax({
                 url: '@Url.Action("Save", "Spec")',
                     type: 'POST',
@@ -1451,7 +1546,8 @@
                         'add_existing_header': add_existing_header,
                         'newConceptHeaderTocontroller': newConceptHeaderTocontroller,
                         'delete_header_string': delete_header_string,
-                        'deleteAllUnderHeaderToBackend': deleteAllUnderHeaderToBackend
+                        'deleteAllUnderHeaderToBackend': deleteAllUnderHeaderToBackend,
+                        'addDeletedHeaderBackToString': addDeletedHeaderBackToString
                     },
                     success: function (data) {
                     if (data.success) {

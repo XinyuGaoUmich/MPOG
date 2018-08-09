@@ -390,9 +390,31 @@
             <tr>
                 <td>
                     <div class="col-md-11" style="word-wrap:break-word">
-                        @foreach (var header in Model.concept_ID_Required_Results)
+                        @foreach (var header in Model.concept_ID_Required_Results.Where(o => o.Header_Status != 2))
                         {
-                            <strong>@header.MPOG_Concept_Header_Name</strong>
+                            <strong>@header.Header_Unpublished_Name</strong>
+                            <ul>
+                                @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID && o.Concept_Status != 2))
+                                {
+                                    <li>
+                                        @item.MPOG_Concept_ID
+                                        @Model.all_Concepts.Where(o => o.MPOG_Concept_ID == item.MPOG_Concept_ID).First().concept_desc
+                                    </li>
+                                }
+                                @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID && o.Concept_Status == 2))
+                                {
+                                    <li style="text-decoration:line-through">
+                                        @item.MPOG_Concept_ID
+                                        @Model.all_Concepts.Where(o => o.MPOG_Concept_ID == item.MPOG_Concept_ID).First().concept_desc
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </div>
+                    <div class="col-md-11" style="word-wrap:break-word; text-decoration:line-through">
+                        @foreach (var header in Model.concept_ID_Required_Results.Where(o => o.Header_Status == 2))
+                        {
+                            <strong>@header.Header_Unpublished_Name</strong>
                             <ul>
                                 @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID))
                                 {
@@ -408,8 +430,21 @@
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-11" style="word-wrap:break-word">
-                        </div>
+                    <div class="col-md-11" style="word-wrap:break-word">
+                        @foreach (var header in Model.concept_ID_Required_Results.Where(o => o.Header_Status == 1))
+                        {
+                            <strong>@header.MPOG_Concept_Header_Name</strong>
+                            <ul>
+                                @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID && o.Concept_Status != 0))
+                                {
+                                    <li>
+                                        @item.MPOG_Concept_ID
+                                        @Model.all_Concepts.Where(o => o.MPOG_Concept_ID == item.MPOG_Concept_ID).First().concept_desc
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </div>
                     }
                 </td>
             </tr>

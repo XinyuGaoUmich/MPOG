@@ -7,6 +7,9 @@ th {
     width: 50%;
     text-align: center;
 }
+td {
+    vertical-align:top;
+}
 
 body {
     position: relative;

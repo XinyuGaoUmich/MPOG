@@ -276,6 +276,9 @@
       <DependentUpon>Measure.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EditMeasure.cs" />
+    <Compile Include="Models\Measure_Sections_Unpublished.cs">
+      <DependentUpon>Measure_All.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ModifyMeasureType.cs" />
     <Compile Include="Models\EditPager.cs" />
     <Compile Include="Models\EditSpec.cs" />

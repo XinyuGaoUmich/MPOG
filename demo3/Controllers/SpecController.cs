@@ -499,7 +499,7 @@ namespace demo3.Controllers
         }
 
         [ValidateInput(false)]
-        public JsonResult Save(int measure_id, string measure_abbreviation, int? nqs_domain, int? measure_type, int? scope, decimal threshold, string data_collection_method, string description, string measure_summary, string rationale, string inclusions, string exclusions, string other_measure_build_details, string success, string risk_adjustment, string references, int provider, string new_provider, Dictionary<int, string> existing_header_name, Dictionary<string, string> delete_existing_header, Dictionary<string, string> add_existing_header, Dictionary<string, string> newConceptHeaderTocontroller, string delete_header_string, string deleteAllUnderHeaderToBackend)
+        public JsonResult Save(int measure_id, string measure_abbreviation, int? nqs_domain, int? measure_type, int? scope, decimal threshold, string data_collection_method, string description, string measure_summary, string rationale, string inclusions, string exclusions, string other_measure_build_details, string success, string risk_adjustment, string references, int provider, string new_provider, Dictionary<int, string> existing_header_name, Dictionary<string, string> delete_existing_header, Dictionary<string, string> add_existing_header, Dictionary<string, string> newConceptHeaderTocontroller, string delete_header_string, string deleteAllUnderHeaderToBackend, string addDeletedHeaderBackToString)
         {
             try
             {
@@ -603,11 +603,10 @@ namespace demo3.Controllers
                         db2.Delete_Concept_Header(measure_id, header);
                     }
                 }
-                string[] headeridsss = null;
+
                 if (deleteAllUnderHeaderToBackend != "empty")
                 {
                     string[] headerIds = deleteAllUnderHeaderToBackend.Split(',');
-                    headeridsss = headerIds;
                     for (int i = 0; i < headerIds.Length; i++)
                     {
                         int header_ID = Convert.ToInt32(headerIds[i]);
@@ -615,11 +614,20 @@ namespace demo3.Controllers
                     }                  
                 }
 
+                if (addDeletedHeaderBackToString != "empty")
+                {
+                    string[] headers = addDeletedHeaderBackToString.Split(',');
+                    for (int i = 0; i < headers.Length; i++)
+                    {
+                        int header = Convert.ToInt32(headers[i]);
+                        db2.Add_Deleted_Header_Back(measure_id, header);
+                    }
+                }
+
                 return Json(new
                 {
                     success = true,
                     message = "success",
-                    headeridsss,
                 });
             }
             catch (Exception e)

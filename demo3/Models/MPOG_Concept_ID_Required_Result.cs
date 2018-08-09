@@ -15,5 +15,7 @@ namespace demo3.Models
     {
         public string MPOG_Concept_Header_Name { get; set; }
         public int MPOG_Concept_Header_ID { get; set; }
+        public Nullable<byte> Header_Status { get; set; }
+        public string Header_Unpublished_Name { get; set; }
     }
 }

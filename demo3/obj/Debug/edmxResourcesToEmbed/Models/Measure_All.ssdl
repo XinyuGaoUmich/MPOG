@@ -2,11 +2,12 @@
 <Schema Namespace="MPOG_XinyuModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Concept_Each_Header">
     <Key>
-      <PropertyRef Name="auto_id" />
+      <PropertyRef Name="MPOG_Concept_Header_ID" />
+      <PropertyRef Name="MPOG_Concept_ID" />
     </Key>
-    <Property Name="MPOG_Concept_Header_ID" Type="int" />
-    <Property Name="MPOG_Concept_ID" Type="int" />
-    <Property Name="auto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MPOG_Concept_Header_ID" Type="int" Nullable="false" />
+    <Property Name="MPOG_Concept_ID" Type="int" Nullable="false" />
+    <Property Name="Concept_Status" Type="tinyint" />
   </EntityType>
   <EntityType Name="Enumeration_Measure_Type">
     <Key>
@@ -36,6 +37,32 @@
     <Property Name="Scope_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Scope_Name" Type="varchar" MaxLength="50" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Measure_Sections_Unpublished">
+    <Key>
+      <PropertyRef Name="Measure_ID" />
+    </Key>
+    <Property Name="Measure_ID" Type="int" Nullable="false" />
+    <Property Name="Measure_Abbreviation" Type="varchar" MaxLength="20" />
+    <Property Name="Data_Collection_Method" Type="varchar(max)" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="NQS_Domain" Type="int" />
+    <Property Name="Measure_Type" Type="int" />
+    <Property Name="Scope" Type="int" />
+    <Property Name="Measure_Summary" Type="varchar(max)" />
+    <Property Name="Rationale" Type="varchar(max)" />
+    <Property Name="Inclusions" Type="varchar(max)" />
+    <Property Name="Exclusions" Type="varchar(max)" />
+    <Property Name="Other_Build_Details" Type="varchar(max)" />
+    <Property Name="Success" Type="varchar(max)" />
+    <Property Name="Threshold" Type="numeric" Precision="18" Scale="3" />
+    <Property Name="Responsible_Provider" Type="int" />
+    <Property Name="Risk_Adjustment" Type="varchar(max)" />
+    <Property Name="Flow_Chart" Type="nchar" MaxLength="10" />
+    <Property Name="Reference" Type="varchar(max)" />
+    <Property Name="Status_ID" Type="int" />
+  </EntityType>
   <EntityType Name="MPOG_Concepts">
     <Key>
       <PropertyRef Name="MPOG_Concept_ID" />
@@ -49,19 +76,19 @@
   </EntityType>
   <EntityType Name="Responsible_Provider_Published">
     <Key>
-      <PropertyRef Name="auto_id" />
+      <PropertyRef Name="Measure_ID" />
+      <PropertyRef Name="Responsible_Provider_ID" />
     </Key>
-    <Property Name="auto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Measure_ID" Type="int" />
-    <Property Name="Responsible_Provider_ID" Type="int" />
+    <Property Name="Measure_ID" Type="int" Nullable="false" />
+    <Property Name="Responsible_Provider_ID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Responsible_Provider_Unpublished">
     <Key>
-      <PropertyRef Name="auto_id" />
+      <PropertyRef Name="Measure_ID" />
+      <PropertyRef Name="Responsible_Provider_ID" />
     </Key>
-    <Property Name="auto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Measure_ID" Type="int" Nullable="false" />
-    <Property Name="Responsible_Provider_ID" Type="int" />
+    <Property Name="Responsible_Provider_ID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Status_Type">
     <Key>
@@ -73,6 +100,10 @@
   <Function Name="Add_Concept_Existing_Header" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Header_ID" Type="int" Mode="In" />
     <Parameter Name="Concept_ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Add_Deleted_Header_Back" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+    <Parameter Name="Header_ID" Type="int" Mode="In" />
   </Function>
   <Function Name="Add_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
@@ -301,5 +332,28 @@
     <EntitySet Name="Responsible_Provider_Published" EntityType="Self.Responsible_Provider_Published" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Responsible_Provider_Unpublished" EntityType="Self.Responsible_Provider_Unpublished" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Status_Type" EntityType="Self.Status_Type" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Measure_Sections_Unpublished" EntityType="Self.Measure_Sections_Unpublished" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Measure_Sections_Unpublished].[Measure_ID] AS [Measure_ID], 
+    [Measure_Sections_Unpublished].[Measure_Abbreviation] AS [Measure_Abbreviation], 
+    [Measure_Sections_Unpublished].[Data_Collection_Method] AS [Data_Collection_Method], 
+    [Measure_Sections_Unpublished].[Description] AS [Description], 
+    [Measure_Sections_Unpublished].[NQS_Domain] AS [NQS_Domain], 
+    [Measure_Sections_Unpublished].[Measure_Type] AS [Measure_Type], 
+    [Measure_Sections_Unpublished].[Scope] AS [Scope], 
+    [Measure_Sections_Unpublished].[Measure_Summary] AS [Measure_Summary], 
+    [Measure_Sections_Unpublished].[Rationale] AS [Rationale], 
+    [Measure_Sections_Unpublished].[Inclusions] AS [Inclusions], 
+    [Measure_Sections_Unpublished].[Exclusions] AS [Exclusions], 
+    [Measure_Sections_Unpublished].[Other_Build_Details] AS [Other_Build_Details], 
+    [Measure_Sections_Unpublished].[Success] AS [Success], 
+    [Measure_Sections_Unpublished].[Threshold] AS [Threshold], 
+    [Measure_Sections_Unpublished].[Responsible_Provider] AS [Responsible_Provider], 
+    [Measure_Sections_Unpublished].[Risk_Adjustment] AS [Risk_Adjustment], 
+    [Measure_Sections_Unpublished].[Flow_Chart] AS [Flow_Chart], 
+    [Measure_Sections_Unpublished].[Reference] AS [Reference], 
+    [Measure_Sections_Unpublished].[Status_ID] AS [Status_ID]
+    FROM [dbo].[Measure_Sections_Unpublished] AS [Measure_Sections_Unpublished]</DefiningQuery>
+    </EntitySet>
   </EntityContainer>
 </Schema>

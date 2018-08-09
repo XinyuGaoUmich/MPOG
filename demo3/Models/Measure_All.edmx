@@ -106,6 +106,10 @@ warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does 
           <Parameter Name="Header_ID" Type="int" Mode="In" />
           <Parameter Name="Concept_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="Add_Deleted_Header_Back" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+          <Parameter Name="Header_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="Add_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
           <Parameter Name="Measure_Title" Type="varchar" Mode="In" />
@@ -530,31 +534,6 @@ warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does 
             <Parameter Name="Risk_Adjustment" Mode="In" Type="String" />
             <Parameter Name="Reference" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="Modify_Header_Name">
-            <Parameter Name="Header_ID" Mode="In" Type="Int32" />
-            <Parameter Name="Header_Name" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="Delete_Concept">
-            <Parameter Name="Header_ID" Mode="In" Type="Int32" />
-            <Parameter Name="Concept_ID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Add_Concept_Existing_Header">
-            <Parameter Name="Header_ID" Mode="In" Type="Int32" />
-            <Parameter Name="Concept_ID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Add_New_Header">
-            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
-            <Parameter Name="Header_Name" Mode="In" Type="String" />
-            <Parameter Name="New_header_Id" Mode="InOut" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Delete_Concept_Header">
-            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
-            <Parameter Name="Header_ID" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Delete_All_Under_Header">
-            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
-            <Parameter Name="Header_ID" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="Publish_Pager">
             <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
             <Parameter Name="Measure_Abbreviation" Mode="In" Type="String" />
@@ -597,6 +576,35 @@ warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does 
           <EntitySet Name="Responsible_Provider_Published" EntityType="MPOG_XinyuModel1.Responsible_Provider_Published" />
           <EntitySet Name="Measure_Sections_Unpublished" EntityType="MPOG_XinyuModel1.Measure_Sections_Unpublished" />
           <EntitySet Name="Responsible_Provider_Unpublished" EntityType="MPOG_XinyuModel1.Responsible_Provider_Unpublished" />
+          <FunctionImport Name="Add_Concept_Existing_Header">
+            <Parameter Name="Header_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Concept_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Add_New_Header">
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Header_Name" Mode="In" Type="String" />
+            <Parameter Name="New_header_Id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Delete_All_Under_Header">
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Header_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Delete_Concept">
+            <Parameter Name="Header_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Concept_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Delete_Concept_Header">
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Header_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Modify_Header_Name">
+            <Parameter Name="Header_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Header_Name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Add_Deleted_Header_Back">
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Header_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Details_All_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -625,6 +633,8 @@ warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does 
         <ComplexType Name="MPOG_Concept_ID_Required_Result">
           <Property Type="String" Name="MPOG_Concept_Header_Name" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="MPOG_Concept_Header_ID" Nullable="false" />
+          <Property Type="Byte" Name="Header_Status" Nullable="true" />
+          <Property Type="String" Name="Header_Unpublished_Name" Nullable="true" MaxLength="50" />
           </ComplexType>
         <ComplexType Name="Pager_Result">
           <Property Type="String" Name="NQS_Domain" Nullable="true" MaxLength="50" />
@@ -912,6 +922,8 @@ warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does 
               <ComplexTypeMapping TypeName="MPOG_XinyuModel1.MPOG_Concept_ID_Required_Result">
                 <ScalarProperty Name="MPOG_Concept_Header_Name" ColumnName="MPOG_Concept_Header_Name" />
                 <ScalarProperty Name="MPOG_Concept_Header_ID" ColumnName="MPOG_Concept_Header_ID" />
+                <ScalarProperty Name="Header_Status" ColumnName="Header_Status" />
+                <ScalarProperty Name="Header_Unpublished_Name" ColumnName="Header_Unpublished_Name" />
                 </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1183,12 +1195,6 @@ warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does 
           <FunctionImportMapping FunctionImportName="Delete_Domain" FunctionName="MPOG_XinyuModel1.Store.Delete_Domain" />
           <FunctionImportMapping FunctionImportName="Save_Pager" FunctionName="MPOG_XinyuModel1.Store.Save_Pager" />
           <FunctionImportMapping FunctionImportName="Save_Spec" FunctionName="MPOG_XinyuModel1.Store.Save_Spec" />
-          <FunctionImportMapping FunctionImportName="Modify_Header_Name" FunctionName="MPOG_XinyuModel1.Store.Modify_Header_Name" />
-          <FunctionImportMapping FunctionImportName="Delete_Concept" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept" />
-          <FunctionImportMapping FunctionImportName="Add_Concept_Existing_Header" FunctionName="MPOG_XinyuModel1.Store.Add_Concept_Existing_Header" />
-          <FunctionImportMapping FunctionImportName="Add_New_Header" FunctionName="MPOG_XinyuModel1.Store.Add_New_Header" />
-          <FunctionImportMapping FunctionImportName="Delete_Concept_Header" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept_Header" />
-          <FunctionImportMapping FunctionImportName="Delete_All_Under_Header" FunctionName="MPOG_XinyuModel1.Store.Delete_All_Under_Header" />
           <FunctionImportMapping FunctionImportName="Publish_Pager" FunctionName="MPOG_XinyuModel1.Store.Publish_Pager" />
           <FunctionImportMapping FunctionImportName="Publish_Spec" FunctionName="MPOG_XinyuModel1.Store.Publish_Spec" />
           <EntitySetMapping Name="Concept_Each_Header">
@@ -1241,6 +1247,13 @@ warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Add_Concept_Existing_Header" FunctionName="MPOG_XinyuModel1.Store.Add_Concept_Existing_Header" />
+          <FunctionImportMapping FunctionImportName="Add_New_Header" FunctionName="MPOG_XinyuModel1.Store.Add_New_Header" />
+          <FunctionImportMapping FunctionImportName="Delete_All_Under_Header" FunctionName="MPOG_XinyuModel1.Store.Delete_All_Under_Header" />
+          <FunctionImportMapping FunctionImportName="Delete_Concept" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept" />
+          <FunctionImportMapping FunctionImportName="Delete_Concept_Header" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept_Header" />
+          <FunctionImportMapping FunctionImportName="Modify_Header_Name" FunctionName="MPOG_XinyuModel1.Store.Modify_Header_Name" />
+          <FunctionImportMapping FunctionImportName="Add_Deleted_Header_Back" FunctionName="MPOG_XinyuModel1.Store.Add_Deleted_Header_Back" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

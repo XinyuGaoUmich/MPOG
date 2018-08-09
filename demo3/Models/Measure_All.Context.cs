@@ -589,84 +589,6 @@ namespace demo3.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Save_Spec", measure_IDParameter, measure_AbbreviationParameter, data_Collection_MethodParameter, descriptionParameter, nQS_DomainParameter, measure_TypeParameter, scopeParameter, measure_SummaryParameter, rationaleParameter, inclusionsParameter, exclusionsParameter, other_Build_DetailsParameter, successParameter, thresholdParameter, responsible_ProviderParameter, risk_AdjustmentParameter, referenceParameter);
         }
     
-        public virtual int Modify_Header_Name(Nullable<int> header_ID, string header_Name)
-        {
-            var header_IDParameter = header_ID.HasValue ?
-                new ObjectParameter("Header_ID", header_ID) :
-                new ObjectParameter("Header_ID", typeof(int));
-    
-            var header_NameParameter = header_Name != null ?
-                new ObjectParameter("Header_Name", header_Name) :
-                new ObjectParameter("Header_Name", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Modify_Header_Name", header_IDParameter, header_NameParameter);
-        }
-    
-        public virtual int Delete_Concept(Nullable<int> header_ID, Nullable<int> concept_ID)
-        {
-            var header_IDParameter = header_ID.HasValue ?
-                new ObjectParameter("Header_ID", header_ID) :
-                new ObjectParameter("Header_ID", typeof(int));
-    
-            var concept_IDParameter = concept_ID.HasValue ?
-                new ObjectParameter("Concept_ID", concept_ID) :
-                new ObjectParameter("Concept_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_Concept", header_IDParameter, concept_IDParameter);
-        }
-    
-        public virtual int Add_Concept_Existing_Header(Nullable<int> header_ID, Nullable<int> concept_ID)
-        {
-            var header_IDParameter = header_ID.HasValue ?
-                new ObjectParameter("Header_ID", header_ID) :
-                new ObjectParameter("Header_ID", typeof(int));
-    
-            var concept_IDParameter = concept_ID.HasValue ?
-                new ObjectParameter("Concept_ID", concept_ID) :
-                new ObjectParameter("Concept_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_Concept_Existing_Header", header_IDParameter, concept_IDParameter);
-        }
-    
-        public virtual int Add_New_Header(Nullable<int> measure_ID, string header_Name, ObjectParameter new_header_Id)
-        {
-            var measure_IDParameter = measure_ID.HasValue ?
-                new ObjectParameter("Measure_ID", measure_ID) :
-                new ObjectParameter("Measure_ID", typeof(int));
-    
-            var header_NameParameter = header_Name != null ?
-                new ObjectParameter("Header_Name", header_Name) :
-                new ObjectParameter("Header_Name", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_New_Header", measure_IDParameter, header_NameParameter, new_header_Id);
-        }
-    
-        public virtual int Delete_Concept_Header(Nullable<int> measure_ID, Nullable<int> header_ID)
-        {
-            var measure_IDParameter = measure_ID.HasValue ?
-                new ObjectParameter("Measure_ID", measure_ID) :
-                new ObjectParameter("Measure_ID", typeof(int));
-    
-            var header_IDParameter = header_ID.HasValue ?
-                new ObjectParameter("Header_ID", header_ID) :
-                new ObjectParameter("Header_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_Concept_Header", measure_IDParameter, header_IDParameter);
-        }
-    
-        public virtual int Delete_All_Under_Header(Nullable<int> measure_ID, Nullable<int> header_ID)
-        {
-            var measure_IDParameter = measure_ID.HasValue ?
-                new ObjectParameter("Measure_ID", measure_ID) :
-                new ObjectParameter("Measure_ID", typeof(int));
-    
-            var header_IDParameter = header_ID.HasValue ?
-                new ObjectParameter("Header_ID", header_ID) :
-                new ObjectParameter("Header_ID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_All_Under_Header", measure_IDParameter, header_IDParameter);
-        }
-    
         public virtual int Publish_Pager(Nullable<int> measure_ID, string measure_Abbreviation, string data_Collection_Method, string description, Nullable<int> nQS_Domain, string nQS_Domain_Content, Nullable<int> measure_Type, Nullable<int> scope, string measure_Summary, string inclusions, string exclusions, string success, Nullable<decimal> threshold, Nullable<int> responsible_Provider, string risk_Adjustment, string reference)
         {
             var measure_IDParameter = measure_ID.HasValue ?
@@ -811,6 +733,97 @@ namespace demo3.Models
                 new ObjectParameter("Reference", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Publish_Spec", measure_IDParameter, measure_AbbreviationParameter, data_Collection_MethodParameter, descriptionParameter, nQS_DomainParameter, nQS_Domain_ContentParameter, measure_TypeParameter, scopeParameter, measure_SummaryParameter, rationaleParameter, inclusionsParameter, exclusionsParameter, other_Build_DetailsParameter, successParameter, thresholdParameter, responsible_ProviderParameter, risk_AdjustmentParameter, referenceParameter);
+        }
+    
+        public virtual int Add_Concept_Existing_Header(Nullable<int> header_ID, Nullable<int> concept_ID)
+        {
+            var header_IDParameter = header_ID.HasValue ?
+                new ObjectParameter("Header_ID", header_ID) :
+                new ObjectParameter("Header_ID", typeof(int));
+    
+            var concept_IDParameter = concept_ID.HasValue ?
+                new ObjectParameter("Concept_ID", concept_ID) :
+                new ObjectParameter("Concept_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_Concept_Existing_Header", header_IDParameter, concept_IDParameter);
+        }
+    
+        public virtual int Add_New_Header(Nullable<int> measure_ID, string header_Name, ObjectParameter new_header_Id)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var header_NameParameter = header_Name != null ?
+                new ObjectParameter("Header_Name", header_Name) :
+                new ObjectParameter("Header_Name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_New_Header", measure_IDParameter, header_NameParameter, new_header_Id);
+        }
+    
+        public virtual int Delete_All_Under_Header(Nullable<int> measure_ID, Nullable<int> header_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var header_IDParameter = header_ID.HasValue ?
+                new ObjectParameter("Header_ID", header_ID) :
+                new ObjectParameter("Header_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_All_Under_Header", measure_IDParameter, header_IDParameter);
+        }
+    
+        public virtual int Delete_Concept(Nullable<int> header_ID, Nullable<int> concept_ID)
+        {
+            var header_IDParameter = header_ID.HasValue ?
+                new ObjectParameter("Header_ID", header_ID) :
+                new ObjectParameter("Header_ID", typeof(int));
+    
+            var concept_IDParameter = concept_ID.HasValue ?
+                new ObjectParameter("Concept_ID", concept_ID) :
+                new ObjectParameter("Concept_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_Concept", header_IDParameter, concept_IDParameter);
+        }
+    
+        public virtual int Delete_Concept_Header(Nullable<int> measure_ID, Nullable<int> header_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var header_IDParameter = header_ID.HasValue ?
+                new ObjectParameter("Header_ID", header_ID) :
+                new ObjectParameter("Header_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_Concept_Header", measure_IDParameter, header_IDParameter);
+        }
+    
+        public virtual int Modify_Header_Name(Nullable<int> header_ID, string header_Name)
+        {
+            var header_IDParameter = header_ID.HasValue ?
+                new ObjectParameter("Header_ID", header_ID) :
+                new ObjectParameter("Header_ID", typeof(int));
+    
+            var header_NameParameter = header_Name != null ?
+                new ObjectParameter("Header_Name", header_Name) :
+                new ObjectParameter("Header_Name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Modify_Header_Name", header_IDParameter, header_NameParameter);
+        }
+    
+        public virtual int Add_Deleted_Header_Back(Nullable<int> measure_ID, Nullable<int> header_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var header_IDParameter = header_ID.HasValue ?
+                new ObjectParameter("Header_ID", header_ID) :
+                new ObjectParameter("Header_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_Deleted_Header_Back", measure_IDParameter, header_IDParameter);
         }
     }
 }
