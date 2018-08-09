@@ -42,8 +42,6 @@
           <Property Name="Scope_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Scope_Name" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Measure_Sections_Unpublished">
           <Key>
             <PropertyRef Name="Measure_ID" />
@@ -243,6 +241,9 @@ warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does 
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
         </Function>
         <Function Name="Public_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Publish_Concept_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="Publish_Pager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
           <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
@@ -333,33 +334,11 @@ warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does 
           <EntitySet Name="Enumeration_NQS_Domain" EntityType="Self.Enumeration_NQS_Domain" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Enumeration_Responsible_Provider" EntityType="Self.Enumeration_Responsible_Provider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Enumeration_Scope" EntityType="Self.Enumeration_Scope" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Measure_Sections_Unpublished" EntityType="Self.Measure_Sections_Unpublished" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MPOG_Concepts" EntityType="Self.MPOG_Concepts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Responsible_Provider_Published" EntityType="Self.Responsible_Provider_Published" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Responsible_Provider_Unpublished" EntityType="Self.Responsible_Provider_Unpublished" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status_Type" EntityType="Self.Status_Type" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Measure_Sections_Unpublished" EntityType="Self.Measure_Sections_Unpublished" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Measure_Sections_Unpublished].[Measure_ID] AS [Measure_ID], 
-    [Measure_Sections_Unpublished].[Measure_Abbreviation] AS [Measure_Abbreviation], 
-    [Measure_Sections_Unpublished].[Data_Collection_Method] AS [Data_Collection_Method], 
-    [Measure_Sections_Unpublished].[Description] AS [Description], 
-    [Measure_Sections_Unpublished].[NQS_Domain] AS [NQS_Domain], 
-    [Measure_Sections_Unpublished].[Measure_Type] AS [Measure_Type], 
-    [Measure_Sections_Unpublished].[Scope] AS [Scope], 
-    [Measure_Sections_Unpublished].[Measure_Summary] AS [Measure_Summary], 
-    [Measure_Sections_Unpublished].[Rationale] AS [Rationale], 
-    [Measure_Sections_Unpublished].[Inclusions] AS [Inclusions], 
-    [Measure_Sections_Unpublished].[Exclusions] AS [Exclusions], 
-    [Measure_Sections_Unpublished].[Other_Build_Details] AS [Other_Build_Details], 
-    [Measure_Sections_Unpublished].[Success] AS [Success], 
-    [Measure_Sections_Unpublished].[Threshold] AS [Threshold], 
-    [Measure_Sections_Unpublished].[Responsible_Provider] AS [Responsible_Provider], 
-    [Measure_Sections_Unpublished].[Risk_Adjustment] AS [Risk_Adjustment], 
-    [Measure_Sections_Unpublished].[Flow_Chart] AS [Flow_Chart], 
-    [Measure_Sections_Unpublished].[Reference] AS [Reference], 
-    [Measure_Sections_Unpublished].[Status_ID] AS [Status_ID]
-    FROM [dbo].[Measure_Sections_Unpublished] AS [Measure_Sections_Unpublished]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -574,7 +553,6 @@ warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does 
           </FunctionImport>
           <EntitySet Name="Concept_Each_Header" EntityType="MPOG_XinyuModel1.Concept_Each_Header" />
           <EntitySet Name="Responsible_Provider_Published" EntityType="MPOG_XinyuModel1.Responsible_Provider_Published" />
-          <EntitySet Name="Measure_Sections_Unpublished" EntityType="MPOG_XinyuModel1.Measure_Sections_Unpublished" />
           <EntitySet Name="Responsible_Provider_Unpublished" EntityType="MPOG_XinyuModel1.Responsible_Provider_Unpublished" />
           <FunctionImport Name="Add_Concept_Existing_Header">
             <Parameter Name="Header_ID" Mode="In" Type="Int32" />
@@ -601,6 +579,10 @@ warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does 
             <Parameter Name="Header_ID" Mode="In" Type="Int32" />
             <Parameter Name="Header_Name" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="Publish_Concept_Measure">
+          <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Measure_Sections_Unpublished" EntityType="MPOG_XinyuModel1.Measure_Sections_Unpublished" />
           <FunctionImport Name="Add_Deleted_Header_Back">
             <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
             <Parameter Name="Header_ID" Mode="In" Type="Int32" />
@@ -629,6 +611,7 @@ warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does 
         <ComplexType Name="Data_Diagnostics_Affected_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
           <Property Type="String" Name="Display_Name" Nullable="false" MaxLength="100" />
+          <Property Type="Byte" Name="ID_Status" Nullable="true" />
         </ComplexType>
         <ComplexType Name="MPOG_Concept_ID_Required_Result">
           <Property Type="String" Name="MPOG_Concept_Header_Name" Nullable="true" MaxLength="50" />
@@ -843,6 +826,14 @@ warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does 
           <Property Name="Measure_ID" Type="Int32" Nullable="false" />
           <Property Name="Responsible_Provider_ID" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="Responsible_Provider_Unpublished">
+          <Key>
+            <PropertyRef Name="Measure_ID" />
+            <PropertyRef Name="Responsible_Provider_ID" />
+          </Key>
+          <Property Name="Measure_ID" Type="Int32" Nullable="false" />
+          <Property Name="Responsible_Provider_ID" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="Measure_Sections_Unpublished">
           <Key>
             <PropertyRef Name="Measure_ID" />
@@ -866,14 +857,6 @@ warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does 
           <Property Name="Flow_Chart" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="Reference" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Status_ID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Responsible_Provider_Unpublished">
-          <Key>
-            <PropertyRef Name="Measure_ID" />
-            <PropertyRef Name="Responsible_Provider_ID" />
-          </Key>
-          <Property Name="Measure_ID" Type="Int32" Nullable="false" />
-          <Property Name="Responsible_Provider_ID" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -914,6 +897,7 @@ warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does 
               <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Data_Diagnostics_Affected_Result">
                 <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
                 <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
+                <ScalarProperty Name="ID_Status" ColumnName="ID_Status" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1214,6 +1198,21 @@ warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Responsible_Provider_Unpublished">
+            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Responsible_Provider_Unpublished">
+              <MappingFragment StoreEntitySet="Responsible_Provider_Unpublished">
+                <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
+                <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Add_Concept_Existing_Header" FunctionName="MPOG_XinyuModel1.Store.Add_Concept_Existing_Header" />
+          <FunctionImportMapping FunctionImportName="Add_New_Header" FunctionName="MPOG_XinyuModel1.Store.Add_New_Header" />
+          <FunctionImportMapping FunctionImportName="Delete_All_Under_Header" FunctionName="MPOG_XinyuModel1.Store.Delete_All_Under_Header" />
+          <FunctionImportMapping FunctionImportName="Delete_Concept" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept" />
+          <FunctionImportMapping FunctionImportName="Delete_Concept_Header" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept_Header" />
+          <FunctionImportMapping FunctionImportName="Modify_Header_Name" FunctionName="MPOG_XinyuModel1.Store.Modify_Header_Name" />
+          <FunctionImportMapping FunctionImportName="Publish_Concept_Measure" FunctionName="MPOG_XinyuModel1.Store.Publish_Concept_Measure" />
           <EntitySetMapping Name="Measure_Sections_Unpublished">
             <EntityTypeMapping TypeName="MPOG_XinyuModel1.Measure_Sections_Unpublished">
               <MappingFragment StoreEntitySet="Measure_Sections_Unpublished">
@@ -1239,20 +1238,6 @@ warning 6002: The table/view 'MPOG_Xinyu.dbo.Measure_Sections_Unpublished' does 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Responsible_Provider_Unpublished">
-            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Responsible_Provider_Unpublished">
-              <MappingFragment StoreEntitySet="Responsible_Provider_Unpublished">
-                <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
-                <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="Add_Concept_Existing_Header" FunctionName="MPOG_XinyuModel1.Store.Add_Concept_Existing_Header" />
-          <FunctionImportMapping FunctionImportName="Add_New_Header" FunctionName="MPOG_XinyuModel1.Store.Add_New_Header" />
-          <FunctionImportMapping FunctionImportName="Delete_All_Under_Header" FunctionName="MPOG_XinyuModel1.Store.Delete_All_Under_Header" />
-          <FunctionImportMapping FunctionImportName="Delete_Concept" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept" />
-          <FunctionImportMapping FunctionImportName="Delete_Concept_Header" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept_Header" />
-          <FunctionImportMapping FunctionImportName="Modify_Header_Name" FunctionName="MPOG_XinyuModel1.Store.Modify_Header_Name" />
           <FunctionImportMapping FunctionImportName="Add_Deleted_Header_Back" FunctionName="MPOG_XinyuModel1.Store.Add_Deleted_Header_Back" />
         </EntityContainerMapping>
       </Mapping>

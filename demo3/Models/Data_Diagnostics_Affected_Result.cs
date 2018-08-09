@@ -15,5 +15,6 @@ namespace demo3.Models
     {
         public int Measure_ID { get; set; }
         public string Display_Name { get; set; }
+        public Nullable<byte> ID_Status { get; set; }
     }
 }

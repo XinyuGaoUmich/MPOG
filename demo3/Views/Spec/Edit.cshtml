@@ -546,7 +546,7 @@
                     @if (hasPublishedVersion)
                     {
                         <div class="col-md-11" style="word-wrap:break-word" >
-                            @foreach (var header in Model.concept_ID_Required_Results.Where(o => o.Header_Status == 1))
+                            @foreach (var header in Model.concept_ID_Required_Results.Where(o => o.Header_Status != 0))
                             {
                                 <strong>@header.MPOG_Concept_Header_Name</strong>
                                 <ul>
@@ -577,6 +577,14 @@
             <tr>
                 <td>
                     <div class="col-md-10">
+                        <ul>
+                            @foreach (var item in Model.data_Diagnostics_Affected_Results.Where(o => o.ID_Status != 2))
+                            {
+                                <li>
+                                    @item.Display_Name
+                                </li>
+                            }
+                        </ul>
                     </div>
                 </td>
                 <td>
@@ -1295,6 +1303,7 @@
                     $('#' + id).remove();
                 } else {
                     deleteAllUnderHeader.push(id);
+                    delete existing_header_nametmp[id]
                     $('#div' + id).remove();
                 }
                 $('#delete_header_modal').modal('hide');
@@ -1518,7 +1527,6 @@
                 console.log(delete_header_string);
                 console.log(deleteAllUnderHeaderToBackend);
                 console.log(addDeletedHeaderBackToString);
-
                 $.ajax({
                 url: '@Url.Action("Save", "Spec")',
                     type: 'POST',
@@ -1569,6 +1577,149 @@
             })
 
             $('#publish').click(function () {
+                var newConceptHeader = 0;
+                var newConceptHeaderDic = {};
+                var empty = false;
+
+                $('.newConceptHeader').each(function () {
+                    var headerName = this.firstElementChild.value;
+                    if (headerName == "") {
+                        empty = true;
+                        return;
+                    }
+                    newConceptHeaderDic[headerName] = [];
+                    var ul = this.lastElementChild;
+                    for (var i = 0; i < ul.children.length - 1; i++) {
+                        var array = ul.children[i].children[0].value
+                        var conceptId = array.substring(0, array.indexOf(" "));
+                        newConceptHeaderDic[headerName].push(conceptId);
+                    }
+                    newConceptHeader++;
+                })
+                if (empty) {
+                    alert("Header name cannot be empty!")
+                    return;
+                }
+
+                var measure_abbreviation = $('#measure_abbreviation').val()
+                var nqs_domain = $('#nqs_domain').val();
+                var measure_type = $('#measure_type').val();
+                var scope = $('#scope').val();
+                var threshold = $('#threshold').val();
+                var data_collection_method = CKEDITOR.instances["data_collection_method"].getData();
+                var description = CKEDITOR.instances["description"].getData();
+                var measure_summary = CKEDITOR.instances["measure_summary"].getData();
+                var rationale = CKEDITOR.instances["rationale"].getData();
+                var inclusions = CKEDITOR.instances["inclusions"].getData();
+                var exclusions = CKEDITOR.instances["exclusions"].getData();
+                var other_measure_build_details = CKEDITOR.instances["other_measure_build_details"].getData();
+                var success = CKEDITOR.instances["success"].getData();
+                var risk_adjustment = CKEDITOR.instances["risk_adjustment"].getData();
+                var references = CKEDITOR.instances["references"].getData();
+                var measure_id = $('#Measure_ID').val();
+                var provider = $('#responsible_provider_select').val();
+                var new_provider = CKEDITOR.instances.editor1.getData();
+                for (var key in existing_header_nametmp) {
+                    existing_header_nametmp[key] = $('#header' + key).text();
+                }
+                for (var key in existing_header_nametmp) {
+                    existing_header_name.push({ key: key, value: $('#header' + key).text() });
+                }
+
+                var delete_existing_header = [];
+                for (var key in delete_existing_headertmp) {
+                    var value = delete_existing_headertmp[key];
+                    var stringForm = "";
+                    for (var item in value) {
+                        if (item != value.length - 1) {
+                            stringForm = stringForm.concat(value[item], ",");
+                        }
+                        else {
+                            stringForm = stringForm.concat(value[item]);
+                        }
+
+                    }
+                    delete_existing_header.push({ key: key.toString(), value: stringForm });
+                }
+                if (delete_existing_header.length == 0) {
+                    delete_existing_header.push({ key: "empty", value: "" })
+                }
+
+                var add_existing_header = [];
+                for (var key in add_existing_headertmp) {
+                    var value = add_existing_headertmp[key];
+                    var stringForm = "";
+                    for (var item in value) {
+                        if (item != value.length - 1) {
+                            stringForm = stringForm.concat(value[item], ",");
+                        }
+                        else {
+                            stringForm = stringForm.concat(value[item]);
+                        }
+                    }
+                    add_existing_header.push({ key: key.toString(), value: stringForm });
+                }
+                if (add_existing_header.length == 0) {
+                    add_existing_header.push({ key: "empty", value: "" })
+                }
+
+                var delete_header_string = "";
+                for (var key in delete_header) {
+                    if (key != delete_header.length - 1) {
+                        delete_header_string = delete_header_string.concat(delete_header[key], ",");
+                    } else {
+                        delete_header_string = delete_header_string.concat(delete_header[key]);
+                    }
+                }
+
+                if (delete_header_string == "") {
+                    delete_header_string = "empty";
+                }
+
+                var newConceptHeaderTocontroller = [];
+                for (var key in newConceptHeaderDic) {
+                    var value = newConceptHeaderDic[key];
+                    var stringForm = "";
+                    for (var item in value) {
+                        if (item != value.length - 1) {
+                            stringForm = stringForm.concat(value[item], ",");
+                        }
+                        else {
+                            stringForm = stringForm.concat(value[item]);
+                        }
+                    }
+                    newConceptHeaderTocontroller.push({ key: key.toString(), value: stringForm });
+                }
+                if (newConceptHeaderTocontroller.length == 0) {
+                    newConceptHeaderTocontroller.push({ key: "-1", value: "" })
+                }
+
+                var deleteAllUnderHeaderToBackend = "";
+                if (deleteAllUnderHeader.length < 1) {
+                    deleteAllUnderHeaderToBackend = "empty";
+                } else {
+                    for (var i = 0; i < deleteAllUnderHeader.length; i++) {
+                        if (i != deleteAllUnderHeader.length - 1) {
+                            deleteAllUnderHeaderToBackend = deleteAllUnderHeaderToBackend.concat(deleteAllUnderHeader[i], ",");
+                        } else {
+                            deleteAllUnderHeaderToBackend = deleteAllUnderHeaderToBackend.concat(deleteAllUnderHeader[i]);
+                        }
+                    }
+                }
+
+                var addDeletedHeaderBackToString = "";
+                if (addDeletedHeaderBack.length < 1) {
+                    addDeletedHeaderBackToString = "empty";
+                } else {
+                    for (var i = 0; i < addDeletedHeaderBack.length; i++) {
+                        if (i != addDeletedHeaderBack.length - 1) {
+                            addDeletedHeaderBackToString = addDeletedHeaderBackToString.concat(addDeletedHeaderBack[i], ",");
+                        } else {
+                            addDeletedHeaderBackToString = addDeletedHeaderBackToString.concat(addDeletedHeaderBack[i]);
+                        }
+                    }
+                }
+
             var measure_abbreviation = $('#measure_abbreviation').val()
                 var nqs_domain = $('#nqs_domain').val();
             var measure_type = $('#measure_type').val();
@@ -1588,26 +1739,7 @@
             var provider = $('#responsible_provider_select').val();
             var new_provider = CKEDITOR.instances.editor1.getData();
             var domain_content = $('#nqs_domain :selected').text();
-                //data = {
-                //    'measure_id': measure_id,
-                //    'measure_abbreviation': measure_abbreviation,
-                //    'nqs_domain': nqs_domain,
-                //    'domain_content': domain_content,
-                //    'measure_type': measure_type,
-                //    'scope': scope,
-                //    'threshold': threshold,
-                //    'data_collection_method': data_collection_method,
-                //    'description': description,
-                //    'measure_summary': measure_summary,
-                //    'inclusions': inclusions,
-                //    'exclusions': exclusions,
-                //    'success': success,
-                //    'risk_adjustment': risk_adjustment,
-                //    'references': references,
-                //    'provider': provider,
-                //    'new_provider': new_provider
-                //};
-                //console.log(JSON.stringify(data));
+               
                 $.ajax({
                 url: '@Url.Action("Publish")',
                     type: 'POST',
@@ -1630,7 +1762,14 @@
                         'risk_adjustment': risk_adjustment,
                         'references': references,
                         'provider': provider,
-                        'new_provider': new_provider
+                        'new_provider': new_provider,
+                        'existing_header_name': existing_header_name,
+                        'delete_existing_header': delete_existing_header,
+                        'add_existing_header': add_existing_header,
+                        'newConceptHeaderTocontroller': newConceptHeaderTocontroller,
+                        'delete_header_string': delete_header_string,
+                        'deleteAllUnderHeaderToBackend': deleteAllUnderHeaderToBackend,
+                        'addDeletedHeaderBackToString': addDeletedHeaderBackToString
                     },
                     success: function (data) {
                     if (data.success) {

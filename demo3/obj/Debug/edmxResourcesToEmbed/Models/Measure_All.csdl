@@ -209,7 +209,6 @@
     </FunctionImport>
     <EntitySet Name="Concept_Each_Header" EntityType="MPOG_XinyuModel1.Concept_Each_Header" />
     <EntitySet Name="Responsible_Provider_Published" EntityType="MPOG_XinyuModel1.Responsible_Provider_Published" />
-    <EntitySet Name="Measure_Sections_Unpublished" EntityType="MPOG_XinyuModel1.Measure_Sections_Unpublished" />
     <EntitySet Name="Responsible_Provider_Unpublished" EntityType="MPOG_XinyuModel1.Responsible_Provider_Unpublished" />
     <FunctionImport Name="Add_Concept_Existing_Header">
       <Parameter Name="Header_ID" Mode="In" Type="Int32" />
@@ -236,6 +235,10 @@
       <Parameter Name="Header_ID" Mode="In" Type="Int32" />
       <Parameter Name="Header_Name" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="Publish_Concept_Measure">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Measure_Sections_Unpublished" EntityType="MPOG_XinyuModel1.Measure_Sections_Unpublished" />
     <FunctionImport Name="Add_Deleted_Header_Back">
       <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
       <Parameter Name="Header_ID" Mode="In" Type="Int32" />
@@ -478,6 +481,14 @@
     <Property Name="Measure_ID" Type="Int32" Nullable="false" />
     <Property Name="Responsible_Provider_ID" Type="Int32" Nullable="false" />
   </EntityType>
+  <EntityType Name="Responsible_Provider_Unpublished">
+    <Key>
+      <PropertyRef Name="Measure_ID" />
+      <PropertyRef Name="Responsible_Provider_ID" />
+    </Key>
+    <Property Name="Measure_ID" Type="Int32" Nullable="false" />
+    <Property Name="Responsible_Provider_ID" Type="Int32" Nullable="false" />
+  </EntityType>
   <EntityType Name="Measure_Sections_Unpublished">
     <Key>
       <PropertyRef Name="Measure_ID" />
@@ -501,13 +512,5 @@
     <Property Name="Flow_Chart" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="Reference" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="Status_ID" Type="Int32" />
-  </EntityType>
-  <EntityType Name="Responsible_Provider_Unpublished">
-    <Key>
-      <PropertyRef Name="Measure_ID" />
-      <PropertyRef Name="Responsible_Provider_ID" />
-    </Key>
-    <Property Name="Measure_ID" Type="Int32" Nullable="false" />
-    <Property Name="Responsible_Provider_ID" Type="Int32" Nullable="false" />
   </EntityType>
 </Schema>

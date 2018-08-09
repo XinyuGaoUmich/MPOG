@@ -334,6 +334,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Responsible_Provider_Unpublished">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel1.Responsible_Provider_Unpublished">
+        <MappingFragment StoreEntitySet="Responsible_Provider_Unpublished">
+          <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
+          <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Add_Concept_Existing_Header" FunctionName="MPOG_XinyuModel1.Store.Add_Concept_Existing_Header" />
+    <FunctionImportMapping FunctionImportName="Add_New_Header" FunctionName="MPOG_XinyuModel1.Store.Add_New_Header" />
+    <FunctionImportMapping FunctionImportName="Delete_All_Under_Header" FunctionName="MPOG_XinyuModel1.Store.Delete_All_Under_Header" />
+    <FunctionImportMapping FunctionImportName="Delete_Concept" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept" />
+    <FunctionImportMapping FunctionImportName="Delete_Concept_Header" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept_Header" />
+    <FunctionImportMapping FunctionImportName="Modify_Header_Name" FunctionName="MPOG_XinyuModel1.Store.Modify_Header_Name" />
+    <FunctionImportMapping FunctionImportName="Publish_Concept_Measure" FunctionName="MPOG_XinyuModel1.Store.Publish_Concept_Measure" />
     <EntitySetMapping Name="Measure_Sections_Unpublished">
       <EntityTypeMapping TypeName="MPOG_XinyuModel1.Measure_Sections_Unpublished">
         <MappingFragment StoreEntitySet="Measure_Sections_Unpublished">
@@ -359,20 +374,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Responsible_Provider_Unpublished">
-      <EntityTypeMapping TypeName="MPOG_XinyuModel1.Responsible_Provider_Unpublished">
-        <MappingFragment StoreEntitySet="Responsible_Provider_Unpublished">
-          <ScalarProperty Name="Responsible_Provider_ID" ColumnName="Responsible_Provider_ID" />
-          <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="Add_Concept_Existing_Header" FunctionName="MPOG_XinyuModel1.Store.Add_Concept_Existing_Header" />
-    <FunctionImportMapping FunctionImportName="Add_New_Header" FunctionName="MPOG_XinyuModel1.Store.Add_New_Header" />
-    <FunctionImportMapping FunctionImportName="Delete_All_Under_Header" FunctionName="MPOG_XinyuModel1.Store.Delete_All_Under_Header" />
-    <FunctionImportMapping FunctionImportName="Delete_Concept" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept" />
-    <FunctionImportMapping FunctionImportName="Delete_Concept_Header" FunctionName="MPOG_XinyuModel1.Store.Delete_Concept_Header" />
-    <FunctionImportMapping FunctionImportName="Modify_Header_Name" FunctionName="MPOG_XinyuModel1.Store.Modify_Header_Name" />
     <FunctionImportMapping FunctionImportName="Add_Deleted_Header_Back" FunctionName="MPOG_XinyuModel1.Store.Add_Deleted_Header_Back" />
   </EntityContainerMapping>
 </Mapping>

@@ -431,7 +431,7 @@
                     @if (hasPublishedVersion)
                     {
                     <div class="col-md-11" style="word-wrap:break-word">
-                        @foreach (var header in Model.concept_ID_Required_Results.Where(o => o.Header_Status == 1))
+                        @foreach (var header in Model.concept_ID_Required_Results.Where(o => o.Header_Status != 0))
                         {
                             <strong>@header.MPOG_Concept_Header_Name</strong>
                             <ul>

@@ -35,8 +35,8 @@ namespace demo3.Models
         public virtual DbSet<MPOG_Concepts> MPOG_Concepts { get; set; }
         public virtual DbSet<Concept_Each_Header> Concept_Each_Header { get; set; }
         public virtual DbSet<Responsible_Provider_Published> Responsible_Provider_Published { get; set; }
-        public virtual DbSet<Measure_Sections_Unpublished> Measure_Sections_Unpublished { get; set; }
         public virtual DbSet<Responsible_Provider_Unpublished> Responsible_Provider_Unpublished { get; set; }
+        public virtual DbSet<Measure_Sections_Unpublished> Measure_Sections_Unpublished { get; set; }
     
         public virtual ObjectResult<Details_All_Result> Details_All(Nullable<int> measure_ID)
         {
@@ -811,6 +811,15 @@ namespace demo3.Models
                 new ObjectParameter("Header_Name", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Modify_Header_Name", header_IDParameter, header_NameParameter);
+        }
+    
+        public virtual int Publish_Concept_Measure(Nullable<int> measure_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Publish_Concept_Measure", measure_IDParameter);
         }
     
         public virtual int Add_Deleted_Header_Back(Nullable<int> measure_ID, Nullable<int> header_ID)
