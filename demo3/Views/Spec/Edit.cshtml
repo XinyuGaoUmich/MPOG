@@ -580,18 +580,35 @@
                         <ul>
                             @foreach (var item in Model.data_Diagnostics_Affected_Results.Where(o => o.ID_Status != 2))
                             {
-                                <li>
-                                    @item.Display_Name
-                                </li>
+                            <li>
+                                @item.Display_Name
+                                <span aria-hidden="true" style="cursor: pointer" class="delete_diagnostic_id">&times;</span>
+                            </li>
                             }
+                            @foreach (var item in Model.data_Diagnostics_Affected_Results.Where(o => o.ID_Status == 2))
+                            {
+                            <li style="text-decoration: line-through">
+                                @item.Display_Name
+                                <span aria-hidden="true" style="cursor: pointer" class="delete_diagnostic_id">&times;</span>
+                            </li>
+                            }
+                            <li><button id="addDiagnostic">Add New Diagnostic ID</button></li>
                         </ul>
                     </div>
                 </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
-                        </div>
+                    <div class="col-md-10">
+                        <ul>
+                            @foreach (var item in Model.data_Diagnostics_Affected_Results.Where(o => o.ID_Status != 0))
+                            {
+                                <li>
+                                    @item.Display_Name
+                                </li>
+                            }
+                        </ul>
+                    </div>
                     }
                 </td>
             </tr>
@@ -1291,6 +1308,14 @@
                     count++;
                 })
                 newConceptHeader++;
+            })
+
+            $('.delete_diagnostic_id').click(function () {
+
+            })
+
+            $('#addDiagnostic').click(function () {
+
             })
 
             $('.delete_header').each(function () {

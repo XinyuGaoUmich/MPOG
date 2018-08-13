@@ -122,53 +122,7 @@
         </div>
         <h2>@Model.spec_Results.First().Measure_Abbreviation Basic Info</h2>
         <table>
-            <tr>
-                <th>Unpublished</th>
-                <th>Published</th>
-            </tr>
-            <tr>
-                <td>
-                    <dl class="dl-horizontal" style="text-align:left">
-                        <dt>
-                            NQS Domain
-                        </dt>
-                        <dd>
-                            @if (Model.spec_Results.First().NQS_Domain_ID != null)
-                            {
-                                @Model.nQS_Domain.Where(o => o.NQS_Domain_ID == Model.spec_Results.First().NQS_Domain_ID).First().NQS_Domain_Name
-                            }
-                        </dd>
-                        <dt>
-                            Measure Type
-                        </dt>
-                        <dd>
-                            @if (Model.spec_Results.First().Measure_Type_ID != null)
-                            {
-                                @Model.measure_Type.Where(o => o.Measure_Type_ID == Model.spec_Results.First().Measure_Type_ID).First().Measure_Type_Name
-                            }
-                        </dd>
-
-                        <dt>
-                            Scope
-                        </dt>
-                        <dd>
-                            @if (Model.spec_Results.First().Measure_Scope_ID != null)
-                            {
-                                @Model.scope.Where(o => o.Scope_ID == Model.spec_Results.First().Measure_Scope_ID).First().Scope_Name
-                            }
-                        </dd>
-
-                        <dt>
-                            Threshold
-                        </dt>
-                        <dd>
-                            @if (Model.spec_Results.First().Threshold != null)
-                            {
-                                @Model.spec_Results.First().Threshold.Value.ToString("P");
-                            }
-                        </dd>
-                    </dl>
-                </td>
+            <tr>               
                 <td>
                     <dl class="dl-horizontal" style="text-align:left">
                         <dt>
@@ -219,21 +173,12 @@
     <span class="anchor" id="section2"></span>
     <div id="section22">
         <h2>Data Collection Method</h2>
-        <table>
-            <tr>
-                <th>Unpublished</th>
-                <th>Published</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="col-md-11" style="word-wrap:break-word">
-                        @Html.Raw(Model.spec_Results.First().Data_Collection_Method)
-                    </div>
-                </td>
+        <table>         
+            <tr>              
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-11" style="word-wrap:break-word">
+                        <div class="col-md-7" style="word-wrap:break-word">
                             @Html.Raw(Model.spec_Published_Results.First().Data_Collection_Method)
                         </div>
                     }
@@ -245,21 +190,12 @@
     <span class="anchor" id="section3"></span>
     <div id="section33">
         <h2>Description</h2>
-        <table>
-            <tr>
-                <th>Unpublished</th>
-                <th>Published</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="col-md-11" style="word-wrap:break-word">
-                        @Html.Raw(Model.spec_Results.First().Description)
-                    </div>
-                </td>
+        <table>            
+            <tr>               
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-11" style="word-wrap:break-word">
+                        <div class="col-md-7" style="word-wrap:break-word">
                             @Html.Raw(Model.spec_Published_Results.First().Description)
                         </div>
                     }
@@ -273,19 +209,10 @@
         <h2>Measure Summary</h2>
         <table>
             <tr>
-                <th>Unpublished</th>
-                <th>Published</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="col-md-11" style="word-wrap:break-word">
-                        @Html.Raw(Model.spec_Results.First().Measure_Summary)
-                    </div>
-                </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-11" style="word-wrap:break-word">
+                        <div class="col-md-7" style="word-wrap:break-word">
                             @Html.Raw(Model.spec_Published_Results.First().Measure_Summary)
                         </div>
                     }
@@ -298,20 +225,11 @@
     <div id="section55">
         <h2>Rationale</h2>
         <table>
-            <tr>
-                <th>Unpublished</th>
-                <th>Published</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="col-md-11" style="word-wrap:break-word">
-                        @Html.Raw(Model.spec_Results.First().Rationale)
-                    </div>
-                </td>
+            <tr>             
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-11" style="word-wrap:break-word">
+                        <div class="col-md-7" style="word-wrap:break-word">
                             @Html.Raw(Model.spec_Published_Results.First().Rationale)
                         </div>
                     }
@@ -323,26 +241,13 @@
     <span class="anchor" id="section6"></span>
     <div id="section66">
         <h2>Inclusions</h2>
-        <table>
-            <tr>
-                <th>Unpublished</th>
-                <th>Published</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="col-md-11" style="word-wrap:break-word">
-                        @Html.Raw(Model.spec_Results.First().Inclusions)
-                        @*<textarea id="textarea_inclusions" name="editor_inclusions" readonly cols="60" rows="10" wrap="hard">@Model.pager_Auth_Results.First().Inclusions</textarea>*@
-                        @*@Model.pager_Auth_Results.First().Inclusions*@
-                    </div>
-                </td>
+        <table>           
+            <tr>               
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-11" style="word-wrap:break-word">
+                        <div class="col-md-7" style="word-wrap:break-word">
                             @Html.Raw(Model.spec_Published_Results.First().Inclusions)
-                            @*@Model.pager_Results.First().Inclusions*@
-                            @*<textarea id="textarea_inclusions_published" name="editor_inclusions_published" readonly cols="60" rows="10" wrap="hard">@Model.pager_Results.First().Inclusions</textarea>*@
                         </div>
                     }
                 </td>
@@ -353,21 +258,12 @@
     <span class="anchor" id="section7"></span>
     <div id="section77">
         <h2>Exclusions</h2>
-        <table>
+        <table>           
             <tr>
-                <th>Unpublished</th>
-                <th>Published</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="col-md-11" style="word-wrap:break-word">
-                        @Html.Raw(Model.spec_Results.First().Exclusions)
-                    </div>
-                </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-11" style="word-wrap:break-word">
+                        <div class="col-md-7" style="word-wrap:break-word">
                             @Html.Raw(Model.spec_Published_Results.First().Exclusions)
                         </div>
                     }
@@ -382,69 +278,26 @@
     <span class="anchor" id="section8"></span>
     <div id="section88">
         <h2>MPOG Concept IDs Required</h2>
-        <table>
+        <table>          
             <tr>
-                <th>Unpublished</th>
-                <th>Published</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="col-md-11" style="word-wrap:break-word">
-                        @foreach (var header in Model.concept_ID_Required_Results.Where(o => o.Header_Status != 2))
-                        {
-                            <strong>@header.Header_Unpublished_Name</strong>
-                            <ul>
-                                @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID && o.Concept_Status != 2))
-                                {
-                                    <li>
-                                        @item.MPOG_Concept_ID
-                                        @Model.all_Concepts.Where(o => o.MPOG_Concept_ID == item.MPOG_Concept_ID).First().concept_desc
-                                    </li>
-                                }
-                                @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID && o.Concept_Status == 2))
-                                {
-                                    <li style="text-decoration:line-through">
-                                        @item.MPOG_Concept_ID
-                                        @Model.all_Concepts.Where(o => o.MPOG_Concept_ID == item.MPOG_Concept_ID).First().concept_desc
-                                    </li>
-                                }
-                            </ul>
-                        }
-                    </div>
-                    <div class="col-md-11" style="word-wrap:break-word; text-decoration:line-through">
-                        @foreach (var header in Model.concept_ID_Required_Results.Where(o => o.Header_Status == 2))
-                        {
-                            <strong>@header.Header_Unpublished_Name</strong>
-                            <ul>
-                                @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID))
-                                {
-                                    <li>
-                                        @item.MPOG_Concept_ID
-                                        @Model.all_Concepts.Where(o => o.MPOG_Concept_ID == item.MPOG_Concept_ID).First().concept_desc
-                                    </li>
-                                }
-                            </ul>
-                        }
-                    </div>
-                </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                    <div class="col-md-11" style="word-wrap:break-word">
-                        @foreach (var header in Model.concept_ID_Required_Results.Where(o => o.Header_Status != 0))
-                        {
-                            <strong>@header.MPOG_Concept_Header_Name</strong>
-                            <ul>
-                                @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID && o.Concept_Status != 0))
-                                {
-                                    <li>
-                                        @item.MPOG_Concept_ID
-                                        @Model.all_Concepts.Where(o => o.MPOG_Concept_ID == item.MPOG_Concept_ID).First().concept_desc
-                                    </li>
-                                }
-                            </ul>
-                        }
-                    </div>
+                        <div class="col-md-7" style="word-wrap:break-word">
+                            @foreach (var header in Model.concept_ID_Required_Results.Where(o => o.Header_Status != 0))
+                            {
+                                <strong>@header.MPOG_Concept_Header_Name</strong>
+                                <ul>
+                                    @foreach (var item in Model.all_Concept_ids.Where(o => o.MPOG_Concept_Header_ID == header.MPOG_Concept_Header_ID && o.Concept_Status != 0))
+                                    {
+                                        <li>
+                                            @item.MPOG_Concept_ID
+                                            @Model.all_Concepts.Where(o => o.MPOG_Concept_ID == item.MPOG_Concept_ID).First().concept_desc
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        </div>
                     }
                 </td>
             </tr>
@@ -457,35 +310,12 @@
     <span class="anchor" id="section9"></span>
     <div id="section99">
         <h2>Data Diagnostics Affected</h2>
-        <table>
+        <table>           
             <tr>
-                <th>Unpublished</th>
-                <th>Published</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="col-md-10">
-                        <ul>
-                            @foreach (var item in Model.data_Diagnostics_Affected_Results.Where(o => o.ID_Status != 2))
-                            {
-                                <li>
-                                    @item.Display_Name
-                                </li>
-                            }
-
-                            @foreach (var item in Model.data_Diagnostics_Affected_Results.Where(o => o.ID_Status == 2))
-                            {
-                                <li style="text-decoration: line-through">
-                                    @item.Display_Name
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-10">
+                        <div class="col-md-7">
                             <ul>
                                 @foreach (var item in Model.data_Diagnostics_Affected_Results.Where(o => o.ID_Status != 0))
                                 {
@@ -520,19 +350,10 @@
         <h2>Other Measure Build Details</h2>
         <table>
             <tr>
-                <th>Unpublished</th>
-                <th>Published</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="col-md-11" style="word-wrap:break-word">
-                        @Html.Raw(Model.spec_Results.First().Other_Build_Details)
-                    </div>
-                </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-11" style="word-wrap:break-word">
+                        <div class="col-md-7" style="word-wrap:break-word">
                             @Html.Raw(Model.spec_Published_Results.First().Other_Build_Details)
                         </div>
                     }
@@ -546,18 +367,9 @@
         <h2>Success</h2>
         <table>
             <tr>
-                <th>Unpublished</th>
-                <th>Published</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="col-md-11" style="word-wrap:break-word">
-                        @Html.Raw(Model.spec_Results.First().Success)
-                    </div>
-                </td>
                 <td>
                     @if (hasPublishedVersion)
-                    {<div class="col-md-11" style="word-wrap:break-word">
+                    {<div class="col-md-7" style="word-wrap:break-word">
                             @Html.Raw(Model.spec_Published_Results.First().Success)
                         </div>
                     }
@@ -571,20 +383,8 @@
         <h2>Responsible Provider</h2>
         <table>
             <tr>
-                <th>Unpublished</th>
-                <th>Published</th>
-            </tr>
-            <tr>
                 <td>
-                    <div class="col-md-11" style="word-wrap:break-word">
-                        @if (Model.spec_Results.First().Responsible_Provider_ID != null)
-                        {
-                            @Html.Raw(Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.spec_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name)
-                        }
-                    </div>
-                </td>
-                <td>
-                    <div class="col-md-11" style="word-wrap:break-word">
+                    <div class="col-md-7" style="word-wrap:break-word">
                         @if (hasPublishedVersion && Model.spec_Published_Results.First().Responsible_Provider_ID != null)
                         {
                             @Html.Raw(Model.responsible_Provider.Where(o => o.Responsible_Provider_ID == Model.spec_Published_Results.First().Responsible_Provider_ID).First().Responsible_Provider_Name)
@@ -600,19 +400,10 @@
         <h2>Risk Adjustment</h2>
         <table>
             <tr>
-                <th>Unpublished</th>
-                <th>Published</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="col-md-11" style="word-wrap:break-word">
-                        @Html.Raw(Model.spec_Results.First().Risk_Adjustment)
-                    </div>
-                </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-11" style="word-wrap:break-word">
+                        <div class="col-md-7" style="word-wrap:break-word">
                             @Html.Raw(Model.spec_Published_Results.First().Risk_Adjustment)
                         </div>
                     }
@@ -626,19 +417,10 @@
         <h2>Flow Chart</h2>
         <table>
             <tr>
-                <th>Unpublished</th>
-                <th>Published</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="col-md-11" style="word-wrap:break-word">
-                        @Html.Raw(Model.spec_Results.First().Flow_Chart)
-                    </div>
-                </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-11" style="word-wrap:break-word">
+                        <div class="col-md-7" style="word-wrap:break-word">
                             @Html.Raw(Model.spec_Published_Results.First().Flow_Chart)
                         </div>
                     }
@@ -652,19 +434,10 @@
         <h2>References</h2>
         <table>
             <tr>
-                <th>Unpublished</th>
-                <th>Published</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="col-md-11" style="word-wrap:break-word">
-                        @Html.Raw(Model.spec_Results.First().Reference)
-                    </div>
-                </td>
                 <td>
                     @if (hasPublishedVersion)
                     {
-                        <div class="col-md-11" style="word-wrap:break-word">
+                        <div class="col-md-7" style="word-wrap:break-word">
                             @Html.Raw(Model.spec_Published_Results.First().Reference)
                         </div>
                     }

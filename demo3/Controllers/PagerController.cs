@@ -18,6 +18,10 @@ namespace demo3.Controllers
         private MPOG_XinyuEntities4 db2 = new MPOG_XinyuEntities4();
         public ActionResult Index(int? id)
         {
+            if (Session["roles"] == null || !Session["roles"].ToString().Contains("MeasureSpecEditor"))
+            {
+                return RedirectToAction("Public", "Pager", new { id });
+            }
             List<Pager_Auth_Result> pager_auth = db2.Pager_Auth(id).ToList();
             var nQS_Domain = db2.Enumeration_NQS_Domain;
             var measure_Type = db2.Enumeration_Measure_Type;

@@ -14,12 +14,15 @@ namespace demo3.Controllers
         // GET: Spec
         public ActionResult Index(int? id)
         {
+            if (Session["roles"] == null || !Session["roles"].ToString().Contains("MeasureSpecEditor"))
+            {
+                return RedirectToAction("Public", "Spec", new { id });
+            }
             List<Spec_Result> spec_Results = db2.Spec(id).ToList();
             var nQS_Domain = db2.Enumeration_NQS_Domain;
             var measure_Type = db2.Enumeration_Measure_Type;
             var scope = db2.Enumeration_Scope;
             var responsible_provider = db2.Enumeration_Responsible_Provider;
-            //var collations = db2.Collations(id).ToList();
             var data_diagnostic = db2.Data_Diagnostics_Affected(id).ToList();
             var mpog_concept_header = db2.MPOG_Concept_ID_Required(id).ToList();
             var all_concept_ids = db2.Concept_Each_Header.OrderBy(o => o.MPOG_Concept_ID);
@@ -27,6 +30,22 @@ namespace demo3.Controllers
             List<Spec_Published_Result> spec_Published_Results = db2.Spec_Published(id).ToList();
             var model = new EditSpec { spec_Results = spec_Results, spec_Published_Results = spec_Published_Results, collations_Results = null, concept_ID_Required_Results = mpog_concept_header, data_Diagnostics_Affected_Results = data_diagnostic, measure_Type = measure_Type, nQS_Domain = nQS_Domain, responsible_Provider = responsible_provider, scope = scope, all_Concept_ids = all_concept_ids, all_Concepts = all_concepts };
             return View(model);           
+        }
+
+        public ActionResult Public(int? id)
+        {
+            List<Spec_Result> spec_Results = db2.Spec(id).ToList();
+            var nQS_Domain = db2.Enumeration_NQS_Domain;
+            var measure_Type = db2.Enumeration_Measure_Type;
+            var scope = db2.Enumeration_Scope;
+            var responsible_provider = db2.Enumeration_Responsible_Provider;
+            var data_diagnostic = db2.Data_Diagnostics_Affected(id).ToList();
+            var mpog_concept_header = db2.MPOG_Concept_ID_Required(id).ToList();
+            var all_concept_ids = db2.Concept_Each_Header.OrderBy(o => o.MPOG_Concept_ID);
+            var all_concepts = db2.MPOG_Concepts;
+            List<Spec_Published_Result> spec_Published_Results = db2.Spec_Published(id).ToList();
+            var model = new EditSpec { spec_Results = spec_Results, spec_Published_Results = spec_Published_Results, collations_Results = null, concept_ID_Required_Results = mpog_concept_header, data_Diagnostics_Affected_Results = data_diagnostic, measure_Type = measure_Type, nQS_Domain = nQS_Domain, responsible_Provider = responsible_provider, scope = scope, all_Concept_ids = all_concept_ids, all_Concepts = all_concepts };
+            return View(model);
         }
 
         public ActionResult Edit(int? id)

@@ -34,6 +34,7 @@
         <ComplexTypeMapping TypeName="MPOG_XinyuModel1.Data_Diagnostics_Affected_Result">
           <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
           <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
+          <ScalarProperty Name="ID_Status" ColumnName="ID_Status" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

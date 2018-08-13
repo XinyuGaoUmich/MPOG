@@ -267,6 +267,7 @@
   <ComplexType Name="Data_Diagnostics_Affected_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />
     <Property Type="String" Name="Display_Name" Nullable="false" MaxLength="100" />
+    <Property Type="Byte" Name="ID_Status" Nullable="true" />
   </ComplexType>
   <ComplexType Name="MPOG_Concept_ID_Required_Result">
     <Property Type="String" Name="MPOG_Concept_Header_Name" Nullable="true" MaxLength="50" />
