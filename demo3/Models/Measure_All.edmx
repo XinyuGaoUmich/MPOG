@@ -100,6 +100,46 @@
           <Property Name="Status_ID" Type="int" Nullable="false" />
           <Property Name="Status_Name" Type="varchar" MaxLength="20" />
         </EntityType>
+        <EntityType Name="Diagnostic_BarCharts">
+          <Key>
+            <PropertyRef Name="Diagnostic_BarChart_ID" />
+          </Key>
+          <Property Name="Diagnostic_BarChart_ID" Type="int" Nullable="false" />
+          <Property Name="Short_Display_Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Long_Display_Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="Diagnostic_Procedure" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Diagnostic_Module_ID" Type="int" Nullable="false" />
+          <Property Name="Is_Enabled" Type="bit" Nullable="false" />
+          <Property Name="Case_Drill_Down_Enabled" Type="bit" Nullable="false" />
+          <Property Name="Diagnostic_Priority_ID" Type="int" Nullable="false" />
+          <Property Name="Numerator_Label" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Diagnostic_LineCharts">
+          <Key>
+            <PropertyRef Name="Diagnostic_LineChart_ID" />
+          </Key>
+          <Property Name="Diagnostic_LineChart_ID" Type="int" Nullable="false" />
+          <Property Name="Short_Display_Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Long_Display_Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="Diagnostic_Procedure" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Diagnostic_Module_ID" Type="int" Nullable="false" />
+          <Property Name="Is_Percentage" Type="bit" Nullable="false" />
+          <Property Name="Is_Enabled" Type="bit" Nullable="false" />
+          <Property Name="Case_Drill_Down_Enabled" Type="bit" Nullable="false" />
+          <Property Name="Match_Highlighting_Enabled" Type="bit" Nullable="false" />
+          <Property Name="Diagnostic_Priority_ID" Type="int" Nullable="false" />
+          <Property Name="Y_Min" Type="float" />
+          <Property Name="Y_Max" Type="float" />
+          <Property Name="Failure_Theshold" Type="float" />
+          <Property Name="Passing_Theshold" Type="float" />
+          <Property Name="Over_Passing_Threshold" Type="float" />
+          <Property Name="Over_Failure_Threshold" Type="float" />
+          <Property Name="Numerator_Label" Type="varchar" MaxLength="30" />
+          <Property Name="Denominator_Label" Type="varchar" MaxLength="30" />
+          <Property Name="Grace_Months" Type="int" />
+        </EntityType>
         <Function Name="Add_Concept_Existing_Header" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Header_ID" Type="int" Mode="In" />
           <Parameter Name="Concept_ID" Type="int" Mode="In" />
@@ -162,6 +202,14 @@
         <Function Name="Delete_Concept_Header" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
           <Parameter Name="Header_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Delete_Diagnostic_Bar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+          <Parameter Name="Diagnostic_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Delete_Diagnostic_Line" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+          <Parameter Name="Diagnostic_ID" Type="int" Mode="In" />
         </Function>
         <Function Name="Delete_Domain" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Domain_ID" Type="int" Mode="In" />
@@ -339,6 +387,8 @@
           <EntitySet Name="Responsible_Provider_Published" EntityType="Self.Responsible_Provider_Published" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Responsible_Provider_Unpublished" EntityType="Self.Responsible_Provider_Unpublished" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status_Type" EntityType="Self.Status_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Diagnostic_BarCharts" EntityType="Self.Diagnostic_BarCharts" Schema="Eval" store:Type="Tables" />
+          <EntitySet Name="Diagnostic_LineCharts" EntityType="Self.Diagnostic_LineCharts" Schema="Eval" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -587,6 +637,16 @@
             <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
             <Parameter Name="Header_ID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="Delete_Diagnostic_Bar">
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Diagnostic_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Delete_Diagnostic_Line">
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Diagnostic_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Diagnostic_BarCharts" EntityType="MPOG_XinyuModel1.Diagnostic_BarCharts" />
+          <EntitySet Name="Diagnostic_LineCharts" EntityType="MPOG_XinyuModel1.Diagnostic_LineCharts" />
         </EntityContainer>
         <ComplexType Name="Details_All_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -612,6 +672,8 @@
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
           <Property Type="String" Name="Display_Name" Nullable="false" MaxLength="100" />
           <Property Type="Byte" Name="ID_Status" Nullable="true" />
+          <Property Type="Boolean" Name="Bar_Or_Line" Nullable="false" />
+          <Property Type="Int32" Name="Bar_Line_ID" Nullable="false" />
         </ComplexType>
         <ComplexType Name="MPOG_Concept_ID_Required_Result">
           <Property Type="String" Name="MPOG_Concept_Header_Name" Nullable="true" MaxLength="50" />
@@ -858,6 +920,46 @@
           <Property Name="Reference" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Status_ID" Type="Int32" />
         </EntityType>
+        <EntityType Name="Diagnostic_BarCharts">
+          <Key>
+            <PropertyRef Name="Diagnostic_BarChart_ID" />
+          </Key>
+          <Property Name="Diagnostic_BarChart_ID" Type="Int32" Nullable="false" />
+          <Property Name="Short_Display_Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Long_Display_Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="Diagnostic_Procedure" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Diagnostic_Module_ID" Type="Int32" Nullable="false" />
+          <Property Name="Is_Enabled" Type="Boolean" Nullable="false" />
+          <Property Name="Case_Drill_Down_Enabled" Type="Boolean" Nullable="false" />
+          <Property Name="Diagnostic_Priority_ID" Type="Int32" Nullable="false" />
+          <Property Name="Numerator_Label" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Diagnostic_LineCharts">
+          <Key>
+            <PropertyRef Name="Diagnostic_LineChart_ID" />
+          </Key>
+          <Property Name="Diagnostic_LineChart_ID" Type="Int32" Nullable="false" />
+          <Property Name="Short_Display_Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Long_Display_Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="Diagnostic_Procedure" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Diagnostic_Module_ID" Type="Int32" Nullable="false" />
+          <Property Name="Is_Percentage" Type="Boolean" Nullable="false" />
+          <Property Name="Is_Enabled" Type="Boolean" Nullable="false" />
+          <Property Name="Case_Drill_Down_Enabled" Type="Boolean" Nullable="false" />
+          <Property Name="Match_Highlighting_Enabled" Type="Boolean" Nullable="false" />
+          <Property Name="Diagnostic_Priority_ID" Type="Int32" Nullable="false" />
+          <Property Name="Y_Min" Type="Double" />
+          <Property Name="Y_Max" Type="Double" />
+          <Property Name="Failure_Theshold" Type="Double" />
+          <Property Name="Passing_Theshold" Type="Double" />
+          <Property Name="Over_Passing_Threshold" Type="Double" />
+          <Property Name="Over_Failure_Threshold" Type="Double" />
+          <Property Name="Numerator_Label" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Denominator_Label" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Grace_Months" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -898,6 +1000,8 @@
                 <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
                 <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
                 <ScalarProperty Name="ID_Status" ColumnName="ID_Status" />
+                <ScalarProperty Name="Bar_Or_Line" ColumnName="Bar_Or_Line" />
+                <ScalarProperty Name="Bar_Line_ID" ColumnName="Bar_Line_ID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1239,6 +1343,50 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Add_Deleted_Header_Back" FunctionName="MPOG_XinyuModel1.Store.Add_Deleted_Header_Back" />
+          <FunctionImportMapping FunctionImportName="Delete_Diagnostic_Bar" FunctionName="MPOG_XinyuModel1.Store.Delete_Diagnostic_Bar" />
+          <FunctionImportMapping FunctionImportName="Delete_Diagnostic_Line" FunctionName="MPOG_XinyuModel1.Store.Delete_Diagnostic_Line" />
+          <EntitySetMapping Name="Diagnostic_BarCharts">
+            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Diagnostic_BarCharts">
+              <MappingFragment StoreEntitySet="Diagnostic_BarCharts">
+                <ScalarProperty Name="Numerator_Label" ColumnName="Numerator_Label" />
+                <ScalarProperty Name="Diagnostic_Priority_ID" ColumnName="Diagnostic_Priority_ID" />
+                <ScalarProperty Name="Case_Drill_Down_Enabled" ColumnName="Case_Drill_Down_Enabled" />
+                <ScalarProperty Name="Is_Enabled" ColumnName="Is_Enabled" />
+                <ScalarProperty Name="Diagnostic_Module_ID" ColumnName="Diagnostic_Module_ID" />
+                <ScalarProperty Name="Diagnostic_Procedure" ColumnName="Diagnostic_Procedure" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Long_Display_Name" ColumnName="Long_Display_Name" />
+                <ScalarProperty Name="Short_Display_Name" ColumnName="Short_Display_Name" />
+                <ScalarProperty Name="Diagnostic_BarChart_ID" ColumnName="Diagnostic_BarChart_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Diagnostic_LineCharts">
+            <EntityTypeMapping TypeName="MPOG_XinyuModel1.Diagnostic_LineCharts">
+              <MappingFragment StoreEntitySet="Diagnostic_LineCharts">
+                <ScalarProperty Name="Grace_Months" ColumnName="Grace_Months" />
+                <ScalarProperty Name="Denominator_Label" ColumnName="Denominator_Label" />
+                <ScalarProperty Name="Numerator_Label" ColumnName="Numerator_Label" />
+                <ScalarProperty Name="Over_Failure_Threshold" ColumnName="Over_Failure_Threshold" />
+                <ScalarProperty Name="Over_Passing_Threshold" ColumnName="Over_Passing_Threshold" />
+                <ScalarProperty Name="Passing_Theshold" ColumnName="Passing_Theshold" />
+                <ScalarProperty Name="Failure_Theshold" ColumnName="Failure_Theshold" />
+                <ScalarProperty Name="Y_Max" ColumnName="Y_Max" />
+                <ScalarProperty Name="Y_Min" ColumnName="Y_Min" />
+                <ScalarProperty Name="Diagnostic_Priority_ID" ColumnName="Diagnostic_Priority_ID" />
+                <ScalarProperty Name="Match_Highlighting_Enabled" ColumnName="Match_Highlighting_Enabled" />
+                <ScalarProperty Name="Case_Drill_Down_Enabled" ColumnName="Case_Drill_Down_Enabled" />
+                <ScalarProperty Name="Is_Enabled" ColumnName="Is_Enabled" />
+                <ScalarProperty Name="Is_Percentage" ColumnName="Is_Percentage" />
+                <ScalarProperty Name="Diagnostic_Module_ID" ColumnName="Diagnostic_Module_ID" />
+                <ScalarProperty Name="Diagnostic_Procedure" ColumnName="Diagnostic_Procedure" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Long_Display_Name" ColumnName="Long_Display_Name" />
+                <ScalarProperty Name="Short_Display_Name" ColumnName="Short_Display_Name" />
+                <ScalarProperty Name="Diagnostic_LineChart_ID" ColumnName="Diagnostic_LineChart_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

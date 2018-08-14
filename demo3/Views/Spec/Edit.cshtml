@@ -580,14 +580,14 @@
                         <ul>
                             @foreach (var item in Model.data_Diagnostics_Affected_Results.Where(o => o.ID_Status != 2))
                             {
-                            <li>
+                            <li id='@("bit" + item.Bar_Or_Line.ToString() + "id" + item.Bar_Line_ID)'>
                                 @item.Display_Name
                                 <span aria-hidden="true" style="cursor: pointer" class="delete_diagnostic_id">&times;</span>
                             </li>
                             }
                             @foreach (var item in Model.data_Diagnostics_Affected_Results.Where(o => o.ID_Status == 2))
                             {
-                            <li style="text-decoration: line-through">
+                            <li style="text-decoration: line-through" id='@("bit" + item.Bar_Or_Line.ToString() + "id" + item.Bar_Line_ID)'>
                                 @item.Display_Name
                                 <span aria-hidden="true" style="cursor: pointer" class="delete_diagnostic_id">&times;</span>
                             </li>
@@ -873,6 +873,8 @@
         var autocompletedic = {};
         var deleteAllUnderHeader = [];
         var addDeletedHeaderBack = [];
+        var deleteBar = [];
+        var deleteLine = [];
         $(document).ready(function () {
                         function strip(html) {
                             var tmp = document.createElement("div");
@@ -1187,32 +1189,32 @@
                         })
 
             function Autocomplete() {
-                            var id = $(this).prop('id');
+                var id = $(this).prop('id');
                 $(this).autocomplete({
-                                source: function (request, response) {
+                    source: function (request, response) {
                         $.ajax({
-                                        url: '@Url.Action("AutocompleteConcept")',
+                            url: '@Url.Action("AutocompleteConcept")',
                             datatype: "json",
                             data: {
-                                            term: request.term
+                                term: request.term
                             },
                             success: function (data) {
-                                            // console.log(data.message);
-                                            response($.map(data.conceptList, function (val, item) {
-                                                return {
-                                                    label: val.id + ' ' + val.concept,
-                                                    value: val.id + ' ' + val.concept,
-                                                    id: val.id
-                                                }
-                                            }))
+                                // console.log(data.message);
+                                response($.map(data.conceptList, function (val, item) {
+                                    return {
+                                        label: val.id + ' ' + val.concept,
+                                        value: val.id + ' ' + val.concept,
+                                        id: val.id
+                                    }
+                                }))
                             }
-                })
+                        })
                     },
                     change: function (event, ui) {
                 if (ui.item == null || ui.item == undefined) {
                     console.log(id);
-                            //$('#' + id + "input").val('');
-                            $('#' + id).val('');
+                    //$('#' + id + "input").val('');
+                    $('#' + id).val('');
                 }
             },
                     select: function (event, ui) {
@@ -1262,6 +1264,55 @@
             })
             });
 
+        function AutocompleteDiag() {
+                var id = $(this).prop('id');
+                $(this).autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: '@Url.Action("AutocompleteDiag")',
+                            datatype: "json",
+                            data: {
+                                term: request.term
+                            },
+                            success: function (data) {
+                                // console.log(data.message);
+                                response($.map(data.conceptList, function (val, item) {
+                                    return {
+                                        label: val.id + ' ' + val.concept,
+                                        value: val.id + ' ' + val.concept,
+                                        id: val.id
+                                    }
+                                }))
+                            }
+                        })
+                    },
+                    change: function (event, ui) {
+                if (ui.item == null || ui.item == undefined) {
+                    console.log(id);
+                    //$('#' + id + "input").val('');
+                    $('#' + id).val('');
+                }
+            },
+                    select: function (event, ui) {
+                        var id = $(this).prop('id');
+                        $('#' + id + "input").val(ui.item.id);
+                        if (!this.parentElement.parentElement.id.includes("existing")) { return };
+                        var header = this.parentElement.parentElement.id.replace("existingul", "");
+                        if (!(header in add_existing_headertmp)) {
+                            add_existing_headertmp[header] = [];
+                        }
+                        if (autocompletedic[id] == undefined) {
+                            autocompletedic[id] = ui.item.id;
+                            add_existing_headertmp[header].push(ui.item.id);
+                        } else {
+                            remove(add_existing_headertmp[header], autocompletedic[id]);
+                            autocompletedic[id] = ui.item.id;
+                            add_existing_headertmp[header].push(ui.item.id);
+                        }
+                        //console.log(add_existing_headertmp);
+            }
+        })
+            }
 
             $("#top").click(function () {
                 $("html, body").animate({ scrollTop: 0 }, 600)
@@ -1310,12 +1361,22 @@
                 newConceptHeader++;
             })
 
-            $('.delete_diagnostic_id').click(function () {
+            $('.delete_diagnostic_id').click(deleteDiagnosticId);
 
-            })
+            function deleteDiagnosticId() {
+                if (!this.parentElement.hasAttribute("class")) {
+                    if (this.parentElement.id.includes("True")) {
+                        deleteLine.push(this.parentElement.id.substring(this.parentElement.id.indexOf("d") + 1, this.parentElement.id.length));
+                    } else {
+                        deleteBar.push(this.parentElement.id.substring(this.parentElement.id.indexOf("d") + 1, this.parentElement.id.length));
+                    }
+                }
+                this.parentElement.remove();
+            }
 
             $('#addDiagnostic').click(function () {
-
+                $(`<li class="newDiagnostic" ><input class="form-control"/><span aria-hidden="true" style="cursor: pointer" class="delete_diagnostic_id">&times;</span></li>`).insertBefore(this.parentElement);             
+                $('.delete_diagnostic_id').off('click').on('click', deleteDiagnosticId);
             })
 
             $('.delete_header').each(function () {
@@ -1450,7 +1511,7 @@
                 for (var key in existing_header_nametmp) {
                     existing_header_name.push({ key: key, value: $('#header' + key).text() });
                 }
-
+                
                 var delete_existing_header = [];
                 for (var key in delete_existing_headertmp) {
                     var value = delete_existing_headertmp[key];
@@ -1545,13 +1606,42 @@
                     }
                 }
 
-                console.log(existing_header_name);
-                console.log(delete_existing_header);
-                console.log(add_existing_header);
-                console.log(newConceptHeaderTocontroller);
-                console.log(delete_header_string);
-                console.log(deleteAllUnderHeaderToBackend);
-                console.log(addDeletedHeaderBackToString);
+                var deleteBarString = ""
+                if (deleteBar.length == 0) {
+                    deleteBarString = "empty";
+                } else {
+                    for (var i = 0; i < deleteBar.length; i++) {
+                        if (i != deleteBar.length - 1) {
+                            deleteBarString = deleteBarString.concat(deleteBar[i], ",");
+                        } else {
+                            deleteBarString = deleteBarString.concat(deleteBar[i]);
+                        }
+                    }
+                }
+
+                var deleteLineString = ""
+                if (deleteLine.length == 0) {
+                    deleteLineString = "empty";
+                } else {
+                    for (var i = 0; i < deleteLine.length; i++) {
+                        if (i != deleteLine.length - 1) {
+                            deleteLineString = deleteLineString.concat(deleteLine[i], ",");
+                        } else {
+                            deleteLineString = deleteLineString.concat(deleteLine[i]);
+                        }
+                    }
+                }
+
+                //console.log(existing_header_name);
+                //console.log(delete_existing_header);
+                //console.log(add_existing_header);
+                //console.log(newConceptHeaderTocontroller);
+                //console.log(delete_header_string);
+                //console.log(deleteAllUnderHeaderToBackend);
+                //console.log(addDeletedHeaderBackToString);
+                console.log(deleteLineString);
+                console.log(deleteBarString);
+              
                 $.ajax({
                 url: '@Url.Action("Save", "Spec")',
                     type: 'POST',
@@ -1580,7 +1670,9 @@
                         'newConceptHeaderTocontroller': newConceptHeaderTocontroller,
                         'delete_header_string': delete_header_string,
                         'deleteAllUnderHeaderToBackend': deleteAllUnderHeaderToBackend,
-                        'addDeletedHeaderBackToString': addDeletedHeaderBackToString
+                        'addDeletedHeaderBackToString': addDeletedHeaderBackToString,
+                        'deleteLineString': deleteLineString,
+                        'deleteBarString': deleteBarString,
                     },
                     success: function (data) {
                     if (data.success) {

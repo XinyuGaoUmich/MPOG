@@ -37,6 +37,8 @@ namespace demo3.Models
         public virtual DbSet<Responsible_Provider_Published> Responsible_Provider_Published { get; set; }
         public virtual DbSet<Responsible_Provider_Unpublished> Responsible_Provider_Unpublished { get; set; }
         public virtual DbSet<Measure_Sections_Unpublished> Measure_Sections_Unpublished { get; set; }
+        public virtual DbSet<Diagnostic_BarCharts> Diagnostic_BarCharts { get; set; }
+        public virtual DbSet<Diagnostic_LineCharts> Diagnostic_LineCharts { get; set; }
     
         public virtual ObjectResult<Details_All_Result> Details_All(Nullable<int> measure_ID)
         {
@@ -833,6 +835,32 @@ namespace demo3.Models
                 new ObjectParameter("Header_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_Deleted_Header_Back", measure_IDParameter, header_IDParameter);
+        }
+    
+        public virtual int Delete_Diagnostic_Bar(Nullable<int> measure_ID, Nullable<int> diagnostic_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var diagnostic_IDParameter = diagnostic_ID.HasValue ?
+                new ObjectParameter("Diagnostic_ID", diagnostic_ID) :
+                new ObjectParameter("Diagnostic_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_Diagnostic_Bar", measure_IDParameter, diagnostic_IDParameter);
+        }
+    
+        public virtual int Delete_Diagnostic_Line(Nullable<int> measure_ID, Nullable<int> diagnostic_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var diagnostic_IDParameter = diagnostic_ID.HasValue ?
+                new ObjectParameter("Diagnostic_ID", diagnostic_ID) :
+                new ObjectParameter("Diagnostic_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_Diagnostic_Line", measure_IDParameter, diagnostic_IDParameter);
         }
     }
 }

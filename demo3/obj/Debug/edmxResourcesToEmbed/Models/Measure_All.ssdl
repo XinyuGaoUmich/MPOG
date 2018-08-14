@@ -158,6 +158,14 @@
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
     <Parameter Name="Header_ID" Type="int" Mode="In" />
   </Function>
+  <Function Name="Delete_Diagnostic_Bar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+    <Parameter Name="Diagnostic_ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Delete_Diagnostic_Line" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+    <Parameter Name="Diagnostic_ID" Type="int" Mode="In" />
+  </Function>
   <Function Name="Delete_Domain" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Domain_ID" Type="int" Mode="In" />
   </Function>

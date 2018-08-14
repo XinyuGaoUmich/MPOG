@@ -517,8 +517,33 @@ namespace demo3.Controllers
             }
         }
 
+        public JsonResult AutocompleteDiag(string term)
+        {
+            try
+            {
+                var conceptList1 = db2.MPOG_Concepts.Where(o => o.concept_desc.ToUpper().Contains(term.ToUpper())).Select(o => new { id = o.MPOG_Concept_ID, concept = o.concept_desc }).Distinct().ToList();
+                var barlist = db2
+                var conceptList2 = db2.MPOG_Concepts.Where(o => o.MPOG_Concept_ID.ToString().Contains(term)).Select(o => new { id = o.MPOG_Concept_ID, concept = o.concept_desc }).Distinct().ToList();
+                var conceptList = conceptList1.Union(conceptList2);
+                return Json(new
+                {
+                    sucess = true,
+                    message = "success",
+                    conceptList
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = e.Message
+                });
+            }
+        }
+
         [ValidateInput(false)]
-        public JsonResult Save(int measure_id, string measure_abbreviation, int? nqs_domain, int? measure_type, int? scope, decimal threshold, string data_collection_method, string description, string measure_summary, string rationale, string inclusions, string exclusions, string other_measure_build_details, string success, string risk_adjustment, string references, int provider, string new_provider, Dictionary<int, string> existing_header_name, Dictionary<string, string> delete_existing_header, Dictionary<string, string> add_existing_header, Dictionary<string, string> newConceptHeaderTocontroller, string delete_header_string, string deleteAllUnderHeaderToBackend, string addDeletedHeaderBackToString)
+        public JsonResult Save(int measure_id, string measure_abbreviation, int? nqs_domain, int? measure_type, int? scope, decimal threshold, string data_collection_method, string description, string measure_summary, string rationale, string inclusions, string exclusions, string other_measure_build_details, string success, string risk_adjustment, string references, int provider, string new_provider, Dictionary<int, string> existing_header_name, Dictionary<string, string> delete_existing_header, Dictionary<string, string> add_existing_header, Dictionary<string, string> newConceptHeaderTocontroller, string delete_header_string, string deleteAllUnderHeaderToBackend, string addDeletedHeaderBackToString, string deleteLineString, string deleteBarString)
         {
             try
             {
@@ -640,6 +665,26 @@ namespace demo3.Controllers
                     {
                         int header = Convert.ToInt32(headers[i]);
                         db2.Add_Deleted_Header_Back(measure_id, header);
+                    }
+                }
+
+                if (deleteLineString != "empty")
+                {
+                    string[] diagnostics_ids = deleteLineString.Split(',');
+                    for (int i = 0; i < diagnostics_ids.Length; i++)
+                    {
+                        int diagnostics_id = Convert.ToInt32(diagnostics_ids[i]);
+                        db2.Delete_Diagnostic_Line(measure_id, diagnostics_id);
+                    }
+                }
+
+                if (deleteBarString != "empty")
+                {
+                    string[] diagnostics_ids = deleteLineString.Split(',');
+                    for (int i = 0; i < diagnostics_ids.Length; i++)
+                    {
+                        int diagnostics_id = Convert.ToInt32(diagnostics_ids[i]);
+                        db2.Delete_Diagnostic_Bar(measure_id, diagnostics_id);
                     }
                 }
 

@@ -15,6 +15,8 @@
         <EntityTypeShape EntityType="MPOG_XinyuModel1.Responsible_Provider_Published" Width="1.5" PointX="5.375" PointY="6.75" />
         <EntityTypeShape EntityType="MPOG_XinyuModel1.Responsible_Provider_Unpublished" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="MPOG_XinyuModel1.Measure_Sections_Unpublished" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="MPOG_XinyuModel1.Diagnostic_BarCharts" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MPOG_XinyuModel1.Diagnostic_LineCharts" Width="1.5" PointX="0.75" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -35,6 +35,8 @@
           <ScalarProperty Name="Measure_ID" ColumnName="Measure_ID" />
           <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
           <ScalarProperty Name="ID_Status" ColumnName="ID_Status" />
+          <ScalarProperty Name="Bar_Or_Line" ColumnName="Bar_Or_Line" />
+          <ScalarProperty Name="Bar_Line_ID" ColumnName="Bar_Line_ID" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -376,5 +378,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="Add_Deleted_Header_Back" FunctionName="MPOG_XinyuModel1.Store.Add_Deleted_Header_Back" />
+    <FunctionImportMapping FunctionImportName="Delete_Diagnostic_Bar" FunctionName="MPOG_XinyuModel1.Store.Delete_Diagnostic_Bar" />
+    <FunctionImportMapping FunctionImportName="Delete_Diagnostic_Line" FunctionName="MPOG_XinyuModel1.Store.Delete_Diagnostic_Line" />
   </EntityContainerMapping>
 </Mapping>
