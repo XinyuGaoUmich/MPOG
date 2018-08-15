@@ -521,15 +521,14 @@ namespace demo3.Controllers
         {
             try
             {
-                var conceptList1 = db2.MPOG_Concepts.Where(o => o.concept_desc.ToUpper().Contains(term.ToUpper())).Select(o => new { id = o.MPOG_Concept_ID, concept = o.concept_desc }).Distinct().ToList();
-                var barlist = db2
-                var conceptList2 = db2.MPOG_Concepts.Where(o => o.MPOG_Concept_ID.ToString().Contains(term)).Select(o => new { id = o.MPOG_Concept_ID, concept = o.concept_desc }).Distinct().ToList();
-                var conceptList = conceptList1.Union(conceptList2);
+                var barlist = db2.Diagnostic_BarCharts.Where(o => o.Long_Display_Name.ToUpper().Contains(term.ToUpper())).Select(o => new { id = o.Diagnostic_BarChart_ID, name = o.Long_Display_Name, bit = "bar" }).Distinct().ToList();
+                var linelist = db2.Diagnostic_LineCharts.Where(o => o.Long_Display_Name.ToUpper().Contains(term.ToUpper())).Select(o => new { id = o.Diagnostic_LineChart_ID, name = o.Long_Display_Name, bit = "line" }).Distinct().ToList();
+                var totallist = barlist.Union(linelist);
                 return Json(new
                 {
                     sucess = true,
                     message = "success",
-                    conceptList
+                    totallist,
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
@@ -543,7 +542,7 @@ namespace demo3.Controllers
         }
 
         [ValidateInput(false)]
-        public JsonResult Save(int measure_id, string measure_abbreviation, int? nqs_domain, int? measure_type, int? scope, decimal threshold, string data_collection_method, string description, string measure_summary, string rationale, string inclusions, string exclusions, string other_measure_build_details, string success, string risk_adjustment, string references, int provider, string new_provider, Dictionary<int, string> existing_header_name, Dictionary<string, string> delete_existing_header, Dictionary<string, string> add_existing_header, Dictionary<string, string> newConceptHeaderTocontroller, string delete_header_string, string deleteAllUnderHeaderToBackend, string addDeletedHeaderBackToString, string deleteLineString, string deleteBarString)
+        public JsonResult Save(int measure_id, string measure_abbreviation, int? nqs_domain, int? measure_type, int? scope, decimal threshold, string data_collection_method, string description, string measure_summary, string rationale, string inclusions, string exclusions, string other_measure_build_details, string success, string risk_adjustment, string references, int provider, string new_provider, Dictionary<int, string> existing_header_name, Dictionary<string, string> delete_existing_header, Dictionary<string, string> add_existing_header, Dictionary<string, string> newConceptHeaderTocontroller, string delete_header_string, string deleteAllUnderHeaderToBackend, string addDeletedHeaderBackToString, string deleteLineString, string deleteBarString, string addLineString, string addBarString)
         {
             try
             {
@@ -680,11 +679,31 @@ namespace demo3.Controllers
 
                 if (deleteBarString != "empty")
                 {
-                    string[] diagnostics_ids = deleteLineString.Split(',');
+                    string[] diagnostics_ids = deleteBarString.Split(',');
                     for (int i = 0; i < diagnostics_ids.Length; i++)
                     {
                         int diagnostics_id = Convert.ToInt32(diagnostics_ids[i]);
                         db2.Delete_Diagnostic_Bar(measure_id, diagnostics_id);
+                    }
+                }
+
+                if (addLineString != "empty")
+                {
+                    string[] diagnostics_ids = addLineString.Split(',');
+                    for (int i = 0; i < diagnostics_ids.Length; i++)
+                    {
+                        int diagnostics_id = Convert.ToInt32(diagnostics_ids[i]);
+                        db2.Add_Diagnostic_ID_Line(measure_id, diagnostics_id);
+                    }
+                }
+
+                if (addBarString != "empty")
+                {
+                    string[] diagnostics_ids = addBarString.Split(',');
+                    for (int i = 0; i < diagnostics_ids.Length; i++)
+                    {
+                        int diagnostics_id = Convert.ToInt32(diagnostics_ids[i]);
+                        db2.Add_Diagnostic_ID_Bar(measure_id, diagnostics_id);
                     }
                 }
 

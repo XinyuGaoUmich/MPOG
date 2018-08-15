@@ -270,10 +270,10 @@
       <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Diagnostic_BarCharts.cs">
-      <DependentUpon>Measure.tt</DependentUpon>
+      <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Diagnostic_LineCharts.cs">
-      <DependentUpon>Measure.tt</DependentUpon>
+      <DependentUpon>Measure_All.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EditMeasure.cs" />
     <Compile Include="Models\Measure_Sections_Unpublished.cs">

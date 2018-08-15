@@ -380,5 +380,49 @@
     <FunctionImportMapping FunctionImportName="Add_Deleted_Header_Back" FunctionName="MPOG_XinyuModel1.Store.Add_Deleted_Header_Back" />
     <FunctionImportMapping FunctionImportName="Delete_Diagnostic_Bar" FunctionName="MPOG_XinyuModel1.Store.Delete_Diagnostic_Bar" />
     <FunctionImportMapping FunctionImportName="Delete_Diagnostic_Line" FunctionName="MPOG_XinyuModel1.Store.Delete_Diagnostic_Line" />
+    <EntitySetMapping Name="Diagnostic_BarCharts">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel1.Diagnostic_BarCharts">
+        <MappingFragment StoreEntitySet="Diagnostic_BarCharts">
+          <ScalarProperty Name="Numerator_Label" ColumnName="Numerator_Label" />
+          <ScalarProperty Name="Diagnostic_Priority_ID" ColumnName="Diagnostic_Priority_ID" />
+          <ScalarProperty Name="Case_Drill_Down_Enabled" ColumnName="Case_Drill_Down_Enabled" />
+          <ScalarProperty Name="Is_Enabled" ColumnName="Is_Enabled" />
+          <ScalarProperty Name="Diagnostic_Module_ID" ColumnName="Diagnostic_Module_ID" />
+          <ScalarProperty Name="Diagnostic_Procedure" ColumnName="Diagnostic_Procedure" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Long_Display_Name" ColumnName="Long_Display_Name" />
+          <ScalarProperty Name="Short_Display_Name" ColumnName="Short_Display_Name" />
+          <ScalarProperty Name="Diagnostic_BarChart_ID" ColumnName="Diagnostic_BarChart_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Diagnostic_LineCharts">
+      <EntityTypeMapping TypeName="MPOG_XinyuModel1.Diagnostic_LineCharts">
+        <MappingFragment StoreEntitySet="Diagnostic_LineCharts">
+          <ScalarProperty Name="Grace_Months" ColumnName="Grace_Months" />
+          <ScalarProperty Name="Denominator_Label" ColumnName="Denominator_Label" />
+          <ScalarProperty Name="Numerator_Label" ColumnName="Numerator_Label" />
+          <ScalarProperty Name="Over_Failure_Threshold" ColumnName="Over_Failure_Threshold" />
+          <ScalarProperty Name="Over_Passing_Threshold" ColumnName="Over_Passing_Threshold" />
+          <ScalarProperty Name="Passing_Theshold" ColumnName="Passing_Theshold" />
+          <ScalarProperty Name="Failure_Theshold" ColumnName="Failure_Theshold" />
+          <ScalarProperty Name="Y_Max" ColumnName="Y_Max" />
+          <ScalarProperty Name="Y_Min" ColumnName="Y_Min" />
+          <ScalarProperty Name="Diagnostic_Priority_ID" ColumnName="Diagnostic_Priority_ID" />
+          <ScalarProperty Name="Match_Highlighting_Enabled" ColumnName="Match_Highlighting_Enabled" />
+          <ScalarProperty Name="Case_Drill_Down_Enabled" ColumnName="Case_Drill_Down_Enabled" />
+          <ScalarProperty Name="Is_Enabled" ColumnName="Is_Enabled" />
+          <ScalarProperty Name="Is_Percentage" ColumnName="Is_Percentage" />
+          <ScalarProperty Name="Diagnostic_Module_ID" ColumnName="Diagnostic_Module_ID" />
+          <ScalarProperty Name="Diagnostic_Procedure" ColumnName="Diagnostic_Procedure" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Long_Display_Name" ColumnName="Long_Display_Name" />
+          <ScalarProperty Name="Short_Display_Name" ColumnName="Short_Display_Name" />
+          <ScalarProperty Name="Diagnostic_LineChart_ID" ColumnName="Diagnostic_LineChart_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Add_Diagnostic_ID_Bar" FunctionName="MPOG_XinyuModel1.Store.Add_Diagnostic_ID_Bar" />
+    <FunctionImportMapping FunctionImportName="Add_Diagnostic_ID_Line" FunctionName="MPOG_XinyuModel1.Store.Add_Diagnostic_ID_Line" />
   </EntityContainerMapping>
 </Mapping>

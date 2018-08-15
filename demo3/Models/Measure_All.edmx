@@ -148,6 +148,14 @@
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
           <Parameter Name="Header_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="Add_Diagnostic_ID_Bar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+          <Parameter Name="Diagnostic_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Add_Diagnostic_ID_Line" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+          <Parameter Name="Diagnostic_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="Add_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
           <Parameter Name="Measure_Title" Type="varchar" Mode="In" />
@@ -647,6 +655,14 @@
           </FunctionImport>
           <EntitySet Name="Diagnostic_BarCharts" EntityType="MPOG_XinyuModel1.Diagnostic_BarCharts" />
           <EntitySet Name="Diagnostic_LineCharts" EntityType="MPOG_XinyuModel1.Diagnostic_LineCharts" />
+          <FunctionImport Name="Add_Diagnostic_ID_Bar">
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Diagnostic_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Add_Diagnostic_ID_Line">
+            <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Diagnostic_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Details_All_Result">
           <Property Type="Int32" Name="Measure_ID" Nullable="false" />
@@ -1387,6 +1403,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Add_Diagnostic_ID_Bar" FunctionName="MPOG_XinyuModel1.Store.Add_Diagnostic_ID_Bar" />
+          <FunctionImportMapping FunctionImportName="Add_Diagnostic_ID_Line" FunctionName="MPOG_XinyuModel1.Store.Add_Diagnostic_ID_Line" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

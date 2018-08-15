@@ -95,6 +95,46 @@
     <Property Name="Status_ID" Type="int" Nullable="false" />
     <Property Name="Status_Name" Type="varchar" MaxLength="20" />
   </EntityType>
+  <EntityType Name="Diagnostic_BarCharts">
+    <Key>
+      <PropertyRef Name="Diagnostic_BarChart_ID" />
+    </Key>
+    <Property Name="Diagnostic_BarChart_ID" Type="int" Nullable="false" />
+    <Property Name="Short_Display_Name" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Long_Display_Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="8000" Nullable="false" />
+    <Property Name="Diagnostic_Procedure" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Diagnostic_Module_ID" Type="int" Nullable="false" />
+    <Property Name="Is_Enabled" Type="bit" Nullable="false" />
+    <Property Name="Case_Drill_Down_Enabled" Type="bit" Nullable="false" />
+    <Property Name="Diagnostic_Priority_ID" Type="int" Nullable="false" />
+    <Property Name="Numerator_Label" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Diagnostic_LineCharts">
+    <Key>
+      <PropertyRef Name="Diagnostic_LineChart_ID" />
+    </Key>
+    <Property Name="Diagnostic_LineChart_ID" Type="int" Nullable="false" />
+    <Property Name="Short_Display_Name" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Long_Display_Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="8000" Nullable="false" />
+    <Property Name="Diagnostic_Procedure" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Diagnostic_Module_ID" Type="int" Nullable="false" />
+    <Property Name="Is_Percentage" Type="bit" Nullable="false" />
+    <Property Name="Is_Enabled" Type="bit" Nullable="false" />
+    <Property Name="Case_Drill_Down_Enabled" Type="bit" Nullable="false" />
+    <Property Name="Match_Highlighting_Enabled" Type="bit" Nullable="false" />
+    <Property Name="Diagnostic_Priority_ID" Type="int" Nullable="false" />
+    <Property Name="Y_Min" Type="float" />
+    <Property Name="Y_Max" Type="float" />
+    <Property Name="Failure_Theshold" Type="float" />
+    <Property Name="Passing_Theshold" Type="float" />
+    <Property Name="Over_Passing_Threshold" Type="float" />
+    <Property Name="Over_Failure_Threshold" Type="float" />
+    <Property Name="Numerator_Label" Type="varchar" MaxLength="30" />
+    <Property Name="Denominator_Label" Type="varchar" MaxLength="30" />
+    <Property Name="Grace_Months" Type="int" />
+  </EntityType>
   <Function Name="Add_Concept_Existing_Header" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Header_ID" Type="int" Mode="In" />
     <Parameter Name="Concept_ID" Type="int" Mode="In" />
@@ -102,6 +142,14 @@
   <Function Name="Add_Deleted_Header_Back" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
     <Parameter Name="Header_ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Add_Diagnostic_ID_Bar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+    <Parameter Name="Diagnostic_ID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Add_Diagnostic_ID_Line" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+    <Parameter Name="Diagnostic_ID" Type="int" Mode="In" />
   </Function>
   <Function Name="Add_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_Abbreviation" Type="varchar" Mode="In" />
@@ -342,5 +390,7 @@
     <EntitySet Name="Responsible_Provider_Published" EntityType="Self.Responsible_Provider_Published" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Responsible_Provider_Unpublished" EntityType="Self.Responsible_Provider_Unpublished" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Status_Type" EntityType="Self.Status_Type" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Diagnostic_BarCharts" EntityType="Self.Diagnostic_BarCharts" Schema="Eval" store:Type="Tables" />
+    <EntitySet Name="Diagnostic_LineCharts" EntityType="Self.Diagnostic_LineCharts" Schema="Eval" store:Type="Tables" />
   </EntityContainer>
 </Schema>

@@ -1276,42 +1276,27 @@
                             },
                             success: function (data) {
                                 // console.log(data.message);
-                                response($.map(data.conceptList, function (val, item) {
+                                response($.map(data.totallist, function (val, item) {
                                     return {
-                                        label: val.id + ' ' + val.concept,
-                                        value: val.id + ' ' + val.concept,
-                                        id: val.id
+                                        label:  val.name,
+                                        value: val.name,
+                                        id: val.id + ',' + val.bit.toString(),
                                     }
                                 }))
                             }
                         })
                     },
                     change: function (event, ui) {
-                if (ui.item == null || ui.item == undefined) {
-                    console.log(id);
-                    //$('#' + id + "input").val('');
-                    $('#' + id).val('');
-                }
-            },
+                        if (ui.item == null || ui.item == undefined) {
+                            $(this).val("");
+                            $(this.nextElementSibling.nextElementSibling).val("");                          
+                            }
+                        },
                     select: function (event, ui) {
-                        var id = $(this).prop('id');
-                        $('#' + id + "input").val(ui.item.id);
-                        if (!this.parentElement.parentElement.id.includes("existing")) { return };
-                        var header = this.parentElement.parentElement.id.replace("existingul", "");
-                        if (!(header in add_existing_headertmp)) {
-                            add_existing_headertmp[header] = [];
-                        }
-                        if (autocompletedic[id] == undefined) {
-                            autocompletedic[id] = ui.item.id;
-                            add_existing_headertmp[header].push(ui.item.id);
-                        } else {
-                            remove(add_existing_headertmp[header], autocompletedic[id]);
-                            autocompletedic[id] = ui.item.id;
-                            add_existing_headertmp[header].push(ui.item.id);
-                        }
-                        //console.log(add_existing_headertmp);
-            }
-        })
+                        $(this).val(ui.item.value);
+                        $(this.nextElementSibling.nextElementSibling).val(ui.item.id);
+                    }
+                })
             }
 
             $("#top").click(function () {
@@ -1319,7 +1304,6 @@
             })
 
             $('.header').each(function () {
-            //console.log(this.id);
                 var headerid = this.id;
                 var id = headerid.replace('header', '');
                 existing_header_nametmp[id] = this.textContent;
@@ -1375,8 +1359,9 @@
             }
 
             $('#addDiagnostic').click(function () {
-                $(`<li class="newDiagnostic" ><input class="form-control"/><span aria-hidden="true" style="cursor: pointer" class="delete_diagnostic_id">&times;</span></li>`).insertBefore(this.parentElement);             
+                $(`<li class="newDiagnostic" ><input class="newDiagnosticid form-control"/><span aria-hidden="true" style="cursor: pointer" class="delete_diagnostic_id">&times;</span><input type="hidden" /></li>`).insertBefore(this.parentElement);             
                 $('.delete_diagnostic_id').off('click').on('click', deleteDiagnosticId);
+                $('.newDiagnosticid').each(AutocompleteDiag);
             })
 
             $('.delete_header').each(function () {
@@ -1466,7 +1451,18 @@
                 var newConceptHeader = 0;
                 var newConceptHeaderDic = {};
                 var empty = false;
-
+                var addBarID = [];
+                var addLineID = [];
+                $('.newDiagnosticid').each(function () {
+                    var thisID = this.nextElementSibling.nextElementSibling.value;
+                    if (thisID.substring(thisID.indexOf(",") + 1, thisID.length) == "bar") {
+                        addBarID.push(thisID.substring(0, thisID.indexOf(",")));
+                    }
+                    if (thisID.substring(thisID.indexOf(",") + 1, thisID.length) == "line") {
+                        addLineID.push(thisID.substring(0, thisID.indexOf(",")));
+                    }
+                })
+                
                 $('.newConceptHeader').each(function () {
                     var headerName = this.firstElementChild.value;
                     if (headerName == "") {
@@ -1632,16 +1628,41 @@
                     }
                 }
 
+                var addBarString = "";
+                if (addBarID.length == 0) {
+                    addBarString = "empty";
+                } else {
+                    for (var i = 0; i < addBarID.length; i++) {
+                        if (i != addBarID.length - 1) {
+                            addBarString = addBarString.concat(addBarID[i], ",");
+                        } else {
+                            addBarString = addBarString.concat(addBarID[i]);
+                        }
+                    }
+                }
+
+                var addLineString = "";
+                if (addLineID.length == 0) {
+                    addLineString = "empty";
+                } else {
+                    for (var i = 0; i < addLineID.length; i++) {
+                        if (i != addLineID.length - 1) {
+                            addLineString = addLineString.concat(addLineID[i], ",");
+                        } else {
+                            addLineString = addLineString.concat(addLineID[i]);
+                        }
+                    }
+                }
                 //console.log(existing_header_name);
                 //console.log(delete_existing_header);
                 //console.log(add_existing_header);
                 //console.log(newConceptHeaderTocontroller);
                 //console.log(delete_header_string);
                 //console.log(deleteAllUnderHeaderToBackend);
-                //console.log(addDeletedHeaderBackToString);
-                console.log(deleteLineString);
-                console.log(deleteBarString);
-              
+                //console.log(addDeletedHeaderBackToString);                  
+                //console.log(deleteLineString);
+                //console.log(deleteBarString);
+                //return;
                 $.ajax({
                 url: '@Url.Action("Save", "Spec")',
                     type: 'POST',
@@ -1672,7 +1693,9 @@
                         'deleteAllUnderHeaderToBackend': deleteAllUnderHeaderToBackend,
                         'addDeletedHeaderBackToString': addDeletedHeaderBackToString,
                         'deleteLineString': deleteLineString,
-                        'deleteBarString': deleteBarString,
+                        'deleteBarString': deleteBarString,                       
+                        'addLineString': addLineString,
+                        'addBarString': addBarString,
                     },
                     success: function (data) {
                     if (data.success) {

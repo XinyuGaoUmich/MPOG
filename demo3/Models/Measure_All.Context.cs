@@ -862,5 +862,31 @@ namespace demo3.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_Diagnostic_Line", measure_IDParameter, diagnostic_IDParameter);
         }
+    
+        public virtual int Add_Diagnostic_ID_Bar(Nullable<int> measure_ID, Nullable<int> diagnostic_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var diagnostic_IDParameter = diagnostic_ID.HasValue ?
+                new ObjectParameter("Diagnostic_ID", diagnostic_ID) :
+                new ObjectParameter("Diagnostic_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_Diagnostic_ID_Bar", measure_IDParameter, diagnostic_IDParameter);
+        }
+    
+        public virtual int Add_Diagnostic_ID_Line(Nullable<int> measure_ID, Nullable<int> diagnostic_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            var diagnostic_IDParameter = diagnostic_ID.HasValue ?
+                new ObjectParameter("Diagnostic_ID", diagnostic_ID) :
+                new ObjectParameter("Diagnostic_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_Diagnostic_ID_Line", measure_IDParameter, diagnostic_IDParameter);
+        }
     }
 }
