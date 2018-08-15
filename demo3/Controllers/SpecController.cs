@@ -724,7 +724,7 @@ namespace demo3.Controllers
         }
 
         [ValidateInput(false)]
-        public JsonResult Publish(int measure_id, string measure_abbreviation, int? nqs_domain, string domain_content, int? measure_type, int? scope, decimal threshold, string data_collection_method, string description, string measure_summary, string rationale, string inclusions, string exclusions, string other_measure_build_details, string success, string risk_adjustment, string references, int provider, string new_provider, Dictionary<int, string> existing_header_name, Dictionary<string, string> delete_existing_header, Dictionary<string, string> add_existing_header, Dictionary<string, string> newConceptHeaderTocontroller, string delete_header_string, string deleteAllUnderHeaderToBackend, string addDeletedHeaderBackToString)
+        public JsonResult Publish(int measure_id, string measure_abbreviation, int? nqs_domain, string domain_content, int? measure_type, int? scope, decimal threshold, string data_collection_method, string description, string measure_summary, string rationale, string inclusions, string exclusions, string other_measure_build_details, string success, string risk_adjustment, string references, int provider, string new_provider, Dictionary<int, string> existing_header_name, Dictionary<string, string> delete_existing_header, Dictionary<string, string> add_existing_header, Dictionary<string, string> newConceptHeaderTocontroller, string delete_header_string, string deleteAllUnderHeaderToBackend, string addDeletedHeaderBackToString, string deleteLineString, string deleteBarString, string addLineString, string addBarString)
         {
             try
             {
@@ -848,6 +848,48 @@ namespace demo3.Controllers
                     }
                 }
                 db2.Publish_Concept_Measure(measure_id);
+
+                if (deleteLineString != "empty")
+                {
+                    string[] diagnostics_ids = deleteLineString.Split(',');
+                    for (int i = 0; i < diagnostics_ids.Length; i++)
+                    {
+                        int diagnostics_id = Convert.ToInt32(diagnostics_ids[i]);
+                        db2.Delete_Diagnostic_Line(measure_id, diagnostics_id);
+                    }
+                }
+
+                if (deleteBarString != "empty")
+                {
+                    string[] diagnostics_ids = deleteBarString.Split(',');
+                    for (int i = 0; i < diagnostics_ids.Length; i++)
+                    {
+                        int diagnostics_id = Convert.ToInt32(diagnostics_ids[i]);
+                        db2.Delete_Diagnostic_Bar(measure_id, diagnostics_id);
+                    }
+                }
+
+                if (addLineString != "empty")
+                {
+                    string[] diagnostics_ids = addLineString.Split(',');
+                    for (int i = 0; i < diagnostics_ids.Length; i++)
+                    {
+                        int diagnostics_id = Convert.ToInt32(diagnostics_ids[i]);
+                        db2.Add_Diagnostic_ID_Line(measure_id, diagnostics_id);
+                    }
+                }
+
+                if (addBarString != "empty")
+                {
+                    string[] diagnostics_ids = addBarString.Split(',');
+                    for (int i = 0; i < diagnostics_ids.Length; i++)
+                    {
+                        int diagnostics_id = Convert.ToInt32(diagnostics_ids[i]);
+                        db2.Add_Diagnostic_ID_Bar(measure_id, diagnostics_id);
+                    }
+                }
+
+                db2.Publish_Diagnostic_Measure(measure_id);
                 return Json(new
                 {
                     success = true,

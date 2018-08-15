@@ -888,5 +888,14 @@ namespace demo3.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Add_Diagnostic_ID_Line", measure_IDParameter, diagnostic_IDParameter);
         }
+    
+        public virtual int Publish_Diagnostic_Measure(Nullable<int> measure_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Publish_Diagnostic_Measure", measure_IDParameter);
+        }
     }
 }

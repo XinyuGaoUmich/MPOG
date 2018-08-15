@@ -261,6 +261,9 @@
       <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
       <Parameter Name="Diagnostic_ID" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="Publish_Diagnostic_Measure">
+      <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="Details_All_Result">
     <Property Type="Int32" Name="Measure_ID" Nullable="false" />

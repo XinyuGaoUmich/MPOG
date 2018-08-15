@@ -1720,6 +1720,17 @@
                 var newConceptHeader = 0;
                 var newConceptHeaderDic = {};
                 var empty = false;
+                var addBarID = [];
+                var addLineID = [];
+                $('.newDiagnosticid').each(function () {
+                    var thisID = this.nextElementSibling.nextElementSibling.value;
+                    if (thisID.substring(thisID.indexOf(",") + 1, thisID.length) == "bar") {
+                        addBarID.push(thisID.substring(0, thisID.indexOf(",")));
+                    }
+                    if (thisID.substring(thisID.indexOf(",") + 1, thisID.length) == "line") {
+                        addLineID.push(thisID.substring(0, thisID.indexOf(",")));
+                    }
+                })
 
                 $('.newConceptHeader').each(function () {
                     var headerName = this.firstElementChild.value;
@@ -1740,25 +1751,7 @@
                     alert("Header name cannot be empty!")
                     return;
                 }
-
-                var measure_abbreviation = $('#measure_abbreviation').val()
-                var nqs_domain = $('#nqs_domain').val();
-                var measure_type = $('#measure_type').val();
-                var scope = $('#scope').val();
-                var threshold = $('#threshold').val();
-                var data_collection_method = CKEDITOR.instances["data_collection_method"].getData();
-                var description = CKEDITOR.instances["description"].getData();
-                var measure_summary = CKEDITOR.instances["measure_summary"].getData();
-                var rationale = CKEDITOR.instances["rationale"].getData();
-                var inclusions = CKEDITOR.instances["inclusions"].getData();
-                var exclusions = CKEDITOR.instances["exclusions"].getData();
-                var other_measure_build_details = CKEDITOR.instances["other_measure_build_details"].getData();
-                var success = CKEDITOR.instances["success"].getData();
-                var risk_adjustment = CKEDITOR.instances["risk_adjustment"].getData();
-                var references = CKEDITOR.instances["references"].getData();
-                var measure_id = $('#Measure_ID').val();
-                var provider = $('#responsible_provider_select').val();
-                var new_provider = CKEDITOR.instances.editor1.getData();
+               
                 for (var key in existing_header_nametmp) {
                     existing_header_nametmp[key] = $('#header' + key).text();
                 }
@@ -1859,9 +1852,69 @@
                         }
                     }
                 }
+                var deleteBarString = ""
+                if (deleteBar.length == 0) {
+                    deleteBarString = "empty";
+                } else {
+                    for (var i = 0; i < deleteBar.length; i++) {
+                        if (i != deleteBar.length - 1) {
+                            deleteBarString = deleteBarString.concat(deleteBar[i], ",");
+                        } else {
+                            deleteBarString = deleteBarString.concat(deleteBar[i]);
+                        }
+                    }
+                }
 
+                var deleteLineString = ""
+                if (deleteLine.length == 0) {
+                    deleteLineString = "empty";
+                } else {
+                    for (var i = 0; i < deleteLine.length; i++) {
+                        if (i != deleteLine.length - 1) {
+                            deleteLineString = deleteLineString.concat(deleteLine[i], ",");
+                        } else {
+                            deleteLineString = deleteLineString.concat(deleteLine[i]);
+                        }
+                    }
+                }
+
+                var addBarString = "";
+                if (addBarID.length == 0) {
+                    addBarString = "empty";
+                } else {
+                    for (var i = 0; i < addBarID.length; i++) {
+                        if (i != addBarID.length - 1) {
+                            addBarString = addBarString.concat(addBarID[i], ",");
+                        } else {
+                            addBarString = addBarString.concat(addBarID[i]);
+                        }
+                    }
+                }
+
+                var addLineString = "";
+                if (addLineID.length == 0) {
+                    addLineString = "empty";
+                } else {
+                    for (var i = 0; i < addLineID.length; i++) {
+                        if (i != addLineID.length - 1) {
+                            addLineString = addLineString.concat(addLineID[i], ",");
+                        } else {
+                            addLineString = addLineString.concat(addLineID[i]);
+                        }
+                    }
+                }
+                //console.log(existing_header_name);
+                //console.log(delete_existing_header);
+                //console.log(add_existing_header);
+                //console.log(newConceptHeaderTocontroller);
+                //console.log(delete_header_string);
+                //console.log(deleteAllUnderHeaderToBackend);
+                //console.log(addDeletedHeaderBackToString);                  
+                //console.log(deleteLineString);
+                //console.log(deleteBarString);
+                //return;
             var measure_abbreviation = $('#measure_abbreviation').val()
-                var nqs_domain = $('#nqs_domain').val();
+            var nqs_domain = $('#nqs_domain').val();
             var measure_type = $('#measure_type').val();
             var scope = $('#scope').val();
             var threshold = $('#threshold').val();
@@ -1909,7 +1962,11 @@
                         'newConceptHeaderTocontroller': newConceptHeaderTocontroller,
                         'delete_header_string': delete_header_string,
                         'deleteAllUnderHeaderToBackend': deleteAllUnderHeaderToBackend,
-                        'addDeletedHeaderBackToString': addDeletedHeaderBackToString
+                        'addDeletedHeaderBackToString': addDeletedHeaderBackToString,
+                        'deleteLineString': deleteLineString,
+                        'deleteBarString': deleteBarString,
+                        'addLineString': addLineString,
+                        'addBarString': addBarString,
                     },
                     success: function (data) {
                     if (data.success) {
