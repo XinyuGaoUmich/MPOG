@@ -542,7 +542,7 @@ namespace demo3.Controllers
         }
 
         [ValidateInput(false)]
-        public JsonResult Save(int measure_id, string measure_abbreviation, int? nqs_domain, int? measure_type, int? scope, decimal threshold, string data_collection_method, string description, string measure_summary, string rationale, string inclusions, string exclusions, string other_measure_build_details, string success, string risk_adjustment, string references, int provider, string new_provider, Dictionary<int, string> existing_header_name, Dictionary<string, string> delete_existing_header, Dictionary<string, string> add_existing_header, Dictionary<string, string> newConceptHeaderTocontroller, string delete_header_string, string deleteAllUnderHeaderToBackend, string addDeletedHeaderBackToString, string deleteLineString, string deleteBarString, string addLineString, string addBarString)
+        public JsonResult Save(int measure_id, string measure_abbreviation, int? nqs_domain, int? measure_type, int? scope, decimal? threshold, string data_collection_method, string description, string measure_summary, string rationale, string inclusions, string exclusions, string other_measure_build_details, string success, string risk_adjustment, string references, int provider, string new_provider, Dictionary<int, string> existing_header_name, Dictionary<string, string> delete_existing_header, Dictionary<string, string> add_existing_header, Dictionary<string, string> newConceptHeaderTocontroller, string delete_header_string, string deleteAllUnderHeaderToBackend, string addDeletedHeaderBackToString, string deleteLineString, string deleteBarString, string addLineString, string addBarString)
         {
             try
             {
@@ -724,7 +724,7 @@ namespace demo3.Controllers
         }
 
         [ValidateInput(false)]
-        public JsonResult Publish(int measure_id, string measure_abbreviation, int? nqs_domain, string domain_content, int? measure_type, int? scope, decimal threshold, string data_collection_method, string description, string measure_summary, string rationale, string inclusions, string exclusions, string other_measure_build_details, string success, string risk_adjustment, string references, int provider, string new_provider, Dictionary<int, string> existing_header_name, Dictionary<string, string> delete_existing_header, Dictionary<string, string> add_existing_header, Dictionary<string, string> newConceptHeaderTocontroller, string delete_header_string, string deleteAllUnderHeaderToBackend, string addDeletedHeaderBackToString, string deleteLineString, string deleteBarString, string addLineString, string addBarString)
+        public JsonResult Publish(int measure_id, string measure_abbreviation, int? nqs_domain, string domain_content, int? measure_type, int? scope, decimal? threshold, string data_collection_method, string description, string measure_summary, string rationale, string inclusions, string exclusions, string other_measure_build_details, string success, string risk_adjustment, string references, int provider, string new_provider, Dictionary<int, string> existing_header_name, Dictionary<string, string> delete_existing_header, Dictionary<string, string> add_existing_header, Dictionary<string, string> newConceptHeaderTocontroller, string delete_header_string, string deleteAllUnderHeaderToBackend, string addDeletedHeaderBackToString, string deleteLineString, string deleteBarString, string addLineString, string addBarString)
         {
             try
             {
@@ -746,6 +746,10 @@ namespace demo3.Controllers
                 {
                     foreach (KeyValuePair<int, string> entry in existing_header_name)
                     {
+                        if (entry.Key == -1)
+                        {
+                            break;
+                        }
                         db2.Modify_Header_Name(entry.Key, entry.Value);                      
                     }
                 }
@@ -890,6 +894,7 @@ namespace demo3.Controllers
                 }
 
                 db2.Publish_Diagnostic_Measure(measure_id);
+                db2.Publish_Date(measure_id);
                 return Json(new
                 {
                     success = true,

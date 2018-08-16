@@ -85,33 +85,53 @@ namespace demo3.Controllers
             return View();
         }
 
-        // POST: Measures/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "Measure_Abbreviation, Measure_Title, NQS_Domain, Measure_Name, VBR, Clinical_Lead, Developer, Measure_Spec_Completed, Date_Published")] Measure_Site measure_Site)
-        public ActionResult Create(Measure_List_Result mea_List)
-        {
-            if (Session["userid"] == null)
-            {
-                return Redirect("/NoAccess/Index");
-            }
-
-            if (Session["roles"] == null || !Session["roles"].ToString().Contains("MeasureSpecEditor"))
-            {
-                return Redirect("/NoAccess/LoginWithoutAccess");
-            }
-
-            if (ModelState.IsValid)
+        public JsonResult CreateSave(string measure_abbreviation, string measure_title, string nqs_domain, string qcdr_measure_name, string vbr, string clinical_lead, string developer, string date_published, string status_id)
+        {          
+            try
             {
                 //db.Measure_Site.Add(measure_Site);
-                db2.Add_Measure(mea_List.Measure_Abbreviation, mea_List.Measure_Title, mea_List.NQS_Domain, mea_List.QCDR_Measure_Name, mea_List.VBR, mea_List.Clinical_Lead, mea_List.Developer, mea_List.Measure_Spec_Completed, mea_List.Date_Published, mea_List.Status_ID);
-                db2.SaveChanges();
-                return RedirectToAction("Index");
+                int? nqs_domain_int = null;
+                if (nqs_domain != "")
+                {
+                   nqs_domain_int = Convert.ToInt32(nqs_domain);
+                }
+
+                bool? vbr_bool = null;
+                if (vbr != "")
+                {
+                    vbr_bool = Convert.ToBoolean(vbr);
+                }
+
+                //var date = Convert.ToDateTime(date_published);
+                int? status_id_int = null;
+                if (status_id != "")
+                {
+                    status_id_int = Convert.ToInt32(status_id);
+                }
+
+                measure_title = measure_title == "" ? null : measure_title;
+                qcdr_measure_name = qcdr_measure_name == "" ? null : qcdr_measure_name;
+                clinical_lead = clinical_lead == "" ? null : clinical_lead;
+                developer = developer == "" ? null : developer;
+                db2.Add_Measure(measure_abbreviation, measure_title, nqs_domain_int, qcdr_measure_name, vbr_bool, clinical_lead, developer, null, null, status_id_int);
+                return Json(new
+                {
+                    success = true,
+                    message = "success",
+                });
+            } catch (Exception e)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = e.Message,
+                });
             }
 
-            return View(mea_List);
+           
         }
 
         // GET: Measures/Edit/5
@@ -151,29 +171,42 @@ namespace demo3.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "Measure_ID,Measure_Name,Measure_Collation,Measure_Description,Report_ID,Galileo_Measure_Name,Image_File_Name,Threshold,CMS_Measure_Number,Is_Published,Domain")] ASPIRE_Measures aSPIRE_Measures)
-        public ActionResult Edit(Details_All_Result details_All_Result)
-        {
-            if (Session["userid"] == null)
+        public JsonResult EditSave(string measure_id, string measure_abbreviation, string measure_title, string nqs_domain, string qcdr_measure_name, string vbr, string clinical_lead, string developer, string date_published, string status_id)
+        {         
+            try
             {
-                return Redirect("/NoAccess/Index");
-            }
+                int measure_id_int = Convert.ToInt32(measure_id);
+                int? nqs_domain_int = null;
+                if (nqs_domain != "")
+                {
+                    nqs_domain_int = Convert.ToInt32(nqs_domain);
+                }
+                bool? vbr_bool = null;
+                if (vbr != "")
+                {
+                    vbr_bool = Convert.ToBoolean(vbr);
+                }
+                int? status_id_int = null;
+                if (status_id != "")
+                {
+                    status_id_int = Convert.ToInt32(status_id);
+                }
+                db2.Edit_Measure(measure_id_int, measure_abbreviation, measure_title, nqs_domain_int, qcdr_measure_name, vbr_bool, clinical_lead, developer, null, null, status_id_int);
+                return Json(new
+                {
+                    success = true,
+                    message = "success",
+                });
 
-
-            if (Session["roles"] == null || !Session["roles"].ToString().Contains("MeasureSpecEditor"))
+            } catch (Exception e)
             {
-                return Redirect("/NoAccess/LoginWithoutAccess");
+                return Json(new
+                {
+                    success = false,
+                    message = e.Message,
+                });
             }
-
-            if (ModelState.IsValid)
-            {
-                //db.Entry(aSPIRE_Measures).State = EntityState.Modified;
-                db2.Edit_Measure(details_All_Result.Measure_ID, details_All_Result.Measure_Abbreviation, details_All_Result.Measure_Title, details_All_Result.NQS_Domain, details_All_Result.QCDR_Measure_Name, details_All_Result.VBR,details_All_Result.Clinical_Lead, details_All_Result.Developer, details_All_Result.Measure_Spec_Completed, details_All_Result.Date_Published,details_All_Result.Status_ID);
-                db2.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(details_All_Result);
+            
         }
 
       

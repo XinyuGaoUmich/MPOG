@@ -3,25 +3,25 @@
 @{
     ViewBag.Title = "Create";
 }
-
+<head>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+</head>
 <h2>Create</h2>
 
 <div class="form-horizontal">
-    <hr />
 
     <div class="form-group">
         @Html.LabelFor(model => model.Measure_Abbreviation, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Measure_Abbreviation, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Measure_Abbreviation, "", new { @class = "text-danger" })
+            <input id="measure_abbreviation" class="form-control"/>
+            <span class="text-danger" id="warning"></span>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Measure_Title, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Measure_Title, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Measure_Title, "", new { @class = "text-danger" })
+            <input id="measure_title" class="form-control" />
         </div>
     </div>
 
@@ -29,22 +29,19 @@
         @Html.LabelFor(model => model.NQS_Domain, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.NQS_Domain, (IEnumerable<SelectListItem>)ViewBag.NQS_Domain, "select NQS Domain", new { @class = "form-control" })           
-            @Html.ValidationMessageFor(model => model.NQS_Domain, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.QCDR_Measure_Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.QCDR_Measure_Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.QCDR_Measure_Name, "", new { @class = "text-danger" })
+            <input id="qcdr_measure_name" class="form-control" />
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.VBR, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @*@Html.EditorFor(model => model.VBR, new { htmlAttributes = new { @class = "form-control" } })*@
             @Html.DropDownListFor(model => model.VBR, new SelectList(new[] {
                 new  { Value = "", Text = "Not Set" },
                 new { Value = "true", Text = "Yes" },
@@ -53,7 +50,7 @@
                 "Value",
                 "Text",
                 Model
-       ),  new { @class = "form-control" })
+       ),  new { @id = "vbr", @class = "form-control" })
             @Html.ValidationMessageFor(model => model.VBR, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -61,42 +58,38 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Clinical_Lead, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Clinical_Lead, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Clinical_Lead, "", new { @class = "text-danger" })
+            <input id="clinical_lead" class="form-control"/>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Developer, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Developer, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Developer, "", new { @class = "text-danger" })
+            <input id="developer" class="form-control" />
         </div>
     </div>
 
 
 
-    <div class="form-group">
+    @*<div class="form-group">
         @Html.LabelFor(model => model.Date_Published, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <div class="checkbox">
-                @Html.EditorFor(model => model.Date_Published, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Date_Published, "", new { @class = "text-danger" })
+                <input id="date_published" class="form-control" readonly/>
             </div>
         </div>
-    </div>
+    </div>*@
 
-    <div class="form-group">
+    @*<div class="form-group">
         @Html.LabelFor(model => model.Status_Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model=>model.Status_ID, (IEnumerable<SelectListItem>)ViewBag.Status, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Status_ID, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model=>model.Status_ID, (IEnumerable<SelectListItem>)ViewBag.Status, new {@id = "status_id",  @class = "form-control" })
         </div>
-    </div>
+    </div>*@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Create" id="create" class="btn btn-default" />
         </div>
     </div>
 </div>
@@ -106,3 +99,66 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        //var date = new Date();
+        //var today = (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+        //$('#date_published').val(today);
+
+        $('#measure_abbreviation').focusout(function () {
+            if (this.value == "") {
+                $('#warning').text("please enter the measure abbreviation!");
+            } else {
+                $('#warning').text("");
+            }
+        })
+
+        $('#create').click(function () {
+            var measure_abbreviation = $('#measure_abbreviation').val();
+            if (measure_abbreviation == "") {
+                $('#warning').text("please enter the measure abbreviation!");
+                return;
+            } 
+            var measure_title = $('#measure_title').val();
+            var nqs_domain = $('#NQS_Domain').val();
+            var qcdr_measure_name = $('#qcdr_measure_name').val();
+            var vbr = $('#vbr').val();
+            var clinical_lead = $('#clinical_lead').val();
+            var developer = $('#developer').val();
+            var date_published = $('#date_published').val();
+            var status_id = $('#Status_ID').val();
+            var data = {
+                'measure_abbreviation': measure_abbreviation,
+                'measure_title': measure_title,
+                'nqs_domain': nqs_domain,
+                'qcdr_measure_name': qcdr_measure_name,
+                'vbr': vbr,
+                'clinical_lead': clinical_lead,
+                'developer': developer,
+                'date_published': "",
+                'status_id': "1",
+            }
+            console.log(data);
+            //return;
+            $.ajax({
+                url: '@Url.Action("CreateSave", "Measures")',
+                type: 'POST',
+                data: data,
+                success: function (data) {
+                    if (data.success) {
+                        console.log(data);
+                        alert("Create measure successfully!");
+                        //$('#create_domain_modal').modal('hide');
+                        window.location.href = "/Measures/Index";
+                    }
+                    else {
+                        console.log(data.message)
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        })
+    })
+</script>

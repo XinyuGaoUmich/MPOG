@@ -897,5 +897,14 @@ namespace demo3.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Publish_Diagnostic_Measure", measure_IDParameter);
         }
+    
+        public virtual int Publish_Date(Nullable<int> measure_ID)
+        {
+            var measure_IDParameter = measure_ID.HasValue ?
+                new ObjectParameter("Measure_ID", measure_ID) :
+                new ObjectParameter("Measure_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Publish_Date", measure_IDParameter);
+        }
     }
 }

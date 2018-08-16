@@ -295,6 +295,9 @@
   <Function Name="Publish_Concept_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
   </Function>
+  <Function Name="Publish_Date" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Measure_ID" Type="int" Mode="In" />
+  </Function>
   <Function Name="Publish_Diagnostic_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Measure_ID" Type="int" Mode="In" />
   </Function>

@@ -1507,7 +1507,9 @@
                 for (var key in existing_header_nametmp) {
                     existing_header_name.push({ key: key, value: $('#header' + key).text() });
                 }
-                
+                if (existing_header_name.length == 0) {
+                    existing_header_name.push({ key: -1, value: "" });
+                }
                 var delete_existing_header = [];
                 for (var key in delete_existing_headertmp) {
                     var value = delete_existing_headertmp[key];
@@ -1751,14 +1753,18 @@
                     alert("Header name cannot be empty!")
                     return;
                 }
-               
+                
                 for (var key in existing_header_nametmp) {
                     existing_header_nametmp[key] = $('#header' + key).text();
                 }
                 for (var key in existing_header_nametmp) {
                     existing_header_name.push({ key: key, value: $('#header' + key).text() });
                 }
-
+                if (existing_header_name.length == 0) {
+                    existing_header_name.push({ key: -1, value: "" });
+                }
+                
+                
                 var delete_existing_header = [];
                 for (var key in delete_existing_headertmp) {
                     var value = delete_existing_headertmp[key];
@@ -1931,43 +1937,44 @@
             var measure_id = $('#Measure_ID').val();
             var provider = $('#responsible_provider_select').val();
             var new_provider = CKEDITOR.instances.editor1.getData();
-            var domain_content = $('#nqs_domain :selected').text();
-               
+                var domain_content = $('#nqs_domain :selected').text();
+                var data = {
+                    'measure_id': measure_id,
+                    'measure_abbreviation': measure_abbreviation,
+                    'nqs_domain': nqs_domain,
+                    'domain_content': domain_content,
+                    'measure_type': measure_type,
+                    'scope': scope,
+                    'threshold': threshold,
+                    'data_collection_method': data_collection_method,
+                    'description': description,
+                    'measure_summary': measure_summary,
+                    'rationale': rationale,
+                    'inclusions': inclusions,
+                    'exclusions': exclusions,
+                    'other_measure_build_details': other_measure_build_details,
+                    'success': success,
+                    'risk_adjustment': risk_adjustment,
+                    'references': references,
+                    'provider': provider,
+                    'new_provider': new_provider,
+                    'existing_header_name': existing_header_name,
+                    'delete_existing_header': delete_existing_header,
+                    'add_existing_header': add_existing_header,
+                    'newConceptHeaderTocontroller': newConceptHeaderTocontroller,
+                    'delete_header_string': delete_header_string,
+                    'deleteAllUnderHeaderToBackend': deleteAllUnderHeaderToBackend,
+                    'addDeletedHeaderBackToString': addDeletedHeaderBackToString,
+                    'deleteLineString': deleteLineString,
+                    'deleteBarString': deleteBarString,
+                    'addLineString': addLineString,
+                    'addBarString': addBarString,
+                }
+                console.log(data);
                 $.ajax({
                 url: '@Url.Action("Publish")',
                     type: 'POST',
-                    data: {
-                        'measure_id': measure_id,
-                        'measure_abbreviation': measure_abbreviation,
-                        'nqs_domain': nqs_domain,
-                        'domain_content': domain_content,
-                        'measure_type': measure_type,
-                        'scope': scope,
-                        'threshold': threshold,
-                        'data_collection_method': data_collection_method,
-                        'description': description,
-                        'measure_summary': measure_summary,
-                        'rationale': rationale,
-                        'inclusions': inclusions,
-                        'exclusions': exclusions,
-                        'other_measure_build_details': other_measure_build_details,
-                        'success': success,
-                        'risk_adjustment': risk_adjustment,
-                        'references': references,
-                        'provider': provider,
-                        'new_provider': new_provider,
-                        'existing_header_name': existing_header_name,
-                        'delete_existing_header': delete_existing_header,
-                        'add_existing_header': add_existing_header,
-                        'newConceptHeaderTocontroller': newConceptHeaderTocontroller,
-                        'delete_header_string': delete_header_string,
-                        'deleteAllUnderHeaderToBackend': deleteAllUnderHeaderToBackend,
-                        'addDeletedHeaderBackToString': addDeletedHeaderBackToString,
-                        'deleteLineString': deleteLineString,
-                        'deleteBarString': deleteBarString,
-                        'addLineString': addLineString,
-                        'addBarString': addBarString,
-                    },
+                    data: data,
                     success: function (data) {
                     if (data.success) {
                         //console.log(data.message);

@@ -16,7 +16,7 @@ namespace demo3.Models
     {
         public int Measure_ID { get; set; }
 
-        [DisplayName("Measure Abbreviation")]
+        [DisplayName("Abbreviation")]
         [Required(ErrorMessage = "Please enter the measure abbreviation")]
         public string Measure_Abbreviation { get; set; }
 
@@ -46,7 +46,7 @@ namespace demo3.Models
         [DisplayName("Status ID")]
         public Nullable<int> Status_ID { get; set; }
 
-        [DisplayName("Status Name")]
+        [DisplayName("Status")]
         public string Status_Name { get; set; }
 
         [DisplayName("NQS Domain Name ")]

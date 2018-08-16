@@ -425,5 +425,6 @@
     <FunctionImportMapping FunctionImportName="Add_Diagnostic_ID_Bar" FunctionName="MPOG_XinyuModel1.Store.Add_Diagnostic_ID_Bar" />
     <FunctionImportMapping FunctionImportName="Add_Diagnostic_ID_Line" FunctionName="MPOG_XinyuModel1.Store.Add_Diagnostic_ID_Line" />
     <FunctionImportMapping FunctionImportName="Publish_Diagnostic_Measure" FunctionName="MPOG_XinyuModel1.Store.Publish_Diagnostic_Measure" />
+    <FunctionImportMapping FunctionImportName="Publish_Date" FunctionName="MPOG_XinyuModel1.Store.Publish_Date" />
   </EntityContainerMapping>
 </Mapping>

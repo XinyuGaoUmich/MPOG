@@ -300,6 +300,9 @@
         <Function Name="Publish_Concept_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="Publish_Date" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Measure_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="Publish_Diagnostic_Measure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Measure_ID" Type="int" Mode="In" />
         </Function>
@@ -667,6 +670,9 @@
             <Parameter Name="Diagnostic_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Publish_Diagnostic_Measure">
+          <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Publish_Date">
             <Parameter Name="Measure_ID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -1412,6 +1418,7 @@
           <FunctionImportMapping FunctionImportName="Add_Diagnostic_ID_Bar" FunctionName="MPOG_XinyuModel1.Store.Add_Diagnostic_ID_Bar" />
           <FunctionImportMapping FunctionImportName="Add_Diagnostic_ID_Line" FunctionName="MPOG_XinyuModel1.Store.Add_Diagnostic_ID_Line" />
           <FunctionImportMapping FunctionImportName="Publish_Diagnostic_Measure" FunctionName="MPOG_XinyuModel1.Store.Publish_Diagnostic_Measure" />
+          <FunctionImportMapping FunctionImportName="Publish_Date" FunctionName="MPOG_XinyuModel1.Store.Publish_Date" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

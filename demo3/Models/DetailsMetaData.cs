@@ -39,7 +39,7 @@ namespace demo3.Models
         [DisplayName("Measure Spec Completed")]
         public Nullable<bool> Measure_Spec_Completed { get; set; }
 
-        [DisplayName("Date Published (mm/dd/yyyy)")]
+        [DisplayName("Date Published")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0: MM/dd/yyyy}")]
         public Nullable<System.DateTime> Date_Published { get; set; }
 
