@@ -191,6 +191,10 @@ namespace demo3.Controllers
                 {
                     status_id_int = Convert.ToInt32(status_id);
                 }
+                measure_title = measure_title == "" ? null : measure_title;
+                qcdr_measure_name = qcdr_measure_name == "" ? null : qcdr_measure_name;
+                clinical_lead = clinical_lead == "" ? null : clinical_lead;
+                developer = developer == "" ? null : developer;
                 db2.Edit_Measure(measure_id_int, measure_abbreviation, measure_title, nqs_domain_int, qcdr_measure_name, vbr_bool, clinical_lead, developer, null, null, status_id_int);
                 return Json(new
                 {

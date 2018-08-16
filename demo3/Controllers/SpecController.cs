@@ -707,6 +707,9 @@ namespace demo3.Controllers
                     }
                 }
 
+                //Logs
+
+
                 return Json(new
                 {
                     success = true,
