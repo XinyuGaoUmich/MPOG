@@ -6,7 +6,7 @@ This application is developed using ASP.NET MVC and related technologies to buil
 
 ASP.NET MVC is integrated in [Visual Studio](https://visualstudio.microsoft.com/downloads/).
 
-After installing Visual Studio, you can follow the [Guidance] to get started with ASP.NET MVC(https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/introduction/getting-started)
+After installing Visual Studio, you can follow the [Guidance](https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/introduction/getting-started) to get started with ASP.NET MVC
 
 ## Usage Example
 
