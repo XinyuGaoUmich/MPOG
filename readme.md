@@ -1,4 +1,4 @@
-# Dynamic Dynamic Spec Web App
+# Dynamic Spec Web App
 
 This application is developed using ASP.NET MVC and related technologies to build a centralized archive management web application for MPOG.
 
